@@ -4,4 +4,4 @@ Master Quoter is a quote bot made by team "MasterBaiters" designed to save and s
 Work in progress :) (by 2 idiots in highschool)
 
 ## Useful links
-[Super useful link to have]https://discordpy.readthedocs.io/en/latest/ 
+[Super useful link to have](https://discordpy.readthedocs.io/en/latest/ "discord.py documentation")

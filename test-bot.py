@@ -23,4 +23,4 @@ class MyClient(discord.Client):
         print('Message from {0.author}: {0.content}'.format(message))
 
 client = MyClient()
-client.run("Nzk1NzU2ODMyMTY0NDEzNTAw.X_OATQ.ZDm5jTq5u4--33ggYOvV-FMVtSQ")
+client.run("Enter token here")
