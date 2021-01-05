@@ -3,7 +3,6 @@ from discord.ext import commands
 import sqlite3
 from sqlite3 import Error
 
-client = discord.Client()
 sqlpath = "quotes.db"
 bot = commands.Bot(command_prefix='$')
 
@@ -25,34 +24,12 @@ def create_connection(path):
     return connection
 
 @bot.command()
-async def test(ctx, args):
-    ctx.send(args)
-
-@bot.command()
-async def lastMessage(self, ctx, users_id: int):
-    print("command started")
-    oldestMessage = None
-    users_id = get_nums(users_id)
-    for channel in ctx.guild.text_channels:
-        fetchMessage = await channel.history().find(lambda m: m.author.id == users_id)
-        if fetchMessage is None:
-            continue
-
-
-        if oldestMessage is None:
-            oldestMessage = fetchMessage
-        else:
-            if fetchMessage.created_at > oldestMessage.created_at:
-                oldestMessage = fetchMessage
-
-    if (oldestMessage is not None):
-        await ctx.send(f"Oldest message is {oldestMessage.content}")
-    else:
-        await ctx.send("No message found.")
+async def test(ctx):
+    await ctx.channel.send("test complete")
 
 #work in progress, currently not working
 @bot.command()
-async def save(ctx, user):
+async def save(ctx, user, message):
     conn = create_connection(sqlpath)
     
     #creating cursor for selection in sql
@@ -75,17 +52,17 @@ async def save(ctx, user):
         except Error as e:
             ctx.send(f"The error '{e}' occurred")
 
-@client.event
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print('We have logged in as {0.user}'.format(bot))
 
 @bot.command()
 async def hello2(ctx, args):
     ctx.send(args)
 
-@client.event
+@bot.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == bot.user:
         return
     
     if message.content.startswith('$return '):
@@ -96,4 +73,4 @@ async def on_message(message):
         
 
 #running the bot
-client.run('Nzk1NzU2ODMyMTY0NDEzNTAw.X_OATQ.bT2htac4jJ_ygYxxHWUHlHNAuOU')
+bot.run('Nzk1NzU2ODMyMTY0NDEzNTAw.X_OATQ.bT2htac4jJ_ygYxxHWUHlHNAuOU')

@@ -3,6 +3,9 @@ Master Quoter is a quote bot made by team "MasterBaiters" designed to save and s
 
 Work in progress :) (by 2 idiots in highschool)
 
+## Note to contributers
+Do not use client.run(), ruse bot.run() instead as "bot" is a sublcass of "client.
+
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
 
@@ -13,3 +16,7 @@ Work in progress :) (by 2 idiots in highschool)
 [Function decorators in Discord.py](https://medium.com/@cantsayihave/decorators-in-discord-py-e44ce3a1aae5)
 
 [sqlite3 database simple example](https://docs.python.org/3/library/sqlite3.html)
+
+[Explaining @bot.command()](https://medium.com/better-programming/how-to-make-discord-bot-commands-in-python-2cae39cbfd55)
+
+[Writing to JSON files using python](https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/)
