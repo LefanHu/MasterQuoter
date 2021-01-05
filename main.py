@@ -1,3 +1,6 @@
+# IMPORT OS TO CHECK IF QUOTES.JSON EXISTS
+import os.path
+
 # IMPORT DISCORD.PY. ALLOWS ACCESS TO DISCORD'S API.
 import discord
 
@@ -25,7 +28,12 @@ def get_nums(string):
 save_loc = "quotes.json"
 
 # CREATES A NEW BOT OBJECT WITH A SPECIFIED PREFIX. IT CAN BE WHATEVER YOU WANT IT TO BE.
-bot = commands.Bot(command_prefix="$")
+bot = commands.Bot(command_prefix="!")
+
+# FUNCTION TO ADD TO JSON FILE
+def write_json(data, filename = save_loc):
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent = 4)
 
 # ON READY
 @bot.event
@@ -40,26 +48,37 @@ async def ping(ctx):
 #testing saving quotes
 @bot.command()
 async def save(ctx, userid, message):
-    data = {}
-    data['quotes'] = []
-    data['quotes'].append({
-        'userid': userid,
-        'message': message
-    })
+    data = {
+        "userid":userid,
+        "message":message
+    }
 
-    #saving to file
-    with open(save_loc, 'w') as outfile:
-        json.dump(data, outfile)
+    if os.path.isfile('quotes.json'):
+        with open(save_loc) as json_file:
+            file = json.load(json_file)
+            temp = file['quotes']
+            temp.append(data)
+        write_json(file)
+    else:
+        await ctx.send("First time use, there are no quotes.")
+        data = {}
+        data['quotes'] = []
+        data['quotes'].append({
+            'userid': userid,
+            'message': message
+        })
+        #writing to file
+        write_json(data)
     
-    await ctx.channel.send ("Quote saved...")
+    await ctx.send ("Quote saved...")
 
 @bot.command()
 async def qlist(ctx):
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data['quotes']:
-            await ctx.channel.send('USERID: ' + quote['userid'])
-            await ctx.channel.send('MESSAGE: ' + quote['message'])
+            await ctx.send('USERID: ' + quote['userid'])
+            await ctx.send('MESSAGE: ' + quote['message'])
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
