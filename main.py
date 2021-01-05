@@ -81,6 +81,13 @@ async def qlist(ctx):
         for quote in data['quotes']:
             await ctx.send('USERID: ' + quote['userid'])
             await ctx.send('MESSAGE: ' + quote['message'])
+@bot.command()
+async def qU(ctx, text):
+    with open(save_loc) as json_file:
+        data = json.load(json_file)
+        for quote in data ['quotes']:
+
+            await ctx.send(text)
 
 @bot.command()
 async def randQuote(ctx):
@@ -89,6 +96,7 @@ async def randQuote(ctx):
         data = json.load(json_file)
         for quote in data['quotes']:
             quote_arr.append(quote['message'])
+
     await ctx.send(random.choice(quote_arr))
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
