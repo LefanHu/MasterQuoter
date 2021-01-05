@@ -7,6 +7,9 @@ import discord
 # IMPORT JSON. ALLOWS FOR SAVING QUOTES
 import json
 
+# IMPORT RANDOM FOR RANDOM QUOTE
+import random
+
 # IMPORT COMMANDS FROM THE DISCORD.EXT MODULE.
 from discord.ext import commands
 
@@ -69,7 +72,6 @@ async def save(ctx, userid, message):
         })
         #writing to file
         write_json(data)
-    
     await ctx.send ("Quote saved...")
 
 @bot.command()
@@ -79,6 +81,15 @@ async def qlist(ctx):
         for quote in data['quotes']:
             await ctx.send('USERID: ' + quote['userid'])
             await ctx.send('MESSAGE: ' + quote['message'])
+
+@bot.command()
+async def randQuote(ctx):
+    quote_arr = []
+    with open(save_loc) as json_file:
+        data = json.load(json_file)
+        for quote in data['quotes']:
+            quote_arr.append(quote['message'])
+    await ctx.send(random.choice(quote_arr))
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
