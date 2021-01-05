@@ -1,51 +1,65 @@
+# IMPORT DISCORD.PY. ALLOWS ACCESS TO DISCORD'S API.
 import discord
-import random
 
-client = discord.Client()
+# IMPORT JSON. ALLOWS FOR SAVING QUOTES
+import json
+
+# IMPORT COMMANDS FROM THE DISCORD.EXT MODULE.
+from discord.ext import commands
 
 #getting token from file "token.txt"
 def read_token():
     with open("token.txt", "r") as f:
         lines = f.readlines()
         return lines[0].strip()
-token = read_token()
+DISCORD_TOKEN = read_token()
 
-@client.event
+#used for stripping characters from discord userids
+#example found here https://stackoverflow.com/questions/17336943/removing-non-numeric-characters-from-a-string
+import re
+def get_nums(string):
+    result = re.sub('[^0-9]','', string)
+    return type(int(result))
+
+#SAVEFILE FOR SAVING QUOTES
+save_loc = "quotes.json"
+
+# CREATES A NEW BOT OBJECT WITH A SPECIFIED PREFIX. IT CAN BE WHATEVER YOU WANT IT TO BE.
+bot = commands.Bot(command_prefix="$")
+
+# ON READY
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print('We have logged in as {0.user}'.format(bot))
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+# TEST BOT COMMANDS
+@bot.command()
+async def ping(ctx):
+	await ctx.channel.send("pong")
 
-    elif message.author.name == 'Alex3000' and message.content.startswith("hello"):
-        await message.channel.send('Welcome Master Baiter')
-        return
+#testing saving quotes
+@bot.command()
+async def save(ctx, userid, message):
+    data = {}
+    data['quotes'] = []
+    data['quotes'].append({
+        'userid': userid,
+        'message': message
+    })
 
-    elif message.author.name == 'Cuddles' and message.content.startswith("hello"):
-        await message.channel.send('Welcome Master Baiter')
-        return
+    #saving to file
+    with open(save_loc, 'w') as outfile:
+        json.dump(data, outfile)
+    
+    await ctx.channel.send ("Quote saved...")
 
-    elif message.author.name == 'AustZW':
-        await message.channel.send('Austin likes big black balls')
-        return
+@bot.command()
+async def qlist(ctx):
+    with open(save_loc) as json_file:
+        data = json.load(json_file)
+        for quote in data['quotes']:
+            await ctx.channel.send('USERID: ' + quote['userid'])
+            await ctx.channel.send('MESSAGE: ' + quote['message'])
 
-    elif message.content.startswith('$goodbye'):
-        await message.channel.send('Bye bye!')
-        return
-
-    elif message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
-
-    elif message.content.startswith('$diceroll'):
-        n = random.randint(1,6)
-        await message.channel.send('You rolled a {0}!'.format(n))
-
-    elif message.content.startswith('$quote lefan'):
-        lefquotes = ["my balls are huge", "i have a three milimeter defeater", "i will punish you with my one inch punisher", "alex pp is massive"]
-        lefquotechoice = random.choice(lefquotes)
-        await message.channel.send(lefquotechoice)
-
-
-client.run(token)
+# EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
+bot.run(DISCORD_TOKEN)
