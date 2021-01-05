@@ -20,3 +20,5 @@ Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "clien
 [Explaining @bot.command()](https://medium.com/better-programming/how-to-make-discord-bot-commands-in-python-2cae39cbfd55)
 
 [Writing to JSON files using python](https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/)
+
+[Writing to JSON file using python2](https://www.geeksforgeeks.org/append-to-json-file-using-python/)
