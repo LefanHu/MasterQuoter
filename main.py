@@ -100,5 +100,17 @@ async def qrand(ctx):
 
     await ctx.send(random.choice(quote_arr))
 
+@bot.command()
+async def quser(ctx, user):
+    quote_arr = []
+    with open(save_loc) as json_file:
+        data = json.load(json_file)
+        for quote in data['quotes']:
+            if(user == quote['userid']):
+                quote_arr.append(quote['message'])
+
+
+    await ctx.send(random.choice(quote_arr))
+
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
