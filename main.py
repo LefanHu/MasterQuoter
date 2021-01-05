@@ -90,6 +90,7 @@ async def qlist(ctx, user):
                 await ctx.send('MESSAGE: ' + quote['message'])
 
 
+# CHOOSING RANDOM QUOTE AND SENDING
 @bot.command()
 async def qrand(ctx):
     quote_arr = []
