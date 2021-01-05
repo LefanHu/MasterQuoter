@@ -1,4 +1,5 @@
 import discord
+import random
 
 client = discord.Client()
 
@@ -11,11 +12,18 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.author.id == 313781087945883651:
-        await message.channel.send('STFU ugly bastard, no one wants you here')
+    elif message.content.startswith('$goodbye'):
+        await message.channel.send('Bye bye!')
         return
 
-    if message.content.startswith('$hello'):
+    elif message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
-client.run('Enter your token here')
+    elif message.content.startswith('$diceroll'):
+
+        n = random.randInt(1,6);
+        await message.channel.send('You rolled a ')
+        await message.channel.send(n)
+
+
+client.run('token')
