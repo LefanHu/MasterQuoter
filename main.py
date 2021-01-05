@@ -82,6 +82,7 @@ async def qlist(ctx):
             await ctx.send('USERID: ' + quote['userid'])
             await ctx.send('MESSAGE: ' + quote['message'])
 
+# CHOOSING RANDOM QUOTE AND SENDING
 @bot.command()
 async def randQuote(ctx):
     quote_arr = []
@@ -90,6 +91,7 @@ async def randQuote(ctx):
         for quote in data['quotes']:
             quote_arr.append(quote['message'])
     await ctx.send(random.choice(quote_arr))
+
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
