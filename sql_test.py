@@ -87,24 +87,6 @@ async def hello2(ctx, args):
 async def on_message(message):
     if message.author == client.user:
         return
-
-    if message.author.id == 313781087945883651:
-        await message.channel.send('STFU ugly bastard, no one wants you here')
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
-        return
-
-    if message.content.startswith('$quote'):
-        #splitting the message by spaces
-        message.content.split()
-        return
-    
-    if message.content.startswith('$ping '):
-        #splitting th emessage by spaces
-        message.content.split()
-        return
     
     if message.content.startswith('$return '):
         #splitting message
