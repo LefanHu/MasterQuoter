@@ -5,6 +5,7 @@ client = discord.Client()
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    await client.change_presence(activity=discord.Game(name="It's a lovely day!"))
 
 @client.event
 async def on_message(message):
@@ -14,4 +15,4 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
-client.run('your token here')
+client.run('Your token here')
