@@ -1,7 +1,12 @@
 # Description
 Master Quoter is a quote bot made by team "MasterBaiters" designed to save and snip all the best quotes made by your friends. A great addition to any lively discord server.
 
-Work in progress :) (by 2 idiots in highschool)
+Work in progress :) (by 2 idiots in high school)
+
+## Future plans
+- Implement listing quotes for specific people
+- Implement game of guessing who said the quotes
+
 
 ## Note to contributers
 Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client.
@@ -19,6 +24,6 @@ Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "clien
 
 [Explaining @bot.command()](https://medium.com/better-programming/how-to-make-discord-bot-commands-in-python-2cae39cbfd55)
 
-[Writing to JSON files using python](https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/)
+[Writing to JSON files using python-1](https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/)
 
-[Writing to JSON file using python2](https://www.geeksforgeeks.org/append-to-json-file-using-python/)
+[Writing to JSON file using python-2](https://www.geeksforgeeks.org/append-to-json-file-using-python/)
