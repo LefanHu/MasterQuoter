@@ -41,4 +41,4 @@ async def on_message(message):
         await message.channel.send(lefquotechoice)
 
 
-client.run('token')
+client.run('Nzk1NzU2ODMyMTY0NDEzNTAw.X_OATQ.bT2htac4jJ_ygYxxHWUHlHNAuOU')
