@@ -75,21 +75,30 @@ async def save(ctx, userid, message):
     await ctx.send ("Quote saved...")
 
 @bot.command()
-async def qlist(ctx):
+async def qall(ctx):
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data['quotes']:
             await ctx.send('USERID: ' + quote['userid'])
             await ctx.send('MESSAGE: ' + quote['message'])
+@bot.command()
+async def qlist(ctx, user):
+    with open(save_loc) as json_file:
+        data = json.load(json_file)
+        for quote in data ['quotes']:
+            if(user == quote['userid']):
+                await ctx.send('MESSAGE: ' + quote['message'])
+
 
 # CHOOSING RANDOM QUOTE AND SENDING
 @bot.command()
-async def randQuote(ctx):
+async def qrand(ctx):
     quote_arr = []
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data['quotes']:
             quote_arr.append(quote['message'])
+
     await ctx.send(random.choice(quote_arr))
 
 
