@@ -24,4 +24,4 @@ async def on_message(message):
         await message.channel.send('You rolled a {0}!'.format(n))
 
 
-client.run('Nzk1NzU2ODMyMTY0NDEzNTAw.X_OATQ.__1rDuwUZoDWcdKm0wwZknUOixY')
+client.run('enter token here')
