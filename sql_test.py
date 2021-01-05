@@ -57,5 +57,12 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
+    if message.content.startswith('$quote'):
+        #splitting the message by spaces
+        message.split()
+        
+
+
+
 #running the bot
 client.run('Nzk1NzU2ODMyMTY0NDEzNTAw.X_OATQ.__1rDuwUZoDWcdKm0wwZknUOixY')
