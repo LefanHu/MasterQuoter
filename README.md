@@ -6,6 +6,7 @@ Work in progress :) (by 2 idiots in high school)
 ## Future plans
 - Implement listing quotes for specific people
 - Implement game of guessing who said the quotes
+- Make a cache, open file globally, save it, don't close it
 
 
 ## Note to contributers
