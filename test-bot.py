@@ -2,7 +2,6 @@ import discord
 import logging
 import sys
 
-
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as {0}!'.format(self.user))
@@ -24,3 +23,4 @@ class MyClient(discord.Client):
 
 client = MyClient()
 client.run("Enter token here")
+
