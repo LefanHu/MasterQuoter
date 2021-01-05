@@ -11,7 +11,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.author.name == "Alex3000":
+    if message.author.id == 313781087945883651:
         await message.channel.send('STFU ugly bastard, no one wants you here')
         return
 
