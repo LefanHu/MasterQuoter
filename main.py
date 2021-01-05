@@ -20,10 +20,8 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
     elif message.content.startswith('$diceroll'):
-
-        n = random.randInt(1,6);
-        await message.channel.send('You rolled a ')
-        await message.channel.send(n)
+        n = random.randint(1,6)
+        await message.channel.send('You rolled a {0}!'.format(n))
 
 
-client.run('token')
+client.run('Nzk1NzU2ODMyMTY0NDEzNTAw.X_OATQ.__1rDuwUZoDWcdKm0wwZknUOixY')
