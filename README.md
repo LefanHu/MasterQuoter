@@ -4,7 +4,7 @@ Master Quoter is a quote bot made by team "MasterBaiters" designed to save and s
 Work in progress :) (by 2 idiots in highschool)
 
 ## Note to contributers
-Do not use client.run(), ruse bot.run() instead as "bot" is a sublcass of "client.
+Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client.
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
