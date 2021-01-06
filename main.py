@@ -48,13 +48,9 @@ async def ping(ctx):
 #Quoting last message from specified user
 @bot.command()
 async def qlast(ctx, user: discord.Member, prev = 0):
-    #if user specified how many messages back, adjust numbers to make more sense
-    if prev > 0:
-        prev-=0
-
-    elif (ctx.message.author.id)==user.id:
+    #if user quotes themselves, quote one message further back
+    if (ctx.message.author.id)==user.id:
         prev+=1
-
 
     #stores last 100 messages in channel where it is called in list
     messages = await ctx.channel.history(limit=100).flatten()
@@ -119,11 +115,18 @@ async def qall(ctx):
 
 @bot.command()
 async def qlist(ctx, user:discord.Member):
+    output = ''
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data ['quotes']:
             if(user.id == quote['userid']):
-                await ctx.send('MESSAGE: ' + quote['message'])
+                output = output + ('%s \n' % (quote['message']))
+        
+    #if there are no quotes from specified user
+    if not output:
+        await ctx.send("There are no quotes from this user")
+    else:
+        await ctx.send(output)
 
 
 # CHOOSING RANDOM QUOTE AND SENDING
