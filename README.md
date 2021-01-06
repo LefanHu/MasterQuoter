@@ -1,7 +1,7 @@
 # Description
 Master Quoter is a quote bot made by team "MasterBaiters" designed to save and snip all the best quotes made by your friends. A great addition to any lively discord server.
 
-Work in progress :) (by 2 idiots in high school)
+Work-in-progress :) (by 2 idiots in high school)
 
 ## Current TODO list
 - If quotes of one user exceed a total of 2000 characters, command !qlist @user will crash due to discord message limit
@@ -15,6 +15,9 @@ Work in progress :) (by 2 idiots in high school)
 - Implement game of guessing who said the quotes
 - Make a cache, open file globally, save it, don't close it
 - Embed colors for bot messages (refer below for resources)
+- Add feature to quote multiple lines from one user
+- Add feature to associate quote snippets with others users included in message snippet
+- Add attachment quoting support (ability to quote screenshots or picture attachments)
 
 ## Note to contributers
 Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client.
