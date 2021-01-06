@@ -51,9 +51,8 @@ async def ping(ctx):
 #Quoting last message from specified user
 @bot.command()
 async def qlast(ctx, user: discord.Member, prev = 0):
-    channel = discord.utils.get(ctx.guild.channels, name='general')
-    channel_id = channel.id
-    messages = await channel.history(channel_id).flatten()
+    #channel = discord.utils.get(ctx.guild.channels, name='general')
+    messages = await ctx.channel.history(limit=100).flatten()
     save(ctx, user, messages[prev])
 
 #testing saving quotes
