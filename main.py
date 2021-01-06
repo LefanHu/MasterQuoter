@@ -1,4 +1,9 @@
+# returns numbers only
+def nums_only(input):
+    return int(''.join(i for i in input if i.isdigit()))
+
 # IMPORT OS TO CHECK IF QUOTES.JSON EXISTS
+import asyncio
 import os.path
 
 # IMPORT DISCORD.PY. ALLOWS ACCESS TO DISCORD'S API.
@@ -149,29 +154,37 @@ async def quser(ctx, user:discord.Member):
                 quote_arr.append(quote['message'])
     await ctx.send(random.choice(quote_arr))
 
+# sends id of mentioned user
+@bot.command(name = 'id')
+async def id_(ctx, user: discord.Member):
+    await ctx.send(user.id)
+
 @bot.command()
 async def qguess(ctx):
-    quote_arr = []
-    player_arr = []
     with open(save_loc) as json_file:
         data = json.load(json_file)
-        for quote in data['quotes']:
-            quote_arr.append(quote['message'])
-            player_arr.append(quote['userid'])
+        quotes = data['quotes']
+    
+    #selecting the random quote
+    quote_selected = random.choice(quotes)
+    answerid = quote_selected['userid']
 
-
-    await ctx.send(random.choice(quote_arr))
+    await ctx.send(quote_selected['message'])
     await ctx.send('Guess whose quote this is! ')
 
-    guess = await bot.wait_for('message')
-    guessid = (guess.content).replace("@!", "").replace("<","").replace(">","")
+    guess = 2 #random false guess
+    try:
+        guess = await bot.wait_for('message', timeout=30)
+        guessid = nums_only(guess.content)
+    except asyncio.TimeoutError:
+        #prevent always waiting for user input
+        ctx.send("You have run out of time to guess.")
+        return
 
-    if str(guessid) == str(random.choice(player_arr)):
-        await ctx.send('You are right!')
-        rand = random.randint
+    if guessid == answerid:
+        await ctx.send('You are right! It was indeed {}'.format(bot.get_user(answerid).display_name))
     else:
-        await ctx.send('Oops. It is actually {}.'.format(random.choice(player_arr)))
-        rand = random.randint
+        await ctx.send("You guessed: {}\nBut it was: {}".format(guessid, answerid))
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
