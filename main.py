@@ -31,7 +31,7 @@ def get_nums(string):
 save_loc = "quotes.json"
 
 # CREATES A NEW BOT OBJECT WITH A SPECIFIED PREFIX. IT CAN BE WHATEVER YOU WANT IT TO BE.
-bot = commands.Bot(command_prefix="!")
+bot = commands.Bot(command_prefix="$")
 
 # FUNCTION TO ADD TO JSON FILE
 def write_json(data, filename = save_loc):
@@ -47,6 +47,14 @@ async def on_ready():
 @bot.command()
 async def ping(ctx):
 	await ctx.channel.send("pong")
+
+#Quoting last message from specified user
+@bot.command()
+async def qlast(ctx, user: discord.Member, prev = 0):
+    channel = discord.utils.get(ctx.guild.channels, name='general')
+    channel_id = channel.id
+    messages = await channel.history(channel_id).flatten()
+    save(ctx, user, messages[prev])
 
 #testing saving quotes
 @bot.command()
