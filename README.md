@@ -8,10 +8,10 @@ Work-in-progress :) (by 2 idiots in high school)
 - Save multiple quotes at the same time (avoids unneccessary file openings and closings)
 - Add time and date information to quotes
 - Add server id to quotes
-- Store message content under the userid instead of at the same level
+- Change structure in how quotes are saved
 
 ## Future plans
-- Implement listing quotes for specific people
+- ~~Implement listing quotes for specific people~~
 - Implement game of guessing who said the quotes
 - Make a cache, open file globally, save it, don't close it
 - Embed colors for bot messages (refer below for resources)
