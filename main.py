@@ -115,11 +115,11 @@ async def qall(ctx):
     await ctx.send(output)
 
 @bot.command()
-async def qlist(ctx, user):
+async def qlist(ctx, user:discord.Member):
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data ['quotes']:
-            if(user == quote['userid']):
+            if(user.id == quote['userid']):
                 await ctx.send('MESSAGE: ' + quote['message'])
 
 
