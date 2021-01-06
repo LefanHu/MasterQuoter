@@ -155,8 +155,9 @@ async def qguess(ctx):
     await ctx.send('Guess whose quote this is! ')
 
     guess = await bot.wait_for('message')
+    guessid = (guess.content).replace("@!", "").replace("<","").replace(">","")
 
-    if guess.content == user:
+    if str(guessid) == str(user):
         await ctx.send('You are right!')
     else:
         await ctx.send('Oops. It is actually {}.'.format(user))
