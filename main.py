@@ -47,7 +47,7 @@ async def ping(ctx):
 async def qlast(ctx, user: discord.Member, prev = 0):
     #if user specified how many messages back, adjust numbers to make more sense
     if prev > 0:
-        prev-=1
+        prev-=0
     
     #stores last 100 messages in channel where it is called in list
     messages = await ctx.channel.history(limit=100).flatten()
@@ -98,9 +98,16 @@ async def save(ctx, user: discord.Member, message):
 async def qall(ctx):
     with open(save_loc) as json_file:
         data = json.load(json_file)
-        for quote in data['quotes']:
-            await ctx.send('USERID: ' + quote['userid'])
-            await ctx.send('MESSAGE: ' + quote['message'])
+        messages = data['quotes']
+
+        # Outputting all the quotes as one single string
+        # ENSURE THIS DOESN'T EXCEED DISCORD MESSAGE LIMIT
+        output = 'All Quotes Listed Below: \n'
+        for message in messages:
+            output = output + ('%s \n\n' % (message['message']))
+    
+    await ctx.send(output)
+
 @bot.command()
 async def qlist(ctx, user):
     with open(save_loc) as json_file:
