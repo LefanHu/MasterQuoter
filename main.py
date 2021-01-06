@@ -160,6 +160,12 @@ async def id_(ctx, user: discord.Member):
     await ctx.send(user.id)
 
 @bot.command()
+async def quote_last_hundred(ctx):
+    messages = await ctx.channel.history(limit=100).flatten()
+    for message in messages:
+        await save(ctx, message.author, message.content)
+
+@bot.command()
 async def qguess(ctx):
     with open(save_loc) as json_file:
         data = json.load(json_file)
