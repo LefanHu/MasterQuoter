@@ -48,16 +48,16 @@ async def qlast(ctx, user: discord.Member, prev = 0):
     #if user specified how many messages back, adjust numbers to make more sense
     if prev > 0:
         prev-=0
-    
+
     #stores last 100 messages in channel where it is called in list
     messages = await ctx.channel.history(limit=100).flatten()
-    
+
     #messages from user specified within last 100 messages
     msgs_from_user = []
     for message in messages:
         if message.author.id == user.id:
             msgs_from_user.append(message)
-    
+
     #if not within last 100 messages, deal with issue, otherwise... save quote
     if not msgs_from_user:
         ctx.send("No messages from specified user was found in the last 100 messages.")
@@ -105,7 +105,7 @@ async def qall(ctx):
         output = 'All Quotes Listed Below: \n'
         for message in messages:
             output = output + ('%s \n\n' % (message['message']))
-    
+
     await ctx.send(output)
 
 @bot.command()
@@ -128,12 +128,12 @@ async def qrand(ctx):
     await ctx.send(random.choice(quote_arr))
 
 @bot.command()
-async def quser(ctx, user):
+async def quser(ctx, user:discord.Member):
     quote_arr = []
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data['quotes']:
-            if(user == quote['userid']):
+            if(user.id == quote['userid']):
                 quote_arr.append(quote['message'])
     await ctx.send(random.choice(quote_arr))
 
