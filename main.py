@@ -50,10 +50,10 @@ async def ping(ctx):
 
 #testing saving quotes
 @bot.command()
-async def save(ctx, userid, message):
+async def save(ctx, user: discord.Member, message):
     data = {
-        "userid":userid,
-        "message":message
+        "userid":user.id,
+        "message": '<{}> '.format(user.display_name) + message
     }
 
     if os.path.isfile('quotes.json'):
@@ -67,8 +67,8 @@ async def save(ctx, userid, message):
         data = {}
         data['quotes'] = []
         data['quotes'].append({
-            'userid': userid,
-            'message': message
+            'userid': user.id,
+            'message': '<{}> '.format(user.display_name) + message
         })
         #writing to file
         write_json(data)
