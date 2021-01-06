@@ -34,4 +34,6 @@ Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "clien
 
 [Discord.py: Making a Discord bot (Part 8: Embeds)](https://www.youtube.com/watch?v=XKQWxAaRgG0)
 
-[Getting channel id given ctx](https://stackoverflow.com/questions/63321098/is-it-possible-to-get-channel-id-by-name-in-discord-py)
+[Getting channel id given wanted channel name](https://stackoverflow.com/questions/63321098/is-it-possible-to-get-channel-id-by-name-in-discord-py)
+
+[discord.py decorators](https://medium.com/@cantsayihave/decorators-in-discord-py-e44ce3a1aae5)
