@@ -3,6 +3,9 @@ Master Quoter is a quote bot made by team "MasterBaiters" designed to save and s
 
 Work in progress :) (by 2 idiots in high school)
 
+## Current TODO list
+- 
+
 ## Future plans
 - Implement listing quotes for specific people
 - Implement game of guessing who said the quotes
@@ -30,3 +33,5 @@ Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "clien
 [Writing to JSON file using python-2](https://www.geeksforgeeks.org/append-to-json-file-using-python/)
 
 [Discord.py: Making a Discord bot (Part 8: Embeds)](https://www.youtube.com/watch?v=XKQWxAaRgG0)
+
+[Getting channel id given ctx](https://stackoverflow.com/questions/63321098/is-it-possible-to-get-channel-id-by-name-in-discord-py)
