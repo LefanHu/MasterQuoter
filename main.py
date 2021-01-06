@@ -21,13 +21,6 @@ def read_token():
         return lines[0].strip()
 DISCORD_TOKEN = read_token()
 
-#used for stripping characters from discord userids
-#example found here https://stackoverflow.com/questions/17336943/removing-non-numeric-characters-from-a-string
-import re
-def get_nums(string):
-    result = re.sub('[^0-9]','', string)
-    return type(int(result))
-
 #SAVEFILE FOR SAVING QUOTES
 save_loc = "quotes.json"
 
@@ -56,7 +49,7 @@ async def qlast(ctx, user: discord.Member, prev = 0):
     if prev > 0:
         prev-=1
     
-    #channel = discord.utils.get(ctx.guild.channels, name='general')
+    #stores last 100 messages in channel where it is called in list
     messages = await ctx.channel.history(limit=100).flatten()
     
     #messages from user specified within last 100 messages
@@ -74,11 +67,6 @@ async def qlast(ctx, user: discord.Member, prev = 0):
         return
     else:
         await save(ctx, user, msgs_from_user[prev].content)
-
-@bot.command()
-async def history(ctx, limit: int = 100):  
-    messages = await ctx.channel.history(limit=limit).flatten()
-    print(messages[0].content)
 
 #testing saving quotes
 @bot.command()
