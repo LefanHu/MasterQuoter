@@ -24,6 +24,9 @@ DISCORD_TOKEN = read_token()
 #SAVEFILE FOR SAVING QUOTES
 save_loc = "quotes.json"
 
+rand = 1
+random.seed(rand)
+
 # CREATES A NEW BOT OBJECT WITH A SPECIFIED PREFIX. IT CAN BE WHATEVER YOU WANT IT TO BE.
 bot = commands.Bot(command_prefix="$")
 
@@ -146,22 +149,26 @@ async def quser(ctx, user:discord.Member):
 @bot.command()
 async def qguess(ctx):
     quote_arr = []
+    player_arr = []
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data['quotes']:
             quote_arr.append(quote['message'])
-            user = quote['userid']
+            player_arr.append(quote['userid'])
+
+
     await ctx.send(random.choice(quote_arr))
     await ctx.send('Guess whose quote this is! ')
 
     guess = await bot.wait_for('message')
     guessid = (guess.content).replace("@!", "").replace("<","").replace(">","")
 
-    if str(guessid) == str(user):
+    if str(guessid) == str(random.choice(player_arr)):
         await ctx.send('You are right!')
+        rand = random.randint
     else:
-        await ctx.send('Oops. It is actually {}.'.format(user))
-
+        await ctx.send('Oops. It is actually {}.'.format(random.choice(player_arr)))
+        rand = random.randint
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
