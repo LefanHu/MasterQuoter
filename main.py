@@ -150,9 +150,16 @@ async def qguess(ctx):
         data = json.load(json_file)
         for quote in data['quotes']:
             quote_arr.append(quote['message'])
+            user = quote['userid']
     await ctx.send(random.choice(quote_arr))
     await ctx.send('Guess whose quote this is! ')
 
+    guess = await bot.wait_for('message')
+
+    if guess.content == user:
+        await ctx.send('You are right!')
+    else:
+        await ctx.send('Oops. It is actually {}.'.format(user))
 
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
