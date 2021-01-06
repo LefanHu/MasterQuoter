@@ -49,13 +49,19 @@ async def qlast(ctx, user: discord.Member, prev = 0):
     if prev > 0:
         prev-=0
 
+    elif (ctx.message.author.id)==user.id:
+        prev+=1
+
+
     #stores last 100 messages in channel where it is called in list
     messages = await ctx.channel.history(limit=100).flatten()
 
     #messages from user specified within last 100 messages
     msgs_from_user = []
     for message in messages:
+
         if message.author.id == user.id:
+
             msgs_from_user.append(message)
 
     #if not within last 100 messages, deal with issue, otherwise... save quote
