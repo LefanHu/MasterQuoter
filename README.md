@@ -12,12 +12,13 @@ Work-in-progress :) (by 2 idiots in high school)
 
 ## Future plans
 - ~~Implement listing quotes for specific people~~
-- Implement game of guessing who said the quotes
+- ~~Implement game of guessing who said the quotes~~
 - Make a cache, open file globally, save it, don't close it
 - Embed colors for bot messages (refer below for resources)
 - Add feature to quote multiple lines from one user
 - Add feature to associate quote snippets with others users included in message snippet
 - Add attachment quoting support (ability to quote screenshots or picture attachments)
+
 
 ## Note to contributers
 Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client.
