@@ -12,6 +12,7 @@ import random
 
 # IMPORT COMMANDS FROM THE DISCORD.EXT MODULE.
 from discord.ext import commands
+from discord.ext.commands.bot import AutoShardedBot
 
 #getting token from file "token.txt"
 def read_token():
@@ -51,9 +52,33 @@ async def ping(ctx):
 #Quoting last message from specified user
 @bot.command()
 async def qlast(ctx, user: discord.Member, prev = 0):
+    #if user specified how many messages back, adjust numbers to make more sense
+    if prev > 0:
+        prev-=1
+    
     #channel = discord.utils.get(ctx.guild.channels, name='general')
     messages = await ctx.channel.history(limit=100).flatten()
-    save(ctx, user, messages[prev])
+    
+    #messages from user specified within last 100 messages
+    msgs_from_user = []
+    for message in messages:
+        if message.author.id == user.id:
+            msgs_from_user.append(message)
+    
+    #if not within last 100 messages, deal with issue, otherwise... save quote
+    if not msgs_from_user:
+        ctx.send("No messages from specified user was found in the last 100 messages.")
+        return
+    elif prev > len(msgs_from_user) - 1:
+        ctx.send("The most recent #{}th message was not found in the last 100 messages.")
+        return
+    else:
+        await save(ctx, user, msgs_from_user[prev].content)
+
+@bot.command()
+async def history(ctx, limit: int = 100):  
+    messages = await ctx.channel.history(limit=limit).flatten()
+    print(messages[0].content)
 
 #testing saving quotes
 @bot.command()
