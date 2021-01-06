@@ -7,7 +7,7 @@ Work in progress :) (by 2 idiots in high school)
 - Implement listing quotes for specific people
 - Implement game of guessing who said the quotes
 - Make a cache, open file globally, save it, don't close it
-
+- Embed colors for bot messages (refer below for resources)
 
 ## Note to contributers
 Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client.
@@ -28,3 +28,5 @@ Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "clien
 [Writing to JSON files using python-1](https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/)
 
 [Writing to JSON file using python-2](https://www.geeksforgeeks.org/append-to-json-file-using-python/)
+
+[Discord.py: Making a Discord bot (Part 8: Embeds)](https://www.youtube.com/watch?v=XKQWxAaRgG0)
