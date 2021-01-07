@@ -9,6 +9,8 @@ Work-in-progress :) (by 2 idiots in high school)
 - Add time and date information to quotes
 - Add server id to quotes
 - Change structure in how quotes are saved
+- Add environment variables for bot token
+- Add error handling "bot.event"
 
 ## Future plans
 - ~~Implement listing quotes for specific people~~
