@@ -82,8 +82,8 @@ async def qlast(ctx, user: discord.Member, prev = 0):
 @bot.command()
 async def qhistory(ctx, user: discord.Member):
 
-    #stores last 100 messages in channel where it is called in list
-    messages = await ctx.history(limit=10).flatten()
+    #Stores last 100 messages in channel where it is called in list
+    messages = await ctx.history(limit=100).flatten()
 
     #Prints out the specific user's messages in the last 10 messages
     for message in messages:
