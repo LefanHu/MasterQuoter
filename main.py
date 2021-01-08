@@ -78,6 +78,20 @@ async def qlast(ctx, user: discord.Member, prev = 0):
     else:
         await save(ctx, user, msgs_from_user[prev].content)
 
+#Finding the last 10 lines a user had said
+@bot.command()
+async def qhistory(ctx, user: discord.Member):
+
+    #stores last 100 messages in channel where it is called in list
+    messages = await ctx.history(limit=10).flatten()
+
+    #Prints out the specific user's messages in the last 10 messages
+    for message in messages:
+        if(message.author.id == user.id):
+            await ctx.send(message.content)
+
+
+
 #testing saving quotes
 @bot.command()
 async def save(ctx, user: discord.Member, message):
@@ -126,7 +140,7 @@ async def qlist(ctx, user:discord.Member):
         for quote in data ['quotes']:
             if(user.id == quote['userid']):
                 output = output + ('%s \n' % (quote['message']))
-        
+
     #if there are no quotes from specified user
     if not output:
         await ctx.send("There are no quotes from this user")
@@ -170,7 +184,7 @@ async def qguess(ctx):
     with open(save_loc) as json_file:
         data = json.load(json_file)
         quotes = data['quotes']
-    
+
     #selecting the random quote
     quote_selected = random.choice(quotes)
     answerid = quote_selected['userid']
