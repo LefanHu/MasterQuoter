@@ -86,15 +86,19 @@ async def qhistory(ctx, user: discord.Member):
     messages = await ctx.history(limit=100).flatten()
 
     #Prints out the specific user's messages in the last 10 messages
+    output = ''
     for message in messages:
         if(message.author.id == user.id):
-            await ctx.send(message.content)
-    
+            output = output + message.content + '\n'
+
     #if there is no messages from specified user in the last 100 lines
-    if not messages:
+    if output == None:
         await ctx.send("There is no messages from the specified user in the last 100 messages in this channel.")
+        return
 
-
+    #send output to channel
+    #TODO: "remember to deal with message limit of discord"
+    await ctx.send(output)
 
 #testing saving quotes
 @bot.command()
