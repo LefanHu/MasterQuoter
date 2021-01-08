@@ -89,6 +89,10 @@ async def qhistory(ctx, user: discord.Member):
     for message in messages:
         if(message.author.id == user.id):
             await ctx.send(message.content)
+    
+    #if there is no messages from specified user in the last 100 lines
+    if not messages:
+        await ctx.send("There is no messages from the specified user in the last 100 messages in this channel.")
 
 
 
