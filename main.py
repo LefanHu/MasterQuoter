@@ -102,10 +102,11 @@ async def qhistory(ctx, user: discord.Member):
 
 #testing saving quotes
 @bot.command()
-async def save(ctx, user: discord.Member, message):
+async def save(ctx, user: discord.Member, msg):
     data = {
         "userid":user.id,
-        "message": '<{}> '.format(user.display_name) + message
+        "servid":ctx.message.guild.id,
+        "msg": '<{}> '.format(user.display_name) + msg
     }
 
     if os.path.isfile('quotes.json'):
@@ -120,7 +121,8 @@ async def save(ctx, user: discord.Member, message):
         data['quotes'] = []
         data['quotes'].append({
             'userid': user.id,
-            'message': '<{}> '.format(user.display_name) + message
+            'servid': ctx.message.guild.id,
+            'msg': '<{}> '.format(user.display_name) + msg
         })
         #writing to file
         write_json(data)
