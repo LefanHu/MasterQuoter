@@ -105,23 +105,22 @@ async def qhistory(ctx, user: discord.Member):
 async def save(ctx, user: discord.Member, msg):
     data = {
         "userid":user.id,
-        "servid":ctx.message.guild.id,
         "msg": '<{}> '.format(user.display_name) + msg
     }
 
-    if os.path.isfile('quotes.json'):
+    if os.path.isfile('quotes.json') and os.path.getsize('quotes.json') > 0:
         with open(save_loc) as json_file:
             file = json.load(json_file)
             temp = file['quotes']
             temp.append(data)
         write_json(file)
+
     else:
         await ctx.send("First time use, there are no quotes.")
         data = {}
         data['quotes'] = []
         data['quotes'].append({
             'userid': user.id,
-            'servid': ctx.message.guild.id,
             'msg': '<{}> '.format(user.display_name) + msg
         })
         #writing to file
