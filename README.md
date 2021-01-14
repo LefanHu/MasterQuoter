@@ -20,7 +20,8 @@ Work-in-progress :) (by 2 idiots in high school)
 - Embed colors for bot messages (refer below for resources)
 - Add feature to quote multiple lines from one user
 - Add feature to associate quote snippets with others users included in message snippet
-- Add attachment quoting support (ability to quote screenshots or picture attachments)
+- Add attachment quoting support (ability to quote screenshots, sound files or picture attachments)
+- Add "nice navigation" (page flipping for listing quotes)
 
 
 ## Note to contributers
