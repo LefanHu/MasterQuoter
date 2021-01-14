@@ -127,6 +127,15 @@ async def save(ctx, user: discord.Member, msg):
         write_json(data)
     await ctx.send ("Quote saved...")
 
+#temp for creators
+@bot.command()
+async def tempreset(ctx):
+    if(ctx.message.author.id in (313781087945883651, 324917494005366784)):
+        await ctx.send("Working")
+
+    else:
+        await ctx.send("Nice try")
+
 @bot.command()
 async def qall(ctx):
     with open(save_loc) as json_file:
