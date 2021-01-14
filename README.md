@@ -11,6 +11,7 @@ Work-in-progress :) (by 2 idiots in high school)
 - Change structure in how quotes are saved
 - Add environment variables for bot token
 - Add error handling "bot.event"
+- Fix first time quote initialization. If quotes.json is empty but still exists, bot will not work.
 
 ## Future plans
 - ~~Implement listing quotes for specific people~~
