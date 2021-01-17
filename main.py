@@ -1,3 +1,5 @@
+import datetime
+
 # returns numbers only
 def nums_only(input):
     return int(''.join(i for i in input if i.isdigit()))
@@ -236,6 +238,20 @@ async def qguess(ctx):
 async def setprefix(ctx, prefix):
     bot.command_prefix = prefix
     await ctx.send(f"Prefix changed to ``{prefix}``")
+
+#serves as an embed test as well as a self description for bot
+@bot.command()
+async def about(ctx):
+    embed = discord.Embed(title="MasterQuoter is now ready!", colour=discord.Colour(0xfaab3f), url="https://discordapp.com", description="MasterQuoter is a bot made by team 'MasterBaiters' designed to save and snip all the best quotes made by your friends. A great addition to any lively discord server.\n\nPlease support our patreon [here](https://github.com/LefanHu/MasterQuoter).", timestamp=datetime.datetime.utcfromtimestamp(1610925790))
+
+    embed.set_thumbnail(url="https://ih1.redbubble.net/image.683731832.0708/flat,750x1000,075,f.u6.jpg")
+    embed.set_author(name="Master Quoter", url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+    embed.set_footer(text="MasterQuoter", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+
+    embed.add_field(name="<3", value="We hope you enjoy this bot...")
+
+    await ctx.send(embed=embed)
+
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
