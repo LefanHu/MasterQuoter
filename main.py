@@ -131,9 +131,11 @@ async def save(ctx, user: discord.Member, msg):
 @bot.command()
 async def tempreset(ctx):
     if(ctx.message.author.id in (313781087945883651, 324917494005366784)):
-        await ctx.send("Working")
+
+        open('quotes.json', "w").close()
+        await ctx.send("Quotes file has been cleared."")
     else:
-        await ctx.send("Nice try")
+        await ctx.send("You do not have the permissions to clear the quotes file. ")
 
 @bot.command()
 async def qall(ctx):
