@@ -51,3 +51,5 @@ Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "clien
 [discord.py decorators](https://medium.com/@cantsayihave/decorators-in-discord-py-e44ce3a1aae5)
 
 [discord.py save attachments](https://www.reddit.com/r/Discord_Bots/comments/eojofe/py_saving_posted_images/)
+
+[discord.py sending images, files, and other attachments](https://discordpy.readthedocs.io/en/latest/faq.html#how-do-i-upload-an-image)
