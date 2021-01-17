@@ -25,7 +25,7 @@ Work-in-progress :) (by 2 idiots in high school)
 
 
 ## Note to contributers
-Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client.
+- ~~Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client. bot.run() can do everything client can do and more.~~
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
