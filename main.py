@@ -29,6 +29,7 @@ DISCORD_TOKEN = read_token()
 #SAVEFILE FOR SAVING QUOTES
 save_loc = "quotes.json"
 
+#Random variable
 rand = 1
 random.seed(rand)
 
@@ -137,6 +138,7 @@ async def tempreset(ctx):
     else:
         await ctx.send("You do not have the permissions to clear the quotes file. ")
 
+#Outputting every single quote
 @bot.command()
 async def qall(ctx):
     with open(save_loc) as json_file:
@@ -151,6 +153,7 @@ async def qall(ctx):
 
     await ctx.send(output)
 
+#Outputting all quotes of a specific user
 @bot.command()
 async def qlist(ctx, user:discord.Member):
     output = ''
@@ -177,6 +180,7 @@ async def qrand(ctx):
             quote_arr.append(quote['message'])
     await ctx.send(random.choice(quote_arr))
 
+#Choosing a random quote from a user
 @bot.command()
 async def quser(ctx, user:discord.Member):
     quote_arr = []
@@ -192,12 +196,14 @@ async def quser(ctx, user:discord.Member):
 async def id_(ctx, user: discord.Member):
     await ctx.send(user.id)
 
+# Quotes last 100 messages (Just a tester)
 @bot.command()
 async def quote_last_hundred(ctx):
     messages = await ctx.channel.history(limit=100).flatten()
     for message in messages:
         await save(ctx, message.author, message.content)
 
+#Fun little guessing game
 @bot.command()
 async def qguess(ctx):
     with open(save_loc) as json_file:
