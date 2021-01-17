@@ -132,7 +132,6 @@ async def save(ctx, user: discord.Member, msg):
 async def tempreset(ctx):
     if(ctx.message.author.id in (313781087945883651, 324917494005366784)):
         await ctx.send("Working")
-
     else:
         await ctx.send("Nice try")
 
