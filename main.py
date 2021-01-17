@@ -134,7 +134,7 @@ async def tempreset(ctx):
     if(ctx.message.author.id in (313781087945883651, 324917494005366784)):
 
         open('quotes.json', "w").close()
-        await ctx.send("Quotes file has been cleared."")
+        await ctx.send("Quotes file has been cleared.")
     else:
         await ctx.send("You do not have the permissions to clear the quotes file. ")
 
@@ -149,7 +149,7 @@ async def qall(ctx):
         # ENSURE THIS DOESN'T EXCEED DISCORD MESSAGE LIMIT
         output = 'All Quotes Listed Below: \n'
         for message in messages:
-            output = output + ('%s \n\n' % (message['message']))
+            output = output + ('%s \n\n' % (message['msg']))
 
     await ctx.send(output)
 
@@ -161,7 +161,7 @@ async def qlist(ctx, user:discord.Member):
         data = json.load(json_file)
         for quote in data ['quotes']:
             if(user.id == quote['userid']):
-                output = output + ('%s \n' % (quote['message']))
+                output = output + ('%s \n' % (quote['msg']))
 
     #if there are no quotes from specified user
     if not output:
@@ -177,7 +177,7 @@ async def qrand(ctx):
     with open(save_loc) as json_file:
         data = json.load(json_file)
         for quote in data['quotes']:
-            quote_arr.append(quote['message'])
+            quote_arr.append(quote['msg'])
     await ctx.send(random.choice(quote_arr))
 
 #Choosing a random quote from a user
@@ -188,7 +188,7 @@ async def quser(ctx, user:discord.Member):
         data = json.load(json_file)
         for quote in data['quotes']:
             if(user.id == quote['userid']):
-                quote_arr.append(quote['message'])
+                quote_arr.append(quote['msg'])
     await ctx.send(random.choice(quote_arr))
 
 # sends id of mentioned user
@@ -214,12 +214,12 @@ async def qguess(ctx):
     quote_selected = random.choice(quotes)
     answerid = quote_selected['userid']
 
-    await ctx.send(quote_selected['message'])
+    await ctx.send(quote_selected['msg'])
     await ctx.send('Guess whose quote this is! ')
 
     guess = 2 #random false guess
     try:
-        guess = await bot.wait_for('message', timeout=30)
+        guess = await bot.wait_for('msg', timeout=30)
         guessid = nums_only(guess.content)
     except asyncio.TimeoutError:
         #prevent always waiting for user input
@@ -230,6 +230,12 @@ async def qguess(ctx):
         await ctx.send('You are right! It was indeed {}'.format(bot.get_user(answerid).display_name))
     else:
         await ctx.send("You guessed: {}\nBut it was: {}".format(guessid, answerid))
+
+#Prefix changer
+@bot.command()
+async def setprefix(ctx, prefix):
+    bot.command_prefix = prefix
+    await ctx.send(f"Prefix changed to ``{prefix}``")
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
