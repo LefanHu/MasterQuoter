@@ -55,3 +55,5 @@ Work-in-progress :) (by 2 idiots in high school)
 [discord.py sending images, files, and other attachments](https://discordpy.readthedocs.io/en/latest/faq.html#how-do-i-upload-an-image)
 
 [discord embed visualizer](https://leovoel.github.io/embed-visualizer/)
+
+[environment variables for bot](https://morioh.com/p/c23c88dd2374)
