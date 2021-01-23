@@ -1,11 +1,11 @@
 # Master Quoter (Discord bot)
-Master Quoter is a quote bot made by team "MasterBaiters" designed to save and snip all the best quotes made by your friends. A great addition to any lively discord server.
+Master Quoter is a quote bot made by team "Master Baiters" designed to save and snip all the best quotes made by your friends. A great addition to any lively discord server.
 
 Work-in-progress :) (by 2 idiots in high school)
 
 ## Current TODO list
 - If quotes of one user exceed a total of 2000 characters, command !qlist @user will crash due to discord message limit
-- Save multiple quotes at the same time (avoids unneccessary file openings and closings)
+- Save multiple quotes at the same time (avoids unnecessary file openings and closings)
 - Add time and date information to quotes
 - Add server id to quotes
 - Change structure in how quotes are saved
@@ -55,5 +55,8 @@ Work-in-progress :) (by 2 idiots in high school)
 [discord.py sending images, files, and other attachments](https://discordpy.readthedocs.io/en/latest/faq.html#how-do-i-upload-an-image)
 
 [discord embed visualizer](https://leovoel.github.io/embed-visualizer/)
+<<<<<<< HEAD
 
 [environment variables for bot](https://morioh.com/p/c23c88dd2374)
+=======
+>>>>>>> f5a04a2c8469f04ec4b245ee36ef3e404d06b674
