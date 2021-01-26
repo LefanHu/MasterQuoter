@@ -1,4 +1,7 @@
-# Master Quoter (Discord bot)
+# Important
+**REMEMBER TO REMOVE .env FILE FROM GITHUB BEFORE MAKING IT PUBLIC**
+
+## Master Quoter (Discord bot)
 Master Quoter is a quote bot made by team "Master Baiters" designed to save and snip all the best quotes made by your friends. A great addition to any lively discord server.
 
 Work-in-progress :) (by 2 idiots in high school)
