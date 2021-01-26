@@ -37,8 +37,8 @@ save_loc = "quotes.json"
 rand = 1
 random.seed(rand)
 
-# CREATES A NEW BOT OBJECT WITH A SPECIFIED PREFIX. IT CAN BE WHATEVER YOU WANT IT TO BE.
-bot = commands.Bot(command_prefix="$")
+# sets bot prefix to specified environment variable
+bot = commands.Bot(command_prefix=os.getenv("COMMAND_PREFIX"))
 
 # FUNCTION TO ADD TO JSON FILE
 def write_json(data, filename=save_loc):
