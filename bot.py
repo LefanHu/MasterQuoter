@@ -113,23 +113,30 @@ async def qhistory(ctx, user: discord.Member):
     await ctx.send(output)
 
 
+# adding new server
+def add_server(server_id):
+    # add new server id
+    print("server added")
+
+
 # testing saving quotes
 @bot.command()
 async def save(ctx, user: discord.Member, msg):
     data = {"userid": user.id, "msg": "<{}> ".format(user.display_name) + msg}
+    server_id = ctx.message.guild.id
 
     if os.path.isfile("quotes.json") and os.path.getsize("quotes.json") > 0:
         with open(save_loc) as json_file:
             file = json.load(json_file)
-            temp = file["quotes"]
+            temp = file[server_id]["quotes"]
             temp.append(data)
         write_json(file)
 
     else:
         await ctx.send("First time use, there are no quotes.")
         data = {}
-        data["quotes"] = []
-        data["quotes"].append(
+        data[server_id]["quotes"] = []
+        data[server_id]["quotes"].append(
             {"userid": user.id, "msg": "<{}> ".format(user.display_name) + msg}
         )
         # writing to file
