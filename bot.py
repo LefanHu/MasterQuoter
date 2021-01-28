@@ -51,6 +51,19 @@ def write_json(data, filename=save_loc):
 async def on_ready():
     print("We have logged in as {0.user}".format(bot))
 
+#Ping bot for prefix
+@bot.event
+async def on_message(ctx):
+    mention = f'<@!{bot.user.id}>'
+    if mention in ctx.content:
+        await ctx.channel.send(
+            """The prefix of the bot is '{}'""".format(os.getenv("COMMAND_PREFIX")))
+
+# Prefix changer
+@bot.command()
+async def setprefix(ctx, prefix):
+    bot.command_prefix = prefix
+    await ctx.send(f"Prefix changed to ``{prefix}``")
 
 # TEST BOT COMMANDS
 @bot.command()
@@ -257,11 +270,7 @@ async def qguess(ctx):
         await ctx.send("You guessed: {}\nBut it was: {}".format(guessid, answerid))
 
 
-# Prefix changer
-@bot.command()
-async def setprefix(ctx, prefix):
-    bot.command_prefix = prefix
-    await ctx.send(f"Prefix changed to ``{prefix}``")
+
 
 
 # serves as an embed test as well as a self description for bot
