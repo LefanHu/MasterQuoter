@@ -117,7 +117,9 @@ async def save(ctx, user: discord.Member, msg):
                 qt["quotes"].append(quote)
                 mem_id[user.id].append(qt)
                 file[server_id].append(mem_id)
-            elif str(user.id) not in file[str(server_id)]:  # member has not been quoted
+            elif (
+                "{}".format(user.id) not in file["{}".format(server_id)]
+            ):  # member has not been quoted
                 print("server id exists, userid does not")
                 """mem_id = {}
                 mem_id[user.id] = []
