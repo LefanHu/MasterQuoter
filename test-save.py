@@ -101,6 +101,8 @@ async def save(ctx, user: discord.Member, msg):
         with open(save_loc) as json_file:
             file = json.load(json_file)
 
+            for server in file[str(server_id)]:
+                print(server["quotes"])
 
             if str(server_id) not in file:  # server has not used bot
                 print("server id does not exist")
@@ -116,12 +118,10 @@ async def save(ctx, user: discord.Member, msg):
                 mem_id[user.id].append(qt)
                 file[server_id].append(mem_id)
             elif (
-                mem_id not in file[server_id]
+                "{}".format(user.id) not in file["{}".format(server_id)]
             ):  # member has not been quoted
-                print (server_id)
                 print("server id exists, userid does not")
-                print ("{}".format(user.id))
-                mem_id = {}
+                """mem_id = {}
                 mem_id[user.id] = []
 
                 qt = {}
@@ -129,10 +129,10 @@ async def save(ctx, user: discord.Member, msg):
 
                 qt["quotes"].append(quote)
                 mem_id[user.id].append(qt)
-                file[server_id].append(mem_id)
+                file[server_id].append(mem_id)"""
             else:  # adding another quote to user
                 print("server id & member id exists")
-                file[server_id][mem_id].append(quote)
+                """file[server_id][mem_id].append(quote)"""
 
         write_json(file)
     else:  # this is for first time use of bot
