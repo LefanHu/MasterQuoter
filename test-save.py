@@ -93,64 +93,54 @@ async def qlast(ctx, user: discord.Member, prev=0):
 @bot.command()
 async def save(ctx, user: discord.Member, msg):
     quote = {"msg": "<{}> ".format(user.display_name) + msg}
-    server_id = ctx.message.guild.id
-    mem_id = user.id
+    server_id = str(ctx.message.guild.id)
+    mem_id = str(user.id)
 
     # checking if file exists
     if os.path.isfile(save_loc) and os.path.getsize(save_loc) > 0:
         with open(save_loc) as json_file:
             file = json.load(json_file)
 
-            for server in file[str(server_id)]:
-                print(server["quotes"])
-
-            if str(server_id) not in file:  # server has not used bot
+            if server_id not in file:  # server has not used bot
                 print("server id does not exist")
-                file[server_id] = []
-
-                mem_id = {}
-                mem_id[user.id] = []
-
                 qt = {}
-                qt["quotes"] = []
+                qt["quotes"] = [quote]
 
-                qt["quotes"].append(quote)
-                mem_id[user.id].append(qt)
-                file[server_id].append(mem_id)
-            elif (
-                "{}".format(user.id) not in file["{}".format(server_id)]
-            ):  # member has not been quoted
+                member = {}
+                member[mem_id] = qt
+
+                server = {}
+                server[server_id] = member
+
+                file.update(server)
+
+            elif mem_id not in file[server_id]:  # member has not been quoted
                 print("server id exists, userid does not")
-                """mem_id = {}
-                mem_id[user.id] = []
 
                 qt = {}
-                qt["quotes"] = []
+                qt["quotes"] = [quote]
 
-                qt["quotes"].append(quote)
-                mem_id[user.id].append(qt)
-                file[server_id].append(mem_id)"""
+                member = {}
+                member[mem_id] = qt
+
+                file[server_id].update(member)
             else:  # adding another quote to user
                 print("server id & member id exists")
-                """file[server_id][mem_id].append(quote)"""
+                file[server_id][mem_id]["quotes"].append(quote)
 
         write_json(file)
     else:  # this is for first time use of bot
-        data = {}
-        data[server_id] = []
-
-        mem_id = {}
-        mem_id[user.id] = []
-
         qt = {}
-        qt["quotes"] = []
+        qt["quotes"] = [quote]
 
-        qt["quotes"].append(quote)
-        mem_id[user.id].append(qt)
-        data[server_id].append(mem_id)
+        member = {}
+        member[mem_id] = qt
+
+        file = {}
+        file[server_id] = member
 
         # writing to file
-        write_json(data)
+        write_json(file)
 
     await ctx.send("Quote saved...")
 
