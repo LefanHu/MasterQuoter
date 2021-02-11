@@ -59,8 +59,7 @@ Work-in-progress :) (by 2 idiots in high school)
 [discord.py sending images, files, and other attachments](https://discordpy.readthedocs.io/en/latest/faq.html#how-do-i-upload-an-image)
 
 [discord embed visualizer](https://leovoel.github.io/embed-visualizer/)
-<<<<<<< HEAD
 
 [environment variables for bot](https://morioh.com/p/c23c88dd2374)
-=======
->>>>>>> f5a04a2c8469f04ec4b245ee36ef3e404d06b674
+
+[displaying multiple pages in one embed](https://stackoverflow.com/questions/63882175/making-embeds-of-more-than-one-page-using-discord-py)
