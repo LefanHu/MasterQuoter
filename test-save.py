@@ -113,7 +113,7 @@ async def save_attachments(ctx):
 
 # testing saving quotes
 @bot.command()
-async def save(ctx, user: discord.Member, msg):
+async def save(ctx, user: discord.Member, *, msg):
     quote = {
         "msg": msg,
         "display_name": user.display_name,
