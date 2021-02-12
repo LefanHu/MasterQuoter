@@ -67,3 +67,5 @@ Work-in-progress :) (by 2 idiots in high school)
 [displaying multiple pages in one embed](https://stackoverflow.com/questions/63882175/making-embeds-of-more-than-one-page-using-discord-py)
 
 [using cogs in discord.py](https://www.youtube.com/watch?v=vQw8cFfZPx0)
+
+[check if command invoker is a user](https://discordpy.readthedocs.io/en/latest/ext/commands/api.html?highlight=check#discord.ext.commands.check)
