@@ -69,3 +69,5 @@ Work-in-progress :) (by 2 idiots in high school)
 [using cogs in discord.py](https://www.youtube.com/watch?v=vQw8cFfZPx0)
 
 [check if command invoker is a user](https://discordpy.readthedocs.io/en/latest/ext/commands/api.html?highlight=check#discord.ext.commands.check)
+
+[making a cog admin only](https://stackoverflow.com/questions/63081648/how-to-make-a-discord-py-cog-admin-only)
