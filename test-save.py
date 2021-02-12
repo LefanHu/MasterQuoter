@@ -1,4 +1,5 @@
 import datetime
+from random import random
 
 # returns numbers only
 def nums_only(input):
@@ -46,6 +47,10 @@ def write_json(data, filename=save_loc):
         json.dump(data, f, indent=4)
 
 
+# supported image saving types
+image_types = ["png", "jpeg", "gif", "jpg"]
+
+
 # ON READY
 @bot.event
 async def on_ready():
@@ -89,10 +94,32 @@ async def qlast(ctx, user: discord.Member, prev=0):
         await save(ctx, user, msgs_from_user[prev].content)
 
 
+async def save_attachments(ctx):
+    attachments = []
+    for attachment in ctx.message.attachments:
+        if any(attachment.filename.lower().endswith(image) for image in image_types):
+            await attachment.save(attachment.filename)
+            image_name = str(ctx.message.created_at) + attachment.filename
+            attachments.append(image_name)
+
+    for name in attachments:
+        if name == "":
+            await ctx.send("An error has occured, the image was not saved")
+
+    # await ctx.send("Your image has been saved as {}\n\nWas this your image?".format(image_name))
+    return json.dumps(attachments)
+    # await ctx.send(file=discord.File(image_name))
+
+
 # testing saving quotes
 @bot.command()
 async def save(ctx, user: discord.Member, msg):
-    quote = {"msg": "<{}> ".format(user.display_name) + msg}
+    quote = {
+        "msg": msg,
+        "display_name": user.display_name,
+        "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
+        "attachments": await save_attachments(ctx),
+    }
     server_id = str(ctx.message.guild.id)
     mem_id = str(user.id)
 
@@ -220,11 +247,14 @@ async def quote_last_hundred(ctx):
 async def qguess(ctx):
     with open(save_loc) as json_file:
         data = json.load(json_file)
-        quotes = data["quotes"]
+        members = data[str(ctx.message.guild.id)]
 
     # selecting the random quote
-    quote_selected = random.choice(quotes)
-    answerid = quote_selected["userid"]
+    random_member = random.choice(list(members))  # converts members into a list
+    quote_selected = random.choice(members[random_member]["quotes"])
+
+    # answer is the chosen member's quote
+    answerid = random_member
 
     await ctx.send(quote_selected["msg"])
     await ctx.send("Guess whose quote this is! ")
@@ -235,7 +265,7 @@ async def qguess(ctx):
         guessid = nums_only(guess.content)
     except asyncio.TimeoutError:
         # prevent always waiting for user input
-        ctx.send("You have run out of time to guess.")
+        await ctx.send("You have run out of time to guess.")
         return
 
     if guessid == answerid:
