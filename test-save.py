@@ -98,8 +98,8 @@ async def save_attachments(ctx):
     attachments = []
     for attachment in ctx.message.attachments:
         if any(attachment.filename.lower().endswith(image) for image in image_types):
-            await attachment.save(attachment.filename)
             image_name = str(ctx.message.created_at) + attachment.filename
+            await attachment.save(attachment.filename)
             attachments.append(image_name)
 
     for name in attachments:
