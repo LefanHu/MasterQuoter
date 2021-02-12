@@ -106,9 +106,24 @@ async def save_attachments(ctx):
         if name == "":
             await ctx.send("An error has occured, the image was not saved")
 
-    # await ctx.send("Your image has been saved as {}\n\nWas this your image?".format(image_name))
     return json.dumps(attachments)
     # await ctx.send(file=discord.File(image_name))
+
+
+@bot.command()
+async def load(ctx, extension):
+    bot.load_extension(f"cogs.{extension}")
+
+
+@bot.command()
+async def unload(ctx, extension):
+    bot.unload_extension(f"cogs.{extension}")
+
+
+@bot.command()
+async def reload(ctx, extension):
+    bot.load_extension(f"cogs.{extension}")
+    bot.unload_extension(f"cogs.{extension}")
 
 
 # testing saving quotes
