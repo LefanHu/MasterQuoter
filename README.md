@@ -17,7 +17,7 @@ Work-in-progress :) (by 2 idiots in high school)
 - Fix first time quote initialization. If quotes.json is empty but still exists, bot will not work.
 - Add a buffer variable for quotes to avoid opening and closing the quotes file for every single quote.
 - Save attachments as an actual json array instead of a json array as a string.
-- Save attachments with message.created_at + attachment.filename instead of just attachment.filename since most of the time it's simply just "unknown.png" for screenshots.
+- Save attachments with message.created_at + attachment.filename instead of just attachment.filename since most of the time it's simply just "unknown.png" for screenshots
 
 ## Future plans
 - ~~Implement listing quotes for specific people~~
@@ -31,7 +31,7 @@ Work-in-progress :) (by 2 idiots in high school)
 
 
 ## Note to contributers
-- ~~Do not use client.run(), ruse bot.run() instead as "bot" is a subclass of "client. bot.run() can do everything client can do and more.~~
+- ~~Do not use client.run(), use bot.run() instead as "bot" is a subclass of "client. bot.run() can do everything client can do and more.~~
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
