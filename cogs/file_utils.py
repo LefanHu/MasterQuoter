@@ -29,7 +29,10 @@ class File(commands.Cog):
     def get_env(self, variable_name):
         return os.getenv(f"{variable_name}")
 
+    def file_name(self, file):
+        return os.path.basename(file)
+
 
 def setup(client):
     client.add_cog(File(client))
-    print(f"Cog 'file_utils' has been loaded")
+    print(f"Cog '{os.path.basename(__file__)}' has been loaded")

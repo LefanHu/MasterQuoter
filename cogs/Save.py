@@ -108,4 +108,4 @@ class Save(commands.Cog):
 
 def setup(client):
     client.add_cog(Save(client))
-    print(f"Cog 'Saving' has been loaded")
+    print(f"Cog '{File(client).file_name(__file__)}' has been loaded")

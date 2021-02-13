@@ -30,4 +30,4 @@ class Owner(commands.Cog):
 
 def setup(client):
     client.add_cog(Owner(client))
-    print(f"Cog 'Owner' has been loaded")
+    print(f"Cog '{os.path.basename(__file__)}' has been loaded")
