@@ -5,6 +5,7 @@ from cogs.file_utils import File
 from cogs.utils import utils
 import math
 import datetime
+import traceback
 
 
 class error_handle(commands.Cog):
@@ -44,7 +45,6 @@ class error_handle(commands.Cog):
 
     async def compose_report(self, ctx, error):
         time = ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")
-        traceback = error
         msg = ctx.message.content
         server = ctx.message.guild.id
         channel = ctx.message.channel.id
@@ -64,7 +64,12 @@ class error_handle(commands.Cog):
         )
 
         embed.add_field(name="**TIME**", value=time, inline=False)
-        embed.add_field(name="**TRACEBACK**", value=error, inline=False)
+        embed.add_field(name="**ERROR**", value=error, inline=False)
+        embed.add_field(
+            name="**TRACEBACK**",
+            value=traceback.format_exc(),
+            inline=False,  # currently doesn't work :(
+        )
         embed.add_field(name="**MESSAGE**", value=f"Msg: {msg}", inline=False)
         embed.add_field(
             name="**CONTEXT DATA**",
