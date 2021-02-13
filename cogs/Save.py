@@ -46,28 +46,20 @@ class Save(commands.Cog):
         self.quote_buffer.append(array)
         await ctx.send("quote has been appended")
 
-    @tasks.loop(seconds=10.0)
-    async def activated():
-        print("bot running")
-
     # Clears buffer
     @tasks.loop(seconds=2.0)
     async def save_quotes(self, quote_list=None):
-        print("loop started")
         save_location = self.save_location
 
         # Default quote list
         if quote_list is None:
             quote_list = self.quote_buffer
-            print(f"quote buffer = {self.quote_buffer}")
 
         # If file doesn't exist, create one
         if File(self.client).file_exists(save_location):
-            print("file exists")
             pass
         else:  # create new file
             template_file = File(self.client).get_env("TEMPLATE_FILE")
-            print("file doesn't exist")
             with open(template_file) as json_file:
                 file = json.load(json_file)
                 File(self.client).write_json(file, save_location)
