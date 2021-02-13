@@ -67,7 +67,9 @@ class error_handle(commands.Cog):
         embed.add_field(name="**ERROR**", value=error, inline=False)
         embed.add_field(
             name="**TRACEBACK**",
-            value=traceback.format_exc(),
+            value="\n".join(
+                traceback.format_exception(type(error), error, error.__traceback__)
+            )[-1024:],
             inline=False,  # currently doesn't work :(
         )
         embed.add_field(name="**MESSAGE**", value=f"Msg: {msg}", inline=False)
