@@ -29,6 +29,7 @@ Work-in-progress :) (by 2 idiots in high school)
 - Add feature to associate quote snippets with others users included in message snippet
 - Add attachment quoting support (ability to quote screenshots, sound files or picture attachments)
 - Add "nice navigation" (page flipping for listing quotes)
+- Comic strip or user friendly help bar OR possibly a pre-drawn image help bar
 
 
 ## Note to contributers
