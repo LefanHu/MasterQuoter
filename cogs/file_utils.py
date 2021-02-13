@@ -22,10 +22,14 @@ class File(commands.Cog):
             and os.path.getsize(self.save_location) > 0
         )
 
-    def write_json(data, filename):
+    def write_json(self, data, filename):
         with open(filename, "w") as f:
             json.dump(data, f, indent=4)
+
+    def get_env(self, variable_name):
+        return os.getenv(f"{variable_name}")
 
 
 def setup(client):
     client.add_cog(File(client))
+    print(f"Cog 'file_utils' has been loaded")
