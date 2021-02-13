@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import os
 
 
 class Example(commands.Cog):
@@ -9,4 +10,4 @@ class Example(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Example(bot))
-    print(f"Cog 'Example' has been loaded")
+    print(f"Cog '{os.path.basename(__file__)}' has been loaded")
