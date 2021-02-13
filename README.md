@@ -75,3 +75,5 @@ Work-in-progress :) (by 2 idiots in high school)
 [very good exmample of how cogs can be used in discord.py & per serve bot prefixes](https://gist.github.com/EvieePy/d78c061a4798ae81be9825468fe146be)
 
 [example of a help.py cog](https://gist.github.com/OneEyedKnight/41ba697ae4284dc5b4ea15c09fb1e730)
+
+[error handling example cog](https://gist.github.com/AileenLumina/510438b241c16a2960e9b0b014d9ed06)
