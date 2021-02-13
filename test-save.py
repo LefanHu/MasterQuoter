@@ -51,6 +51,8 @@ def write_json(data, filename=save_loc):
 # supported image saving types
 image_types = ["png", "jpeg", "gif", "jpg"]
 
+bot.remove_command('help')
+
 
 # ON READY
 @bot.event
