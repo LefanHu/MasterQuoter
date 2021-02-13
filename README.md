@@ -72,4 +72,6 @@ Work-in-progress :) (by 2 idiots in high school)
 
 [making a cog admin only](https://stackoverflow.com/questions/63081648/how-to-make-a-discord-py-cog-admin-only)
 
-[very good exmample of how cogs can be used in discord.py](https://gist.github.com/EvieePy/d78c061a4798ae81be9825468fe146be)
+[very good exmample of how cogs can be used in discord.py & per serve bot prefixes](https://gist.github.com/EvieePy/d78c061a4798ae81be9825468fe146be)
+
+[example of a help.py cog](https://gist.github.com/OneEyedKnight/41ba697ae4284dc5b4ea15c09fb1e730)
