@@ -26,6 +26,11 @@ class File(commands.Cog):
         with open(filename, "w") as f:
             json.dump(data, f, indent=4)
 
+    def read_json(self, filename):
+        with open(filename, "r") as f:
+            data = json.load(f)
+        return data
+
     def get_env(self, variable_name):
         return os.getenv(f"{variable_name}")
 
