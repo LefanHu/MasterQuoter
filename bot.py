@@ -102,6 +102,9 @@ async def qlast(ctx, user: discord.Member, prev=0):
         )
         return
     else:
+        #Date of message in UTC
+        messageDate = msgs_from_user[prev].created_at.strftime("%m/%d/%Y, %H:%M:%S UTC")
+        
         await save(ctx, user, msgs_from_user[prev].content)
 
 
