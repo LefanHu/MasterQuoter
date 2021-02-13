@@ -3,8 +3,8 @@ from discord.ext import commands
 
 
 class Example(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -15,6 +15,6 @@ class Example(commands.Cog):
         await ctx.send("Pong!")
 
 
-def setup(client):
-    client.add_cog(Example(client))
+def setup(bot):
+    bot.add_cog(Example(bot))
     print(f"Cog 'Example' has been loaded")

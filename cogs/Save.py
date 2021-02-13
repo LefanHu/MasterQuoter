@@ -35,6 +35,7 @@ class Save(commands.Cog):
             "display_name": user.display_name,
             "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
             "attachments": await self.save_attachments(ctx.message),
+            "channel": ctx.message.channel,
         }
         server_id = str(ctx.message.guild.id)
         mem_id = str(user.id)
