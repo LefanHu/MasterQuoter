@@ -184,10 +184,15 @@ async def qall(ctx):
         # Outputting all the quotes as one single string
         # ENSURE THIS DOESN'T EXCEED DISCORD MESSAGE LIMIT
         output = "All Quotes Listed Below: \n"
+        
         for message in messages:
             output = output + ("%s \n\n" % (message["msg"]))
 
-    await ctx.send(output)
+    #Ensuring the discord message limit is not reached
+    if len(output) > 1900:
+        await ctx.send("Quote word limit reached.")
+    else:
+        await ctx.send(output)
 
 
 # Outputting all quotes of a specific user
