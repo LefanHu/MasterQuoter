@@ -89,7 +89,6 @@ async def qlast(ctx, user: discord.Member, prev=0):
     msgs_from_user = []
     for message in messages:
         if message.author.id == user.id:
-
             msgs_from_user.append(message)
 
     # if not within last 100 messages, deal with issue, otherwise... save quote
@@ -102,9 +101,9 @@ async def qlast(ctx, user: discord.Member, prev=0):
         )
         return
     else:
-        #Date of message in UTC
+        # Date of message in UTC
         messageDate = msgs_from_user[prev].created_at.strftime("%m/%d/%Y, %H:%M:%S UTC")
-        
+
         await save(ctx, user, msgs_from_user[prev].content)
 
 
@@ -184,11 +183,11 @@ async def qall(ctx):
         # Outputting all the quotes as one single string
         # ENSURE THIS DOESN'T EXCEED DISCORD MESSAGE LIMIT
         output = "All Quotes Listed Below: \n"
-        
+
         for message in messages:
             output = output + ("%s \n\n" % (message["msg"]))
 
-    #Ensuring the discord message limit is not reached
+    # Ensuring the discord message limit is not reached
     if len(output) >= 2000:
         await ctx.send("Quote word limit reached.")
     else:
@@ -208,7 +207,7 @@ async def qlist(ctx, user: discord.Member):
     # if there are no quotes from specified user
     if not output:
         await ctx.send("There are no quotes from this user")
-    #Ensuring the discord message limit is not reached
+    # Ensuring the discord message limit is not reached
     elif len(output) >= 2000:
         await ctx.send("Quote word limit reached.")
     else:
