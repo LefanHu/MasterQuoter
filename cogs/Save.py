@@ -1,4 +1,3 @@
-from operator import and_
 import discord
 from discord.ext import commands, tasks
 import json
