@@ -8,8 +8,8 @@ class Example(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def help(self, ctx)
-            await ctx.send("hi")
+    async def help(self, ctx):
+        await ctx.send("hi")
 
 
 def setup(bot):
