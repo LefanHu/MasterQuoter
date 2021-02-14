@@ -21,8 +21,8 @@ class error_handle(commands.Cog):
         # get the original exception
         error = getattr(error, "original", error)
 
-        # if isinstance(error, commands.CommandNotFound):
-        #    raise commands.CommandNotFound
+        if isinstance(error, commands.CommandNotFound):
+            raise commands.CommandNotFound
 
         if isinstance(error, commands.DisabledCommand):
             await ctx.send("This command has been disabled.")
