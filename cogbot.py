@@ -9,12 +9,6 @@ DISCORD_TOKEN = File(bot).get_env("DISCORD_TOKEN")
 
 
 @bot.command()
-async def menu_example(ctx):
-    m = MyMenu()
-    await m.start(ctx)
-
-
-@bot.command()
 async def load(ctx, extension):
     bot.load_extension(f"cogs.{extension}")
 
