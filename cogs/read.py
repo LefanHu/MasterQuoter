@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 from cogs.file_utils import File
 import os
-import json
 import datetime
+from menu import MyMenu
 
 
 class read(commands.Cog):
@@ -20,13 +20,22 @@ class read(commands.Cog):
         i = 0
 
         displayed_quotes = []
+        pages = []
         while i < len(quotes):
             displayed_quotes.append(quotes[i])
             if len(displayed_quotes) == self.quotes_per_page:
-                await ctx.send(embed=await self.compose_page(displayed_quotes))
-                return
+                # await ctx.send(embed=await self.compose_page(displayed_quotes))
+                # return
+                page = await self.compose_page(displayed_quotes)
+                pages.append(page)
+                displayed_quotes.clear()
             i += 1
-        await ctx.send(embed=await self.compose_page(displayed_quotes))
+        # await ctx.send(embed=await self.compose_page(displayed_quotes))
+        last_page = await self.compose_page(displayed_quotes)
+        pages.append(last_page)
+
+        m = MyMenu(pages)
+        await m.start(ctx)
 
     async def compose_page(self, quote_list):
         embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
@@ -53,6 +62,20 @@ class read(commands.Cog):
             )
 
         return embed
+
+    async def compose_list(self, list, page=1):
+
+        embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
+
+        embed.set_author(
+            name=f"{self.bot.user}",
+            url="https://discordapp.com",
+            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
+        )
+        embed.set_footer(
+            text="Brought to you by team 'MasterBaiters'",
+            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
+        )
 
 
 def setup(bot):
