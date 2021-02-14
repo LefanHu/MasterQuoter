@@ -189,7 +189,7 @@ async def qall(ctx):
             output = output + ("%s \n\n" % (message["msg"]))
 
     #Ensuring the discord message limit is not reached
-    if len(output) > 1900:
+    if len(output) >= 2000:
         await ctx.send("Quote word limit reached.")
     else:
         await ctx.send(output)
@@ -208,6 +208,9 @@ async def qlist(ctx, user: discord.Member):
     # if there are no quotes from specified user
     if not output:
         await ctx.send("There are no quotes from this user")
+    #Ensuring the discord message limit is not reached
+    elif len(output) >= 2000:
+        await ctx.send("Quote word limit reached.")
     else:
         await ctx.send(output)
 
