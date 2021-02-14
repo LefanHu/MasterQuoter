@@ -46,9 +46,9 @@ class error_handle(commands.Cog):
     async def compose_report(self, ctx, error):
         time = ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")
         msg = ctx.message.content
-        server = ctx.message.guild.id
-        channel = ctx.message.channel.id
-        member = ctx.message.author.id
+        server = ctx.message.guild
+        channel = ctx.message.channel
+        member = ctx.message.author
         name = ctx.message.author.display_name
 
         embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
@@ -75,7 +75,7 @@ class error_handle(commands.Cog):
         embed.add_field(name="**MESSAGE**", value=f"Msg: {msg}", inline=False)
         embed.add_field(
             name="**CONTEXT DATA**",
-            value=f"Server: {server}\nChannel: {channel}\nMember: {member}",
+            value=f"Server: {server.id} [{server.name}]\nChannel: {channel.id} [{channel.name}]\nMember: {member.id} [{member.display_name}]",
             inline=False,
         )
 
