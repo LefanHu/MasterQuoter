@@ -43,7 +43,7 @@ class read(commands.Cog):
         embed.set_author(
             name=f"{self.bot.user}",
             url="https://discordapp.com",
-            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
+            icon_url=self.bot.user.avatar_url,
         )
         embed.set_footer(
             text="Brought to you by team 'MasterBaiters'",
