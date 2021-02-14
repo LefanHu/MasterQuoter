@@ -6,10 +6,12 @@ import os
 class Example(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.bot.remove_command("help")
 
-    @commands.command()
-    async def help(self, ctx):
-        await ctx.send("hi")
+    @commands.Cog.listener()
+    async def on_ready(self):
+            if not self.bot.ready:
+                self.bot.cogs_ready.ready_up("help")
 
 
 def setup(bot):
