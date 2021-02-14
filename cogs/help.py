@@ -8,11 +8,6 @@ class Example(commands.Cog):
         self.bot = bot
         self.bot.remove_command("help")
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-            if not self.bot.ready:
-                self.bot.cogs_ready.ready_up("help")
-
 
 def setup(bot):
     bot.add_cog(Example(bot))

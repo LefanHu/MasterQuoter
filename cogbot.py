@@ -2,7 +2,6 @@ import discord
 import os
 from discord.ext import commands
 from cogs.file_utils import File
-from menu import MyMenu
 
 bot = commands.Bot(command_prefix=File(commands.bot).get_env("COMMAND_PREFIX"))
 DISCORD_TOKEN = File(bot).get_env("DISCORD_TOKEN")

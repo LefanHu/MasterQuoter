@@ -4,7 +4,7 @@ import os
 from cogs.file_utils import File
 from cogs.utils import utils
 import math
-import datetime
+from datetime import datetime as dt
 import traceback
 
 
@@ -22,7 +22,7 @@ class error_handle(commands.Cog):
         error = getattr(error, "original", error)
 
         if isinstance(error, commands.CommandNotFound):
-            raise commands.CommandNotFound
+            return
 
         if isinstance(error, commands.DisabledCommand):
             await ctx.send("This command has been disabled.")
@@ -44,8 +44,8 @@ class error_handle(commands.Cog):
         # await ctx.send("error sent to developer")
 
     @commands.Cog.listener()
-    async def on_error(self, ctx, error):
-        await error_handle.compose_report(self, ctx, error)
+    async def on_error(self, err, *args, **kwargs):
+        pass
 
     async def compose_report(self, ctx, error):
         time = ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")
@@ -53,18 +53,19 @@ class error_handle(commands.Cog):
         server = ctx.message.guild
         channel = ctx.message.channel
         member = ctx.message.author
-        name = ctx.message.author.display_name
 
-        embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
+        embed = discord.Embed(
+            timestamp=dt.utcfromtimestamp(dt.timestamp(dt.now())), colour=0x00FFFF
+        )
 
         embed.set_author(
             name="ERROR!",
             url="https://discordapp.com",
-            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
+            icon_url=self.bot.user.avatar_url,
         )
         embed.set_footer(
-            text="footer text",
-            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
+            text="Error Report #",
+            icon_url=self.bot.user.avatar_url,
         )
 
         embed.add_field(name="**TIME**", value=time, inline=False)
@@ -74,7 +75,7 @@ class error_handle(commands.Cog):
             value="\n".join(
                 traceback.format_exception(type(error), error, error.__traceback__)
             )[-1024:],
-            inline=False,  # currently doesn't work :(
+            inline=False,
         )
         embed.add_field(name="**MESSAGE**", value=f"Msg: {msg}", inline=False)
         embed.add_field(

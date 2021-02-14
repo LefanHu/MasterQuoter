@@ -9,7 +9,7 @@ class Save(commands.Cog):
         self.client = client
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.save_location = File(self.client).get_env("SAVE_LOCATION")
-        save = self.save_quotes.start()
+        self.save_quotes.start()
 
         self.quote_buffer = []
 
