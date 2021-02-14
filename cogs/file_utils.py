@@ -26,7 +26,9 @@ class File(commands.Cog):
         with open(filename, "w") as f:
             json.dump(data, f, indent=4)
 
-    def read_json(self, filename=os.getenv("SAVE_LOCATION")):
+    def read_json(self, filename=None):
+        if filename == None:
+            filename = os.getenv("SAVE_LOCATION")
         with open(filename, "r") as f:
             data = json.load(f)
         return data
