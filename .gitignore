@@ -4,5 +4,4 @@ test-bot.py
 token.txt
 quotes.json
 test.py
-.env
 cogs/__pycache__

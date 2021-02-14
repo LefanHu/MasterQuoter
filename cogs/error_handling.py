@@ -41,7 +41,11 @@ class error_handle(commands.Cog):
             return
 
         await error_handle.compose_report(self, ctx, error)
-        await ctx.send("error sent to developer")
+        # await ctx.send("error sent to developer")
+
+    @commands.Cog.listener()
+    async def on_error(self, ctx, error):
+        await error_handle.compose_report(self, ctx, error)
 
     async def compose_report(self, ctx, error):
         time = ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")
