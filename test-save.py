@@ -65,6 +65,19 @@ async def on_ready():
 async def ping(ctx):
     await ctx.channel.send("pong")
 
+@bot.command()
+async def help(ctx):
+    await ctx.send("``HELP\n\n\n\n\n\n\n\n\n\nTHIS IS A HELP THING\n``")
+    await ctx.send("============\n"+
+        "|                             |\n"+
+        "|         HELP!         |\n"+
+        "|                             |\n"+
+        "============\n"+
+        "(\\\__/) ||")
+    await ctx.send("(•ㅅ•)  ||\n/ 　 づ")
+
+
+
 
 # Quoting last message from specified user
 @bot.command()
