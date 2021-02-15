@@ -17,7 +17,7 @@ class Save(commands.Cog):
     @commands.command(aliases=["slh"])
     async def save_last_hundred(self, ctx):
         """This command lets you save THE LAST HUNDRED quotes!\n"""
-            
+
         messages = await ctx.channel.history(limit=100).flatten()
         for message in messages:
             await self.quote(ctx=ctx, user=message.author, msg=message.content)
@@ -42,7 +42,7 @@ class Save(commands.Cog):
         quote = {
             "msg": msg,
             "display_name": user.display_name,
-            "avatar_url": user.avatar_url,
+            "avatar_url": str(user.avatar_url),
             "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
             "attachments": await self.save_attachments(ctx.message),
             "channel": ctx.message.channel.name,

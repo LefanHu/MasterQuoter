@@ -9,36 +9,10 @@
                     "attachments": "[]"
                 },
                 {
-                    "msg": "\"first quote\"",
+                    "msg": "test",
                     "display_name": "Alex3000",
-                    "time": "02/15/2021, 03:54:17",
-                    "attachments": "[]",
-                    "channel": "general"
-                },
-                {
-                    "msg": "#1 quote",
-                    "display_name": "Alex3000",
-                    "time": "02/15/2021, 03:55:47",
-                    "attachments": "[]",
-                    "channel": "general"
-                },
-                {
-                    "msg": "interesting",
-                    "display_name": "Alex3000",
-                    "time": "02/15/2021, 04:00:28",
-                    "attachments": "[]",
-                    "channel": "general"
-                }
-            ]
-        }
-    },
-    "810721182029971476": {
-        "324917494005366784": {
-            "quotes": [
-                {
-                    "msg": "interesting",
-                    "display_name": "Cuddles",
-                    "time": "02/15/2021, 04:00:28",
+                    "avatar_url": "https://cdn.discordapp.com/avatars/313781087945883651/ca9b3525171a7a64f83f57946e3136a4.webp?size=1024",
+                    "time": "02/15/2021, 21:29:06",
                     "attachments": "[]",
                     "channel": "general"
                 }
