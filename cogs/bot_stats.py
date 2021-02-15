@@ -25,7 +25,7 @@ class _bot_stats(commands.Cog):
         for stat in self.tracked_statuses:
             try:
                 stat_value = 0 if self.stats[stat] is None else self.stats[stat]
-                print(stat_value)
+                # print(f'{stat} = {stat_value}')
             except KeyError:
                 stat_value = 0
             self.tracked_statuses[stat] = stat_value
