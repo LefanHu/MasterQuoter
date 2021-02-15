@@ -76,9 +76,8 @@ class Help(Cog):
         embed.add_field(name="Command description", value=command.help)
         await ctx.send(embed=embed)
 
-    @command(name="help", brief="shows this message")
+    @command(name="help")
     async def show_help(self, ctx, cmd: Optional[str]):
-        """description of help command"""
         if cmd is None:
             menu = MenuPages(
                 source=HelpMenu(ctx, list(self.bot.commands)),
