@@ -47,6 +47,7 @@ class error_handle(commands.Cog):
     async def on_error(self, err, *args, **kwargs):
         pass
 
+    @commands.command(hidden=True)
     async def compose_report(self, ctx, error):
         time = ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")
         msg = ctx.message.content
@@ -54,9 +55,7 @@ class error_handle(commands.Cog):
         channel = ctx.message.channel
         member = ctx.message.author
 
-        embed = discord.Embed(
-            timestamp=dt.utcfromtimestamp(dt.timestamp(dt.now())), colour=0x00FFFF
-        )
+        embed = discord.Embed(timestamp=dt.utcnow(), colour=0x00FFFF)
 
         embed.set_author(
             name="ERROR!",
