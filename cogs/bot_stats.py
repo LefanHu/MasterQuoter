@@ -47,6 +47,11 @@ class _bot_stats(commands.Cog):
         if ctx.command == "compose_report":
             _bot_stats.tracked_statuses["err_report_count"] += 1
 
+    @commands.Cog.listener()
+    async def on_command_completion(self, ctx):
+        if ctx.command == "quote":
+            _bot_stats.tracked_statuses["quotes_saved"] += 1
+
     @tasks.loop(seconds=10.0)
     async def update_stats(self):
         _bot_stats.tracked_statuses["member_count"] = await self.utils.member_count()
