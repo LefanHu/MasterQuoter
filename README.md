@@ -32,8 +32,10 @@ Work-in-progress :) (by 2 idiots in high school)
 - Comic strip or user friendly help bar OR possibly a pre-drawn image help bar
 
 
-## Note to contributers
-- ~~Do not use client.run(), use bot.run() instead as "bot" is a subclass of "client. bot.run() can do everything client can do and more.~~
+## Required Packages
+- psutil [pip install psutil](https://pypi.org/project/psutil/)
+- discord.py [pip install discord.py](https://pypi.org/project/discord.py/)
+- python-dotenv [pip install python-dotenv](https://pypi.org/project/python-dotenv/)
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)

@@ -7,7 +7,7 @@ class utils(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(hidden=True)
     async def dm(self, user: discord.Member, embed):
         if user.dm_channel == None:
             channel = await user.create_dm()
