@@ -1,8 +1,5 @@
 bot-env
 discord.log
-test-bot.py
-token.txt
-quotes.json
-stats.json
 test.py
 cogs/__pycache__
+/data

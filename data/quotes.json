@@ -1,0 +1,48 @@
+{
+    "795405783155343361": {
+        "313781087945883651": {
+            "quotes": [
+                {
+                    "msg": "First Quote",
+                    "display_name": "Alex3000",
+                    "time": "02/13/2021, 04:21:56",
+                    "attachments": "[]"
+                },
+                {
+                    "msg": "\"first quote\"",
+                    "display_name": "Alex3000",
+                    "time": "02/15/2021, 03:54:17",
+                    "attachments": "[]",
+                    "channel": "general"
+                },
+                {
+                    "msg": "#1 quote",
+                    "display_name": "Alex3000",
+                    "time": "02/15/2021, 03:55:47",
+                    "attachments": "[]",
+                    "channel": "general"
+                },
+                {
+                    "msg": "interesting",
+                    "display_name": "Alex3000",
+                    "time": "02/15/2021, 04:00:28",
+                    "attachments": "[]",
+                    "channel": "general"
+                }
+            ]
+        }
+    },
+    "810721182029971476": {
+        "324917494005366784": {
+            "quotes": [
+                {
+                    "msg": "interesting",
+                    "display_name": "Cuddles",
+                    "time": "02/15/2021, 04:00:28",
+                    "attachments": "[]",
+                    "channel": "general"
+                }
+            ]
+        }
+    }
+}
