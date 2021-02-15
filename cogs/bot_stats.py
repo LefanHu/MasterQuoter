@@ -14,7 +14,7 @@ class _bot_stats(commands.Cog):
         self.stats = self.file.read_json(self.stat_file)
 
         self.tracked_statuses = {
-            "servers_count": 0,
+            "server_count": 0,
             "servers_joined": 0,
             "member_count": 0,
             "quotes_saved": 0,
@@ -56,7 +56,7 @@ class _bot_stats(commands.Cog):
     @tasks.loop(minutes=5.0)
     async def update_stats(self):
         self.tracked_statuses["member_count"] = await self.utils.member_count()
-        self.tracked_statuses["servers_count"] = len(self.bot.guilds)
+        self.tracked_statuses["server_count"] = len(self.bot.guilds)
         self.file.write_json(self.tracked_statuses, self.stat_file)
 
     @update_stats.before_loop
