@@ -16,6 +16,14 @@ class utils(commands.Cog):
 
         await channel.send(embed=embed)
 
+    async def member_count(self):
+        servers = self.bot.guilds
+        members = 0
+        for server in servers:
+            members += len(server.members)
+
+        return members
+
 
 def setup(bot):
     bot.add_cog(utils(bot))
