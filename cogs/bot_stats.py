@@ -10,6 +10,7 @@ class _bot_stats(commands.Cog):
         "servers_joined": 0,
         "member_count": 0,
         "quotes_saved": 0,
+        "commands_processed": 0,
         "err_report_count": 0,
     }
 
@@ -23,10 +24,12 @@ class _bot_stats(commands.Cog):
 
         for stat in _bot_stats.tracked_statuses:
             try:
-                stat_value = self.stats[stat]
-            except KeyError as err:
-                stat_value = None
+                stat_value = 0 if self.stats[stat] is None else self.stats[stat]
+            except KeyError:
+                stat_value = 0
             _bot_stats.tracked_statuses[stat] = stat_value
+
+        self.update_stats.start()
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -34,13 +37,21 @@ class _bot_stats(commands.Cog):
         _bot_stats.tracked_statuses["servers_joined"] += 1
 
     @commands.Cog.listener()
-    async def on_server_removed(self):
+    async def on_server_removed(self, guild):
         _bot_stats.tracked_statuses["server_count"] -= 1
 
-    @tasks.loop(seconds=60.0)
+    @commands.Cog.listener()
+    async def on_command(self, ctx):
+        _bot_stats.tracked_statuses["commands_processed"] += 1
+
+        if ctx.command == "compose_report":
+            _bot_stats.tracked_statuses["err_report_count"] += 1
+
+    @tasks.loop(seconds=10.0)
     async def update_stats(self):
-        _bot_stats.tracked_statuses["member_count"] = self.utils.member_count()
-        self.file.write_json(self.stats, self.stat_file)
+        _bot_stats.tracked_statuses["member_count"] = await self.utils.member_count()
+        _bot_stats.tracked_statuses["servers_count"] = len(self.bot.guilds)
+        self.file.write_json(_bot_stats.tracked_statuses, self.stat_file)
 
 
 def setup(bot):
