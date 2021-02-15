@@ -19,7 +19,7 @@ class Backup(commands.Cog):
         src = os.getenv("SAVE_LOCATION")
         file_name = str(dt.utcnow()) + "quotes.json"
         dst = os.getenv("BACKUP_LOCATION") + file_name
-        print(f"src = {src}\ndst = {dst}")
+        # print(f"src = {src}\ndst = {dst}")
 
         copyfile(src, dst)
 
