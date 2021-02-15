@@ -2,4 +2,3 @@ bot-env
 discord.log
 test.py
 cogs/__pycache__
-/data
