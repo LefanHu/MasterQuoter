@@ -20,7 +20,7 @@ class utils(commands.Cog):
         servers = self.bot.guilds
         members = 0
         for server in servers:
-            members += len(server.members)
+            members += server.member_count
 
         return members
 

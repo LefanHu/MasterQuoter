@@ -32,7 +32,7 @@ class Example(commands.Cog):
 
         fields = [
             ("Bot version", "0.0.1", False),
-            ("Python version", python_version, False),
+            ("Python version", python_version(), False),
             ("discord.py version", discord_version, False),
             ("Uptime", uptime, False),
             ("CPU time", cpu_time, False),
