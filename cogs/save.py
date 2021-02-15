@@ -16,6 +16,8 @@ class Save(commands.Cog):
     # getting a sample dataset
     @commands.command(aliases=["slh"])
     async def save_last_hundred(self, ctx):
+        """This command lets you save THE LAST HUNDRED quotes!\n"""
+            
         messages = await ctx.channel.history(limit=100).flatten()
         for message in messages:
             await self.quote(ctx=ctx, user=message.author, msg=message.content)
@@ -36,6 +38,7 @@ class Save(commands.Cog):
     # Adds one quote to quote buffer
     @commands.command()
     async def quote(self, ctx, user: discord.Member, *, msg):
+        """This handy dandy command allows you to save  things your friends have said!"""
         quote = {
             "msg": msg,
             "display_name": user.display_name,
