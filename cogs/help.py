@@ -76,8 +76,9 @@ class Help(Cog):
         embed.add_field(name="Command description", value=command.help)
         await ctx.send(embed=embed)
 
-    @command(name="help", help="shows this message")
+    @command(name="help", brief="shows this message")
     async def show_help(self, ctx, cmd: Optional[str]):
+        """description of help command"""
         if cmd is None:
             menu = MenuPages(
                 source=HelpMenu(ctx, list(self.bot.commands)),
@@ -92,7 +93,7 @@ class Help(Cog):
             else:
                 await ctx.send("That command does not exist.")
 
-    @command(aliases=["about_bot", "bot_info"])
+    @command(aliases=["about_bot", "bot_info"], brief="Shows info about this bot")
     async def about(self, ctx):
         embed = Embed(
             title="MasterQuoter Stats",
