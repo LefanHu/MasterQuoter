@@ -45,12 +45,12 @@ class _bot_stats(commands.Cog):
     async def on_command(self, ctx):
         self.tracked_statuses["commands_processed"] += 1
 
-        if ctx.command == "compose_report":
+        if ctx.command.name == "compose_report":
             self.tracked_statuses["err_report_count"] += 1
 
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
-        if ctx.command == "quote":
+        if ctx.command.name == "quote":
             self.tracked_statuses["quotes_saved"] += 1
 
     @tasks.loop(minutes=5.0)
