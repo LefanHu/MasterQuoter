@@ -39,6 +39,7 @@ class Save(commands.Cog):
         quote = {
             "msg": msg,
             "display_name": user.display_name,
+            "avatar_url": user.avatar_url,
             "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
             "attachments": await self.save_attachments(ctx.message),
             "channel": ctx.message.channel.name,
