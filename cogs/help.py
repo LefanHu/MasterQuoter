@@ -43,6 +43,7 @@ class HelpMenu(ListPageSource):
             description="Welcome to MasterQuoter's help dialog!",
             colour=self.ctx.author.colour,
         )
+
         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
         embed.set_footer(
             text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} commands."
@@ -73,11 +74,13 @@ class Help(Cog):
             description=syntax(command),
             colour=ctx.author.colour,
         )
+
         embed.add_field(name="Command description", value=command.help)
         await ctx.send(embed=embed)
 
-    @command(name="help", help="shows this message")
+    @command(name="help", help="Hi if you need help this is help.")
     async def show_help(self, ctx, cmd: Optional[str]):
+        """If you need help, this can help you."""
         if cmd is None:
             menu = MenuPages(
                 source=HelpMenu(ctx, list(self.bot.commands)),
