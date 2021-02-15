@@ -124,7 +124,7 @@ class Help(Cog):
         ]
 
         for name, value, inline in fields:
-            embed.add_field(name=name, value=value, inline=inline)
+            embed.add_field(name=name, value=f"```{value}```", inline=inline)
 
         await ctx.send(embed=embed)
 
