@@ -11,9 +11,10 @@ class events(commands.Cog):
     async def on_ready(self):
         print("Bot is online.")
 
-    @commands.command()
+    @commands.command(brief="Shows the latency of this bot")
     async def ping(self, ctx):
-        await ctx.send("Pong!")
+        "This shows the DWSP latency (Discord WebSocket protocol)"
+        await ctx.send(f"Pong! Latency = {self.bot.latency * 1000}ms")
 
 
 def setup(bot):
