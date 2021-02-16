@@ -26,6 +26,15 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
+    @commands.command()
+    async def user_list(self, ctx, user: discord.Member):
+        data = self.file.read_json(self.save_location)
+        quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+        output = ""
+        output = output + ("%s \n" % (quotes["msg"]))
+
+        await ctx.send(output)
+
     async def compose_page(self, quote_list):
         embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
 
