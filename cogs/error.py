@@ -25,20 +25,17 @@ class error_handle(commands.Cog):
 
         if isinstance(error, commands.CommandNotFound):
             return
-
-        if isinstance(error, commands.DisabledCommand):
+        elif isinstance(error, commands.DisabledCommand):
             await ctx.send("This command has been disabled.")
             return
-
-        if isinstance(error, commands.CommandOnCooldown):
+        elif isinstance(error, commands.CommandOnCooldown):
             await ctx.send(
                 "This command is on cooldown, please retry in {}s.".format(
                     math.ceil(error.retry_after)
                 )
             )
             return
-
-        if isinstance(error, commands.MissingRequiredArgument):
+        elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please pass in all required arguments.")
             return
 
