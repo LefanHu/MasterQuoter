@@ -32,6 +32,12 @@ class _bot_stats(commands.Cog):
 
         self.update_stats.start()
 
+    async def read_stat(self, stat):
+        try:
+            return self.tracked_statuses[stat]
+        except KeyError:
+            return 0
+
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         self.tracked_statuses["server_count"] += 1

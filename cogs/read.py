@@ -34,6 +34,9 @@ class read(commands.Cog):
     async def all_from_member(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
 
+        if type(user) is int:
+            return
+
         quotes = []
         for server in data:
             if not str(user.id) in data[str(server)]:
@@ -43,7 +46,7 @@ class read(commands.Cog):
                 quotes += data[str(server)][str(user.id)]["quotes"]
 
         if not quotes:
-            await ctx.send(f"There are no quotes from {user.mention}")
+            await ctx.send(f"There are no quotes from this user")
             return
 
         pages = MenuPages(
