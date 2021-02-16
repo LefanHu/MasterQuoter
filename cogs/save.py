@@ -13,8 +13,13 @@ class Save(commands.Cog):
 
         self.quote_buffer = []
 
+    def is_owner(self, ctx):
+        print(ctx.message.author in self.file.get_env("DEVELOPERS"))
+        return ctx.message.author in self.file.get_env("DEVELOPERS")
+
     # getting a sample dataset
     @commands.command(aliases=["slh"])
+    @commands.is_owner()
     async def save_last_hundred(self, ctx):
         """This command lets you save THE LAST HUNDRED quotes!\n"""
 
