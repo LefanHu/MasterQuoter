@@ -1,9 +1,12 @@
 import discord
 from discord.ext import commands
+
 from cogs.file_utils import File
 import os
 import datetime
-from menu import MyMenu
+
+from discord.ext.menus import MenuPages
+from quote_menu import QuoteMenu
 
 
 class read(commands.Cog):
@@ -17,26 +20,24 @@ class read(commands.Cog):
     async def quotes_from_member(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
         quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
-        i = 0
 
-        displayed_quotes = []
-        pages = []
-        while i < len(quotes):
-            displayed_quotes.append(quotes[i])
-            if len(displayed_quotes) == self.quotes_per_page:
-                # await ctx.send(embed=await self.compose_page(displayed_quotes))
-                # return
-                page = await self.compose_page(displayed_quotes)
-                pages.append(page)
-                displayed_quotes.clear()
-            i += 1
-        # await ctx.send(embed=await self.compose_page(displayed_quotes))
-        last_page = await self.compose_page(displayed_quotes)
-        pages.append(last_page)
+        pages = MenuPages(
+            source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
+        )
+        await pages.start(ctx)
 
-        m = MyMenu(pages)
-        await m.start(ctx)
+<<<<<<< HEAD
+=======
+    @commands.command()
+    async def user_list(self, ctx, user: discord.Member):
+        data = self.file.read_json(self.save_location)
+        quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+        output = ""
+        output = output + ("%s \n" % (quotes["msg"]))
 
+        await ctx.send(output)
+
+>>>>>>> bac7a8bf8a683fd9720f2e7d3f43d16097af15cc
     async def compose_page(self, quote_list):
         embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
 
