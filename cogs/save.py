@@ -31,8 +31,9 @@ class Save(commands.Cog):
 
     # Saving attachments associated with a message
     async def save_attachments(self, message):
-        attachments = {}
+        attachments = []
         for attachment in message.attachments:
+            # print(attachment.filename)
             if any(
                 attachment.filename.lower().endswith(image)
                 for image in self.image_types
@@ -42,7 +43,7 @@ class Save(commands.Cog):
                 atch["id"] = attachment.id
                 atch["url"] = attachment.url
                 atch["proxy_url"] = attachment.proxy_url
-            attachments.update(atch)
+                attachments.append(atch)
         return attachments
 
     @commands.command(aliases=["qlast"])
