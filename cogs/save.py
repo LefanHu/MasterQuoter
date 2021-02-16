@@ -1,7 +1,9 @@
+from re import I
 import discord
 from discord.ext import commands, tasks
 import json
 from cogs.file_utils import File
+from typing import Optional
 
 
 class Save(commands.Cog):
@@ -43,17 +45,50 @@ class Save(commands.Cog):
             attachments.update(atch)
         return attachments
 
+    @commands.command(aliases=["qlast"])
+    async def quote_last(self, ctx, user: discord.Member, lines: Optional[int]):
+        if lines is None or lines > 200:
+            lines = 100
+
+        messages = await ctx.channel.history(limit=lines).flatten()
+
+        msgs = []
+        found_user = False
+        for indx, message in enumerate(messages):
+            if indx == 0 and message.author.id == user.id:
+                pass
+            elif found_user and message.author.id != user.id:
+                break
+            elif message.author.id == user.id:
+                found_user = True
+                msgs.append(message)
+
+        await self.save_snippet(ctx, user, reversed(msgs))
+
+    async def save_snippet(self, ctx, user: discord.Member, messages):
+        msgs = []
+        attachments = {}
+        for message in messages:
+            msgs.append(message.content)
+            attachments.update(await self.save_attachments(message))
+
+        await self.quote(ctx, user, msg=msgs, attachments=attachments)
+
     # Adds one quote to quote buffer
     @commands.command()
-    async def quote(self, ctx, user: discord.Member, *, msg):
+    async def quote(self, ctx, user: discord.Member, *, msg, attachments=None):
         """This handy dandy command allows you to save  things your friends have said!"""
         quote = {
             "msg": msg,
             "display_name": user.display_name,
             "avatar_url": str(user.avatar_url),
+            "snippet": True if type(msg) == list else False,
             "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
             "channel": ctx.message.channel.name,
-            "attachments": await self.save_attachments(ctx.message),
+            "message_id": None,
+            "attachments": await self.save_attachments(ctx.message)
+            if attachments is None
+            else attachments,
         }
         server_id = str(ctx.message.guild.id)
         mem_id = str(user.id)
