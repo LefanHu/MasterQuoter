@@ -55,7 +55,7 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
-    @commands.command(aliases=["qRand"])
+    @commands.command(aliases=["randuser"])
     async def rand_quote(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
         quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
