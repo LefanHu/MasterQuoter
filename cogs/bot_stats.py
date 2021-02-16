@@ -32,7 +32,7 @@ class _bot_stats(commands.Cog):
 
         self.update_stats.start()
 
-    async def read_stat(self, stat):
+    async def get_stat(self, stat):
         try:
             return self.tracked_statuses[stat]
         except KeyError:
