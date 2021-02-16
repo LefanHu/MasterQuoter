@@ -16,10 +16,35 @@ class read(commands.Cog):
         self.save_location = self.file.get_env("SAVE_LOCATION")
         self.quotes_per_page = 10
 
+    def is_owner(self, ctx):
+        return ctx.message.author in self.file.get_env("DEVELOPERS")
+
     @commands.command(aliases=["qfrom"])
     async def quotes_from_member(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
         quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+
+        pages = MenuPages(
+            source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
+        )
+        await pages.start(ctx)
+
+    @commands.command(hidden=True, aliases=["allfrom"])
+    @commands.is_owner()
+    async def all_from_member(self, ctx, user: discord.Member):
+        data = self.file.read_json(self.save_location)
+
+        quotes = []
+        for server in data:
+            if not str(user.id) in data[str(server)]:
+                # print(f"No quotes from {user.display_name} in server: {server}")
+                pass
+            else:
+                quotes += data[str(server)][str(user.id)]["quotes"]
+
+        if not quotes:
+            await ctx.send(f"There are no quotes from {user.mention}")
+            return
 
         pages = MenuPages(
             source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
