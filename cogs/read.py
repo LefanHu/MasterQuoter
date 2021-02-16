@@ -26,27 +26,6 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
-        return
-        i = 0
-
-        displayed_quotes = []
-        pages = []
-        while i < len(quotes):
-            displayed_quotes.append(quotes[i])
-            if len(displayed_quotes) == self.quotes_per_page:
-                # await ctx.send(embed=await self.compose_page(displayed_quotes))
-                # return
-                page = await self.compose_page(displayed_quotes)
-                pages.append(page)
-                displayed_quotes.clear()
-            i += 1
-        # await ctx.send(embed=await self.compose_page(displayed_quotes))
-        last_page = await self.compose_page(displayed_quotes)
-        pages.append(last_page)
-
-        m = MyMenu(pages)
-        await m.start(ctx)
-
     async def compose_page(self, quote_list):
         embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
 
