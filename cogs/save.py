@@ -29,16 +29,19 @@ class Save(commands.Cog):
 
     # Saving attachments associated with a message
     async def save_attachments(self, message):
-        attachments = []
+        attachments = {}
         for attachment in message.attachments:
             if any(
                 attachment.filename.lower().endswith(image)
                 for image in self.image_types
             ):
-                image_name = str(message.created_at) + attachment.filename
-                await attachment.save(attachment.filename)
-                attachments.append(image_name)
-        return json.dumps(attachments)
+                atch = {}
+                atch["name"] = attachment.filename
+                atch["id"] = attachment.id
+                atch["url"] = attachment.url
+                atch["proxy_url"] = attachment.proxy_url
+            attachments.update(atch)
+        return attachments
 
     # Adds one quote to quote buffer
     @commands.command()
@@ -49,8 +52,8 @@ class Save(commands.Cog):
             "display_name": user.display_name,
             "avatar_url": str(user.avatar_url),
             "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
-            "attachments": await self.save_attachments(ctx.message),
             "channel": ctx.message.channel.name,
+            "attachments": await self.save_attachments(ctx.message),
         }
         server_id = str(ctx.message.guild.id)
         mem_id = str(user.id)
