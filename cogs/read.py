@@ -1,9 +1,12 @@
 import discord
 from discord.ext import commands
+
 from cogs.file_utils import File
 import os
 import datetime
-from menu import MyMenu
+
+from discord.ext.menus import MenuPages
+from quote_menu import QuoteMenu
 
 
 class read(commands.Cog):
@@ -17,6 +20,13 @@ class read(commands.Cog):
     async def quotes_from_member(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
         quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+
+        pages = MenuPages(
+            source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
+        )
+        await pages.start(ctx)
+
+        return
         i = 0
 
         displayed_quotes = []
