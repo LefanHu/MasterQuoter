@@ -19,7 +19,6 @@ class _bot_stats(commands.Cog):
             "member_count": 0,
             "quotes_saved": 0,
             "commands_processed": 0,
-            "err_report_count": 0,
         }
 
         for stat in self.tracked_statuses:
@@ -58,9 +57,6 @@ class _bot_stats(commands.Cog):
     async def on_command_completion(self, ctx):
         if ctx.command.name == "quote":
             self.tracked_statuses["quotes_saved"] += 1
-
-    async def increment_error_count(self):
-        self.tracked_statuses["err_report_count"] += 1
 
     @tasks.loop(seconds=5.0)
     async def update_stats(self):

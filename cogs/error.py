@@ -62,7 +62,7 @@ class error_handle(commands.Cog):
             icon_url=self.bot.user.avatar_url,
         )
         embed.set_footer(
-            text=f"Error Report #{await bot_stats(self.bot).get_stat('err_report_count')}",
+            text=f"Error Report",
             icon_url=self.bot.user.avatar_url,
         )
 
@@ -90,8 +90,6 @@ class error_handle(commands.Cog):
         for developer in developers:
             user = await self.bot.fetch_user(int(developer))
             await util.dm(self, user, embed)
-
-        bot_stats(self.bot).increment_error_count()
 
 
 def setup(bot):
