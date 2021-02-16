@@ -40,6 +40,9 @@ class QuoteMenu(ListPageSource):
     async def format_page(self, menu, entries):
         fields = []
         for entry in entries:
+            if type(entry["msg"]) == list:
+                entry["msg"] = "\n".join(entry["msg"])
+
             fields.append(
                 (
                     f"<{entry['display_name']}> [{entry['time']}]",
