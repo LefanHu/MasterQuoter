@@ -56,14 +56,27 @@ class read(commands.Cog):
         await pages.start(ctx)
 
 
-    @commands.command(aliases =["qRand"])
+    @commands.command(aliases =["randuser"])
     async def rand_quote(self, ctx, user: discord.Member):
-        data = self.file.read_json(self.save_location);
+        data = self.file.read_json(self.save_location)
         quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
 
-
-
         await ctx.send(quotes[random.randrange(0, len(quotes))]['msg'])
+
+
+    @commands.command(aliases=["rand"])
+    async def rand_all(self,ctx):
+        data = self.file.read_json(self.save_location)
+
+        message = []
+        if not str(ctx.guild.id) in data:
+            pass
+        else:
+            for user in data[str(ctx.guild.id)]:
+                for quotes in data [str(ctx.guild.id)][str(user)]['quotes']:
+                    message.append(quotes["msg"])
+
+        await ctx.send(' '.join(random.choices(message)))
 
 
 
