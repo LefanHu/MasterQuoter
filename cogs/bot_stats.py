@@ -59,11 +59,12 @@ class _bot_stats(commands.Cog):
         if ctx.command.name == "quote":
             self.tracked_statuses["quotes_saved"] += 1
 
-    @tasks.loop(minutes=5.0)
+    @tasks.loop(seconds=5.0)
     async def update_stats(self):
         self.tracked_statuses["member_count"] = await self.utils.member_count()
         self.tracked_statuses["server_count"] = len(self.bot.guilds)
         self.file.write_json(self.tracked_statuses, self.stat_file)
+        # print(f'commands_processed = {self.tracked_statuses["commands_processed"]}')
 
     @update_stats.before_loop
     async def before_update_stats(self):
