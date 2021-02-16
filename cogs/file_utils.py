@@ -17,10 +17,7 @@ class File(commands.Cog):
     def file_exists(self, path_to_file=None):
         if path_to_file is None:
             path_to_file = self.save_location
-        return (
-            os.path.isfile(self.save_location)
-            and os.path.getsize(self.save_location) > 0
-        )
+        return os.path.isfile(path_to_file) and os.path.getsize(path_to_file) > 0
 
     def write_json(self, data, filename):
         with open(filename, "w") as f:
@@ -29,8 +26,14 @@ class File(commands.Cog):
     def read_json(self, filename=None):
         if filename == None:
             filename = os.getenv("SAVE_LOCATION")
-        with open(filename, "r") as f:
-            data = json.load(f)
+        else:
+            # print(f"{filename} exists = {self.file_exists(filename)}")
+            if not self.file_exists(filename):
+                with open(filename, "w") as f:
+                    json.dump({}, f, indent=4)
+                return {}
+            with open(filename, "r") as f:
+                data = json.load(f)
         return data
 
     def get_env(self, variable_name):
