@@ -4,6 +4,7 @@ from discord.ext import commands
 from cogs.file_utils import File
 import os
 import datetime
+import random
 
 from discord.ext.menus import MenuPages
 from quote_menu import QuoteMenu
@@ -51,14 +52,18 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
-    @commands.command()
-    async def user_list(self, ctx, user: discord.Member):
-        data = self.file.read_json(self.save_location)
-        quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
-        output = ""
-        output = output + ("%s \n" % (quotes["msg"]))
 
-        await ctx.send(output)
+    @commands.command(aliases =["qRand"])
+    async def rand_quote(self, ctx, user: discord.Member):
+        data = self.file.read_json(self.save_location);
+        quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+
+
+
+        await ctx.send(quotes[random.randrange(0, len(quotes))]['msg'])
+
+
+
 
     async def compose_page(self, quote_list):
         embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
