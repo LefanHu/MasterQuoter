@@ -91,6 +91,8 @@ class error_handle(commands.Cog):
             user = await self.bot.fetch_user(int(developer))
             await util.dm(self, user, embed)
 
+        bot_stats(self.bot).increment_error_count()
+
 
 def setup(bot):
     bot.add_cog(error_handle(bot))
