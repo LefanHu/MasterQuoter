@@ -9,7 +9,11 @@ class events(commands.Cog):
 
     @commands.command()
     async def loaded_questions(self, ctx):
-        ctx.send("games ")
+        await ctx.send("games ")
+
+    @commands.command(aliases=["qGuess"])
+    async def guessing_game(self, ctx):
+        await ctx.send("Guess who said this quote!")
 
 
 def setup(bot):
