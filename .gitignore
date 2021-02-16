@@ -5,3 +5,4 @@ cogs/__pycache__
 __pycache__/
 /data/quotes.json
 /data/stats.json
+/data/backup
