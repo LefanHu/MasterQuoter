@@ -3,4 +3,5 @@ discord.log
 test.py
 cogs/__pycache__
 __pycache__/
-/data
+/data/quotes.json
+/data/stats.json
