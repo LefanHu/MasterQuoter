@@ -55,58 +55,12 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
-
-    @commands.command(aliases =["qRand"])
+    @commands.command(aliases=["qRand"])
     async def rand_quote(self, ctx, user: discord.Member):
-        data = self.file.read_json(self.save_location);
+        data = self.file.read_json(self.save_location)
         quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
 
-
-
-        await ctx.send(quotes[random.randrange(0, len(quotes))]['msg'])
-
-
-
-
-    async def compose_page(self, quote_list):
-        embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
-
-        embed.set_author(
-            name=f"{self.bot.user}",
-            url="https://discordapp.com",
-            icon_url=self.bot.user.avatar_url,
-        )
-        embed.set_footer(
-            text="Brought to you by team 'MasterBaiters'",
-            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
-        )
-
-        for quote in quote_list:
-            # truncates message down to 75 characters
-            message = (
-                (quote["msg"][:75] + "..") if len(quote["msg"]) > 75 else quote["msg"]
-            )
-            embed.add_field(
-                name=f"<{quote['display_name']}> [{quote['time']}]",
-                value=f"Msg: {message}",
-                inline=False,
-            )
-
-        return embed
-
-    async def compose_list(self, list, page=1):
-
-        embed = discord.Embed(timestamp=datetime.datetime.utcfromtimestamp(1613242546))
-
-        embed.set_author(
-            name=f"{self.bot.user}",
-            url="https://discordapp.com",
-            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
-        )
-        embed.set_footer(
-            text="Brought to you by team 'MasterBaiters'",
-            icon_url="https://cdn.discordapp.com/embed/avatars/0.png",
-        )
+        await ctx.send(quotes[random.randrange(0, len(quotes))]["msg"])
 
 
 def setup(bot):
