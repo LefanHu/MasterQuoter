@@ -7,6 +7,8 @@ import math
 from datetime import datetime as dt
 import traceback
 
+from cogs.bot_stats import _bot_stats as bot_stats
+
 
 class error_handle(commands.Cog):
     def __init__(self, bot):
@@ -63,7 +65,7 @@ class error_handle(commands.Cog):
             icon_url=self.bot.user.avatar_url,
         )
         embed.set_footer(
-            text="Error Report #",
+            text=f"Error Report #{bot_stats(self.bot).get_stat('err_report_count')}",
             icon_url=self.bot.user.avatar_url,
         )
 
