@@ -22,7 +22,12 @@ class read(commands.Cog):
     @commands.command(aliases=["qfrom"])
     async def quotes_from_member(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
-        quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+        try:
+            quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+        except KeyError:
+            await ctx.send(
+                f"{user.display_name} currently does not have any quotes saved."
+            )
 
         pages = MenuPages(
             source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
