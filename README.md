@@ -7,7 +7,7 @@ Master Quoter is a quote bot made by team "Master Baiters" designed to save and 
 Work-in-progress :) (by 3 idiots in high school)
 
 ## Current TODO list
-- If quotes of one user exceed a total of 2000 characters, command !qlist @user will crash due to discord message limit
+- Ensure when quoting someone, message does not exceed discord limit
 - ~~Save multiple quotes at the same time (avoids unnecessary file openings and closings)~~
 - ~~Add time and date information to quotes~~
 - ~~Add server id to quotes~~
