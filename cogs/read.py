@@ -60,11 +60,26 @@ class read(commands.Cog):
         await pages.start(ctx)
 
     @commands.command(aliases=["randuser"])
-    async def rand_quote(self, ctx, user: discord.Member):
+    async def rand_from_user(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
         quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
 
         await ctx.send(quotes[random.randrange(0, len(quotes))]["msg"])
+
+    @commands.command(aliases=["rand"])
+    async def rand_from_server(self, ctx):
+        data = self.file.read_json(self.save_location)
+        quote = []
+
+        if not str(ctx.guild.id) in data:
+            pass
+
+        else:
+            for user in data[str(ctx.guild.id)]:
+                for quotes in data[str(ctx.guild.id)][str(user)]["quotes"]:
+                    quote.append(quotes["msg"])
+
+        await ctx.send(random.choice(quote))
 
 
 def setup(bot):
