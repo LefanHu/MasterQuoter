@@ -1,14 +1,12 @@
 from discord.ext import commands
 from lib.file_utils import File
 import os
-from cogs.read import read
 
 
 class Owner(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.file = File()
-        self.read = read(client)
 
     # owner must be the one who invoked the cog
     async def cog_check(self, ctx):
