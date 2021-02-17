@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import os
 from lib.file_utils import File
-from cogs.utils import utils
 import math
 from datetime import datetime as dt
 import traceback
@@ -11,6 +10,14 @@ import traceback
 class error_handle(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    async def dm(self, user: discord.Member, embed):
+        if user.dm_channel == None:
+            channel = await user.create_dm()
+        else:
+            channel = user.dm_channel
+
+        await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -82,11 +89,9 @@ class error_handle(commands.Cog):
         # sends error to DEVELOPERS
         developers = File().getenv("DEVELOPERS").strip("][").split(", ")
 
-        # getting dm function
-        util = utils(self.bot)
         for developer in developers:
             user = await self.bot.fetch_user(int(developer))
-            await util.dm(self, user, embed)
+            await self.dm(self, user, embed)
 
 
 def setup(bot):

@@ -1,13 +1,11 @@
 from discord.ext import commands, tasks
 from os.path import basename
 from lib.file_utils import File
-from cogs.utils import utils
 
 
 class _bot_stats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.utils = utils(self.bot)
         self.file = File()
         self.stat_file = self.file.getenv("STATS")
         self.stats = self.file.read_json(self.stat_file)
@@ -54,9 +52,17 @@ class _bot_stats(commands.Cog):
         if ctx.command.name == "quote":
             self.tracked_statuses["quotes_saved"] += 1
 
+    async def member_count(self):
+        servers = self.bot.guilds
+        members = 0
+        for server in servers:
+            members += server.member_count
+
+        return members
+
     @tasks.loop(seconds=5.0)
     async def update_stats(self):
-        self.tracked_statuses["member_count"] = await self.utils.member_count()
+        self.tracked_statuses["member_count"] = await self.member_count()
         self.tracked_statuses["server_count"] = len(self.bot.guilds)
         self.file.write_json(self.tracked_statuses, self.stat_file)
         # print(f'commands_processed = {self.tracked_statuses["commands_processed"]}')
