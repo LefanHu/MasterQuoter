@@ -91,7 +91,7 @@ class error_handle(commands.Cog):
 
         for developer in developers:
             user = await self.bot.fetch_user(int(developer))
-            await self.dm(self, user, embed)
+            await self.dm(user, embed)
 
 
 def setup(bot):
