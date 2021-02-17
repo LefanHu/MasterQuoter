@@ -18,8 +18,9 @@ Work-in-progress :) (by 3 idiots in high school)
 - ~~Add a buffer variable for quotes to avoid opening and closing the quotes file for every single quote.~~
 - Save attachments as an actual json array instead of a json array as a string.
 - ~~Save attachments with message.created_at + attachment.filename instead of just attachment.filename since most of the time it's simply just "unknown.png" for screenshots~~
-- Send traceback to developers whenever an error occurs (currently non-working)
+- ~~Send traceback to developers whenever an error occurs (currently non-working)~~
 - Implement load from backup if reading from quotes.json errors out
+- save message.clean_content instead of message.content
 
 ## Future plans
 - ~~Implement listing quotes for specific people~~
