@@ -7,7 +7,7 @@ from datetime import datetime as dt
 import traceback
 
 
-class error_handle(commands.Cog):
+class Error(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -44,7 +44,7 @@ class error_handle(commands.Cog):
             await ctx.send("Please pass in all required arguments.")
             return
 
-        await error_handle.compose_report(self, ctx, error)
+        await self.compose_report(self, ctx, error)
         # await ctx.send("error sent to developer")
 
     @commands.Cog.listener()
@@ -95,5 +95,5 @@ class error_handle(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(error_handle(bot))
+    bot.add_cog(Error(bot))
     print(f"Cog '{os.path.basename(__file__)}' has been loaded")
