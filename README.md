@@ -7,18 +7,18 @@ Master Quoter is a quote bot made by team "Master Baiters" designed to save and 
 Work-in-progress :) (by 3 idiots in high school)
 
 ## Current TODO list
-- Ensure when quoting someone, message does not exceed discord limit
 - ~~Save multiple quotes at the same time (avoids unnecessary file openings and closings)~~
 - ~~Add time and date information to quotes~~
 - ~~Add server id to quotes~~
 - ~~Change structure in how quotes are saved~~
 - ~~Add environment variables for bot token~~
 - ~~Add error handling "bot.event"~~
-- Fix first time quote initialization. If quotes.json is empty but still exists, bot will not work.
-- ~~Add a buffer variable for quotes to avoid opening and closing the quotes file for every single quote.~~
-- Save attachments as an actual json array instead of a json array as a string.
 - ~~Save attachments with message.created_at + attachment.filename instead of just attachment.filename since most of the time it's simply just "unknown.png" for screenshots~~
 - ~~Send traceback to developers whenever an error occurs (currently non-working)~~
+- ~~Add a buffer variable for quotes to avoid opening and closing the quotes file for every single quote.~~
+- Ensure when quoting someone, message does not exceed discord limit
+- Fix first time quote initialization. If quotes.json is empty but still exists, bot will not work.
+- Save attachments as an actual json array instead of a json array as a string.
 - Implement load from backup if reading from quotes.json errors out
 - save message.clean_content instead of message.content
 - Save a quote snippet through reactions
@@ -28,9 +28,9 @@ Work-in-progress :) (by 3 idiots in high school)
 - ~~Implement game of guessing who said the quotes~~
 - ~~Embed colors for bot messages (refer below for resources)~~
 - ~~Add feature to quote multiple lines from one user~~
-- Add feature to associate quote snippets with others users included in message snippet
 - ~~Add attachment quoting support (ability to quote screenshots, sound files or picture attachments)~~
 - ~~Add "nice navigation" (page flipping for listing quotes)~~
+- Add feature to associate quote snippets with others users included in message snippet
 - Comic strip or user friendly help bar OR possibly a pre-drawn image help bar
 
 
