@@ -44,7 +44,7 @@ class Error(commands.Cog):
             await ctx.send("Please pass in all required arguments.")
             return
 
-        await self.compose_report(self, ctx, error)
+        await self.compose_report(ctx, error)
         # await ctx.send("error sent to developer")
 
     @commands.Cog.listener()
