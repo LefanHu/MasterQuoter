@@ -3,7 +3,6 @@ from discord.ext import commands
 
 from lib.file_utils import File
 import os
-import datetime
 import random
 
 from discord.ext.menus import MenuPages
