@@ -70,7 +70,7 @@ class Save(commands.Cog):
         msgs = []
         attachments = {}
         for message in messages:
-            msgs.append(message.content)
+            msgs.append(message.clean_content)
             attachments.update(await self.save_attachments(message))
 
         await self.append_quote(ctx, user, msg=msgs, attachments=attachments)
@@ -99,6 +99,18 @@ class Save(commands.Cog):
 
         # adds the qutoe to the buffer
         self.quote_buffer.append(array)
+
+    @append_quote.error
+    async def append_quote_error(self, ctx, exc):
+        if isinstance(exc, commands.MissingRequiredArgument):
+            if not ctx.message.attachments and not ctx.message.mentions:
+                await ctx.send("Quote cannot be empty.")
+            else:
+                self.append_quote(
+                    ctx, ctx.message.mentions[0], ctx.message.clean_content
+                )
+        elif isinstance(exc, commands.MemberNotFound):
+            await ctx.send("That member cannot be found.")
 
     # Clears buffer
     @tasks.loop(seconds=2.0)
