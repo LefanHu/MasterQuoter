@@ -12,7 +12,7 @@ class Backup(commands.Cog):
         self.bot = bot
         load_dotenv()
 
-        self.backup_quotes.start()
+        # self.backup_quotes.start()
 
     @tasks.loop(minutes=5.0)
     async def backup_quotes(self):
