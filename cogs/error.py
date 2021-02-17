@@ -1,13 +1,11 @@
 import discord
 from discord.ext import commands
 import os
-from cogs.file_utils import File
+from lib.file_utils import File
 from cogs.utils import utils
 import math
 from datetime import datetime as dt
 import traceback
-
-from cogs.bot_stats import _bot_stats as bot_stats
 
 
 class error_handle(commands.Cog):
@@ -82,7 +80,7 @@ class error_handle(commands.Cog):
         )
 
         # sends error to DEVELOPERS
-        developers = File(self.bot).get_env("DEVELOPERS").strip("][").split(", ")
+        developers = File().getenv("DEVELOPERS").strip("][").split(", ")
 
         # getting dm function
         util = utils(self.bot)

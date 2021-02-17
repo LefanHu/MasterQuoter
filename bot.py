@@ -1,10 +1,10 @@
 import discord
 import os
 from discord.ext import commands
-from cogs.file_utils import File
+from lib.file_utils import File
 
-bot = commands.Bot(command_prefix=File(commands.bot).get_env("COMMAND_PREFIX"))
-DISCORD_TOKEN = File(bot).get_env("DISCORD_TOKEN")
+bot = commands.Bot(command_prefix=File().getenv("COMMAND_PREFIX"))
+DISCORD_TOKEN = File().getenv("DISCORD_TOKEN")
 
 
 @bot.command()

@@ -2,7 +2,7 @@ from re import I
 import discord
 from discord.ext import commands, tasks
 import json
-from cogs.file_utils import File
+from lib.file_utils import File
 from typing import Optional
 
 
@@ -10,9 +10,9 @@ class Save(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.image_types = ["png", "jpeg", "gif", "jpg"]
-        self.save_location = File(self.client).get_env("SAVE_LOCATION")
+        self.file = File()
+        self.save_location = self.file.getenv("SAVE_LOCATION")
         self.save_quotes.start()
-
         self.quote_buffer = []
 
     def is_owner(self, ctx):
@@ -108,13 +108,13 @@ class Save(commands.Cog):
             quote_list = self.quote_buffer
 
         # If file doesn't exist, create one
-        if File(self.client).file_exists(save_location):
+        if self.file.exists(save_location):
             pass
         else:  # create new file
-            template_file = File(self.client).get_env("TEMPLATE_FILE")
+            template_file = self.file.getenv("TEMPLATE_FILE")
             with open(template_file) as json_file:
                 file = json.load(json_file)
-                File(self.client).write_json(file, save_location)
+                self.file.write_json(file, save_location)
 
         if not quote_list:
             pass
@@ -153,10 +153,10 @@ class Save(commands.Cog):
                     else:  # adding another quote to user
                         # print("server id & member id exists")
                         file[server_id][mem_id]["quotes"].append(quote)
-            File(self.client).write_json(file, save_location)
+            self.file.write_json(file, save_location)
             self.quote_buffer.clear()
 
 
 def setup(client):
     client.add_cog(Save(client))
-    print(f"Cog '{File(client).file_name(__file__)}' has been loaded")
+    print(f"Cog '{File().file_name(__file__)}' has been loaded")

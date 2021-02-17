@@ -1,20 +1,17 @@
-from discord.ext import commands
 import json
 import os
 from dotenv import load_dotenv
 
 
-class File(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.save_location = os.getenv("SAVE_LOCATION")
+class File:
+    def __init__(self):
         load_dotenv()
 
-    def file_remove(self, path_to_file=None):
+    def remove(self, path_to_file=None):
         if path_to_file is None:
             path_to_file = self.save_location
 
-    def file_exists(self, path_to_file=None):
+    def exists(self, path_to_file=None):
         if path_to_file is None:
             path_to_file = self.save_location
         return os.path.isfile(path_to_file) and os.path.getsize(path_to_file) > 0
@@ -28,7 +25,7 @@ class File(commands.Cog):
             filename = os.getenv("SAVE_LOCATION")
         else:
             # print(f"{filename} exists = {self.file_exists(filename)}")
-            if not self.file_exists(filename):
+            if not self.exists(filename):
                 with open(filename, "w") as f:
                     json.dump({}, f, indent=4)
                 return {}
@@ -36,13 +33,8 @@ class File(commands.Cog):
                 data = json.load(f)
         return data
 
-    def get_env(self, variable_name):
+    def getenv(self, variable_name):
         return os.getenv(f"{variable_name}")
 
     def file_name(self, file):
         return os.path.basename(file)
-
-
-def setup(client):
-    client.add_cog(File(client))
-    print(f"Cog '{os.path.basename(__file__)}' has been loaded")

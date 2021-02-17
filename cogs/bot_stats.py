@@ -1,16 +1,15 @@
 from discord.ext import commands, tasks
 from os.path import basename
-from cogs.file_utils import File
+from lib.file_utils import File
 from cogs.utils import utils
 
 
 class _bot_stats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.file = File(self.bot)
         self.utils = utils(self.bot)
-
-        self.stat_file = self.file.get_env("STATS")
+        self.file = File()
+        self.stat_file = self.file.getenv("STATS")
         self.stats = self.file.read_json(self.stat_file)
 
         self.tracked_statuses = {
