@@ -1,13 +1,23 @@
 {
     "795405783155343361": {
-        "313781087945883651": {
+        "324917494005366784": {
             "quotes": [
                 {
-                    "msg": "First Quote",
-                    "display_name": "Alex3000",
-                    "avatar_url": "https://cdn.discordapp.com/avatars/313781087945883651/ca9b3525171a7a64f83f57946e3136a4.webp?size=1024",
-                    "time": "02/13/2021, 04:21:56",
-                    "attachments": "[]"
+                    "msg": "template",
+                    "display_name": "Cuddles",
+                    "avatar_url": "https://cdn.discordapp.com/avatars/324917494005366784/a1d631bc702da2a5c1f22736dd539a2c.webp?size=1024",
+                    "snippet": false,
+                    "time": "02/17/2021, 00:56:11",
+                    "channel": "general",
+                    "message_id": null,
+                    "attachments": [
+                        {
+                            "name": "2020-12-02_16.50.49.png",
+                            "id": 811400572044967996,
+                            "url": "https://cdn.discordapp.com/attachments/795405783155343365/811400572044967996/2020-12-02_16.50.49.png",
+                            "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/811400572044967996/2020-12-02_16.50.49.png"
+                        }
+                    ]
                 }
             ]
         }
