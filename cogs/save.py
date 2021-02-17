@@ -27,7 +27,7 @@ class Save(commands.Cog):
 
         messages = await ctx.channel.history(limit=100).flatten()
         for message in messages:
-            await self.quote(ctx=ctx, user=message.author, msg=message.content)
+            await self.append_quote(ctx=ctx, user=message.author, msg=message.content)
 
     # Saving attachments associated with a message
     async def save_attachments(self, message):
@@ -73,12 +73,13 @@ class Save(commands.Cog):
             msgs.append(message.content)
             attachments.update(await self.save_attachments(message))
 
-        await self.quote(ctx, user, msg=msgs, attachments=attachments)
+        await self.append_quote(ctx, user, msg=msgs, attachments=attachments)
 
     # Adds one quote to quote buffer
-    @commands.command()
-    async def quote(self, ctx, user: discord.Member, *, msg):
+    @commands.command(aliases=["quote"])
+    async def append_quote(self, ctx, user: discord.Member, *, msg):
         """This handy dandy command allows you to save  things your friends have said!"""
+
         quote = {
             "msg": msg,
             "name": str(user),
