@@ -7,7 +7,7 @@ import datetime
 import random
 
 from discord.ext.menus import MenuPages
-from quote_menu import QuoteMenu
+from lib.quote_menu import QuoteMenu
 
 
 class read(commands.Cog):
