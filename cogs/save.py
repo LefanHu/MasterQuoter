@@ -81,6 +81,7 @@ class Save(commands.Cog):
         """This handy dandy command allows you to save  things your friends have said!"""
         quote = {
             "msg": msg,
+            "name": str(user),
             "display_name": user.display_name,
             "avatar_url": str(user.avatar_url),
             "snippet": True if type(msg) == list else False,
