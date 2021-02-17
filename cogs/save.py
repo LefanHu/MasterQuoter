@@ -77,7 +77,7 @@ class Save(commands.Cog):
 
     # Adds one quote to quote buffer
     @commands.command()
-    async def quote(self, ctx, user: discord.Member, *, msg, attachments=None):
+    async def quote(self, ctx, user: discord.Member, *, msg):
         """This handy dandy command allows you to save  things your friends have said!"""
         quote = {
             "msg": msg,
@@ -87,9 +87,7 @@ class Save(commands.Cog):
             "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
             "channel": ctx.message.channel.name,
             "message_id": None,
-            "attachments": await self.save_attachments(ctx.message)
-            if attachments is None
-            else attachments,
+            "attachments": await self.save_attachments(ctx.message),
         }
         server_id = str(ctx.message.guild.id)
         mem_id = str(user.id)
