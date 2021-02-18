@@ -86,7 +86,7 @@ class Save(commands.Cog):
             "display_name": user.display_name,
             "avatar_url": str(user.avatar_url),
             "snippet": True if type(msg) == list else False,
-            "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
+            "time_stamp": int(ctx.message.created_at.timestamp()),
             "channel": ctx.message.channel.name,
             "message_id": ctx.message.id,
             "attachments": await self.save_attachments(ctx.message),

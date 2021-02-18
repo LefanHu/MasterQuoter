@@ -3,19 +3,20 @@
         "324917494005366784": {
             "quotes": [
                 {
-                    "msg": "template",
+                    "msg": "First quote",
+                    "name": "Cuddles#2321",
                     "display_name": "Cuddles",
                     "avatar_url": "https://cdn.discordapp.com/avatars/324917494005366784/a1d631bc702da2a5c1f22736dd539a2c.webp?size=1024",
                     "snippet": false,
-                    "time": "02/17/2021, 00:56:11",
+                    "time_stamp": 1613679985,
                     "channel": "general",
-                    "message_id": null,
+                    "message_id": 811981963387731968,
                     "attachments": [
                         {
-                            "name": "2020-12-02_16.50.49.png",
-                            "id": 811400572044967996,
-                            "url": "https://cdn.discordapp.com/attachments/795405783155343365/811400572044967996/2020-12-02_16.50.49.png",
-                            "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/811400572044967996/2020-12-02_16.50.49.png"
+                            "name": "2020-12-03_11.47.20.png",
+                            "id": 811981962293280788,
+                            "url": "https://cdn.discordapp.com/attachments/795405783155343365/811981962293280788/2020-12-03_11.47.20.png",
+                            "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/811981962293280788/2020-12-03_11.47.20.png"
                         }
                     ]
                 }

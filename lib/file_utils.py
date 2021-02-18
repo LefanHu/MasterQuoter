@@ -26,11 +26,11 @@ class File:
     def read_json(self, filename=None):
         if filename == None:
             filename = self.save_location
-
-        if not self.exists(filename):
-            with open(filename, "w") as f:
-                json.dump({}, f, indent=4)
-            return {}
+        else:
+            if not self.exists(filename):
+                with open(filename, "w") as f:
+                    json.dump({}, f, indent=4)
+                return {}
 
         with open(filename, "r") as f:
             data = json.load(f)
@@ -61,8 +61,7 @@ class File:
 
         quotes = []
         for user in data[str(server_id)]:
-            for quote_arr in data[str(server_id)][str(user)]:
-                quotes += quote_arr
+            quotes += data[str(server_id)][str(user)]["quotes"]
         return quotes
 
     def getenv(self, variable_name):
