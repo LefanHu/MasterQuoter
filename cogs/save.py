@@ -88,7 +88,7 @@ class Save(commands.Cog):
             "snippet": True if type(msg) == list else False,
             "time": "{}".format(ctx.message.created_at.strftime("%m/%d/%Y, %H:%M:%S")),
             "channel": ctx.message.channel.name,
-            "message_id": None,
+            "message_id": ctx.message.id,
             "attachments": await self.save_attachments(ctx.message),
         }
         server_id = str(ctx.message.guild.id)
