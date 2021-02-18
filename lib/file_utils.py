@@ -2,6 +2,8 @@ import json
 import os
 from dotenv import load_dotenv
 
+from discord import Member
+
 
 class File:
     def __init__(self):
@@ -36,6 +38,31 @@ class File:
 
     def fetch_quote(self, serverid, quoteid):
         pass
+
+    def from_user(self, user_id: Member.id, server=None):
+        data = self.read_json()
+
+        quotes = []
+        if not server:  # fetch quotes from all servers
+            for server in data:
+                for user in data[str(server)]:
+                    if user == user_id:
+                        quotes += data[str(server)][str(user_id)]["quotes"]
+            return quotes
+        else:
+            try:  # fetch from specific server
+                return data[str(server)][str(user_id)]["quotes"]
+            except KeyError:
+                return quotes
+
+    def from_server(self, server_id):
+        data = self.read_json()
+
+        quotes = []
+        for user in data[str(server_id)]:
+            for quote_arr in data[str(server_id)][str(user)]:
+                quotes += quote_arr
+        return quotes
 
     def getenv(self, variable_name):
         return os.getenv(f"{variable_name}")
