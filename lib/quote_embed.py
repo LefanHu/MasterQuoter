@@ -7,7 +7,7 @@ class embed:
     def format(self, quote, *, show_image=True, image_num=None, hide_user=False):
         name = quote["display_name"] if not hide_user else "Unknown"
         avatar = quote["avatar_url"] if not hide_user else None
-        msg = quote["msg"].join("\n") if type(quote["msg"]) == list else quote["msg"]
+        msg = "\n".join(quote["msg"]) if type(quote["msg"]) == list else quote["msg"]
         image_num = 0 if image_num == None else image_num
         descriptor = ["wisdom", "quote", "statement"]
 
