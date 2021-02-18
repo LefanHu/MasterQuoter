@@ -4,13 +4,13 @@ import os
 
 
 class Owner(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
         self.file = File()
 
     # owner must be the one who invoked the cog
     async def cog_check(self, ctx):
-        if str(ctx.message.author.id) in self.file.get_env("DEVELOPERS"):
+        if str(ctx.message.author.id) in self.file.getenv("DEVELOPERS"):
             return True
         await ctx.send(f"You are not the owner of this bot.")
 
@@ -52,7 +52,12 @@ class Owner(commands.Cog):
 
         await ctx.send(display_members)
 
+    @commands.command(hidden=True)
+    async def shutdown(self, ctx):
+        await ctx.send("Shutting down")
+        await self.bot.logout()
 
-def setup(client):
-    client.add_cog(Owner(client))
+
+def setup(bot):
+    bot.add_cog(Owner(bot))
     print(f"Cog '{os.path.basename(__file__)}' has been loaded")
