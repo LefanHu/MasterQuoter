@@ -26,14 +26,15 @@ class File:
     def read_json(self, filename=None):
         if filename == None:
             filename = self.save_location
-        else:
-            # print(f"{filename} exists = {self.file_exists(filename)}")
-            if not self.exists(filename):
-                with open(filename, "w") as f:
-                    json.dump({}, f, indent=4)
-                return {}
-            with open(filename, "r") as f:
-                data = json.load(f)
+
+        if not self.exists(filename):
+            with open(filename, "w") as f:
+                json.dump({}, f, indent=4)
+            return {}
+
+        with open(filename, "r") as f:
+            data = json.load(f)
+
         return data
 
     def fetch_quote(self, serverid, quoteid):
