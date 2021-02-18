@@ -9,7 +9,7 @@ class events(commands.Cog):
 
     @commands.command()
     async def loaded_questions(self, ctx):
-        ctx.send("games ")
+        #await ctx.send("games ")
 
 
 def setup(bot):
