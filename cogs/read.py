@@ -7,6 +7,7 @@ import random
 
 from discord.ext.menus import MenuPages
 from lib.quote_menu import QuoteMenu
+from lib.attachment_menu import AttachmentMenu
 from lib.quote_embed import embed as Emb
 
 
@@ -67,11 +68,13 @@ class read(commands.Cog):
 
         await ctx.send(quotes[random.randrange(0, len(quotes))]["msg"])
 
-    async def send_quote(self, ctx, quote):
-        if len(quote["image_attachments"] <= 1):
-            await ctx.send(embed=Emb().format(quote))
+    async def send_quote(self, ctx, quote, message=None):
+        if len(quote["image_attachments"]) <= 1:
+            await ctx.send(message, embed=Emb().format(quote))
         else:  # deal with quotes with multiple attachments here
-            pass
+            print("multiple images")
+            quote = AttachmentMenu(quote, message)
+            await quote.start(ctx)
 
     @commands.command(aliases=["rand"])
     async def rand_from_server(self, ctx):

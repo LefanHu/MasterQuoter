@@ -4,7 +4,7 @@ from datetime import datetime as dt
 
 
 class embed:
-    def format(self, quote, *, image_num=None, hide_user=False):
+    def format(self, quote, *, show_image=True, image_num=None, hide_user=False):
         name = quote["display_name"] if not hide_user else "Unknown"
         avatar = quote["avatar_url"] if not hide_user else None
         msg = quote["msg"].join("\n") if type(quote["msg"]) == list else quote["msg"]
@@ -35,8 +35,12 @@ class embed:
         if not quote["image_attachments"]:
             pass
         else:
-            embed.set_image(url=quote["image_attachments"][image_num]["url"])
-
-        # dealing with attachments
+            if show_image:
+                # the below ensures image_num does not cause an index out of bounds error
+                if image_num >= len(quote["image_attachments"]):
+                    image_num = len(quote["image_attachments"]) - 1
+                elif image_num < 0:
+                    image_num = 0
+                embed.set_image(url=quote["image_attachments"][image_num]["url"])
 
         return embed
