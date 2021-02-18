@@ -48,7 +48,7 @@ class QuoteMenu(ListPageSource):
 
             fields.append(
                 (
-                    f"<{entry['display_name']}> [{entry['time']}]",
+                    f"<{entry['display_name']}> [{entry['message_id']}]",
                     f"```diff\n{entry['msg']}```",
                 )
             )
