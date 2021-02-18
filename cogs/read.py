@@ -7,6 +7,7 @@ import random
 
 from discord.ext.menus import MenuPages
 from lib.quote_menu import QuoteMenu
+from lib.quote_embed import embed as Emb
 
 
 class read(commands.Cog):
@@ -66,19 +67,25 @@ class read(commands.Cog):
 
         await ctx.send(quotes[random.randrange(0, len(quotes))]["msg"])
 
+    async def send_quote(self, ctx, quote):
+        if len(quote["image_attachments"] <= 1):
+            await ctx.send(embed=Emb().format(quote))
+        else:  # deal with quotes with multiple attachments here
+            pass
+
     @commands.command(aliases=["rand"])
     async def rand_from_server(self, ctx):
-            data = self.file.read_json(self.save_location)
-            quote = []
+        data = self.file.read_json(self.save_location)
+        quote = []
 
-            if not str(ctx.guild.id) in data:
-                await ctx.send("There are no quotes in this server. ")
+        if not str(ctx.guild.id) in data:
+            await ctx.send("There are no quotes in this server. ")
 
-            else:
-                for user in data[str(ctx.guild.id)]:
-                    for quotes in data[str(ctx.guild.id)][str(user)]["quotes"]:
-                        quote.append(quotes["msg"])
-                        await ctx.send(random.choice(quote))
+        else:
+            for user in data[str(ctx.guild.id)]:
+                for quotes in data[str(ctx.guild.id)][str(user)]["quotes"]:
+                    quote.append(quotes["msg"])
+                    await ctx.send(random.choice(quote))
 
 
 def setup(bot):
