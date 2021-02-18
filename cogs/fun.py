@@ -20,7 +20,7 @@ class events(commands.Cog):
         emb = embed().format(quote, hide_user=True)
 
         await ctx.send(
-            f"Guess who said this quote! Make at least 1 guess every 30 seconds.",
+            f"Guess who said this quote! (5 guesses) Make at least 1 guess every 30 seconds.",
             embed=emb,
         )
 
