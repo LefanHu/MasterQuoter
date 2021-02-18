@@ -84,6 +84,7 @@ class Save(commands.Cog):
             "msg": msg,
             "name": str(user),
             "display_name": user.display_name,
+            "user_id": user.id,
             "avatar_url": str(user.avatar_url),
             "snippet": True if type(msg) == list else False,
             "time_stamp": int(ctx.message.created_at.timestamp()),
