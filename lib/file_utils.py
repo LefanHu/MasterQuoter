@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 class File:
     def __init__(self):
+        self.save_location = os.getenv("SAVE_LOCATION")
         load_dotenv()
 
     def remove(self, path_to_file=None):
@@ -22,7 +23,7 @@ class File:
 
     def read_json(self, filename=None):
         if filename == None:
-            filename = os.getenv("SAVE_LOCATION")
+            filename = self.save_location
         else:
             # print(f"{filename} exists = {self.file_exists(filename)}")
             if not self.exists(filename):
@@ -32,6 +33,9 @@ class File:
             with open(filename, "r") as f:
                 data = json.load(f)
         return data
+
+    def fetch_quote(self, serverid, quoteid):
+        pass
 
     def getenv(self, variable_name):
         return os.getenv(f"{variable_name}")
