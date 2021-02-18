@@ -53,10 +53,15 @@ class Owner(commands.Cog):
         await ctx.send(display_members)
 
     @commands.command(hidden=True)
+    async def clear(self, ctx, amount=1):
+        await ctx.channel.purge(limit=amount)
+
+    @commands.command(hidden=True)
     async def shutdown(self, ctx):
         await ctx.send("Shutting down")
         await self.bot.logout()
         print("Bot has been shut down.")
+
 
 def setup(bot):
     bot.add_cog(Owner(bot))
