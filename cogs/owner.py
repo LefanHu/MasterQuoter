@@ -56,7 +56,7 @@ class Owner(commands.Cog):
     async def shutdown(self, ctx):
         await ctx.send("Shutting down")
         await self.bot.logout()
-
+        print("Bot has been shut down.")
 
 def setup(bot):
     bot.add_cog(Owner(bot))
