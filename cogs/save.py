@@ -30,14 +30,26 @@ class Save(commands.Cog):
             await self.append_quote(ctx=ctx, user=message.author, msg=message.content)
 
     # Saving attachments associated with a message
+    async def save_images(self, message):
+        attachments = []
+        for attachment in message.attachments:
+            # print(attachment.filename)
+            if self.file.is_image(attachment.filename):
+                atch = {}
+                atch["name"] = attachment.filename
+                atch["id"] = attachment.id
+                atch["url"] = attachment.url
+                atch["proxy_url"] = attachment.proxy_url
+                attachments.append(atch)
+        return attachments
+
     async def save_attachments(self, message):
         attachments = []
         for attachment in message.attachments:
             # print(attachment.filename)
-            if any(
-                attachment.filename.lower().endswith(image)
-                for image in self.image_types
-            ):
+            if self.file.is_image(attachment.filename):
+                pass
+            else:
                 atch = {}
                 atch["name"] = attachment.filename
                 atch["id"] = attachment.id
@@ -93,6 +105,7 @@ class Save(commands.Cog):
             "channel": ctx.message.channel.name,
             "channel_id": ctx.message.channel.id,
             "message_id": ctx.message.id,
+            "image_attachments": await self.save_images(ctx.message),
             "attachments": await self.save_attachments(ctx.message),
         }
         server_id = str(ctx.message.guild.id)
