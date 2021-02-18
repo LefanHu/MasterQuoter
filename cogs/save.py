@@ -88,7 +88,10 @@ class Save(commands.Cog):
             "avatar_url": str(user.avatar_url),
             "snippet": True if type(msg) == list else False,
             "time_stamp": int(ctx.message.created_at.timestamp()),
+            "server": ctx.message.guild.name,
+            "server_id": ctx.message.guild.id,
             "channel": ctx.message.channel.name,
+            "channel_id": ctx.message.channel.id,
             "message_id": ctx.message.id,
             "attachments": await self.save_attachments(ctx.message),
         }
