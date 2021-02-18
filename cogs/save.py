@@ -80,16 +80,18 @@ class Save(commands.Cog):
 
     async def save_snippet(self, ctx, user: discord.Member, messages):
         msgs = []
-        attachments = {}
+        imgs = []
+        files = []
         for message in messages:
             msgs.append(message.clean_content)
-            attachments.update(await self.save_attachments(message))
+            imgs += await self.save_images(message)
+            files += await self.save_attachments(message)
 
-        await self.append_quote(ctx, user, msg=msgs, attachments=attachments)
+        await self.append_quote(ctx, user, msg=msgs, imgs=imgs, files=files)
 
     # Adds one quote to quote buffer
     @commands.command(aliases=["quote"])
-    async def append_quote(self, ctx, user: discord.Member, *, msg):
+    async def append_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
         """This handy dandy command allows you to save  things your friends have said!"""
 
         quote = {
@@ -98,15 +100,16 @@ class Save(commands.Cog):
             "display_name": user.display_name,
             "user_id": user.id,
             "avatar_url": str(user.avatar_url),
-            "snippet": True if type(msg) == list else False,
             "time_stamp": int(ctx.message.created_at.timestamp()),
-            "server": ctx.message.guild.name,
             "server_id": ctx.message.guild.id,
-            "channel": ctx.message.channel.name,
             "channel_id": ctx.message.channel.id,
             "message_id": ctx.message.id,
-            "image_attachments": await self.save_images(ctx.message),
-            "attachments": await self.save_attachments(ctx.message),
+            "image_attachments": await self.save_images(ctx.message)
+            if imgs == None
+            else imgs,
+            "attachments": await self.save_attachments(ctx.message)
+            if files == None
+            else files,
         }
         server_id = str(ctx.message.guild.id)
         mem_id = str(user.id)
