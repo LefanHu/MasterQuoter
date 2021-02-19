@@ -79,18 +79,17 @@ class read(commands.Cog):
 
     @commands.command(aliases=["rand"])
     async def rand_from_server(self, ctx):
-        data = self.file.read_json(self.save_location)
+        #data = self.file.read_json(self.save_location)
         quote = []
 
-        if not str(ctx.guild.id) in data:
+        quotes = self.file.from_server(ctx.message.guild.id)
+
+        if not quotes:
             await ctx.send("There are no quotes in this server. ")
 
         else:
-            for user in data[str(ctx.guild.id)]:
-                for quotes in data[str(ctx.guild.id)][str(user)]["quotes"]:
-                    quote.append(quotes["msg"])
-                    await ctx.send(random.choice(quote))
-
+            quote = random.choice(quotes)
+            await self.send_quote(ctx, quote)
 
 def setup(bot):
     bot.add_cog(read(bot))
