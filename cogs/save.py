@@ -165,12 +165,8 @@ class Save(commands.Cog):
 
     # Clears buffer
     @tasks.loop(seconds=2.0)
-    async def save_quotes(self, quote_list=None):
+    async def save_quotes(self):
         save_location = self.save_location
-
-        # Default quote list
-        if quote_list is None:
-            quote_list = self.quote_buffer
 
         # If file doesn't exist, create one
         if self.file.exists(save_location):
@@ -181,43 +177,41 @@ class Save(commands.Cog):
                 file = json.load(json_file)
                 self.file.write_json(file, save_location)
 
-        if not quote_list:
-            pass
-        else:
-            with open(save_location) as json_file:
-                file = json.load(json_file)
+        with open(save_location) as json_file:
+            file = json.load(json_file)
 
-                for quote in quote_list:
-                    server_id = quote[0]
-                    mem_id = quote[1]
-                    quote = quote[2]
+            for quote in self.quote_buffer:
+                server_id = quote[0]
+                mem_id = quote[1]
+                quote = quote[2]
+                # server_id, mem_id, quote = quote
 
-                    if server_id not in file:  # server has not used bot
-                        # print("server id does not exist")
-                        qt = {}
-                        qt["quotes"] = [quote]
+                if server_id not in file:  # server has not used bot
+                    # print("server id does not exist")
+                    qt = {}
+                    qt["quotes"] = [quote]
 
-                        member = {}
-                        member[mem_id] = qt
+                    member = {}
+                    member[mem_id] = qt
 
-                        server = {}
-                        server[server_id] = member
+                    server = {}
+                    server[server_id] = member
 
-                        file.update(server)
+                    file.update(server)
 
-                    elif mem_id not in file[server_id]:  # member has not been quoted
-                        # print("server id exists, userid does not")
+                elif mem_id not in file[server_id]:  # member has not been quoted
+                    # print("server id exists, userid does not")
 
-                        qt = {}
-                        qt["quotes"] = [quote]
+                    qt = {}
+                    qt["quotes"] = [quote]
 
-                        member = {}
-                        member[mem_id] = qt
+                    member = {}
+                    member[mem_id] = qt
 
-                        file[server_id].update(member)
-                    else:  # adding another quote to user
-                        # print("server id & member id exists")
-                        file[server_id][mem_id]["quotes"].append(quote)
+                    file[server_id].update(member)
+                else:  # adding another quote to user
+                    # print("server id & member id exists")
+                    file[server_id][mem_id]["quotes"].append(quote)
             self.file.write_json(file, save_location)
             self.quote_buffer.clear()
 
