@@ -43,13 +43,16 @@ class QuoteMenu(ListPageSource):
             if type(entry["msg"]) == list:
                 entry["msg"] = "\n".join(entry["msg"])
 
-            if len(entry["attachments"]) != 0:
-                entry["msg"] += f'\n+{len(entry["attachments"])} attachments'
+            # trimming down the message to first 1000 characters
+            entry["msg"] = entry["msg"][0:1000]
+
+            if len(entry["image_attachments"]) != 0:
+                entry["msg"] += f'\n+{len(entry["attachments"])} images'
 
             fields.append(
                 (
                     f"<{entry['display_name']}> [{entry['message_id']}]",
-                    f"```diff\n{entry['msg']}```",
+                    f"```diff\n{entry['msg'][0:1000]}```",
                 )
             )
 
