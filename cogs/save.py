@@ -59,7 +59,9 @@ class Save(commands.Cog):
         return attachments
 
     @commands.command(aliases=["qlast"])
-    async def quote_last(self, ctx, user: discord.Member, lines: Optional[int]):
+    async def quote_last(
+        self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
+    ):
         if lines is None or lines > 200:
             lines = 100
 
