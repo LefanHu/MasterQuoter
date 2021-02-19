@@ -4,6 +4,7 @@ from discord.ext import commands, tasks
 import json
 from lib.file_utils import File
 from typing import Optional
+from asyncio import TimeoutError
 
 
 class Save(commands.Cog):
@@ -12,8 +13,8 @@ class Save(commands.Cog):
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
         self.save_location = self.file.getenv("SAVE_LOCATION")
-        self.save_quotes.start()
         self.quote_buffer = []
+        self.save_quotes.start()
 
     def is_owner(self, ctx):
         print(ctx.message.author in self.file.get_env("DEVELOPERS"))
@@ -89,17 +90,20 @@ class Save(commands.Cog):
             imgs += await self.save_images(message)
             files += await self.save_attachments(message)
 
+        if set(msgs) == {""} and not imgs:  # If all msgs are empty
+            await ctx.send("Quote cannot be empty.")
+
         await self.append_quote(ctx, user, msg=msgs, imgs=imgs, files=files)
 
     # this is here so append_quote's extra parameters don't show up in help
     @commands.command(aliases=["qt"])
     async def quote(self, ctx, user: discord.Member, *, msg):
         """This handy dandy command allows you to save  things your friends have said!"""
-        await self.append_quote(ctx, user, msg)
+        await self.append_quote(ctx, user, msg=msg)
 
     # Adds one quote to quote buffer
-    async def append_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
 
+    async def append_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
         quote = {
             "msg": msg,
             "name": str(user),
@@ -137,6 +141,27 @@ class Save(commands.Cog):
                 )
         elif isinstance(exc, commands.MemberNotFound):
             await ctx.send("That member cannot be found.")
+
+    # @commands.command()
+    # async def snip(self, ctx, emoji: str):
+    #     user = ctx.author
+
+    #     def is_correct(reaction, user):
+    #         print(reaction.event_type)
+
+    #         # return (
+    #         #     reaction.message.author.id == user.id
+    #         #     and reaction.message.id == ctx.message.id
+    #         # )
+
+    #     try:
+    #         reaction = await self.client.wait_for(
+    #             "reaction_add", check=is_correct, timeout=60.0
+    #         )
+    #         print(type(reaction))
+
+    #     except TimeoutError:
+    #         await ctx.send("Snip timed out")
 
     # Clears buffer
     @tasks.loop(seconds=2.0)
@@ -195,6 +220,10 @@ class Save(commands.Cog):
                         file[server_id][mem_id]["quotes"].append(quote)
             self.file.write_json(file, save_location)
             self.quote_buffer.clear()
+
+    @save_quotes.before_loop
+    async def before_save_quotes(self):
+        await self.client.wait_until_ready()
 
 
 def setup(client):
