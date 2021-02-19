@@ -7,7 +7,6 @@ from discord.ext.commands import command
 from discord.ext.commands import Cog
 from discord.utils import get
 
-
 import os
 
 
