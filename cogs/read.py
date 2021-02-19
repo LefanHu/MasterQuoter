@@ -17,9 +17,10 @@ class read(commands.Cog):
         self.file = File()
         self.save_location = self.file.getenv("SAVE_LOCATION")
         self.quotes_per_page = 10
+        self.developers = self.file.getenv("DEVELOPERS")
 
     def is_owner(self, ctx):
-        return ctx.message.author in self.file.getenv("DEVELOPERS")
+        return ctx.message.author in self.developers
 
     @commands.command(aliases=["qfrom"])
     async def quotes_from_member(self, ctx, user: discord.Member):

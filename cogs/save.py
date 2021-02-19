@@ -89,10 +89,14 @@ class Save(commands.Cog):
 
         await self.append_quote(ctx, user, msg=msgs, imgs=imgs, files=files)
 
-    # Adds one quote to quote buffer
-    @commands.command(aliases=["quote"])
-    async def append_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
+    # this is here so append_quote's extra parameters don't show up in help
+    @commands.command(aliases=["qt"])
+    async def quote(self, ctx, user: discord.Member, *, msg):
         """This handy dandy command allows you to save  things your friends have said!"""
+        await self.append_quote(ctx, user, msg)
+
+    # Adds one quote to quote buffer
+    async def append_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
 
         quote = {
             "msg": msg,
@@ -120,8 +124,8 @@ class Save(commands.Cog):
         # adds the qutoe to the buffer
         self.quote_buffer.append(array)
 
-    @append_quote.error
-    async def append_quote_error(self, ctx, exc):
+    @quote.error
+    async def quote_error(self, ctx, exc):
         if isinstance(exc, commands.MissingRequiredArgument):
             if not ctx.message.attachments and not ctx.message.mentions:
                 await ctx.send("Quote cannot be empty.")

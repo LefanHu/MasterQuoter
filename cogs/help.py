@@ -8,11 +8,6 @@ from discord.ext.commands import Cog
 from discord.utils import get
 
 
-from discord import __version__ as discord_version
-from datetime import datetime, timedelta
-from platform import python_version
-from time import time
-from psutil import Process, virtual_memory
 import os
 
 
@@ -82,8 +77,16 @@ class Help(Cog):
     async def show_help(self, ctx, cmd: Optional[str]):
         """If you need help, this can help you."""
         if cmd is None:
+            # hiding all hidden commands from help
+            command_list = []
+            for command in self.bot.commands:
+                if command.hidden:
+                    pass
+                else:
+                    command_list.append(command)
+
             menu = MenuPages(
-                source=HelpMenu(ctx, list(self.bot.commands)),
+                source=HelpMenu(ctx, command_list),
                 clear_reactions_after=True,
                 # delete_message_after=True,
                 timeout=120.0,
@@ -94,42 +97,6 @@ class Help(Cog):
                 await self.cmd_help(ctx, command)
             else:
                 await ctx.send("That command does not exist.")
-
-    @command(aliases=["about_bot", "bot_info"], brief="Shows info about this bot")
-    async def about(self, ctx):
-        embed = Embed(
-            title="MasterQuoter Stats",
-            colour=0x00FFFF,
-            thumbnail=self.bot.user.avatar_url,
-            timestamp=datetime.utcnow(),  # add this to error.py pls
-        )
-
-        proc = Process()
-        with proc.oneshot():
-            uptime = timedelta(seconds=time() - proc.create_time())
-            cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
-            mem_total = virtual_memory().total / (1024 ** 2)
-            mem_of_total = proc.memory_percent()
-            mem_usage = mem_total * (mem_of_total / 100)
-
-        fields = [
-            ("Bot version", "0.0.1", False),
-            ("Python version", python_version(), False),
-            ("discord.py version", discord_version, False),
-            ("Uptime", uptime, False),
-            ("CPU time", cpu_time, False),
-            (
-                "Memory usage",
-                f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)",
-                False,
-            ),
-            ("Users", f"{await self.bot.get_cog('utils').member_count():,}", False),
-        ]
-
-        for name, value, inline in fields:
-            embed.add_field(name=name, value=f"```{value}```", inline=inline)
-
-        await ctx.send(embed=embed)
 
 
 def setup(bot):
