@@ -22,7 +22,7 @@ class read(commands.Cog):
     def is_owner(self, ctx):
         return ctx.message.author in self.developers
 
-    @commands.command(aliases=["qfrom"])
+    @commands.command(name="qlist", aliases=["qfrom"])
     async def quotes_from_member(self, ctx, user: discord.Member):
         data = self.file.read_json(self.save_location)
         try:
@@ -79,17 +79,22 @@ class read(commands.Cog):
 
     @commands.command(aliases=["rand"])
     async def rand_from_server(self, ctx):
-        data = self.file.read_json(self.save_location)
-        quote = []
+        # data = self.file.read_json(self.save_location)
+        # quote = []
 
-        if not str(ctx.guild.id) in data:
+        quotes = self.file.from_server(ctx.message.guild.id)
+
+        if not quotes:
             await ctx.send("There are no quotes in this server. ")
-
         else:
-            for user in data[str(ctx.guild.id)]:
-                for quotes in data[str(ctx.guild.id)][str(user)]["quotes"]:
-                    quote.append(quotes["msg"])
-                    await ctx.send(random.choice(quote))
+            quote = random.choice(quotes)
+            await self.send_quote(ctx, quote)
+
+        # else:
+        #     for user in data[str(ctx.guild.id)]:
+        #         for quotes in data[str(ctx.guild.id)][str(user)]["quotes"]:
+        #             quote.append(quotes["msg"])
+        #             await ctx.send(random.choice(quote))
 
 
 def setup(bot):
