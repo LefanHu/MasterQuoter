@@ -8,7 +8,7 @@ from typing import Optional
 
 from discord.ext.menus import MenuPages
 from lib.quote_menu import QuoteMenu
-from lib.attachment_menu import AttachmentMenu
+from lib.image_menu import ImageMenu
 from lib.quote_embed import embed as Emb
 
 
@@ -55,7 +55,7 @@ class read(commands.Cog):
         if len(quote["image_attachments"]) <= 1:
             await ctx.send(message, embed=Emb().format(quote, hide_user=hide_user))
         else:  # deal with quotes with multiple attachments here
-            quote = AttachmentMenu(quote, message)
+            quote = ImageMenu(quote, message)
             await quote.start(ctx)
 
     @commands.command(name="rand", aliases=["random"])

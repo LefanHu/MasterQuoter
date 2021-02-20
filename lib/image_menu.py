@@ -2,13 +2,14 @@ from discord.ext import menus
 from lib.quote_embed import embed as emb
 
 
-class AttachmentMenu(menus.Menu):
+class ImageMenu(menus.Menu):
     def __init__(self, quote, msg=None):
         super().__init__(timeout=30.0, clear_reactions_after=True)
         self.quote = quote
         self.msg = msg
         self.embed = emb().format(quote)
-        self.image_count = len(self.quote["image_attachments"])
+        self.images = self.quote["image_attachments"]
+        self.image_count = len(self.images)
         self.image_num = 0
 
     async def send_initial_message(self, ctx, channel):
@@ -24,7 +25,7 @@ class AttachmentMenu(menus.Menu):
         else:
             self.image_num -= 1
             await self.message.edit(
-                embed=emb().format(self.quote, image_num=self.image_num)
+                embed=self.embed.set_image(url=self.images[self.image_num]["url"])
             )
 
     @menus.button("\N{BLACK RIGHTWARDS ARROW}")
@@ -34,7 +35,7 @@ class AttachmentMenu(menus.Menu):
         else:
             self.image_num += 1
             await self.message.edit(
-                embed=emb().format(self.quote, image_num=self.image_num)
+                embed=self.embed.set_image(url=self.images[self.image_num]["url"])
             )
 
     @menus.button("\N{BLACK SQUARE FOR STOP}\ufe0f")

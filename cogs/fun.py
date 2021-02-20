@@ -13,10 +13,13 @@ class events(commands.Cog):
         self.bot = bot
 
     @commands.command(aliases=["lq"])
-    async def loaded_questions(self, ctx):
+    async def guess(self, ctx):
         attempts = 5  # calculate this as a ratio later
 
         quote = choice(File().from_server(ctx.guild.id))
+        if not quote:  # ensures quote is not None
+            await ctx.send("There are no quotes")
+            return
 
         # sending the quote
         read = self.bot.get_cog("read")
