@@ -6,6 +6,7 @@
             "icon_url": "guild.icon_url",
             "owner_id": "guild.owner_id",
             "member_count": "guild.member_count",
+            "quoted_members": "[array of ids of all members who have been quoted]",
             "members":[
                 {
                     "user_id": "user.id",

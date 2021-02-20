@@ -4,6 +4,7 @@ from discord.ext import commands
 from lib.file_utils import File
 import os
 import random
+from typing import Optional
 
 from discord.ext.menus import MenuPages
 from lib.quote_menu import QuoteMenu
@@ -23,38 +24,14 @@ class read(commands.Cog):
         return ctx.message.author in self.developers
 
     @commands.command(name="qlist", aliases=["qfrom"])
-    async def quotes_from_member(self, ctx, user: discord.Member):
-        data = self.file.read_json(self.save_location)
-        try:
-            quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
-        except KeyError:
-            await ctx.send(
-                f"{user.display_name} currently does not have any quotes saved."
-            )
-
-        pages = MenuPages(
-            source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
-        )
-        await pages.start(ctx)
-
-    @commands.command(hidden=True, aliases=["allfrom"])
-    @commands.is_owner()
-    async def all_from_member(self, ctx, user: discord.Member):
-        data = self.file.read_json(self.save_location)
-
-        if type(user) is int:
-            return
-
-        quotes = []
-        for server in data:
-            if not str(user.id) in data[str(server)]:
-                # print(f"No quotes from {user.display_name} in server: {server}")
-                pass
-            else:
-                quotes += data[str(server)][str(user.id)]["quotes"]
+    async def quotes_from_member(self, ctx, user: Optional[discord.Member]):
+        if not user:
+            quotes = self.file.from_server(ctx.message.guild.id)
+        else:
+            quotes = self.file.from_user(user.id, ctx.message.guild.id)
 
         if not quotes:
-            await ctx.send(f"There are no quotes from this user")
+            await ctx.send(f"There are no quotes.")
             return
 
         pages = MenuPages(
@@ -62,26 +39,47 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
-    @commands.command(aliases=["randuser"])
-    async def rand_from_user(self, ctx, user: discord.Member):
-        data = self.file.read_json(self.save_location)
-        quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+    # @commands.command(hidden=True, aliases=["allfrom"])
+    # @commands.is_owner()
+    # async def all_from_member(self, ctx, user: discord.Member):
+    #     data = self.file.read_json(self.save_location)
 
-        await ctx.send(quotes[random.randrange(0, len(quotes))]["msg"])
+    #     if type(user) is int:
+    #         return
 
-    async def send_quote(self, ctx, quote, message=None):
+    #     quotes = []
+    #     for server in data:
+    #         if not str(user.id) in data[str(server)]:
+    #             # print(f"No quotes from {user.display_name} in server: {server}")
+    #             pass
+    #         else:
+    #             quotes += data[str(server)][str(user.id)]["quotes"]
+
+    #     if not quotes:
+    #         await ctx.send(f"There are no quotes from this user")
+    #         return
+
+    #     pages = MenuPages(
+    #         source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
+    #     )
+    #     await pages.start(ctx)
+
+    # @commands.command(aliases=["randuser"])
+    # async def rand_from_user(self, ctx, user: discord.Member):
+    #     data = self.file.read_json(self.save_location)
+    #     quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
+
+    #     await ctx.send(quotes[random.randrange(0, len(quotes))]["msg"])
+
+    async def send_quote(self, ctx, quote, message=None, hide_user=False):
         if len(quote["image_attachments"]) <= 1:
-            await ctx.send(message, embed=Emb().format(quote))
+            await ctx.send(message, embed=Emb().format(quote, hide_user=hide_user))
         else:  # deal with quotes with multiple attachments here
-            print("multiple images")
             quote = AttachmentMenu(quote, message)
             await quote.start(ctx)
 
     @commands.command(aliases=["rand"])
     async def rand_from_server(self, ctx):
-        # data = self.file.read_json(self.save_location)
-        quote = []
-
         quotes = self.file.from_server(ctx.message.guild.id)
 
         if not quotes:

@@ -42,29 +42,59 @@ class File:
         """Message id of quote is passed to function, which then returns the quote dict"""
         pass
 
-    def from_user(self, user_id: Member.id, server=None):
+    def from_user(self, user_id: Member.id, server_id=None):
         data = self.read_json()
 
         quotes = []
-        if not server:  # fetch quotes from all servers
-            for server in data:
-                for user in data[str(server)]:
-                    if user == user_id:
-                        quotes += data[str(server)][str(user_id)]["quotes"]
+        if not server_id:  # fetch quotes from all servers
+            for server in data["guilds"]:
+                member = self.get_member(user_id, server)
+                quotes += member["quotes"]
             return quotes
-        else:
-            try:  # fetch from specific server
-                return data[str(server)][str(user_id)]["quotes"]
-            except KeyError:
-                return quotes
+        else:  # fetch from specific server
+            server = self.get_server(server_id, data)
+            if not server:
+                return []
+            member = self.get_member(user_id, server)
+            if not member:
+                return []
+
+            return member["quotes"]
 
     def from_server(self, server_id):
         data = self.read_json()
 
         quotes = []
-        for user in data[str(server_id)]:
-            quotes += data[str(server_id)][str(user)]["quotes"]
+        server = self.get_server(server_id, data)
+
+        if not server:
+            return []
+
+        for member in server["members"]:
+            quotes += member["quotes"]
+
         return quotes
+
+    # returns server from quotes.json
+    def get_server(self, guild_id: int, data):
+        guild_id = int(guild_id)
+        if data == None:
+            print(f"Adding server {guild_id}")
+            return None
+        for server in data["guilds"]:
+            if server["guild_id"] == guild_id:
+                return server
+        return None
+
+    # returns member from quotes.json when passed server from quotes.json
+    def get_member(self, user_id: int, server_data):
+        user_id = int(user_id)
+        if server_data == None:
+            return None
+        for member in server_data["members"]:
+            if member["user_id"] == user_id:
+                return member
+        return None
 
     def getenv(self, variable_name):
         return os.getenv(f"{variable_name}")

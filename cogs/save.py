@@ -1,3 +1,4 @@
+import enum
 from re import I
 import discord
 from discord.ext import commands, tasks
@@ -9,12 +10,13 @@ from asyncio import TimeoutError
 
 class Save(commands.Cog):
     def __init__(self, client):
-        self.client = client
+        self.bot = client
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
         self.save_location = self.file.getenv("SAVE_LOCATION")
         self.quote_buffer = []
-        self.save_quotes.start()
+        self.delete_buffer = []
+        self.update_quotes.start()
 
     def is_owner(self, ctx):
         print(ctx.message.author in self.file.get_env("DEVELOPERS"))
@@ -121,8 +123,8 @@ class Save(commands.Cog):
             if files == None
             else files,
         }
-        server_id = str(ctx.message.guild.id)
-        mem_id = str(user.id)
+        server_id = ctx.message.guild.id
+        mem_id = user.id
 
         # save info to array
         array = [server_id, mem_id, quote]
@@ -133,11 +135,11 @@ class Save(commands.Cog):
     @quote.error
     async def quote_error(self, ctx, exc):
         if isinstance(exc, commands.MissingRequiredArgument):
-            if not ctx.message.attachments and not ctx.message.mentions:
+            if not ctx.message.attachments:
                 await ctx.send("Quote cannot be empty.")
             else:
                 self.append_quote(
-                    ctx, ctx.message.mentions[0], ctx.message.clean_content
+                    ctx, ctx.message.mentions[0], msg=ctx.message.clean_content
                 )
         elif isinstance(exc, commands.MemberNotFound):
             await ctx.send("That member cannot be found.")
@@ -155,7 +157,7 @@ class Save(commands.Cog):
     #         # )
 
     #     try:
-    #         reaction = await self.client.wait_for(
+    #         reaction = await self.bot.wait_for(
     #             "reaction_add", check=is_correct, timeout=60.0
     #         )
     #         print(type(reaction))
@@ -163,61 +165,116 @@ class Save(commands.Cog):
     #     except TimeoutError:
     #         await ctx.send("Snip timed out")
 
+    def new_server(self, guild_id):
+        guild = self.bot.get_guild(int(guild_id))
+        server = {
+            "guild_name": guild.name,
+            "guild_id": guild.id,
+            "icon_url": str(guild.icon_url),
+            "quoted_members": [],
+            "members": [],
+        }
+
+        return server
+
+    def new_member(self, user_id, quote=None):
+        user = {"user_id": user_id, "quotes": []}
+
+        if not not quote:
+            user["quotes"].append(quote)
+
+        return user
+
+    def remove_quotes(self, server, user, file):
+        for guild_indx, guild in enumerate(file["guilds"]):
+            if guild["guild_id"] == server["guild_id"]:
+                target_guild = guild_indx
+        target_member = None
+        for member_indx, member in enumerate(file["guilds"][target_guild]["members"]):
+            if member["user_id"] == user["user_id"]:
+                target_member = member_indx
+
+        if not target_member:
+            file["guilds"][target_guild]["members"].append(user)
+        else:
+            file["guilds"][target_guild]["members"][target_member]["quotes"] = user[
+                "quotes"
+            ]
+
+        return file
+
+    @commands.command(aliases=["rm", "remove"])
+    async def remove_quote(self, ctx, quote_id):
+        self.delete_buffer.append([ctx.message.guild.id, int(quote_id)])
+
     # Clears buffer
     @tasks.loop(seconds=2.0)
-    async def save_quotes(self):
-        save_location = self.save_location
-
+    async def update_quotes(self):
         # If file doesn't exist, create one
-        if self.file.exists(save_location):
-            pass
-        else:  # create new file
-            template_file = self.file.getenv("TEMPLATE_FILE")
-            with open(template_file) as json_file:
+        if self.file.exists(self.save_location):
+            with open(self.save_location) as json_file:
                 file = json.load(json_file)
-                self.file.write_json(file, save_location)
+        else:  # create new file
+            file = {"guilds": []}
+            self.file.write_json(file, self.save_location)
 
-        with open(save_location) as json_file:
-            file = json.load(json_file)
+        # saving quotes
+        for quote in self.quote_buffer:
+            guild_id, user_id, quote = quote
 
-            for quote in self.quote_buffer:
-                server_id = quote[0]
-                mem_id = quote[1]
-                quote = quote[2]
-                # server_id, mem_id, quote = quote
+            server = self.file.get_server(guild_id, file)
+            member = self.file.get_member(user_id, server)
 
-                if server_id not in file:  # server has not used bot
-                    # print("server id does not exist")
-                    qt = {}
-                    qt["quotes"] = [quote]
+            if not server:
+                # server will always exist
+                file["guilds"].append(self.new_server(guild_id))
+                server = self.file.get_server(guild_id, file)
+                # print(f"{file['guilds']} \n\n{server}")
+                member = self.new_member(user_id, quote)
+                server["members"].append(member)
+                server["quoted_members"].append(member["user_id"])
+            elif not member:
+                member = self.new_member(user_id, quote)
+                server["members"].append(member)
+                server["quoted_members"].append(member["user_id"])
+            else:
+                member["quotes"].append(quote)
 
-                    member = {}
-                    member[mem_id] = qt
+        # deleting quotes
+        try:
+            guild_ids, del_quote_ids = zip(*self.delete_buffer)
 
-                    server = {}
-                    server[server_id] = member
+            for guild_id in guild_ids:
+                server = self.file.get_server(guild_id, file)
+                for member in server["members"]:
+                    for quote in member["quotes"]:
+                        if quote["message_id"] in del_quote_ids:
+                            member["quotes"].remove(quote)
 
-                    file.update(server)
+                            # remove member if no quotes are left
+                            if len(member["quotes"]) == 0:
+                                server["quoted_members"].remove(member["user_id"])
+                                server["members"].remove(member)
+        except ValueError:
+            pass
 
-                elif mem_id not in file[server_id]:  # member has not been quoted
-                    # print("server id exists, userid does not")
-
-                    qt = {}
-                    qt["quotes"] = [quote]
-
-                    member = {}
-                    member[mem_id] = qt
-
-                    file[server_id].update(member)
-                else:  # adding another quote to user
-                    # print("server id & member id exists")
-                    file[server_id][mem_id]["quotes"].append(quote)
-            self.file.write_json(file, save_location)
+        # skip if there's no quotes to save
+        if not self.quote_buffer and not self.delete_buffer:
+            pass
+        else:
+            self.file.write_json(file, self.save_location)
             self.quote_buffer.clear()
+            self.delete_buffer.clear()
 
-    @save_quotes.before_loop
-    async def before_save_quotes(self):
-        await self.client.wait_until_ready()
+    @update_quotes.before_loop
+    async def before_update_quotes(self):
+        await self.bot.wait_until_ready()
+
+    @update_quotes.after_loop
+    async def after_update_quotes(self):
+        if len(self.quote_buffer) + len(self.delete_buffer) > 0:
+            await self.update_quotes()
+        print("Quote buffers cleared")
 
 
 def setup(client):

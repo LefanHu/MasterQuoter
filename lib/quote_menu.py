@@ -47,7 +47,7 @@ class QuoteMenu(ListPageSource):
             entry["msg"] = entry["msg"][0:1000]
 
             if len(entry["image_attachments"]) != 0:
-                entry["msg"] += f'\n+{len(entry["attachments"])} images'
+                entry["msg"] += f'\n+{len(entry["image_attachments"])} images'
 
             fields.append(
                 (

@@ -14,7 +14,7 @@ class events(commands.Cog):
 
     @commands.command(aliases=["lq"])
     async def loaded_questions(self, ctx):
-        attempts = 5
+        attempts = 5  # calculate this as a ratio later
 
         quote = choice(File().from_server(ctx.guild.id))
 
@@ -25,6 +25,7 @@ class events(commands.Cog):
             ctx,
             quote,
             message=f"Guess who said this quote! ({attempts} guesses) Make at least 1 guess every 30 seconds.",
+            hide_user=True,
         )
 
         def is_correct(msg):

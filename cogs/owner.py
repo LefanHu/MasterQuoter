@@ -15,11 +15,6 @@ class Owner(commands.Cog):
         await ctx.send(f"You are not the owner of this bot.")
 
     @commands.command(hidden=True)
-    async def remove(self, ctx, file):
-        self.file.file_remove(file)
-        await ctx.send("File has been removed")
-
-    @commands.command(hidden=True)
     async def list_files(self, ctx):
         files = ""
         for filename in os.listdir("."):

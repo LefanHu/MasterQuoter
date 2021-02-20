@@ -1,40 +1,51 @@
 {
-    "795405783155343361": {
-        "324917494005366784": {
-            "quotes": [
+    "guilds": [
+        {
+            "guild_name": "TestServer",
+            "guild_id": 795405783155343361,
+            "icon_url": "",
+            "owner_id": 313781087945883651,
+            "member_count": 6,
+            "quoted_members": [
+                324917494005366784
+            ],
+            "members": [
                 {
-                    "msg": "Template quote",
-                    "name": "Cuddles#2321",
-                    "display_name": "Cuddles",
                     "user_id": 324917494005366784,
-                    "avatar_url": "https://cdn.discordapp.com/avatars/324917494005366784/a1d631bc702da2a5c1f22736dd539a2c.webp?size=1024",
-                    "time_stamp": 1613703113,
-                    "server_id": 795405783155343361,
-                    "channel_id": 795405783155343365,
-                    "message_id": 812078967002890290,
-                    "image_attachments": [
+                    "quotes": [
                         {
-                            "name": "image0.jpg",
-                            "id": 812078966101246073,
-                            "url": "https://cdn.discordapp.com/attachments/795405783155343365/812078966101246073/image0.jpg",
-                            "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/812078966101246073/image0.jpg"
-                        },
-                        {
-                            "name": "image1.jpg",
-                            "id": 812078966352379944,
-                            "url": "https://cdn.discordapp.com/attachments/795405783155343365/812078966352379944/image1.jpg",
-                            "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/812078966352379944/image1.jpg"
-                        },
-                        {
-                            "name": "image2.png",
-                            "id": 812078966743367680,
-                            "url": "https://cdn.discordapp.com/attachments/795405783155343365/812078966743367680/image2.png",
-                            "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/812078966743367680/image2.png"
+                            "msg": [
+                                "EXAMPLE QUOTE",
+                                "",
+                                ""
+                            ],
+                            "name": "Cuddles#2321",
+                            "display_name": "Cuddles",
+                            "user_id": 324917494005366784,
+                            "avatar_url": "https://cdn.discordapp.com/avatars/324917494005366784/a1d631bc702da2a5c1f22736dd539a2c.webp?size=1024",
+                            "time_stamp": 1613797902,
+                            "server_id": 795405783155343361,
+                            "channel_id": 795405783155343365,
+                            "message_id": 812476541408903168,
+                            "image_attachments": [
+                                {
+                                    "name": "2020-12-02_16.50.49.png",
+                                    "id": 812476509151297557,
+                                    "url": "https://cdn.discordapp.com/attachments/795405783155343365/812476509151297557/2020-12-02_16.50.49.png",
+                                    "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/812476509151297557/2020-12-02_16.50.49.png"
+                                },
+                                {
+                                    "name": "2020-12-03_13.38.30.png",
+                                    "id": 812476522841112646,
+                                    "url": "https://cdn.discordapp.com/attachments/795405783155343365/812476522841112646/2020-12-03_13.38.30.png",
+                                    "proxy_url": "https://media.discordapp.net/attachments/795405783155343365/812476522841112646/2020-12-03_13.38.30.png"
+                                }
+                            ],
+                            "attachments": []
                         }
-                    ],
-                    "attachments": []
+                    ]
                 }
             ]
         }
-    }
+    ]
 }

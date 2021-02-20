@@ -8,6 +8,7 @@ class AttachmentMenu(menus.Menu):
         self.quote = quote
         self.msg = msg
         self.embed = emb().format(quote)
+        self.image_count = len(self.quote["image_attachments"])
         self.image_num = 0
 
     async def send_initial_message(self, ctx, channel):
@@ -18,17 +19,23 @@ class AttachmentMenu(menus.Menu):
 
     @menus.button("\N{LEFTWARDS BLACK ARROW}")
     async def on_left_arrow(self, payload):
-        self.image_num -= 1
-        await self.message.edit(
-            embed=emb().format(self.quote, image_num=self.image_num)
-        )
+        if self.image_num == 0:
+            pass
+        else:
+            self.image_num -= 1
+            await self.message.edit(
+                embed=emb().format(self.quote, image_num=self.image_num)
+            )
 
     @menus.button("\N{BLACK RIGHTWARDS ARROW}")
     async def on_right_arrow(self, payload):
-        self.image_num += 1
-        await self.message.edit(
-            embed=emb().format(self.quote, image_num=self.image_num)
-        )
+        if self.image_num == self.image_count - 1:
+            pass
+        else:
+            self.image_num += 1
+            await self.message.edit(
+                embed=emb().format(self.quote, image_num=self.image_num)
+            )
 
     @menus.button("\N{BLACK SQUARE FOR STOP}\ufe0f")
     async def on_stop(self, payload):
