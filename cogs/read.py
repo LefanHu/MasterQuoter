@@ -23,6 +23,14 @@ class read(commands.Cog):
     def is_owner(self, ctx):
         return ctx.message.author in self.developers
 
+    @commands.command(aliases=["s"])
+    async def show(self, ctx, quote_id):
+        quote = self.file.fetch_quote(ctx.message.guild.id, int(quote_id))
+        if not quote:
+            await ctx.send("A quote by that id does not exist")
+        else:
+            await self.send_quote(ctx, quote, message=f"Quote: {quote_id}")
+
     @commands.command(name="qlist", aliases=["qfrom"])
     async def quotes_from_member(self, ctx, user: Optional[discord.Member]):
         if not user:

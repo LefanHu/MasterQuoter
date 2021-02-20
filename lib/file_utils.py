@@ -38,9 +38,16 @@ class File:
 
         return data
 
-    def fetch_quote(self, serverid, quoteid):
+    def fetch_quote(self, server_id, quote_id):
         """Message id of quote is passed to function, which then returns the quote dict"""
-        pass
+        data = self.read_json()
+
+        server = self.get_server(server_id, data)
+        for member in server["members"]:
+            for quote in member["quotes"]:
+                if quote["message_id"] == quote_id:
+                    return quote
+        return None
 
     def from_user(self, user_id: Member.id, server_id=None):
         data = self.read_json()
