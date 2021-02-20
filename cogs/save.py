@@ -78,7 +78,6 @@ class Save(commands.Cog):
         messages = await ctx.channel.history(limit=lines).flatten()
 
         msgs = []
-        found_user = False
         # for indx, message in enumerate(messages):
         #     if indx == 0 and message.author.id == user.id:
         #         pass
@@ -97,7 +96,7 @@ class Save(commands.Cog):
             # if invoker is quoting self
             if msg_indx == 0 and author_id == user.id:
                 pass
-            elif section:
+            elif section > 0:
                 msg_indx -= 1
                 author_id = messages[msg_indx].author.id
                 while author_id == user.id:
