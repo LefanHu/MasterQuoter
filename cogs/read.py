@@ -47,13 +47,7 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
-    # @commands.command(aliases=["randuser"])
-    # async def rand_from_user(self, ctx, user: discord.Member):
-    #     data = self.file.read_json(self.save_location)
-    #     quotes = data[str(ctx.message.guild.id)][str(user.id)]["quotes"]
-
-    #     await ctx.send(quotes[random.randrange(0, len(quotes))]["msg"])
-
+        
     async def send_quote(self, ctx, quote, message=None, hide_user=False):
         if len(quote["image_attachments"]) <= 1:
             await ctx.send(message, embed=Emb().format(quote, hide_user=hide_user))
