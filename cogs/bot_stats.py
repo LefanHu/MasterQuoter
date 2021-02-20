@@ -104,7 +104,7 @@ class _bot_stats(Cog):
 
         await ctx.send(embed=embed)
 
-    @tasks.loop(seconds=5.0)
+    @tasks.loop(minutes=5.0)
     async def update_stats(self):
         self.tracked_statuses["member_count"] = self.member_count()
         self.tracked_statuses["server_count"] = len(self.bot.guilds)
@@ -114,6 +114,11 @@ class _bot_stats(Cog):
     @update_stats.before_loop
     async def before_update_stats(self):
         await self.bot.wait_until_ready()
+
+    @update_stats.after_loop
+    async def on_update_stats_cancel(self):
+        self.update_stats()
+        print("bot stats saved")
 
 
 def setup(bot):
