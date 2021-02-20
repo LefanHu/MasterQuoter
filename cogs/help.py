@@ -62,7 +62,6 @@ class Help(Cog):
         self.bot.remove_command("help")
 
     async def cmd_help(self, ctx, command):
-        """shows this message"""
         embed = Embed(
             title=f"Help with `{command}`",
             description=syntax(command),
@@ -74,7 +73,7 @@ class Help(Cog):
 
     @command(name="help")
     async def show_help(self, ctx, cmd: Optional[str]):
-        """If you need help, this can help you."""
+        """Shows this message"""
         if cmd is None:
             # hiding all hidden commands from help
             command_list = []
