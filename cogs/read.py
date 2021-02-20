@@ -39,31 +39,6 @@ class read(commands.Cog):
         )
         await pages.start(ctx)
 
-    # @commands.command(hidden=True, aliases=["allfrom"])
-    # @commands.is_owner()
-    # async def all_from_member(self, ctx, user: discord.Member):
-    #     data = self.file.read_json(self.save_location)
-
-    #     if type(user) is int:
-    #         return
-
-    #     quotes = []
-    #     for server in data:
-    #         if not str(user.id) in data[str(server)]:
-    #             # print(f"No quotes from {user.display_name} in server: {server}")
-    #             pass
-    #         else:
-    #             quotes += data[str(server)][str(user.id)]["quotes"]
-
-    #     if not quotes:
-    #         await ctx.send(f"There are no quotes from this user")
-    #         return
-
-    #     pages = MenuPages(
-    #         source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
-    #     )
-    #     await pages.start(ctx)
-
     # @commands.command(aliases=["randuser"])
     # async def rand_from_user(self, ctx, user: discord.Member):
     #     data = self.file.read_json(self.save_location)
@@ -78,15 +53,19 @@ class read(commands.Cog):
             quote = AttachmentMenu(quote, message)
             await quote.start(ctx)
 
-    @commands.command(aliases=["rand"])
-    async def rand_from_server(self, ctx):
+    @commands.command(name="rand", aliases=["random"])
+    async def rand_from_server(self, ctx, user: Optional[discord.Member]):
         quotes = self.file.from_server(ctx.message.guild.id)
 
-        if not quotes:
-            await ctx.send("There are no quotes in this server. ")
-        else:
-            quote = random.choice(quotes)
-            await self.send_quote(ctx, quote)
+        if not user:
+            if not quotes:
+                await ctx.send("There are no quotes in this server. ")
+            else:
+                quote = random.choice(quotes)
+                await self.send_quote(ctx, quote)
+        else:  # if a user is specified
+            pass
+            # implement rand_from_user here pls :)
 
 
 def setup(bot):
