@@ -7,10 +7,11 @@ class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.file = File()
+        self.developers = self.file.getenv("DEVELOPERS")
 
     # owner must be the one who invoked the cog
     async def cog_check(self, ctx):
-        if str(ctx.message.author.id) in self.file.getenv("DEVELOPERS"):
+        if str(ctx.message.author.id) in self.developers:
             return True
         await ctx.send(f"You are not the owner of this bot.")
 
