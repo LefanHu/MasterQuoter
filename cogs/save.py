@@ -123,7 +123,7 @@ class Save(commands.Cog):
 
         if not msgs:
             await ctx.send(
-                "SECTION: {section} of {user.name}'s messages in the last {lines} was not found"
+                f"Section {section*-1} of {user.name}'s messages in the last {lines} lines was not found"
             )
 
         await self.save_snippet(ctx, user, reversed(msgs))
