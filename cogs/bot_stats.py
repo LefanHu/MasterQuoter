@@ -59,6 +59,8 @@ class _bot_stats(Cog):
     async def on_command_completion(self, ctx):
         if ctx.command.name == "quote":
             self.tracked_statuses["quotes_saved"] += 1
+        elif ctx.command.name == "quote_last":
+            self.tracked_statuses["quotes_saved"] += 1
 
     def member_count(self):
         servers = self.bot.guilds
@@ -71,10 +73,10 @@ class _bot_stats(Cog):
     @command(aliases=["about_bot", "bot_info"], brief="Shows info about this bot")
     async def about(self, ctx):
         embed = Embed(
-            title="MasterQuoter Stats",
+            title="📉MasterQuoter Stats📉",
             colour=0x00FFFF,
             thumbnail=self.bot.user.avatar_url,
-            timestamp=datetime.utcnow(),  # add this to error.py pls
+            timestamp=datetime.utcnow(),
         )
 
         proc = Process()
@@ -86,17 +88,23 @@ class _bot_stats(Cog):
             mem_usage = mem_total * (mem_of_total / 100)
 
         fields = [
-            ("Bot version", "0.0.1", False),
-            ("Python version", python_version(), False),
-            ("discord.py version", discord_version, False),
-            ("Uptime", uptime, False),
-            ("CPU time", cpu_time, False),
+            ("👌Bot version👌", "1.0.0", True),
+            ("🐍Python version🐍", python_version(), True),
+            ("☄️discord.py version📸", discord_version, True),
+            ("⏫Uptime🆙", uptime, True),
+            ("💻CPU time🖥️", cpu_time, True),
             (
-                "Memory usage",
+                "🧠Memory usage🧠",
                 f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)",
                 False,
             ),
-            ("Users", f"{self.member_count():,}", False),
+            ("😭Users😭", f"{self.tracked_statuses['member_count']:,}", True),
+            ("🍋Quotes Saved🍋", f"{self.tracked_statuses['quotes_saved']:,}", True),
+            (
+                "😔Commands Processed😔",
+                f"{self.tracked_statuses['commands_processed']:,}",
+                True,
+            ),
         ]
 
         for name, value, inline in fields:
