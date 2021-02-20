@@ -68,18 +68,63 @@ class Save(commands.Cog):
         if lines is None or lines > 200:
             lines = 100
 
+        if not section:
+            section = 0
+        else:
+            section *= -1
+            section += 1
+
         messages = await ctx.channel.history(limit=lines).flatten()
 
         msgs = []
         found_user = False
-        for indx, message in enumerate(messages):
-            if indx == 0 and message.author.id == user.id:
+        # for indx, message in enumerate(messages):
+        #     if indx == 0 and message.author.id == user.id:
+        #         pass
+        #     elif found_user and message.author.id != user.id:
+        #         break
+        #     elif message.author.id == user.id:
+        #         found_user = True
+        #         msgs.append(message)
+
+        msg_indx = 0
+        msg_len = len(messages)
+        previous = False
+        while msg_indx < msg_len:
+            author_id = messages[msg_indx].author.id
+
+            # if invoker is quoting self
+            if msg_indx == 0 and author_id == user.id:
                 pass
-            elif found_user and message.author.id != user.id:
+            elif section:
+                msg_indx -= 1
+                author_id = messages[msg_indx].author.id
+                while author_id == user.id:
+                    try:  # currently saves 1 quote beyond the section
+                        message = messages[msg_indx]
+                        msgs.append(message)
+                    except IndexError:
+                        await ctx.send(
+                            "That snippet is beyond the last {lines} messages"
+                        )
+                        break
+
+                    msg_indx += 1
+                    author_id = messages[msg_indx].author.id
                 break
-            elif message.author.id == user.id:
-                found_user = True
-                msgs.append(message)
+            # if previous user isn't
+            elif author_id == user.id and previous != user.id:
+                section += 1
+                previous = user.id
+            else:
+                previous = False
+
+            msg_indx += 1
+
+        if not msgs:
+            await ctx.send(
+                "SECTION: {section} of {user.name}'s messages in the last {lines} was not found"
+            )
 
         await self.save_snippet(ctx, user, reversed(msgs))
 
