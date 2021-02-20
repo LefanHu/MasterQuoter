@@ -118,7 +118,7 @@ class _bot_stats(Cog):
     @update_stats.after_loop
     async def on_update_stats_cancel(self):
         await self.update_stats()
-        print("bot stats saved")
+        print("Bot stats saved")
 
 
 def setup(bot):
