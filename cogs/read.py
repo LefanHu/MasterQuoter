@@ -23,16 +23,20 @@ class read(commands.Cog):
     def is_owner(self, ctx):
         return ctx.message.author in self.developers
 
-    @commands.command(aliases=["s"])
+    @commands.command(aliases=["s"], brief="Fetches a quote by ID")
     async def show(self, ctx, quote_id):
+        """Fetches a specific quote when provided a quote id"""
         quote = self.file.fetch_quote(ctx.message.guild.id, int(quote_id))
         if not quote:
             await ctx.send("A quote by that id does not exist")
         else:
             await self.send_quote(ctx, quote, message=f"Quote: {quote_id}")
 
-    @commands.command(name="qlist", aliases=["qfrom"])
+    @commands.command(
+        name="qlist", aliases=["qfrom"], brief="lists all quotes from user"
+    )
     async def quotes_from_member(self, ctx, user: Optional[discord.Member]):
+        """Lists all quotes from a specified user"""
         if not user:
             quotes = self.file.from_server(ctx.message.guild.id)
         else:
@@ -56,6 +60,7 @@ class read(commands.Cog):
 
     @commands.command(name="rand", aliases=["random"])
     async def rand_from_server(self, ctx, user: Optional[discord.Member]):
+        """This command will fetch a random quote from your server and send it if no user is specified.\nIf a user is specified, this will fetch a random quote from that user."""
         quotes = self.file.from_server(ctx.message.guild.id)
 
         if not user:

@@ -62,18 +62,27 @@ class Help(Cog):
         self.bot.remove_command("help")
 
     async def cmd_help(self, ctx, command):
+        help = command.help.split("Example Usage:")
+
         embed = Embed(
             title=f"Help with `{command}`",
             description=syntax(command),
             colour=ctx.author.colour,
         )
 
-        embed.add_field(name="Command description", value=command.help)
+        if len(help) > 1:  # if command contains a usage example
+            embed.set_image(url=help[-1])  # last element in array
+
+        embed.add_field(name="Command description", value=f"```diff\n{help[0]}```")
         await ctx.send(embed=embed)
 
-    @command(name="help")
+    @command(name="help", brief="Shows this message")
     async def show_help(self, ctx, cmd: Optional[str]):
-        """Shows this message"""
+        """
+        Default: Shows menu with all commands\n
+        cmd: When provided with a command name, usage of that command will be given
+        Example Usage:https://cdn.discordapp.com/attachments/795405783155343365/812760503621386260/unknown.png
+        """
         if cmd is None:
             # hiding all hidden commands from help
             command_list = []

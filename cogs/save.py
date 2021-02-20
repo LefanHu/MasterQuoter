@@ -65,6 +65,11 @@ class Save(commands.Cog):
     async def quote_last(
         self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
     ):
+        """
+        Default: Saves the last 'continuous' message sent by user\n\n
+        Section: The # of sections from that user to skip\n\n
+        Lines: The # of lines to look for the specified section in, defaults to 100 with a limit of 200
+        """
         if lines is None or lines > 200:
             lines = 100
 
@@ -78,14 +83,6 @@ class Save(commands.Cog):
         messages = await ctx.channel.history(limit=lines).flatten()
 
         msgs = []
-        # for indx, message in enumerate(messages):
-        #     if indx == 0 and message.author.id == user.id:
-        #         pass
-        #     elif found_user and message.author.id != user.id:
-        #         break
-        #     elif message.author.id == user.id:
-        #         found_user = True
-        #         msgs.append(message)
 
         msg_indx = 0
         msg_len = len(messages)
