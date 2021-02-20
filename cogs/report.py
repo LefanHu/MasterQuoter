@@ -8,7 +8,7 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(brief="Shows the latency of this bot")
+    @commands.command(brief="Reports an issue to developers")
     @commands.dm_only()
     @commands.cooldown(1, 1800, BucketType.user)  # 30 mins cooldown
     async def report(self, ctx):
