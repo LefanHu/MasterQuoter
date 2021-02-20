@@ -61,7 +61,7 @@ class Save(commands.Cog):
                 attachments.append(atch)
         return attachments
 
-    @commands.command(aliases=["qlast"])
+    @commands.command(aliases=["qlast", "ql"])
     async def quote_last(
         self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
     ):
@@ -183,9 +183,8 @@ class Save(commands.Cog):
             if not ctx.message.attachments:
                 await ctx.send("Quote cannot be empty.")
             else:
-                self.append_quote(
-                    ctx, ctx.message.mentions[0], msg=ctx.message.clean_content
-                )
+                imgs = await self.save_images(ctx.message)
+                await self.append_quote(ctx, ctx.message.mentions[0], msg="", imgs=imgs)
         elif isinstance(exc, commands.MemberNotFound):
             await ctx.send("That member cannot be found.")
 
