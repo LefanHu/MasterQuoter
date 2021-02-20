@@ -73,6 +73,7 @@ class Save(commands.Cog):
         else:
             section *= -1
             section += 1
+            # print(f"section = {section}")
 
         messages = await ctx.channel.history(limit=lines).flatten()
 
