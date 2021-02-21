@@ -182,9 +182,10 @@ class Save(commands.Cog):
         elif isinstance(exc, commands.MemberNotFound):
             await ctx.send("That member cannot be found.")
 
-    @commands.command()
-    async def snip(self, ctx):
+    @commands.command(brief="Saves a quote by reactions")
+    async def snip(self, ctx, lines: Optional[int]):
         user = ctx.author
+        lines = 100 if lines == None else lines
 
         # ensures the reaction is intended for snipping use
         def is_user(payload):
@@ -194,11 +195,49 @@ class Save(commands.Cog):
             return False
 
         try:
-            reaction = await self.bot.wait_for(
+            reaction_one = await self.bot.wait_for(
                 "raw_reaction_add", check=is_user, timeout=60.0
             )
-            message_one = reaction.message_id
-            print(message_one)
+
+            reaction_two = await self.bot.wait_for(
+                "raw_reaction_add", check=is_user, timeout=60.0
+            )
+
+            msg_ids = [reaction_one.message_id, reaction_two.message_id]
+            if set(msg_ids) == {reaction_one.message_id}:  # same message
+                msg = await ctx.channel.fetch_message(reaction_one.message_id)
+                await self.quote(ctx, msg.author, msg=msg.clean_content)
+                return
+            else:  # multiple messages
+                messages = await ctx.channel.history(limit=lines).flatten()
+                msgs = []
+                for indx, message in enumerate(messages):
+                    if message.id in msg_ids:
+                        quoted_user = message.author
+                        msgs.append(message)
+                        indx += 1
+                        while indx < len(messages):
+                            if messages[indx].author != message.author:
+                                await ctx.send(
+                                    "Snippets(contains multiple authors) is not yet supported"
+                                )
+                                return
+                            elif messages[indx].id in msg_ids:  # end has reached
+                                msgs.append(messages[indx])
+                                break
+                            msgs.append(messages[indx])
+                            indx += 1
+
+                        # if snippet was cut off by the limit
+                        if indx == len(messages):
+                            await ctx.send(
+                                "The full quote is not within {lines} messages."
+                            )
+                            return
+                        break
+
+                await self.save_snippet(ctx, quoted_user, msgs)
+                await ctx.send("Snippet saved.")
 
         except TimeoutError:
             await ctx.send("Snip timed out")
@@ -248,6 +287,8 @@ class Save(commands.Cog):
     # Clears buffer
     @tasks.loop(seconds=2.0)
     async def update_quotes(self):
+        # print(self.quote_buffer)
+
         # If file doesn't exist, create one
         if self.file.exists(self.save_location):
             with open(self.save_location) as json_file:
