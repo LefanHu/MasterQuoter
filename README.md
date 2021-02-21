@@ -38,6 +38,7 @@ Work-in-progress :) (by 3 idiots in high school)
 - psutil [pip install psutil](https://pypi.org/project/psutil/)
 - discord.py [pip install discord.py](https://pypi.org/project/discord.py/)
 - python-dotenv [pip install python-dotenv](https://pypi.org/project/python-dotenv/)
+- pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
