@@ -13,13 +13,11 @@ class Save(commands.Cog):
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
         self.save_location = self.file.getenv("SAVE_LOCATION")
+        self.DEVELOPERS = self.file.getenv("DEVELOPERS")
+
         self.quote_buffer = []
         self.delete_buffer = []
         self.update_quotes.start()
-
-    def is_owner(self, ctx):
-        print(ctx.message.author in self.file.get_env("DEVELOPERS"))
-        return ctx.message.author in self.file.get_env("DEVELOPERS")
 
     # getting a sample dataset
     @commands.command(aliases=["slh"])
@@ -184,26 +182,26 @@ class Save(commands.Cog):
         elif isinstance(exc, commands.MemberNotFound):
             await ctx.send("That member cannot be found.")
 
-    # @commands.command()
-    # async def snip(self, ctx, emoji: str):
-    #     user = ctx.author
+    @commands.command()
+    async def snip(self, ctx):
+        user = ctx.author
 
-    #     def is_correct(reaction, user):
-    #         print(reaction.event_type)
+        # ensures the reaction is intended for snipping use
+        def is_user(payload):
+            user_id = payload.user_id
+            if user_id == user.id:
+                return True
+            return False
 
-    #         # return (
-    #         #     reaction.message.author.id == user.id
-    #         #     and reaction.message.id == ctx.message.id
-    #         # )
+        try:
+            reaction = await self.bot.wait_for(
+                "raw_reaction_add", check=is_user, timeout=60.0
+            )
+            message_one = reaction.message_id
+            print(message_one)
 
-    #     try:
-    #         reaction = await self.bot.wait_for(
-    #             "reaction_add", check=is_correct, timeout=60.0
-    #         )
-    #         print(type(reaction))
-
-    #     except TimeoutError:
-    #         await ctx.send("Snip timed out")
+        except TimeoutError:
+            await ctx.send("Snip timed out")
 
     def new_server(self, guild_id):
         guild = self.bot.get_guild(int(guild_id))
@@ -225,23 +223,23 @@ class Save(commands.Cog):
 
         return user
 
-    def remove_quotes(self, server, user, file):
-        for guild_indx, guild in enumerate(file["guilds"]):
-            if guild["guild_id"] == server["guild_id"]:
-                target_guild = guild_indx
-        target_member = None
-        for member_indx, member in enumerate(file["guilds"][target_guild]["members"]):
-            if member["user_id"] == user["user_id"]:
-                target_member = member_indx
+    # def remove_quotes(self, server, user, file):
+    #     for guild_indx, guild in enumerate(file["guilds"]):
+    #         if guild["guild_id"] == server["guild_id"]:
+    #             target_guild = guild_indx
+    #     target_member = None
+    #     for member_indx, member in enumerate(file["guilds"][target_guild]["members"]):
+    #         if member["user_id"] == user["user_id"]:
+    #             target_member = member_indx
 
-        if not target_member:
-            file["guilds"][target_guild]["members"].append(user)
-        else:
-            file["guilds"][target_guild]["members"][target_member]["quotes"] = user[
-                "quotes"
-            ]
+    #     if not target_member:
+    #         file["guilds"][target_guild]["members"].append(user)
+    #     else:
+    #         file["guilds"][target_guild]["members"][target_member]["quotes"] = user[
+    #             "quotes"
+    #         ]
 
-        return file
+    #     return file
 
     @commands.command(aliases=["rm", "remove"])
     async def remove_quote(self, ctx, quote_id):
