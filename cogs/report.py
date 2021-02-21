@@ -1,15 +1,25 @@
 import os
-
+import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
-
+from lib.file_utils import File
+from datetime import datetime as dt
 
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def dm(self, user: discord.Member,embed):
+        if user.dm_channel == None:
+            channel = await user.create_dm()
+        else:
+            channel = user.dm_channel
+
+        await channel.send(embed = embed)
+
+
     @commands.command(brief="Reports an issue to developers")
-    @commands.dm_only()
+    #@commands.dm_only()
     @commands.cooldown(1, 1800, BucketType.user)  # 30 mins cooldown
     async def report(self, ctx):
         """
@@ -18,6 +28,16 @@ class events(commands.Cog):
 
         Usage Example:
         """
+        msg = ctx.message.clean_content
+
+        embed = discord.Embed(timestamp=dt.utcnow(), colour=0x00FFFF)
+        embed.add_field(name="REPORT",  value=f"Msg: {msg}", inline=False )
+        # sends error to DEVELOPERS
+        developers = File().getenv("DEVELOPERS").strip("][").split(", ")
+
+        for developer in developers:
+            user = await self.bot.fetch_user(int(developer))
+            await self.dm(user, embed)
 
         await ctx.send("Thanks! Your report has been sent to the developers")
 
