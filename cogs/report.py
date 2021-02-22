@@ -29,10 +29,11 @@ class events(commands.Cog):
         This command is dm_only.
         Dm this bot with this command to report an issue with this bot to the developers!
 
-        Usage Example:
-        .report There is a bug with this command!
-
         You can also send an image with any report in order to show the developers what's wrong!
+        Usage Example:
+
+
+
         """
 
         attachments = []
