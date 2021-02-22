@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from lib.file_utils import File
-from cogs.save import Save
 from datetime import datetime as dt
 
 class events(commands.Cog):
@@ -44,8 +43,8 @@ class events(commands.Cog):
         embed.add_field(name="REPORT",  value=f"Msg: {msg}", inline=False )
 
         for attachment in ctx.message.attachments:
-            imgurl = attachment.url
-            embed.set_image(url = imgurl)
+            img = attachment.url
+            embed.set_image(url = img)
         # Sends the error to direct messages
         developers = File().getenv("DEVELOPERS").strip("][").split(", ")
 
