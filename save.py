@@ -1,16 +1,14 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 from lib.file_utils import File
 from typing import Optional
 from asyncio import TimeoutError
 
 import pymongo
+from bot import mongodb
 
-# use 135.0.54.232:27017 for accessing outside of network
-client = pymongo.MongoClient(
-    "mongodb://developer:masterbaiter@192.168.0.100:27017/masterquoter"
-)
 
+client = pymongo.MongoClient(mongodb)
 db = client.masterquoter
 
 
@@ -19,6 +17,10 @@ class Save(commands.Cog):
         self.bot = client
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
+
+    def cog_unload(self):
+        client.close()
+        print("db connection closed")
 
     # getting a sample dataset
     @commands.command(aliases=["slh"])
@@ -148,13 +150,16 @@ class Save(commands.Cog):
     async def save_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
         server_id = ctx.message.guild.id
         mem_id = user.id
-        server = db.servers.find({"server_id": server_id})
 
-        if not server:
-            self.new_server(server_id)
-            self.new_user(mem_id)
-        elif not db.users.find_one({"user_id": mem_id}):
-            self.new_user(mem_id)
+        server_exists = db.servers.find_one({"server_id": server_id})
+        user_exists = db.users.find_one({"user_id": user.id})
+
+        # create new server if not exists
+        if not server_exists:
+            self.new_server(ctx.message.guild)
+        # create new user if not exists
+        if not user_exists:
+            self.new_user(user)
 
         quote = {
             "msg": msg,
@@ -162,9 +167,6 @@ class Save(commands.Cog):
             "display_name": user.display_name,
             "avatar_url": str(user.avatar_url),
             "time_stamp": int(ctx.message.created_at.timestamp()),
-            "quote_id": server["quotes_saved"]
-            if server != None
-            else db.servers.find_one({"server_id": server_id})["quotes_saved"],
             "user_id": user.id,
             "server_id": ctx.message.guild.id,
             "channel_id": ctx.message.channel.id,
@@ -177,14 +179,19 @@ class Save(commands.Cog):
             else files,
         }
 
-        # insert quotes into database
-        db.servers.update_one({"server_id": server_id}, {"$push": {"quotes": quote}})
-        db.users.update_one({"user_id": mem_id}, {"$push": {"quotes": quote}})
-        # increment quote_saved
-        db.servers.update_one({"server_id": server_id}, {"$push": {"quotes": quote}})
+        # insert quotes into database under db.users & increment quote count
+        db.users.update_one(
+            {"user_id": mem_id},
+            {"$push": {"quotes": quote}, "$inc": {"quotes_saved": 1}},
+        )
+        # add user's id to list if not in list & increment quote count
+        db.servers.update_one(
+            {"server_id": server_id},
+            {"$addToSet": {"quoted_member_ids": mem_id}, "$inc": {"quotes_saved": 1}},
+        )
 
     @quote.error
-    async def quote_error(self, ctx, exc):
+    async def on_quote_error(self, ctx, exc):
         if isinstance(exc, commands.MissingRequiredArgument):
             if not ctx.message.attachments:
                 await ctx.send("Quote cannot be empty.")
@@ -260,21 +267,24 @@ class Save(commands.Cog):
     async def remove_quote(self, ctx, quote_id):
         server_id = ctx.message.guild.id
 
-        db.servers.update_one(
-            {"server_id": server_id}, {"$pull": {"quotes": {"quote_id": quote_id}}}
-        )
+        # remove the quote here
 
-    def new_server(self, server_id):
+    def new_server(self, server):
         server = {
-            "server_id": server_id,
+            "server_id": server.id,
+            "server_name": server.name,
             "quotes_saved": 0,
             "quoted_member_ids": [],
-            "quotes": [],
         }
         db.servers.insert_one(server)
 
-    def new_user(self, user_id):
-        user = {"user_id": user_id, "quotes_saved": 0, "quotes": []}
+    def new_user(self, user):
+        user = {
+            "user_id": user.id,
+            "user_name": user.name,
+            "quotes_saved": 0,
+            "quotes": [],
+        }
         db.users.insert_one(user)
 
 

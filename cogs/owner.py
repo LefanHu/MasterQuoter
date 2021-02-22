@@ -1,8 +1,6 @@
 from discord.ext import commands
 import os
 
-import pymongo
-
 from bot import DEVELOPERS
 
 
@@ -24,6 +22,7 @@ class Owner(commands.Cog):
     async def shutdown(self, ctx):
         await ctx.send("Shutting down")
         await self.bot.logout()
+
         print("Bot has been shut down.")
 
 

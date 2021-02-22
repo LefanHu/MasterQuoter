@@ -86,3 +86,5 @@ Work-in-progress :) (by 3 idiots in high school)
 [error handling example cog](https://gist.github.com/AileenLumina/510438b241c16a2960e9b0b014d9ed06)
 
 [mongodb append to list](https://stackoverflow.com/questions/33189258/append-item-to-mongodb-document-array-in-pymongo-without-re-insertion)
+
+[mongodb updating doc from inside cursor traversal function](https://stackoverflow.com/questions/49611271/can-i-update-a-mongo-document-from-inside-a-cursor-traversal-function)
