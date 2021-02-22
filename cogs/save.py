@@ -20,10 +20,15 @@ class Save(commands.Cog):
         self.update_quotes.start()
 
     # getting a sample dataset
-    @commands.command(aliases=["slh"])
+    @commands.command(aliases=["slh"], brief="Saves last hundred")
     @commands.is_owner()
     async def save_last_hundred(self, ctx):
-        """This command lets you save THE LAST HUNDRED quotes!\n"""
+        """
+        This command lets you save THE LAST HUNDRED quotes!\n
+
+        For developper use only, sorry!
+
+        """
 
         messages = await ctx.channel.history(limit=100).flatten()
         for message in messages:
@@ -58,7 +63,7 @@ class Save(commands.Cog):
                 attachments.append(atch)
         return attachments
 
-    @commands.command(aliases=["qlast", "ql"])
+    @commands.command(aliases=["qlast", "ql"], brief="Quotes the last thing someone said")
     async def quote_last(
         self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
     ):
