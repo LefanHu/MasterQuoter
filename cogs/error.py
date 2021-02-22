@@ -44,6 +44,9 @@ class Error(commands.Cog):
             await ctx.send("Please pass in all required arguments.")
             return
 
+        elif isinstance(error, commands.PrivateMessageOnly):
+            await ctx.send("This command can only be used when direct messaging the bot. ")
+            return
         await self.compose_report(ctx, error)
         # await ctx.send("error sent to developer")
 
