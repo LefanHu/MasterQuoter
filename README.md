@@ -84,3 +84,4 @@ Work-in-progress :) (by 3 idiots in high school)
 [example of a help.py cog](https://gist.github.com/OneEyedKnight/41ba697ae4284dc5b4ea15c09fb1e730)
 
 [error handling example cog](https://gist.github.com/AileenLumina/510438b241c16a2960e9b0b014d9ed06)
+[mongoDB documentation](https://docs.mongodb.com/manual/introduction/)
