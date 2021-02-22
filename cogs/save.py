@@ -1,10 +1,17 @@
-from re import I
 import discord
 from discord.ext import commands, tasks
-import json
 from lib.file_utils import File
 from typing import Optional
 from asyncio import TimeoutError
+
+import pymongo
+
+# use 135.0.54.232:27017 for accessing outside of network
+client = pymongo.MongoClient(
+    "mongodb://developer:masterbaiter@192.168.0.100:27017/masterquoter"
+)
+
+db = client.masterquoter
 
 
 class Save(commands.Cog):
@@ -12,12 +19,6 @@ class Save(commands.Cog):
         self.bot = client
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
-        self.save_location = self.file.getenv("SAVE_LOCATION")
-        self.DEVELOPERS = self.file.getenv("DEVELOPERS")
-
-        self.quote_buffer = []
-        self.delete_buffer = []
-        self.update_quotes.start()
 
     # getting a sample dataset
     @commands.command(aliases=["slh"])
@@ -27,7 +28,7 @@ class Save(commands.Cog):
 
         messages = await ctx.channel.history(limit=100).flatten()
         for message in messages:
-            await self.append_quote(ctx=ctx, user=message.author, msg=message.content)
+            await self.save_quote(ctx=ctx, user=message.author, msg=message.content)
 
     # Saving attachments associated with a message
     async def save_images(self, message):
@@ -134,24 +135,37 @@ class Save(commands.Cog):
         if set(msgs) == {""} and not imgs:  # If all msgs are empty
             await ctx.send("Quote cannot be empty.")
 
-        await self.append_quote(ctx, user, msg=msgs, imgs=imgs, files=files)
+        await self.save_quote(ctx, user, msg=msgs, imgs=imgs, files=files)
 
     # this is here so append_quote's extra parameters don't show up in help
     @commands.command(aliases=["qt"])
     async def quote(self, ctx, user: discord.Member, *, msg):
         """This handy dandy command allows you to save  things your friends have said!"""
-        await self.append_quote(ctx, user, msg=msg)
+        await self.save_quote(ctx, user, msg=msg)
 
     # Adds one quote to quote buffer
 
-    async def append_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
+    async def save_quote(self, ctx, user: discord.Member, *, msg, imgs=[], files=[]):
+        server_id = ctx.message.guild.id
+        mem_id = user.id
+        server = db.servers.find({"server_id": server_id})
+
+        if not server:
+            self.new_server(server_id)
+            self.new_user(mem_id)
+        elif not db.users.find_one({"user_id": mem_id}):
+            self.new_user(mem_id)
+
         quote = {
             "msg": msg,
             "name": str(user),
             "display_name": user.display_name,
-            "user_id": user.id,
             "avatar_url": str(user.avatar_url),
             "time_stamp": int(ctx.message.created_at.timestamp()),
+            "quote_id": server["quotes_saved"]
+            if server != None
+            else db.servers.find_one({"server_id": server_id})["quotes_saved"],
+            "user_id": user.id,
             "server_id": ctx.message.guild.id,
             "channel_id": ctx.message.channel.id,
             "message_id": ctx.message.id,
@@ -162,14 +176,12 @@ class Save(commands.Cog):
             if files == None
             else files,
         }
-        server_id = ctx.message.guild.id
-        mem_id = user.id
 
-        # save info to array
-        array = [server_id, mem_id, quote]
-
-        # adds the qutoe to the buffer
-        self.quote_buffer.append(array)
+        # insert quotes into database
+        db.servers.update_one({"server_id": server_id}, {"$push": {"quotes": quote}})
+        db.users.update_one({"user_id": mem_id}, {"$push": {"quotes": quote}})
+        # increment quote_saved
+        db.servers.update_one({"server_id": server_id}, {"$push": {"quotes": quote}})
 
     @quote.error
     async def quote_error(self, ctx, exc):
@@ -178,9 +190,11 @@ class Save(commands.Cog):
                 await ctx.send("Quote cannot be empty.")
             else:
                 imgs = await self.save_images(ctx.message)
-                await self.append_quote(ctx, ctx.message.mentions[0], msg="", imgs=imgs)
+                await self.save_quote(ctx, ctx.message.mentions[0], msg="", imgs=imgs)
         elif isinstance(exc, commands.MemberNotFound):
             await ctx.send("That member cannot be found.")
+        else:
+            print(exc)
 
     @commands.command(brief="Saves a quote by reactions")
     async def snip(self, ctx, lines: Optional[int]):
@@ -242,118 +256,26 @@ class Save(commands.Cog):
         except TimeoutError:
             await ctx.send("Snip timed out")
 
-    def new_server(self, guild_id):
-        guild = self.bot.get_guild(int(guild_id))
-        server = {
-            "guild_name": guild.name,
-            "guild_id": guild.id,
-            "icon_url": str(guild.icon_url),
-            "quoted_members": [],
-            "members": [],
-        }
-
-        return server
-
-    def new_member(self, user_id, quote=None):
-        user = {"user_id": user_id, "quotes": []}
-
-        if not not quote:
-            user["quotes"].append(quote)
-
-        return user
-
-    # def remove_quotes(self, server, user, file):
-    #     for guild_indx, guild in enumerate(file["guilds"]):
-    #         if guild["guild_id"] == server["guild_id"]:
-    #             target_guild = guild_indx
-    #     target_member = None
-    #     for member_indx, member in enumerate(file["guilds"][target_guild]["members"]):
-    #         if member["user_id"] == user["user_id"]:
-    #             target_member = member_indx
-
-    #     if not target_member:
-    #         file["guilds"][target_guild]["members"].append(user)
-    #     else:
-    #         file["guilds"][target_guild]["members"][target_member]["quotes"] = user[
-    #             "quotes"
-    #         ]
-
-    #     return file
-
     @commands.command(aliases=["rm", "remove"])
     async def remove_quote(self, ctx, quote_id):
-        self.delete_buffer.append([ctx.message.guild.id, int(quote_id)])
+        server_id = ctx.message.guild.id
 
-    # Clears buffer
-    @tasks.loop(seconds=2.0)
-    async def update_quotes(self):
-        # print(self.quote_buffer)
+        db.servers.update_one(
+            {"server_id": server_id}, {"$pull": {"quotes": {"quote_id": quote_id}}}
+        )
 
-        # If file doesn't exist, create one
-        if self.file.exists(self.save_location):
-            with open(self.save_location) as json_file:
-                file = json.load(json_file)
-        else:  # create new file
-            file = {"guilds": []}
-            self.file.write_json(file, self.save_location)
+    def new_server(self, server_id):
+        server = {
+            "server_id": server_id,
+            "quotes_saved": 0,
+            "quoted_member_ids": [],
+            "quotes": [],
+        }
+        db.servers.insert_one(server)
 
-        # saving quotes
-        for quote in self.quote_buffer:
-            guild_id, user_id, quote = quote
-
-            server = self.file.get_server(guild_id, file)
-            member = self.file.get_member(user_id, server)
-
-            if not server:
-                # server will always exist
-                file["guilds"].append(self.new_server(guild_id))
-                server = self.file.get_server(guild_id, file)
-                # print(f"{file['guilds']} \n\n{server}")
-                member = self.new_member(user_id, quote)
-                server["members"].append(member)
-                server["quoted_members"].append(member["user_id"])
-            elif not member:
-                member = self.new_member(user_id, quote)
-                server["members"].append(member)
-                server["quoted_members"].append(member["user_id"])
-            else:
-                member["quotes"].append(quote)
-
-        # deleting quotes
-        try:
-            guild_ids, del_quote_ids = zip(*self.delete_buffer)
-
-            for guild_id in guild_ids:
-                server = self.file.get_server(guild_id, file)
-                for member in server["members"]:
-                    for quote in member["quotes"]:
-                        if quote["message_id"] in del_quote_ids:
-                            member["quotes"].remove(quote)
-
-                            # remove member if no quotes are left
-                            if len(member["quotes"]) == 0:
-                                server["quoted_members"].remove(member["user_id"])
-                                server["members"].remove(member)
-        except ValueError:
-            pass
-
-        # skip if there's no quotes to save
-        if not self.quote_buffer and not self.delete_buffer:
-            pass
-        else:
-            self.file.write_json(file, self.save_location)
-            self.quote_buffer.clear()
-            self.delete_buffer.clear()
-
-    @update_quotes.before_loop
-    async def before_update_quotes(self):
-        await self.bot.wait_until_ready()
-
-    @update_quotes.after_loop
-    async def after_update_quotes(self):
-        if len(self.quote_buffer) + len(self.delete_buffer) > 0:
-            await self.update_quotes()
-        print("Quote buffers cleared")
+    def new_user(self, user_id):
+        user = {"user_id": user_id, "quotes_saved": 0, "quotes": []}
+        db.users.insert_one(user)
 
 
 def setup(client):
