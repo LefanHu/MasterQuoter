@@ -12,8 +12,14 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=["lq"])
+    @commands.command(aliases=["lq"],brief="Fun little guessing game!")
     async def guess(self, ctx):
+        """
+        You ever wanna guess who said what stupid thing? This game is the perfect game for you!
+
+        Default: Starts the guessing game
+        Cmd: Does literally the same thing LOL
+        """
         attempts = 5  # calculate this as a ratio later
 
         quote = choice(File().from_server(ctx.guild.id))

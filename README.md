@@ -22,6 +22,7 @@ Work-in-progress :) (by 3 idiots in high school)
 - Implement load from backup if reading from quotes.json errors out
 - save message.clean_content instead of message.content
 - Save a quote snippet through reactions
+- ~~Reporting function to notify developers of any known bugs or glitches.~~
 
 ## Future plans
 - ~~Implement listing quotes for specific people~~
