@@ -11,6 +11,8 @@ from lib.quote_menu import QuoteMenu
 from lib.image_menu import ImageMenu
 from lib.quote_embed import embed as Emb
 
+from bot import DEVELOPERS
+
 
 class read(commands.Cog):
     def __init__(self, bot):
@@ -18,10 +20,9 @@ class read(commands.Cog):
         self.file = File()
         self.save_location = self.file.getenv("SAVE_LOCATION")
         self.quotes_per_page = 10
-        self.developers = self.file.getenv("DEVELOPERS")
 
     def is_owner(self, ctx):
-        return ctx.message.author in self.developers
+        return ctx.message.author in DEVELOPERS
 
     @commands.command(aliases=["s"], brief="Fetches a quote by ID")
     async def show(self, ctx, quote_id):
