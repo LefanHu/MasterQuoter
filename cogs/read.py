@@ -43,10 +43,6 @@ class read(commands.Cog):
             },
         )["quotes"][0]
 
-        print(quote)
-
-        return
-
         if not quote:
             await ctx.send("A quote by that id does not exist")
         else:
