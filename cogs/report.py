@@ -43,9 +43,8 @@ class events(commands.Cog):
             img = attachment.url
             embed.set_image(url=img)
         # Sends the error to direct messages
-        developers = File().getenv("DEVELOPERS").strip("][").split(", ")
 
-        for developer in developers:
+        for developer in self.bot.developers:
             user = await self.bot.fetch_user(int(developer))
             await self.dm(user, embed)
 

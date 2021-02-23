@@ -3,6 +3,7 @@ from discord.ext import commands
 from lib.file_utils import File
 
 bot = commands.Bot(command_prefix=File().getenv("COMMAND_PREFIX"))
+bot.developers = File().getenv("DEVELOPERS")
 DISCORD_TOKEN = File().getenv("DISCORD_TOKEN")
 
 
