@@ -26,12 +26,13 @@ class read(commands.Cog):
 
     @commands.command(aliases=["sq"], brief="Fetches a quote by ID and user")
     async def show_quote(self, ctx, user: discord.Member, message_id):
-        """Fetches a specific quote when provided a quote id"""
+        """
+        Fetches a specific quote when provided a quote id and user who said that quote
+        Example Usage:
+        """
 
         message_id = int(message_id)
         guild_id = ctx.message.guild.id
-
-        print(message_id, guild_id)
 
         quote = db.users.find_one(
             {"user_id": user.id},
@@ -77,20 +78,33 @@ class read(commands.Cog):
     @commands.command(name="rand", aliases=["random"])
     async def rand_from_server(self, ctx, user: Optional[discord.Member]):
         """This command will fetch a random quote from your server and send it if no user is specified.\nIf a user is specified, this will fetch a random quote from that user."""
-        quotes = self.file.from_server(ctx.message.guild.id)
 
         if not user:
-            if not quotes:
+            rand_user_id = random.choice(
+                db.servers.find_one(
+                    {"server_id": ctx.message.guild.id},
+                    {"_id": 0, "quoted_member_ids": 1},
+                )["quoted_member_ids"]
+            )
+            quote = random.choice(
+                db.users.find_one({"user_id": rand_user_id}, {"_id": 0, "quotes": 1})[
+                    "quotes"
+                ]
+            )
+
+            if not quote:
                 await ctx.send("There are no quotes in this server. ")
             else:
-                quote = random.choice(quotes)
                 await self.send_quote(ctx, quote)
         else:  # if a user is specified
-            quotes = self.file.from_user(user.id, ctx.message.guild.id)
-            if not quotes:
+            quote = random.choice(
+                db.users.find_one({"user_id": user.id}, {"_id": 0, "quotes": 1})[
+                    "quotes"
+                ]
+            )
+            if not quote:
                 await ctx.send("There are no quotes from this user on this server.")
             else:
-                quote = random.choice(quotes)
                 await self.send_quote(ctx, quote)
 
 
