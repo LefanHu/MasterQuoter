@@ -32,8 +32,6 @@ class events(commands.Cog):
 
         """
 
-        attachments = []
-
         msg = ctx.message.clean_content
         embed = discord.Embed(timestamp=dt.utcnow(), colour=0x00FFFF)
         embed.add_field(name="FROM:", value=f"From: {ctx.message.author}")
