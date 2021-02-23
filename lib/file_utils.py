@@ -2,8 +2,6 @@ import json
 import os
 from dotenv import load_dotenv
 
-from discord import Member
-
 
 class File:
     def __init__(self):
