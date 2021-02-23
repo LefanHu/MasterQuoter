@@ -1,4 +1,3 @@
-from re import I
 import discord
 from discord.ext import commands, tasks
 import json
@@ -13,7 +12,6 @@ class Save(commands.Cog):
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
         self.save_location = self.file.getenv("SAVE_LOCATION")
-        self.DEVELOPERS = self.file.getenv("DEVELOPERS")
 
         self.quote_buffer = []
         self.delete_buffer = []
@@ -63,7 +61,9 @@ class Save(commands.Cog):
                 attachments.append(atch)
         return attachments
 
-    @commands.command(aliases=["qlast", "ql"], brief="Quotes the last thing someone said")
+    @commands.command(
+        aliases=["qlast", "ql"], brief="Quotes the last thing someone said"
+    )
     async def quote_last(
         self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
     ):
