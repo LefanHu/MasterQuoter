@@ -4,11 +4,6 @@ from lib.file_utils import File
 
 bot = commands.Bot(command_prefix=File().getenv("COMMAND_PREFIX"))
 DISCORD_TOKEN = File().getenv("DISCORD_TOKEN")
-bot.developers = File().getenv("DEVELOPERS")
-
-
-def is_owner(ctx):
-    return ctx.message.author in bot.developers
 
 
 @bot.command(hidden=True)
