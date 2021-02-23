@@ -1,0 +1,4 @@
+psutil
+discord.py
+python-dotenv
+pymongo

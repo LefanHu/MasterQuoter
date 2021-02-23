@@ -1,17 +1,14 @@
 from discord.ext import commands
-from lib.file_utils import File
 import os
 
 
 class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.file = File()
-        self.developers = self.file.getenv("DEVELOPERS")
 
     # owner must be the one who invoked the cog
     async def cog_check(self, ctx):
-        if str(ctx.message.author.id) in self.developers:
+        if str(ctx.message.author.id) in self.bot.developers:
             return True
         await ctx.send(f"You are not the owner of this bot.")
 
@@ -23,6 +20,7 @@ class Owner(commands.Cog):
     async def shutdown(self, ctx):
         await ctx.send("Shutting down")
         await self.bot.logout()
+
         print("Bot has been shut down.")
 
 

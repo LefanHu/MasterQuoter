@@ -51,6 +51,9 @@ class events(commands.Cog):
 
         await ctx.send("Thanks! Your report has been sent to the developers")
 
+    def cog_unload(self):
+        print("db connection closed")
+
 
 def setup(bot):
     bot.add_cog(events(bot))

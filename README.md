@@ -39,6 +39,7 @@ Work-in-progress :) (by 3 idiots in high school)
 - psutil [pip install psutil](https://pypi.org/project/psutil/)
 - discord.py [pip install discord.py](https://pypi.org/project/discord.py/)
 - python-dotenv [pip install python-dotenv](https://pypi.org/project/python-dotenv/)
+- pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
@@ -84,4 +85,9 @@ Work-in-progress :) (by 3 idiots in high school)
 [example of a help.py cog](https://gist.github.com/OneEyedKnight/41ba697ae4284dc5b4ea15c09fb1e730)
 
 [error handling example cog](https://gist.github.com/AileenLumina/510438b241c16a2960e9b0b014d9ed06)
+
 [mongoDB documentation](https://docs.mongodb.com/manual/introduction/)
+
+[mongodb append to list](https://stackoverflow.com/questions/33189258/append-item-to-mongodb-document-array-in-pymongo-without-re-insertion)
+
+[mongodb updating doc from inside cursor traversal function](https://stackoverflow.com/questions/49611271/can-i-update-a-mongo-document-from-inside-a-cursor-traversal-function)
