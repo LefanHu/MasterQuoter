@@ -1,4 +1,7 @@
+import json
+
 import discord
+from discord import message
 from discord.ext import commands
 
 from lib.file_utils import File
@@ -10,25 +13,44 @@ from lib.quote_menu import QuoteMenu
 from lib.image_menu import ImageMenu
 from lib.quote_embed import embed as Emb
 
+import pymongo
+
+client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
+db = client.masterquoter
+
 
 class read(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.file = File()
-        self.save_location = self.file.getenv("SAVE_LOCATION")
-        self.quotes_per_page = 10
 
-    def is_owner(self, ctx):
-        return ctx.message.author in self.file.getenv("DEVELOPERS")
-
-    @commands.command(aliases=["s"], brief="Fetches a quote by ID")
-    async def show(self, ctx, quote_id):
+    @commands.command(aliases=["sq"], brief="Fetches a quote by ID and user")
+    async def show_quote(self, ctx, user: discord.Member, message_id):
         """Fetches a specific quote when provided a quote id"""
-        quote = self.file.fetch_quote(ctx.message.guild.id, int(quote_id))
+
+        message_id = int(message_id)
+        guild_id = ctx.message.guild.id
+
+        print(message_id, guild_id)
+
+        quote = db.users.find_one(
+            {"user_id": user.id},
+            {
+                "_id": 0,
+                "quotes": {
+                    "$elemMatch": {"server_id": guild_id, "message_id": message_id}
+                },
+            },
+        )["quotes"][0]
+
+        print(quote)
+
+        return
+
         if not quote:
             await ctx.send("A quote by that id does not exist")
         else:
-            await self.send_quote(ctx, quote, message=f"Quote: {quote_id}")
+            await self.send_quote(ctx, quote, message=f"Quote_id: {message_id}")
 
     @commands.command(
         name="qlist", aliases=["qfrom"], brief="lists all quotes from user"
