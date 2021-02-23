@@ -156,14 +156,16 @@ class Save(commands.Cog):
         server_id = ctx.message.guild.id
         mem_id = user.id
 
-        server_exists = db.servers.find_one({"server_id": server_id})
-        user_exists = db.users.find_one({"user_id": user.id})
+        server_exists = db.servers.find_one({"_id": server_id})
+        user_exists = db.users.find_one({"_id": user.id})
 
         # create new server if not exists
         if not server_exists:
+            # print("Adding server")
             self.new_server(ctx.message.guild)
         # create new user if not exists
         if not user_exists:
+            # print("Adding user")
             self.new_user(user)
 
         quote = {
@@ -185,13 +187,14 @@ class Save(commands.Cog):
         }
 
         # insert quotes into database under db.users & increment quote count
-        db.users.update_one(
-            {"user_id": mem_id},
+        db.users.find_one_and_update(
+            {"_id": mem_id},
             {"$push": {"quotes": quote}, "$inc": {"quotes_saved": 1}},
         )
+
         # add user's id to list if not in list & increment quote count
         db.servers.update_one(
-            {"server_id": server_id},
+            {"_id": server_id},
             {"$addToSet": {"quoted_member_ids": mem_id}, "$inc": {"quotes_saved": 1}},
         )
 
@@ -276,7 +279,7 @@ class Save(commands.Cog):
 
     def new_server(self, server):
         server = {
-            "server_id": server.id,
+            "_id": server.id,
             "server_name": server.name,
             "quotes_saved": 0,
             "quoted_member_ids": [],
@@ -285,7 +288,7 @@ class Save(commands.Cog):
 
     def new_user(self, user):
         user = {
-            "user_id": user.id,
+            "_id": user.id,
             "user_name": user.name,
             "quotes_saved": 0,
             "quotes": [],
