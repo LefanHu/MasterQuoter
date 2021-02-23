@@ -59,6 +59,8 @@ class _bot_stats(commands.Cog):
             self.tracked_statuses["quotes_saved"] += 1
         elif ctx.command.name == "quote_last":
             self.tracked_statuses["quotes_saved"] += 1
+        elif ctx.command.name == "snip":
+            self.tracked_statuses["quotes_saved"] += 1
 
     def member_count(self):
         servers = self.bot.guilds
