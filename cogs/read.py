@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 
 from lib.file_utils import File
-import os
 import random
 from typing import Optional
 
@@ -79,4 +78,4 @@ class read(commands.Cog):
 
 def setup(bot):
     bot.add_cog(read(bot))
-    print(f"Cog '{os.path.basename(__file__)}' has been loaded")
+    print(f"Cog '{File().file_name(__file__)}' has been loaded")

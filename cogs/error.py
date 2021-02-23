@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import os
 from lib.file_utils import File
 import math
 from datetime import datetime as dt
@@ -45,7 +44,9 @@ class Error(commands.Cog):
             return
 
         elif isinstance(error, commands.PrivateMessageOnly):
-            await ctx.send("This command can only be used when direct messaging the bot. ")
+            await ctx.send(
+                "This command can only be used when direct messaging the bot. "
+            )
             return
         await self.compose_report(ctx, error)
         # await ctx.send("error sent to developer")
@@ -99,4 +100,4 @@ class Error(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Error(bot))
-    print(f"Cog '{os.path.basename(__file__)}' has been loaded")
+    print(f"Cog '{File().file_name(__file__)}' has been loaded")

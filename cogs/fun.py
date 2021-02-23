@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import os
 from asyncio import TimeoutError
 
 from random import choice
@@ -12,7 +11,7 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=["lq"],brief="Fun little guessing game!")
+    @commands.command(aliases=["lq"], brief="Fun little guessing game!")
     async def guess(self, ctx):
         """
         You ever wanna guess who said what stupid thing? This game is the perfect game for you!
@@ -71,4 +70,4 @@ class events(commands.Cog):
 
 def setup(bot):
     bot.add_cog(events(bot))
-    print(f"Cog '{os.path.basename(__file__)}' has been loaded")
+    print(f"Cog '{File().file_name(__file__)}' has been loaded")
