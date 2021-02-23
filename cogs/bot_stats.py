@@ -1,7 +1,5 @@
 from discord import Embed
-from discord.ext import tasks
-from discord.ext.commands import command, Cog
-from os.path import basename
+from discord.ext import tasks, commands
 from lib.file_utils import File
 
 from discord import __version__ as discord_version
@@ -11,11 +9,11 @@ from time import time
 from psutil import Process, virtual_memory
 
 
-class _bot_stats(Cog):
+class _bot_stats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.file = File()
-        self.stat_file = self.file.getenv("STATS")
+        self.stat_file = "data/stats.json"
         self.stats = self.file.read_json(self.stat_file)
 
         self.tracked_statuses = {
@@ -42,20 +40,20 @@ class _bot_stats(Cog):
         except KeyError:
             return 0
 
-    @Cog.listener()
+    @commands.Cog.listener()
     async def on_guild_join(self, guild):
         self.tracked_statuses["server_count"] += 1
         self.tracked_statuses["servers_joined"] += 1
 
-    @Cog.listener()
+    @commands.Cog.listener()
     async def on_server_removed(self, guild):
         self.tracked_statuses["server_count"] -= 1
 
-    @Cog.listener()
+    @commands.Cog.listener()
     async def on_command(self, ctx):
         self.tracked_statuses["commands_processed"] += 1
 
-    @Cog.listener()
+    @commands.Cog.listener()
     async def on_command_completion(self, ctx):
         if ctx.command.name == "quote":
             self.tracked_statuses["quotes_saved"] += 1
@@ -70,7 +68,9 @@ class _bot_stats(Cog):
 
         return members
 
-    @command(aliases=["about_bot", "bot_info"], brief="Shows info about this bot")
+    @commands.command(
+        aliases=["about_bot", "bot_info"], brief="Shows info about this bot"
+    )
     async def about(self, ctx):
         embed = Embed(
             title="📉MasterQuoter Stats📉",
@@ -131,4 +131,4 @@ class _bot_stats(Cog):
 
 def setup(bot):
     bot.add_cog(_bot_stats(bot))
-    print(f"Cog '{basename(__file__)}' has been loaded")
+    print(f"Cog '{File().file_name(__file__)}' has been loaded")
