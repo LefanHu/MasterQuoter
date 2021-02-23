@@ -82,12 +82,12 @@ class read(commands.Cog):
         if not user:
             rand_user_id = random.choice(
                 db.servers.find_one(
-                    {"server_id": ctx.message.guild.id},
+                    {"_id": ctx.message.guild.id},
                     {"_id": 0, "quoted_member_ids": 1},
                 )["quoted_member_ids"]
             )
             quote = random.choice(
-                db.users.find_one({"user_id": rand_user_id}, {"_id": 0, "quotes": 1})[
+                db.users.find_one({"_id": rand_user_id}, {"_id": 0, "quotes": 1})[
                     "quotes"
                 ]
             )
