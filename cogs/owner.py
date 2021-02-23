@@ -1,8 +1,6 @@
 from discord.ext import commands
 import os
 
-from bot import DEVELOPERS
-
 
 class Owner(commands.Cog):
     def __init__(self, bot):
@@ -10,7 +8,7 @@ class Owner(commands.Cog):
 
     # owner must be the one who invoked the cog
     async def cog_check(self, ctx):
-        if str(ctx.message.author.id) in DEVELOPERS:
+        if str(ctx.message.author.id) in self.bot.developers:
             return True
         await ctx.send(f"You are not the owner of this bot.")
 

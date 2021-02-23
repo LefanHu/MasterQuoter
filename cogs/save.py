@@ -5,10 +5,8 @@ from typing import Optional
 from asyncio import TimeoutError
 
 import pymongo
-from bot import mongodb
 
-
-client = pymongo.MongoClient(mongodb)
+client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
 db = client.masterquoter
 
 

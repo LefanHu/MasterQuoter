@@ -1,20 +1,14 @@
-import discord
 import os
 from discord.ext import commands
 from lib.file_utils import File
-import sys
 
 bot = commands.Bot(command_prefix=File().getenv("COMMAND_PREFIX"))
 DISCORD_TOKEN = File().getenv("DISCORD_TOKEN")
-DEVELOPERS = File().getenv("DEVELOPERS")
-bot.ready = False
-
-# use 135.0.54.232:27017 for accessing outside of network
-mongodb = "mongodb://developer:masterbaiter@192.168.0.100:27017/masterquoter"
+bot.developers = File().getenv("DEVELOPERS")
 
 
 def is_owner(ctx):
-    return ctx.message.author in DEVELOPERS
+    return ctx.message.author in bot.developers
 
 
 @bot.command(hidden=True)
