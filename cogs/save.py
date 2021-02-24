@@ -268,6 +268,7 @@ class Save(commands.Cog):
             "server_name": server.name,
             "prefix": "mq>",
             "quotes_saved": 0,
+            "commands_invoked": 0,
             "quoted_member_ids": [],
         }
         db.servers.insert_one(server)

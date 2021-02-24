@@ -1,12 +1,13 @@
 from discord import Embed
-from discord.ext import tasks, commands
-from lib.file_utils import File
-
 from discord import __version__ as discord_version
+from discord.ext import tasks, commands
+
+from lib.file_utils import File
 from datetime import datetime, timedelta
 from platform import python_version
-from time import time
 from psutil import Process, virtual_memory
+from time import time
+from lib.db import db
 
 
 class About(commands.Cog):
@@ -52,6 +53,9 @@ class About(commands.Cog):
     @commands.Cog.listener()
     async def on_command(self, ctx):
         self.tracked_statuses["commands_processed"] += 1
+        db.servers.find_one_and_update(
+            {"_id": ctx.guild.id}, {"$inc": {"commands_invoked": 1}}
+        )
 
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
