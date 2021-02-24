@@ -1,4 +1,4 @@
-from discord import Embed
+from discord import Embed, Member
 from discord.ext import commands
 
 from datetime import datetime
@@ -18,6 +18,16 @@ class Settings(commands.Cog):
             db.servers.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
             await ctx.send("Prefix set.")
 
+    @commands.command(brief="Makes the bot ignore a user")
+    async def ignore(self, ctx, user: Member):
+        if type(user) != Member:
+            await ctx.send("A user was not properly specified")
+            return
+
+        db.servers.update_one(
+            {"_id": ctx.guild.id}, {"$addToSet": {"ignored": user.id}}
+        )
+
     @commands.command(
         aliases=["settings"], brief="Shows settings of the server & stats"
     )
@@ -32,6 +42,11 @@ class Settings(commands.Cog):
             ("Commands Invoked", settings["commands_invoked"], True),
             ("Server ID", guild.id, False),
             ("Bot prefix", settings["prefix"], True),
+            (
+                "Users to ignore",
+                ", ".join([self.bot.get_user(id).name for id in settings["ignored"]]),
+                False,
+            ),
         ]
 
         embed = Embed(

@@ -80,6 +80,11 @@ class Bot(BotBase):
                 await ctx.send(
                     "I'm not ready to receive commands. Please wait a few seconds."
                 )
+            elif (
+                message.author.id
+                in db.servers.find_one({"_id": ctx.guild.id}, {"ignored": 1})["ignored"]
+            ):
+                await ctx.send("You've been ignored on this server")
             else:
                 await self.invoke(ctx)
 

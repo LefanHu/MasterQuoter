@@ -269,7 +269,7 @@ class Save(commands.Cog):
             "prefix": "mq>",
             "quotes_saved": 0,
             "commands_invoked": 0,
-            "banned_users": [],
+            "ignored": [],
             "quoted_member_ids": [],
         }
         db.servers.insert_one(server)
