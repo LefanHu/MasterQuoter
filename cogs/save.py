@@ -3,7 +3,6 @@ from discord.ext import commands
 from lib.file_utils import File
 from typing import Optional
 from asyncio import TimeoutError
-
 import pymongo
 
 client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
@@ -281,6 +280,7 @@ class Save(commands.Cog):
         server = {
             "_id": server.id,
             "server_name": server.name,
+            "prefix": "mq>",
             "quotes_saved": 0,
             "quoted_member_ids": [],
         }
@@ -295,7 +295,11 @@ class Save(commands.Cog):
         }
         db.users.insert_one(user)
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        if not self.bot.ready:
+            self.bot.cogs_ready.ready_up(File().file_name(__file__))
+
 
 def setup(client):
     client.add_cog(Save(client))
-    print(f"Cog '{File().file_name(__file__)}' has been loaded")

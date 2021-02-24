@@ -5,7 +5,7 @@ from lib.file_utils import File
 from datetime import datetime as dt
 
 
-class events(commands.Cog):
+class Report(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -48,10 +48,11 @@ class events(commands.Cog):
 
         await ctx.send("Thanks! Your report has been sent to the developers")
 
-    def cog_unload(self):
-        print("db connection closed")
+    @commands.Cog.listener()
+    async def on_ready(self):
+        if not self.bot.ready:
+            self.bot.cogs_ready.ready_up(File().file_name(__file__))
 
 
 def setup(bot):
-    bot.add_cog(events(bot))
-    print(f"Cog '{File().file_name(__file__)}' has been loaded")
+    bot.add_cog(Report(bot))

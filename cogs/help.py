@@ -105,7 +105,11 @@ class Help(Cog):
             else:
                 await ctx.send("That command does not exist.")
 
+    @Cog.listener()
+    async def on_ready(self):
+        if not self.bot.ready:
+            self.bot.cogs_ready.ready_up(os.path.basename(__file__))
+
 
 def setup(bot):
     bot.add_cog(Help(bot))
-    print(f"Cog '{os.path.basename(__file__)}' has been loaded")

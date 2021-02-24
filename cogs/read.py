@@ -131,7 +131,11 @@ class read(commands.Cog):
             else:
                 await self.send_quote(ctx, quote)
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        if not self.bot.ready:
+            self.bot.cogs_ready.ready_up(File().file_name(__file__))
+
 
 def setup(bot):
     bot.add_cog(read(bot))
-    print(f"Cog '{File().file_name(__file__)}' has been loaded")
