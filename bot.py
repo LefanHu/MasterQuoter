@@ -21,9 +21,7 @@ db = client.masterquoter
 
 
 def get_prefix(bot, message):
-    print(message.guild.id)
     prefix = db.servers.find_one({"_id": message.guild.id}, {"prefix": 1})["prefix"]
-    print(prefix)
     return when_mentioned_or(prefix)(bot, message)
 
 
@@ -114,7 +112,6 @@ class Bot(BotBase):
             if isinstance(message.channel, DMChannel):
                 pass  # ignore all dms
             else:
-                print(message.clean_content)
                 await self.process_commands(message)
 
 

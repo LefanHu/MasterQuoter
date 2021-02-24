@@ -10,9 +10,10 @@ class Settings(commands.Cog):
     @commands.command(brief="Changes the prefix of this bot for your server")
     async def prefix(self, ctx, *, prefix):
         if len(prefix) > 5:
-            await ctx.send("prefixes cannot be longer than 5 characters")
+            await ctx.send("Prefixes cannot be longer than 5 characters")
         else:
-            db.servers.find({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
+            db.servers.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
+            await ctx.send("Prefix set.")
 
     @commands.Cog.listener()
     async def on_ready(self):
