@@ -108,7 +108,7 @@ class Help(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up(os.path.basename(__file__))
+            self.bot.cogs_ready.ready_up(os.path.basename(__file__)[:-3])
 
 
 def setup(bot):

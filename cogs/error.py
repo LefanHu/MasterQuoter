@@ -99,7 +99,7 @@ class Error(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up(File().file_name(__file__))
+            self.bot.cogs_ready.ready_up(File().file_name(__file__)[:-3])
 
 
 def setup(bot):

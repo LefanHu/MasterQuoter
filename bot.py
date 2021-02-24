@@ -22,7 +22,7 @@ db = client.masterquoter
 
 def get_prefix(bot, message):
     print(message.guild.id)
-    prefix = db.servers.find_one({"_id": message.guild.id}, {"prefix": 1})
+    prefix = db.servers.find_one({"_id": message.guild.id}, {"prefix": 1})["prefix"]
     print(prefix)
     return when_mentioned_or(prefix)(bot, message)
 
@@ -30,6 +30,7 @@ def get_prefix(bot, message):
 class Ready(object):
     def __init__(self):
         for cog in COGS:
+            print(cog)
             setattr(self, cog, False)
 
     def ready_up(self, cog):
@@ -99,7 +100,7 @@ class Bot(BotBase):
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
 
-            await self.stdout.send("Now online!")
+            print("Now online!")
             self.ready = True
             print("bot ready")
 

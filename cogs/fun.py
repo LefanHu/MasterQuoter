@@ -11,6 +11,7 @@ import pymongo
 client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
 db = client.masterquoter
 
+
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -32,9 +33,7 @@ class events(commands.Cog):
             )["quoted_member_ids"]
         )
         quote = random.choice(
-            db.users.find_one({"_id": rand_user_id}, {"_id": 0, "quotes": 1})[
-                "quotes"
-            ]
+            db.users.find_one({"_id": rand_user_id}, {"_id": 0, "quotes": 1})["quotes"]
         )
         if not quote:  # ensures quote is not None
             await ctx.send("There are no quotes")
@@ -84,7 +83,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up(File().file_name(__file__))
+            self.bot.cogs_ready.ready_up(File().file_name(__file__)[:-3])
 
 
 def setup(bot):
