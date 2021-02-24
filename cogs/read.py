@@ -1,7 +1,4 @@
-import json
-
 import discord
-from discord import message
 from discord.ext import commands
 
 from lib.file_utils import File
@@ -99,7 +96,7 @@ class read(commands.Cog):
         if len(quote["image_attachments"]) <= 1:
             await ctx.send(message, embed=Emb().format(quote, hide_user=hide_user))
         else:  # deal with quotes with multiple attachments here
-            quote = ImageMenu(quote, message)
+            quote = ImageMenu(Emb.format(quote), quote["image_attachments"])
             await quote.start(ctx)
 
     @commands.command(name="rand", aliases=["random"])
