@@ -54,6 +54,9 @@ class read(commands.Cog):
     )
     async def quotes_from(self, ctx, user: Optional[discord.Member]):
         """Lists all quotes from a specified user"""
+
+        quotes = []
+
         if not user:
 
             # getting quoted members from server in database
@@ -70,16 +73,18 @@ class read(commands.Cog):
                 },
             )
 
-            quotes = []
             quote_sections = list(cursor)
             for quote_section in quote_sections:
                 for quote in quote_section["quotes"]:
                     if quote["server_id"] == ctx.message.guild.id:
                         quotes.append(quote)
-
         else:
-            quotes = db.users.find_one({"_id": user.id}, {"quotes": 1})["quotes"]
-            # quotes = self.file.from_user(user.id, ctx.message.guild.id)
+            user_quotes = db.users.find_one({"_id": user.id}, {"_id": 0, "quotes": 1})[
+                "quotes"
+            ]
+            for quote in user_quotes:
+                if quote["server_id"] == ctx.message.guild.id:
+                    quotes.append(quote)
 
         if not quotes:
             await ctx.send(f"There are no quotes.")
@@ -104,12 +109,12 @@ class read(commands.Cog):
         if not user:
             rand_user_id = random.choice(
                 db.servers.find_one(
-                    {"server_id": ctx.message.guild.id},
+                    {"_id": ctx.message.guild.id},
                     {"_id": 0, "quoted_member_ids": 1},
                 )["quoted_member_ids"]
             )
             quote = random.choice(
-                db.users.find_one({"user_id": rand_user_id}, {"_id": 0, "quotes": 1})[
+                db.users.find_one({"_id": rand_user_id}, {"_id": 0, "quotes": 1})[
                     "quotes"
                 ]
             )
