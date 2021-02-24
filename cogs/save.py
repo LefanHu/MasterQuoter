@@ -282,10 +282,6 @@ class Save(commands.Cog):
         db.users.insert_one(user)
 
     @commands.Cog.listener()
-    async def on_guild_join(self, guild):
-        self.new_server(guild.id)
-
-    @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
             self.bot.cogs_ready.ready_up(File().file_name(__file__)[:-3])
