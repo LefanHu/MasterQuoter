@@ -70,9 +70,7 @@ class _bot_stats(commands.Cog):
 
         return members
 
-    @commands.command(
-        aliases=["about_bot", "bot_info"], brief="Shows info about this bot"
-    )
+    @commands.command(aliases=["about_bot"], brief="Shows info about this bot")
     async def about(self, ctx):
         embed = Embed(
             title="📉MasterQuoter Stats📉",
