@@ -152,13 +152,8 @@ class Save(commands.Cog):
         server_id = ctx.message.guild.id
         mem_id = user.id
 
-        server_exists = db.servers.find_one({"_id": server_id})
         user_exists = db.users.find_one({"_id": user.id})
 
-        # create new server if not exists
-        if not server_exists:
-            # print("Adding server")
-            self.new_server(ctx.message.guild)
         # create new user if not exists
         if not user_exists:
             # print("Adding user")

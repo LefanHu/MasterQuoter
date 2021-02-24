@@ -16,7 +16,11 @@ from lib.db import db
 
 
 def get_prefix(bot, message):
-    prefix = db.servers.find_one({"_id": message.guild.id}, {"prefix": 1})["prefix"]
+    try:
+        prefix = db.servers.find_one({"_id": message.guild.id}, {"prefix": 1})["prefix"]
+    except TypeError:  # creates server
+        prefix = "mq>"
+        bot.get_cog("Save").new_server(message.guild)
     return when_mentioned_or(prefix)(bot, message)
 
 
@@ -42,6 +46,7 @@ class Bot(BotBase):
         self.cogs_ready = Ready()
 
         self.guild = None
+        self.permissions = 1879960784
         self.developers = OWNER_IDS
 
         # banlist can also go here
