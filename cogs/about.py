@@ -81,6 +81,7 @@ class About(commands.Cog):
             colour=0x00FFFF,
             thumbnail=self.bot.user.avatar_url,
             timestamp=datetime.utcnow(),
+            description=f"```This bot is coded by team MasterBaiters, a group of 2 high school students who are bored out of their minds from quarantine. Hence, this bot.```",
         )
 
         proc = Process()
@@ -92,23 +93,24 @@ class About(commands.Cog):
             mem_usage = mem_total * (mem_of_total / 100)
 
         fields = [
-            ("👌Bot version👌", self.bot.VERSION, True),
-            ("🐍Python version🐍", python_version(), True),
-            ("☄️discord.py version📸", discord_version, True),
-            ("⏫Uptime🆙", uptime, True),
-            ("💻CPU time🖥️", cpu_time, True),
+            ("👌 Bot version 👌", self.bot.VERSION, True),
+            ("🐍 Python version 🐍", python_version(), True),
+            ("☄️ discord.py version 📸", discord_version, True),
+            ("⏫ Uptime 🆙", uptime, True),
+            ("💻 CPU time 🖥️", cpu_time, True),
             (
-                "🧠Memory usage🧠",
+                "🧠 Memory usage 🧠",
                 f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)",
                 False,
             ),
-            ("😭Users😭", f"{self.tracked_statuses['member_count']:,}", True),
-            ("🍋Quotes Saved🍋", f"{self.tracked_statuses['quotes_saved']:,}", True),
+            ("😭 Users 😭", f"{self.tracked_statuses['member_count']:,}", True),
+            ("🍋 Quotes Saved 🍋", f"{self.tracked_statuses['quotes_saved']:,}", True),
             (
-                "😔Commands Processed😔",
+                "😔 Commands Run 😔",
                 f"{self.tracked_statuses['commands_processed']:,}",
                 True,
             ),
+            ("💌 Invite Link 💌", f"{self.bot.invite_link}", False),
         ]
 
         for name, value, inline in fields:
