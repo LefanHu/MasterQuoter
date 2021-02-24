@@ -170,7 +170,7 @@ class Save(commands.Cog):
 
         quote = {
             "msg": msg,
-            "name": str(user),
+            "name": user.name,
             "display_name": user.display_name,
             "avatar_url": str(user.avatar_url),
             "time_stamp": int(ctx.message.created_at.timestamp()),
@@ -187,7 +187,7 @@ class Save(commands.Cog):
         }
 
         # insert quotes into database under db.users & increment quote count
-        db.users.find_one_and_update(
+        db.users.update_one(
             {"_id": mem_id},
             {"$push": {"quotes": quote}, "$inc": {"quotes_saved": 1}},
         )
