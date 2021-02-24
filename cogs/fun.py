@@ -2,10 +2,14 @@ import discord
 from discord.ext import commands
 from asyncio import TimeoutError
 
-from random import choice
+import random
 from lib.file_utils import File
 from lib.quote_embed import embed
 
+import pymongo
+
+client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
+db = client.masterquoter
 
 class events(commands.Cog):
     def __init__(self, bot):
@@ -21,7 +25,17 @@ class events(commands.Cog):
         """
         attempts = 5  # calculate this as a ratio later
 
-        quote = choice(File().from_server(ctx.guild.id))
+        rand_user_id = random.choice(
+            db.servers.find_one(
+                {"_id": ctx.message.guild.id},
+                {"_id": 0, "quoted_member_ids": 1},
+            )["quoted_member_ids"]
+        )
+        quote = random.choice(
+            db.users.find_one({"_id": rand_user_id}, {"_id": 0, "quotes": 1})[
+                "quotes"
+            ]
+        )
         if not quote:  # ensures quote is not None
             await ctx.send("There are no quotes")
             return
