@@ -9,7 +9,7 @@ from time import time
 from psutil import Process, virtual_memory
 
 
-class _bot_stats(commands.Cog):
+class About(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.file = File()
@@ -135,4 +135,4 @@ class _bot_stats(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(_bot_stats(bot))
+    bot.add_cog(About(bot))

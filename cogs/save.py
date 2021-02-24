@@ -267,12 +267,6 @@ class Save(commands.Cog):
         except TimeoutError:
             await ctx.send("Snip timed out")
 
-    @commands.command(aliases=["rm", "remove"])
-    async def remove_quote(self, ctx, quote_id):
-        server_id = ctx.message.guild.id
-
-        # remove the quote here
-
     def new_server(self, server):
         server = {
             "_id": server.id,
@@ -291,6 +285,10 @@ class Save(commands.Cog):
             "quotes": [],
         }
         db.users.insert_one(user)
+
+    @commands.Cog.listener()
+    async def on_guild_join(self, guild):
+        self.new_server(guild.id)
 
     @commands.Cog.listener()
     async def on_ready(self):

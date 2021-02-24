@@ -9,16 +9,10 @@ from datetime import datetime as dt
 import os
 from dotenv import load_dotenv
 
-import pymongo
-
 OWNER_IDS = [324917494005366784, 313781087945883651]  # Cuddles & alex
 COGS = [filename[:-3] for filename in os.listdir("./cogs") if filename.endswith(".py")]
 
-
-client = pymongo.MongoClient(
-    "mongodb://developer:masterbaiter@192.168.0.100:27017/masterquoter"
-)
-db = client.masterquoter
+from lib.db import db
 
 
 def get_prefix(bot, message):
@@ -68,7 +62,6 @@ class Bot(BotBase):
         self.setup()
 
         self.TOKEN = os.getenv("DISCORD_TOKEN")  # DISCORD_TOKEN
-        self.DATABASE_URL = os.getenv("DATABASE_URL")
 
         print("running bot...")
         super().run(self.TOKEN, reconnect=True)
