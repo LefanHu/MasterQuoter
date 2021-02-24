@@ -54,10 +54,16 @@ class read(commands.Cog):
     )
     async def quote_list(self, ctx, user: Optional[discord.Member]):
         """Lists all quotes from a specified user"""
+
+        quotes =[]
+
         if not user:
-            quotes = self.file.from_server(ctx.message.guild.id)
+            pass
         else:
-            quotes = self.file.from_user(user.id, ctx.message.guild.id)
+            for list in  db.users.find_one({"_id": user.id}, {"_id": 0, "quotes": 1})[
+                "quotes"]:
+                quotes.append(list)
+
 
         if not quotes:
             await ctx.send(f"There are no quotes.")
