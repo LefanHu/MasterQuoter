@@ -28,6 +28,14 @@ class Settings(commands.Cog):
             {"_id": ctx.guild.id}, {"$addToSet": {"ignored": user.id}}
         )
 
+    @commands.command(brief="unignores/pardons someone ignored on the server")
+    async def pardon(self, ctx, user: Member):
+        if type(user) != Member:
+            await ctx.send("A user was not properly specified")
+            return
+
+        db.servers.update_one({"_id": ctx.guild.id}, {"$pull": {"ignored": user.id}})
+
     @commands.command(
         aliases=["settings"], brief="Shows settings of the server & stats"
     )
@@ -44,7 +52,9 @@ class Settings(commands.Cog):
             ("Bot prefix", settings["prefix"], True),
             (
                 "Users to ignore",
-                ", ".join([self.bot.get_user(id).name for id in settings["ignored"]]),
+                ", ".join(
+                    [(await self.bot.fetch_user(id)).name for id in settings["ignored"]]
+                ),
                 False,
             ),
         ]
