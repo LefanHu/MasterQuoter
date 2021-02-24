@@ -1,14 +1,12 @@
 from discord.ext import menus
-from lib.quote_embed import embed as emb
 
 
 class ImageMenu(menus.Menu):
-    def __init__(self, quote, msg=None):
+    def __init__(self, embed, images, msg=None):
         super().__init__(timeout=30.0, clear_reactions_after=True)
-        self.quote = quote
         self.msg = msg
-        self.embed = emb().format(quote)
-        self.images = self.quote["image_attachments"]
+        self.embed = embed
+        self.images = images
         self.image_count = len(self.images)
         self.image_num = 0
 
