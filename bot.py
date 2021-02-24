@@ -48,6 +48,7 @@ class Bot(BotBase):
         self.guild = None
         self.permissions = 1879960784
         self.developers = OWNER_IDS
+        self.invite_link = "https://discord.com/api/oauth2/authorize?client_id=795756832164413500&permissions=1946545232&scope=bot"
 
         # banlist can also go here
 
