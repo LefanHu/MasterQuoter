@@ -1,5 +1,6 @@
 from discord.ext import commands
 import os
+from lib.db import db
 
 
 class Owner(commands.Cog):
@@ -22,6 +23,13 @@ class Owner(commands.Cog):
         await self.bot.logout()
 
         print("Bot has been shut down.")
+
+    @commands.command(hidden=True)
+    async def drop_all(self, ctx):
+        db.servers.drop()
+        db.users.drop()
+
+        await ctx.send("All collections dropped")
 
     @commands.Cog.listener()
     async def on_ready(self):
