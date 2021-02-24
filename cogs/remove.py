@@ -13,23 +13,26 @@ class events(commands.Cog):
         print("Bot is online.")
 
     @commands.command(aliases=["rm", "remove"])
-    async def remove_quote(self, ctx, quote_id):
-        server_id = ctx.message.guild.id
-
-        # remove the quote here
-
-    @commands.Cog.listener()
-    async def on_guild_remove(self, guild):
-        # remove server from the database
-        quoted_member_ids = db.servers.find_one_and_delete(
-            {"_id": guild.id}, {"_id": 0, "quoted_member_ids": 1}
+    async def remove_quote(self, ctx, quote_id: int):
+        quoted_users = db.servers.find_one(
+            {"_id": ctx.guild.id}, {"_id": 0, "quoted_member_ids": 1}
         )["quoted_member_ids"]
 
-        # test this
-        db.users.update_many(
-            {"_id": {"$in": quoted_member_ids}},
-            {"quotes": {"$pull": {"quotes.server_id": guild.id}}},
+        # if no quotes saved on server
+        if not quoted_users:
+            await ctx.send("There are no quotes on this server")
+            return
+
+        results = db.users.update_one(
+            {"_id": {"$in": quoted_users}},
+            {"$pull": {"quotes": {"server_id": ctx.guild.id, "message_id": quote_id}}},
         )
+
+        # see if anything was modified
+        if results.modified_count == 0:
+            await ctx.send("That quote does not exist.")
+        else:
+            await ctx.send("Quote removed")
 
     @commands.Cog.listener()
     async def on_ready(self):
