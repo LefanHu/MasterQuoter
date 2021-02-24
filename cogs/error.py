@@ -42,7 +42,7 @@ class Error(commands.Cog):
             await ctx.send(
                 "This command can only be used when direct messaging the bot. "
             )
-        elif isinstance(exc.original, Forbidden):
+        elif isinstance(exc, Forbidden):
             await ctx.send("I do not have permission to do that.")
         else:
             await self.compose_report(ctx, exc)

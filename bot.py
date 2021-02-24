@@ -81,7 +81,6 @@ class Bot(BotBase):
                     "I'm not ready to receive commands. Please wait a few seconds."
                 )
             else:
-                print("reached")
                 await self.invoke(ctx)
 
     async def on_connect(self):

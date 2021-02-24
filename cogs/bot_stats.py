@@ -90,7 +90,7 @@ class _bot_stats(commands.Cog):
             mem_usage = mem_total * (mem_of_total / 100)
 
         fields = [
-            ("👌Bot version👌", "1.0.0", True),
+            ("👌Bot version👌", self.bot.VERSION, True),
             ("🐍Python version🐍", python_version(), True),
             ("☄️discord.py version📸", discord_version, True),
             ("⏫Uptime🆙", uptime, True),
