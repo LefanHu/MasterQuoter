@@ -52,12 +52,34 @@ class read(commands.Cog):
     @commands.command(
         name="qlist", aliases=["qfrom"], brief="lists all quotes from user"
     )
-    async def quotes_from_member(self, ctx, user: Optional[discord.Member]):
+    async def quotes_from(self, ctx, user: Optional[discord.Member]):
         """Lists all quotes from a specified user"""
         if not user:
-            quotes = self.file.from_server(ctx.message.guild.id)
+
+            # getting quoted members from server in database
+            member_ids = db.servers.find_one(
+                {"_id": ctx.message.guild.id}, {"_id": 0, "quoted_member_ids": 1}
+            )["quoted_member_ids"]
+
+            # getting quotes from listed users in database
+            cursor = db.users.find(
+                {"_id": {"$in": member_ids}},
+                {
+                    "_id": 0,
+                    "quotes": 1,
+                },
+            )
+
+            quotes = []
+            quote_sections = list(cursor)
+            for quote_section in quote_sections:
+                for quote in quote_section["quotes"]:
+                    if quote["server_id"] == ctx.message.guild.id:
+                        quotes.append(quote)
+
         else:
-            quotes = self.file.from_user(user.id, ctx.message.guild.id)
+            quotes = db.users.find_one({"_id": user.id}, {"quotes": 1})["quotes"]
+            # quotes = self.file.from_user(user.id, ctx.message.guild.id)
 
         if not quotes:
             await ctx.send(f"There are no quotes.")
