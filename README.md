@@ -91,3 +91,7 @@ Work-in-progress :) (by 3 idiots in high school)
 [mongodb append to list](https://stackoverflow.com/questions/33189258/append-item-to-mongodb-document-array-in-pymongo-without-re-insertion)
 
 [mongodb updating doc from inside cursor traversal function](https://stackoverflow.com/questions/49611271/can-i-update-a-mongo-document-from-inside-a-cursor-traversal-function)
+
+[lookup array of object ids in mongodb](https://www.tutorialspoint.com/perform-lookup-to-array-of-object-id-s-in-mongodb)
+
+[similar to resource above](https://stackoverflow.com/questions/34967482/lookup-on-objectids-in-an-array)
