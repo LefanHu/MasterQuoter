@@ -11,7 +11,6 @@ class Save(commands.Cog):
         self.bot = client
         self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
-        
 
     def cog_unload(self):
         client.close()
@@ -297,7 +296,6 @@ class Save(commands.Cog):
     async def on_ready(self):
         if not self.bot.ready:
             self.bot.cogs_ready.ready_up(File().file_name(__file__))
-            await self.bot.fetch_guild(self.new_server(self.))
 
 
 def setup(client):
