@@ -17,9 +17,7 @@ class events(commands.Cog):
 
     @commands.command(brief="returns an invite link to add this bot")
     async def invite(self, ctx):
-        await ctx.send(
-            "https://discord.com/api/oauth2/authorize?client_id=795756832164413500&permissions=1946545232&scope=bot"
-        )
+        await ctx.send(self.bot.invite_link)
 
     @commands.Cog.listener()
     async def on_ready(self):
