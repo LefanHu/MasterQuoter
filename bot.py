@@ -14,11 +14,14 @@ OWNER_IDS = [324917494005366784, 313781087945883651]  # Cuddles & alex
 COGS = [filename[:-3] for filename in os.listdir("./cogs") if filename.endswith(".py")]
 
 
-client = pymongo.MongoClient()
+client = pymongo.MongoClient(
+    "mongodb://developer:masterbaiter@192.168.0.100:27017/masterquoter"
+)
 db = client.masterquoter
 
 
 def get_prefix(bot, message):
+    print(message.guild.id)
     prefix = db.servers.find_one({"_id": message.guild.id}, {"prefix": 1})
     print(prefix)
     return when_mentioned_or(prefix)(bot, message)
@@ -64,7 +67,7 @@ class Bot(BotBase):
         self.setup()
 
         self.TOKEN = os.getenv("DISCORD_TOKEN")  # DISCORD_TOKEN
-        self.DATABASE_URL = os.getenv("DISCORD_DATABASE_URL")
+        self.DATABASE_URL = os.getenv("DATABASE_URL")
 
         print("running bot...")
         super().run(self.TOKEN, reconnect=True)
@@ -79,6 +82,7 @@ class Bot(BotBase):
                     "I'm not ready to receive commands. Please wait a few seconds."
                 )
             else:
+                print("reached")
                 await self.invoke(ctx)
 
     async def on_connect(self):
@@ -109,6 +113,7 @@ class Bot(BotBase):
             if isinstance(message.channel, DMChannel):
                 pass  # ignore all dms
             else:
+                print(message.clean_content)
                 await self.process_commands(message)
 
 
