@@ -1,9 +1,10 @@
 from asyncio import sleep
 
-from discord import DMChannel
+from discord import DMChannel, Embed
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import Context
 from discord.ext.commands import when_mentioned_or
+from datetime import datetime as dt
 
 import os
 from dotenv import load_dotenv
@@ -47,6 +48,7 @@ class Bot(BotBase):
         self.cogs_ready = Ready()
 
         self.guild = None
+        self.developers = OWNER_IDS
 
         # banlist can also go here
 
@@ -109,7 +111,26 @@ class Bot(BotBase):
     async def on_message(self, message):
         if not message.author.bot:
             if isinstance(message.channel, DMChannel):
-                pass  # ignore all dms
+                msg = message.clean_content
+                embed = Embed(timestamp=dt.utcnow(), colour=0x00FFFF)
+                embed.add_field(name="FROM:", value=f"From: {message.author}")
+                embed.add_field(name="REPORT", value=f"Msg: {msg}", inline=False)
+
+                for attachment in message.attachments:
+                    img = attachment.url
+                    embed.set_image(url=img)
+                # Sends the error to direct messages
+
+                cog_error = self.get_cog("Error")
+
+                for developer in self.developers:
+                    user = await self.fetch_user(developer)
+
+                    await cog_error.dm(user, embed)
+
+                await message.channel.send(
+                    "Thanks! Your message has been relayed to the developers"
+                )
             else:
                 await self.process_commands(message)
 
