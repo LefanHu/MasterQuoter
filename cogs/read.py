@@ -8,7 +8,7 @@ from typing import Optional
 from discord.ext.menus import MenuPages
 from lib.quote_menu import QuoteMenu
 from lib.image_menu import ImageMenu
-from lib.quote_embed import embed as Emb
+from lib.embed_utils import embed as Emb
 
 import pymongo
 
@@ -94,9 +94,11 @@ class read(commands.Cog):
 
     async def send_quote(self, ctx, quote, message=None, hide_user=False):
         if len(quote["image_attachments"]) <= 1:
-            await ctx.send(message, embed=Emb().format(quote, hide_user=hide_user))
+            await ctx.send(
+                message, embed=Emb().format_quote(quote, hide_user=hide_user)
+            )
         else:  # deal with quotes with multiple attachments here
-            quote = ImageMenu(Emb.format(quote), quote["image_attachments"])
+            quote = ImageMenu(Emb.format_quote(quote), quote["image_attachments"])
             await quote.start(ctx)
 
     @commands.command(name="rand", aliases=["random"])

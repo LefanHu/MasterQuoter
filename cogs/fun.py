@@ -1,10 +1,9 @@
-import discord
 from discord.ext import commands
 from asyncio import TimeoutError
 
 import random
 from lib.file_utils import File
-from lib.quote_embed import embed
+from lib.embed_utils import embed
 
 import pymongo
 
@@ -68,7 +67,8 @@ class events(commands.Cog):
                 else:
                     if guess.mentions[0].id == quote["user_id"]:
                         await ctx.send(
-                            "You've guessed correctly!", embed=embed().format(quote)
+                            "You've guessed correctly!",
+                            embed=embed().format_quote(quote),
                         )
                         break
                     else:
