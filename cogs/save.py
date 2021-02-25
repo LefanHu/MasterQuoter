@@ -30,7 +30,7 @@ class Save(commands.Cog):
                 allowed = False
 
         if not allowed:
-            await ctx.send("You are not allowed to save quotes on this server.")
+            await ctx.send("You are not allowed to manage quotes on this server.")
 
         return allowed
 
