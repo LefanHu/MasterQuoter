@@ -222,6 +222,12 @@ class Save(commands.Cog):
                 "raw_reaction_add", check=is_user, timeout=60.0
             )
 
+            # removes reactions to provide feedback snip was taken
+            message_one = await ctx.channel.fetch_message(reaction_one.message_id)
+            message_two = await ctx.channel.fetch_message(reaction_two.message_id)
+            await message_one.remove_reaction(reaction_one.emoji, user)
+            await message_two.remove_reaction(reaction_two.emoji, user)
+
             msg_ids = [reaction_one.message_id, reaction_two.message_id]
             if set(msg_ids) == {reaction_one.message_id}:  # same message
                 msg = await ctx.channel.fetch_message(reaction_one.message_id)
@@ -255,7 +261,7 @@ class Save(commands.Cog):
                             return
                         break
 
-                await self.save_snippet(ctx, quoted_user, msgs)
+                await self.save_snippet(ctx, quoted_user, reversed(msgs))
                 await ctx.send("Snippet saved.")
 
         except TimeoutError:
