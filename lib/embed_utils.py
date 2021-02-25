@@ -4,7 +4,15 @@ from datetime import datetime as dt
 
 
 class embed:
-    def format_quote(self, quote, *, show_image=True, image_num=None, hide_user=False):
+    def format_quote(
+        self,
+        quote,
+        *,
+        show_image=True,
+        image_num=None,
+        hide_user=False,
+        description=None,
+    ):
         name = quote["display_name"] if not hide_user else "Unknown"
         avatar = quote["avatar_url"] if not hide_user else None
         msg = "\n".join(quote["msg"]) if type(quote["msg"]) == list else quote["msg"]
@@ -13,7 +21,7 @@ class embed:
 
         embed = Embed(
             title=f"{name}:",
-            description=msg,
+            description=msg if description == None else description,
             colour=Colour.random(),
             timestamp=dt.fromtimestamp(quote["time_stamp"]),
         )
