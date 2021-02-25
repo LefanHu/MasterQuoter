@@ -31,6 +31,14 @@ class Owner(commands.Cog):
 
         await ctx.send("All collections dropped")
 
+    @commands.command(hidden=True)
+    async def blacklist(self, ctx, server_id):
+        guild = self.bot.fetch_guild(int(server_id))
+        if not guild:
+            await ctx.send("That server does not exist")
+        else:
+            pass
+
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
