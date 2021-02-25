@@ -96,10 +96,21 @@ class Read(commands.Cog):
             await ctx.send(f"There are no quotes.")
             return
 
-        pages = MenuPages(
-            source=QuoteMenu(ctx, quotes), clear_reactions_after=True, timeout=60.0
-        )
-        await pages.start(ctx)
+        # sends differently depending on if a user was specified
+        if not user:
+            pages = MenuPages(
+                source=QuoteMenu(ctx, quotes, ctx.guild.name, ctx.guild.icon_url),
+                clear_reactions_after=True,
+                timeout=60.0,
+            )
+            await pages.start(ctx)
+        else:
+            pages = MenuPages(
+                source=QuoteMenu(ctx, quotes, user.name, user.avatar_url),
+                clear_reactions_after=True,
+                timeout=60.0,
+            )
+            await pages.start(ctx)
 
     async def send_quote(self, ctx, quote, message=None, hide_user=False):
         if len(quote["image_attachments"]) <= 1:
