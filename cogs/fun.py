@@ -1,46 +1,53 @@
 from discord.ext import commands
 from asyncio import TimeoutError
-
+from typing import Optional
 import random
 from lib.file_utils import File
 from lib.embed_utils import embed
-
-import pymongo
-
-client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
-db = client.masterquoter
+from lib.db import db
 
 
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=["lq"], brief="Fun little guessing game!")
-    async def guess(self, ctx):
+    @commands.command(aliases=["g"], brief="Fun little guessing game!")
+    async def guess(self, ctx, guesses: Optional[int]):
         """
         You ever wanna guess who said what stupid thing? This game is the perfect game for you!
-
-        Default: Starts the guessing game
-        Cmd: Does literally the same thing LOL
+        Example Usage:
         """
-        attempts = 5  # calculate this as a ratio later
+        attempts = 5 if not guesses else guesses  # calculate this as a ratio later
 
-        rand_user_id = random.choice(
-            db.servers.find_one(
-                {"_id": ctx.message.guild.id},
-                {"_id": 0, "quoted_member_ids": 1},
-            )["quoted_member_ids"]
+        # getting quoted members from server in database
+        member_ids = db.servers.find_one(
+            {"_id": ctx.guild.id}, {"_id": 0, "quoted_member_ids": 1}
+        )["quoted_member_ids"]
+
+        # getting quotes from listed users in database
+        cursor = db.users.find(
+            {"_id": {"$in": member_ids}},
+            {
+                "_id": 0,
+                "quotes": 1,
+            },
         )
-        quote = random.choice(
-            db.users.find_one({"_id": rand_user_id}, {"_id": 0, "quotes": 1})["quotes"]
-        )
-        if not quote:  # ensures quote is not None
+
+        quotes = []
+        quote_sections = list(cursor)
+        for quote_section in quote_sections:
+            for quote in quote_section["quotes"]:
+                if quote["server_id"] == ctx.message.guild.id:
+                    quotes.append(quote)
+
+        if not quotes:  # ensures quote is not None
             await ctx.send("There are no quotes")
             return
+        else:
+            quote = random.choice(quotes)
 
         # sending the quote
-        read = self.bot.get_cog("read")
-
+        read = self.bot.get_cog("Read")
         await read.send_quote(
             ctx,
             quote,
