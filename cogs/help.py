@@ -85,13 +85,12 @@ class Help(Cog):
     @command(name="help", brief="Shows a menu with commands")
     async def show_help(self, ctx, cmd: Optional[str]):
         """
-        Default: Shows menu with all commands
+        Shows menu with all commands
 
         cmd: When provided with a command name, usage of that command will be given
 
         Example Usage:
-        https://cdn.discordapp.com/attachments/795405783155343365/812760503621386260/unknown.png,
-        https://cdn.discordapp.com/attachments/718531428693966858/814593691820883968/unknown.png
+        https://cdn.discordapp.com/attachments/795405783155343365/814629107072499712/unknown.png
         """
         if cmd is None:
             # hiding all hidden commands from help

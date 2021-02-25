@@ -85,7 +85,7 @@ class Read(commands.Cog):
         if image_count > 1 or quote_length > 2000:
             quote = QuoteInteractionMenu(quote, hide_user=hide_user)
             await quote.start(ctx)
-        else:
+        else:  # instead of sending as a interaction menu, sends normally as embed
             await ctx.send(
                 message, embed=Emb().format_quote(quote, hide_user=hide_user)
             )

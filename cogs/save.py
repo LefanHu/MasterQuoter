@@ -35,13 +35,13 @@ class Save(commands.Cog):
         return allowed
 
     # getting a sample dataset
-    @commands.command(aliases=["slh"], brief="Saves last hundred")
+    @commands.command(aliases=["slh"], hidden=True)
     @commands.is_owner()
     async def save_last_hundred(self, ctx):
         """
         This command lets you save THE LAST HUNDRED quotes!\n
 
-        For developper use only, sorry!
+        For developer use only, sorry!
 
         """
 
@@ -84,9 +84,15 @@ class Save(commands.Cog):
         self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
     ):
         """
-        Default: Saves the last 'continuous' message sent by user\n\n
-        Section: The # of sections from that user to skip\n\n
-        Lines: The # of lines to look for the specified section in, defaults to 100 with a limit of 200
+        Saves the last section of *continuous messages* from that user.
+
+        section: This specifies the # of sections pass before saving.
+
+        lines: This specifies how many lines in the channel to look (max 200)
+
+        Example: mq>qlast @Alex3000 2
+
+        Example Usage:
         """
         if lines is None or lines > 200:
             lines = 100
@@ -160,7 +166,13 @@ class Save(commands.Cog):
     # this is here so append_quote's extra parameters don't show up in help
     @commands.command(aliases=["qt"])
     async def quote(self, ctx, user: discord.Member, *, msg):
-        """This handy dandy command allows you to save  things your friends have said!"""
+        """
+        This handy dandy command allows you to save things your friends have said!
+
+        Example: mq>quote @alex3000 MAKE UP A_RANDOM_MESSAGE IF YOU WANT >:)
+
+        Example Usage:
+        """
         await self.save_quote(ctx, user, msg=msg)
 
     # Adds one quote to quote buffer
@@ -223,6 +235,20 @@ class Save(commands.Cog):
 
     @commands.command(brief="Saves a quote by reactions")
     async def snip(self, ctx, lines: Optional[int]):
+        """
+        This handy dandy command allows you to save  things your friends have said!
+
+        Example:
+            - mq>snip
+            - Add 2 reactions to the same message, or 2 reactions to different messages
+              not interrupted by other messages in between.
+
+        Note:
+            - Currently, snippets are not supported
+              (Snippets contain messages from multiple people)
+
+        Example Usage:
+        """
         user = ctx.author
         lines = 100 if lines == None else lines
 

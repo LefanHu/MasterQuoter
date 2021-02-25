@@ -31,8 +31,15 @@ class events(commands.Cog):
 
         return allowed
 
-    @commands.command(aliases=["rm", "remove"])
+    @commands.command(aliases=["rm", "remove"], brief="Deltes a quote")
     async def remove_quote(self, ctx, quote_id: int):
+        """
+        Deletes a saved quote when given the ID of the quote.
+
+        Example: mq>remove [quote_id_here]
+
+        Example Usage:
+        """
         quoted_users = db.servers.find_one(
             {"_id": ctx.guild.id}, {"_id": 0, "quoted_member_ids": 1}
         )["quoted_member_ids"]
