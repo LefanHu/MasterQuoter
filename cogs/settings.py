@@ -55,6 +55,22 @@ class Settings(commands.Cog):
             {"_id": ctx.guild.id}, {"$addToSet": {"allowed": user.id}}
         )
 
+    @commands.command(
+        name="del_save_command", brief="Deletes the command after completion"
+    )
+    async def toggle_delete_on_save(self, ctx):
+        status = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
+
+        db.servers.find_one_and_update(
+            {"_id": ctx.guild.id},
+            {"$set": {"del_on_save": not status["del_on_save"]}},
+            projection={"del_on_save": 1},
+        )
+
+        await ctx.send(
+            f"Save commands are deleted on completion: {not status['del_on_save']}"
+        )
+
     async def toggle_blacklist(self, ctx):
         status = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
         if status["blacklist"] != status["whitelist"]:
@@ -108,6 +124,11 @@ class Settings(commands.Cog):
             ("Commands Invoked", settings["commands_invoked"], True),
             ("Server ID", guild.id, False),
             ("Bot prefix", settings["prefix"], True),
+            (
+                f"Delete Command On Save",
+                settings["del_on_save"],
+                True,
+            ),
             (
                 f"MasterBaiters (Blacklist Enabled: {settings['blacklist']})",
                 ", ".join(

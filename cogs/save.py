@@ -294,6 +294,7 @@ class Save(commands.Cog):
             "prefix": "mq>",
             "quotes_saved": 0,
             "commands_invoked": 0,
+            "del_on_save": False,
             "ignored": [],
             "allowed": [],
             "whitelist": False,
@@ -310,6 +311,17 @@ class Save(commands.Cog):
             "quotes": [],
         }
         db.users.insert_one(user)
+
+    @commands.Cog.listener()
+    async def on_command_completion(self, ctx):
+        if ctx.command.name in [command.name for command in self.get_commands()]:
+            settings = db.servers.find_one(
+                {"_id": ctx.guild.id}, {"quoted_member_ids": 0}
+            )
+
+            # delete save messages if completed
+            if settings["del_on_save"]:
+                await ctx.message.delete()
 
     @commands.Cog.listener()
     async def on_ready(self):
