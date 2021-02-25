@@ -11,6 +11,16 @@ class Settings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def cog_check(self, ctx):
+        user = ctx.message.author
+        if user.guild_permissions.manage_guild:
+            return True
+
+        await ctx.send(
+            "You need to have 'manage_guild' permissions to change the settings of this bot."
+        )
+        return False
+
     @commands.command(brief="Changes the prefix of this bot for your server")
     async def prefix(self, ctx, *, prefix):
         if len(prefix) > 5:
