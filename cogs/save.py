@@ -314,10 +314,8 @@ class Save(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
-        if ctx.command.name in [command.name for command in self.get_commands()]:
-            settings = db.servers.find_one(
-                {"_id": ctx.guild.id}, {"quoted_member_ids": 0}
-            )
+        if ctx.command.name in self.commands:
+            settings = db.servers.find_one({"_id": ctx.guild.id}, {"del_on_save": 1})
 
             # delete save messages if completed
             if settings["del_on_save"]:
@@ -327,6 +325,9 @@ class Save(commands.Cog):
     async def on_ready(self):
         if not self.bot.ready:
             self.bot.cogs_ready.ready_up(File().file_name(__file__)[:-3])
+
+        # gets list of commands
+        self.commands = [command.name for command in self.get_commands()]
 
 
 def setup(client):
