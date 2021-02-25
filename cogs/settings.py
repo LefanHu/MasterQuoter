@@ -158,7 +158,7 @@ class Settings(commands.Cog):
                 False,
             ),
             (
-                f"MasterQuoters Users (Whitelist Enabled: {settings['whitelist']})",
+                f"MasterQuoters (Whitelist Enabled: {settings['whitelist']})",
                 ", ".join(
                     [(await self.bot.fetch_user(id)).name for id in settings["allowed"]]
                 )
