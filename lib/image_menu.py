@@ -2,8 +2,8 @@ from discord.ext import menus
 
 
 class ImageMenu(menus.Menu):
-    def __init__(self, embed, images, msg=None):
-        super().__init__(timeout=30.0, clear_reactions_after=True)
+    def __init__(self, embed, images, msg=None, timeout=30.0):
+        super().__init__(timeout=timeout, clear_reactions_after=True)
         self.msg = msg
         self.embed = embed
         self.images = images
@@ -23,7 +23,7 @@ class ImageMenu(menus.Menu):
         else:
             self.image_num -= 1
             await self.message.edit(
-                embed=self.embed.set_image(url=self.images[self.image_num]["url"])
+                embed=self.embed.set_image(url=self.images[self.image_num])
             )
 
     @menus.button("\N{BLACK RIGHTWARDS ARROW}")
@@ -33,7 +33,7 @@ class ImageMenu(menus.Menu):
         else:
             self.image_num += 1
             await self.message.edit(
-                embed=self.embed.set_image(url=self.images[self.image_num]["url"])
+                embed=self.embed.set_image(url=self.images[self.image_num])
             )
 
     @menus.button("\N{BLACK SQUARE FOR STOP}\ufe0f")
