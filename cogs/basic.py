@@ -22,7 +22,7 @@ class Basic(commands.Cog):
             content=f"Pong! Latency = {self.bot.latency*1000:,.0f} ms. Response time: {(end-start)*1000:,.0f} ms."
         )
 
-    @commands.command(brief="returns an invite link to add this bot")
+    @commands.command(brief="Sends an invite link to add this bot to another server! ")
     async def invite(self, ctx):
         await ctx.send(self.bot.invite_link)
 
