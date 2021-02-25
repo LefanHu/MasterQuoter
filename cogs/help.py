@@ -82,7 +82,7 @@ class Help(Cog):
             help_menu = ImageMenu(embed, help_images, timeout=45.0)
             await help_menu.start(ctx)
 
-    @command(name="help", brief="Shows this message")
+    @command(name="help", brief="Shows a menu with commands")
     async def show_help(self, ctx, cmd: Optional[str]):
         """
         Default: Shows menu with all commands
