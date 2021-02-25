@@ -74,21 +74,45 @@ class About(commands.Cog):
 
         return members
 
-    @commands.command(aliases=["about_bot"], brief="Shows info about this bot")
+    @commands.command(
+        aliases=["about_bot"], brief="Shows info about this bot (Get Started)"
+    )
     async def about(self, ctx):
 
         description = """
-        This bot is coded by team MasterBaiters, a group of 2 high school students 
+        This bot is coded by team MasterBaiters, a group of 2 high school students
         who are bored out of their minds from quarantine. Hence, this bot.
+        
+        Anyway, here's some commands. For more information on how to use
+        these commands... use (prefix or ping)help [command_name]
 
-        ##help
+        **SAVING QUOTES**
+        - `snip`, `quote`, `qlast`
+
+        **REMOVING QUOTES**
+        - `remove`, `rm_all`
+
+        **DISPLAYING QUOTES**
+        - `show_quote`, `qlist`, `random`
+
+        **SETTINGS**
+        - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `del_save_command`, `settings`
+        
+        **FUN**
+        - `guess`
+        
+        **OTHER COMMANDS**
+        - `ping`, `help`, `about`, `settings`, `invite`
+
+
         """
+
         embed = Embed(
             title="📉MasterQuoter Stats📉",
             colour=0x00FFFF,
             thumbnail=self.bot.user.avatar_url,
             timestamp=datetime.utcnow(),
-            description=f"```{description}```",
+            description=f"{description}",
         )
 
         proc = Process()
