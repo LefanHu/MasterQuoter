@@ -13,6 +13,24 @@ class events(commands.Cog):
     async def on_ready(self):
         print("Bot is online.")
 
+    async def cog_check(self, ctx):
+        settings = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
+
+        allowed = True
+        if not settings["whitelist"] and not settings["blacklist"]:
+            pass
+        elif settings["whitelist"]:
+            if ctx.message.author.id not in settings["allowed"]:
+                allowed = False
+        elif settings["blacklist"]:
+            if ctx.message.author.id in settings["ignored"]:
+                allowed = False
+
+        if not allowed:
+            await ctx.send("You are not allowed to manage quotes on this server.")
+
+        return allowed
+
     @commands.command(aliases=["rm", "remove"])
     async def remove_quote(self, ctx, quote_id: int):
         quoted_users = db.servers.find_one(
