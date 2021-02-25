@@ -88,27 +88,27 @@ class About(commands.Cog):
 
         **SAVING QUOTES**
         - `snip`, `quote`, `qlast`
-
         **REMOVING QUOTES**
         - `remove`, `rm_all`
-
         **DISPLAYING QUOTES**
         - `show_quote`, `qlist`, `random`
-
         **SETTINGS**
         - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `del_save_command`, `settings`
-        
         **FUN**
         - `guess`
-        
         **OTHER COMMANDS**
         - `ping`, `help`, `about`, `settings`, `invite`
-
-
+        
+        **THANKS**
+        - @RadioactiveHydra#2570 (Creator of MemeGenBot)
+        - @Lunar#7231 (Minecraft God)
+        **FROM TEAM 'MasterBaiters'**
+        - @Alex3000#4135
+        - @Cuddles#2321
         """
 
         embed = Embed(
-            title="📉MasterQuoter Stats📉",
+            title="📉About MasterQuoter📉",
             colour=0x00FFFF,
             thumbnail=self.bot.user.avatar_url,
             timestamp=datetime.utcnow(),
