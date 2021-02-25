@@ -1,4 +1,5 @@
 from discord.ext import commands
+from time import time
 import os
 
 
@@ -13,7 +14,13 @@ class Basic(commands.Cog):
     @commands.command(brief="Shows the latency of this bot")
     async def ping(self, ctx):
         "This shows the DWSP latency (Discord WebSocket protocol)"
-        await ctx.send(f"Pong! Latency = {self.bot.latency * 1000:.2f}ms")
+        start = time()
+        message = await ctx.send(f"Pong! Latency = {self.bot.latency * 1000:.2f}ms")
+        end = time()
+
+        await message.edit(
+            content=f"Pong! Latency = {self.bot.latency*1000:,.0f} ms. Response time: {(end-start)*1000:,.0f} ms."
+        )
 
     @commands.command(brief="returns an invite link to add this bot")
     async def invite(self, ctx):
