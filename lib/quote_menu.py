@@ -4,32 +4,30 @@ from datetime import datetime as dt
 
 
 class QuoteMenu(ListPageSource):
-    def __init__(self, ctx, data):
+    def __init__(self, ctx, data, name=None, icon_url=None):
         self.ctx = ctx
+        self.name = name
+        self.icon_url = icon_url
         super().__init__(data, per_page=10)
 
     async def write_page(self, menu, fields=[]):
         offset = (menu.current_page * self.per_page) + 1
         len_data = len(self.entries)
 
-        quote = self.entries[len_data - 1]
-        name = quote["display_name"]
-        avatar = quote["avatar_url"]
-
         embed = Embed(
-            description=f"All of {name}'s quotes:",
+            description=f"All quotes from {self.ctx.guild.name if self.name is None else self.name}",
             colour=self.ctx.author.colour,
             timestamp=dt.utcnow(),
         )
 
         embed.set_author(
-            name=name,
-            icon_url=avatar,
+            name=self.name,
+            icon_url=self.icon_url,
         )
 
         embed.set_footer(
             text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} quotes.",
-            icon_url=avatar,
+            icon_url=self.icon_url,
         )
 
         for name, value in fields:
