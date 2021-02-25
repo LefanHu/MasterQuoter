@@ -131,8 +131,8 @@ class Settings(commands.Cog):
         available_settings = [
             ("Quotes Saved", settings["quotes_saved"], True),
             ("Commands Invoked", settings["commands_invoked"], True),
-            ("Server ID", guild.id, False),
             ("Bot prefix", settings["prefix"], True),
+            ("Server ID", guild.id, False),
             (
                 f"Delete Command On Save",
                 settings["del_on_save"],
