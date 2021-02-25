@@ -102,13 +102,21 @@ class Settings(commands.Cog):
         )
         await ctx.send(f"Whitelist is now {not status['whitelist']}")
 
-    @commands.command(brief="unignores/pardons someone ignored on the server")
+    @commands.command(brief="Remove a user from the blacklist")
     async def pardon(self, ctx, user: Member):
         if type(user) != Member:
             await ctx.send("A user was not properly specified")
             return
 
         db.servers.update_one({"_id": ctx.guild.id}, {"$pull": {"ignored": user.id}})
+
+    @commands.command(brief="Remove a user from the whitelist")
+    async def restrict(self, ctx, user: Member):
+        if type(user) != Member:
+            await ctx.send("A user was not properly specified")
+            return
+
+        db.servers.update_one({"_id": ctx.guild.id}, {"$pull": {"allowed": user.id}})
 
     @commands.command(
         aliases=["settings"], brief="Shows settings of the server & stats"
@@ -133,14 +141,16 @@ class Settings(commands.Cog):
                 f"MasterBaiters (Blacklist Enabled: {settings['blacklist']})",
                 ", ".join(
                     [(await self.bot.fetch_user(id)).name for id in settings["ignored"]]
-                ),
+                )
+                + " ",
                 False,
             ),
             (
                 f"MasterQuoters Users (Whitelist Enabled: {settings['whitelist']})",
                 ", ".join(
                     [(await self.bot.fetch_user(id)).name for id in settings["allowed"]]
-                ),
+                )
+                + " ",
                 False,
             ),
         ]
