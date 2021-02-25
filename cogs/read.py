@@ -1,4 +1,5 @@
 import discord
+from discord import message
 from discord.ext import commands
 
 from lib.file_utils import File
@@ -16,35 +17,43 @@ client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
 db = client.masterquoter
 
 
-class read(commands.Cog):
+class Read(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.file = File()
 
     @commands.command(aliases=["sq"], brief="Fetches a quote by ID and user")
-    async def show_quote(self, ctx, user: discord.Member, message_id):
+    async def show_quote(self, ctx, message_id: int):
         """
         Fetches a specific quote when provided a quote id and user who said that quote
         Example Usage:
         """
-
+        guild_id = ctx.guild.id
         message_id = int(message_id)
-        guild_id = ctx.message.guild.id
+
+        quoted_member_ids = db.servers.find_one(
+            {"_id": guild_id}, {"quoted_member_ids": 1}
+        )["quoted_member_ids"]
+
+        # No quotes
+        if not quoted_member_ids:
+            await ctx.send("There are no quotes saved on this server.")
+            return
 
         quote = db.users.find_one(
-            {"user_id": user.id},
+            {"_id": {"$in": quoted_member_ids}},
             {
                 "_id": 0,
-                "quotes": {
-                    "$elemMatch": {"server_id": guild_id, "message_id": message_id}
-                },
+                "quotes": {"$elemMatch": {"message_id": message_id}},
             },
-        )["quotes"][0]
+        )
 
         if not quote:
             await ctx.send("A quote by that id does not exist")
         else:
-            await self.send_quote(ctx, quote, message=f"Quote_id: {message_id}")
+            await self.send_quote(
+                ctx, quote["quotes"][0], message=f"Quote_ID: {message_id}"
+            )
 
     @commands.command(
         name="qlist", aliases=["qfrom"], brief="lists all quotes from user"
@@ -140,4 +149,4 @@ class read(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(read(bot))
+    bot.add_cog(Read(bot))
