@@ -169,7 +169,13 @@ class Save(commands.Cog):
         """
         This handy dandy command allows you to save things your friends have said!
 
-        Example: mq>quote @alex3000 MAKE UP A_RANDOM_MESSAGE IF YOU WANT >:)
+        **Example:** mq>`quote` @alex3000 MAKE UP A_RANDOM_MESSAGE IF YOU WANT `>:)`
+
+        **Note:**
+        When quoting with an image attachment, the command will **NOT** be deleted
+        if delete save commands on completion is enabled.
+
+        This is because the image url becomes invalid as soon as it is deleted.
 
         Example Usage:
         """
