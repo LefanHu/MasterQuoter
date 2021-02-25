@@ -47,6 +47,8 @@ class Error(commands.Cog):
         elif isinstance(exc, commands.CheckFailure):
             # await ctx.send("You do not have permission to do that.")
             pass
+        elif isinstance(exc, commands.errors.MemberNotFound):
+            pass
         else:
             await self.compose_report(ctx, exc)
 
