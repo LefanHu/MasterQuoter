@@ -10,12 +10,14 @@ import os
 class Settings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.allowed_commands = ["stats", "settings"]
 
     async def cog_check(self, ctx):
         user = ctx.message.author
         if user.guild_permissions.manage_guild:
             return True
-
+        elif ctx.command.name in self.allowed_commands:
+            return True
         await ctx.send(
             "You need to have 'manage_guild' permissions to change the settings of this bot."
         )
@@ -127,7 +129,6 @@ class Settings(commands.Cog):
 
         # Title, description, inline(boolean)
         available_settings = [
-            ("Members Quoted", len(settings["quoted_member_ids"]), True),
             ("Quotes Saved", settings["quotes_saved"], True),
             ("Commands Invoked", settings["commands_invoked"], True),
             ("Server ID", guild.id, False),
@@ -136,6 +137,17 @@ class Settings(commands.Cog):
                 f"Delete Command On Save",
                 settings["del_on_save"],
                 True,
+            ),
+            (
+                f"Quoted Members: {len(settings['quoted_member_ids'])}",
+                ", ".join(
+                    [
+                        (await self.bot.fetch_user(id)).name
+                        for id in settings["quoted_member_ids"]
+                    ]
+                )
+                + " ",
+                False,
             ),
             (
                 f"MasterBaiters (Blacklist Enabled: {settings['blacklist']})",
@@ -159,9 +171,9 @@ class Settings(commands.Cog):
             title=f"{guild.name}",
             description=f"{'No description' if guild.description == None else guild.description}",
             colour=ctx.message.author.colour,
-            thumbnail=guild.icon_url,
             timestamp=datetime.utcnow(),
         )
+        embed.set_thumbnail(url=guild.icon_url)
 
         for name, value, inline in available_settings:
             embed.add_field(name=name, value=f"```{value}```", inline=inline)
