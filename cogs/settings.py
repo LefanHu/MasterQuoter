@@ -1,6 +1,7 @@
 from discord import Embed, Member
 from discord.ext import commands
 
+from typing import Optional
 from datetime import datetime
 from lib.db import db
 import os
@@ -18,15 +19,62 @@ class Settings(commands.Cog):
             db.servers.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
             await ctx.send("Prefix set.")
 
-    @commands.command(brief="Makes the bot ignore a user")
-    async def ignore(self, ctx, user: Member):
-        if type(user) != Member:
+    @commands.command(name="blacklist", brief="Disallows a user from saving quotes")
+    async def blacklist_user(self, ctx, user: Optional[Member]):
+        if not user:
+            await self.toggle_blacklist(ctx)
+            return
+        elif type(user) != Member:
             await ctx.send("A user was not properly specified")
             return
 
         db.servers.update_one(
             {"_id": ctx.guild.id}, {"$addToSet": {"ignored": user.id}}
         )
+
+    @commands.command(name="whitelist", brief="Allows a user to save quotes")
+    async def whitelist_user(self, ctx, user: Optional[Member]):
+        if not user:
+            await self.toggle_whitelist(ctx)
+            return
+        elif type(user) != Member:
+            await ctx.send("A user was not properly specified")
+            return
+
+        db.servers.update_one(
+            {"_id": ctx.guild.id}, {"$addToSet": {"allowed": user.id}}
+        )
+
+    async def toggle_blacklist(self, ctx):
+        status = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
+        if status["blacklist"] != status["whitelist"]:
+            if status["whitelist"] == True:
+                await ctx.send(
+                    "You can not have blacklist and whitelist enabled at the same time"
+                )
+                return
+
+        status = db.servers.find_one_and_update(
+            {"_id": ctx.guild.id},
+            {"$set": {"blacklist": not status["blacklist"]}},
+            projection={"blacklist": 1},
+        )
+        await ctx.send(f"Blacklist is now {not status['blacklist']}")
+
+    async def toggle_whitelist(self, ctx):
+        status = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
+        if status["whitelist"] != status["blacklist"]:
+            if status["blacklist"] == True:
+                await ctx.send(
+                    "You can not have blacklist and whitelist enabled at the same time"
+                )
+                return
+        db.servers.find_one_and_update(
+            {"_id": ctx.guild.id},
+            {"$set": {"whitelist": not status["whitelist"]}},
+            projection={"whitelist": 1},
+        )
+        await ctx.send(f"Whitelist is now {not status['whitelist']}")
 
     @commands.command(brief="unignores/pardons someone ignored on the server")
     async def pardon(self, ctx, user: Member):
@@ -51,9 +99,16 @@ class Settings(commands.Cog):
             ("Server ID", guild.id, False),
             ("Bot prefix", settings["prefix"], True),
             (
-                "Users to ignore",
+                f"MasterBaiters (Blacklist Enabled: {settings['blacklist']})",
                 ", ".join(
                     [(await self.bot.fetch_user(id)).name for id in settings["ignored"]]
+                ),
+                False,
+            ),
+            (
+                f"MasterQuoters Users (Whitelist Enabled: {settings['whitelist']})",
+                ", ".join(
+                    [(await self.bot.fetch_user(id)).name for id in settings["allowed"]]
                 ),
                 False,
             ),

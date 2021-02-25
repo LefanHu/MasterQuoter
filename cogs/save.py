@@ -16,6 +16,24 @@ class Save(commands.Cog):
         client.close()
         print("db connection closed")
 
+    async def cog_check(self, ctx):
+        settings = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
+
+        allowed = True
+        if not settings["whitelist"] and not settings["blacklist"]:
+            pass
+        elif settings["whitelist"]:
+            if ctx.message.author.id not in settings["allowed"]:
+                allowed = False
+        elif settings["blacklist"]:
+            if ctx.message.author.id in settings["ignored"]:
+                allowed = False
+
+        if not allowed:
+            await ctx.send("You are not allowed to save quotes on this server.")
+
+        return allowed
+
     # getting a sample dataset
     @commands.command(aliases=["slh"], brief="Saves last hundred")
     @commands.is_owner()
@@ -198,6 +216,8 @@ class Save(commands.Cog):
                 await self.save_quote(ctx, ctx.message.mentions[0], msg="", imgs=imgs)
         elif isinstance(exc, commands.MemberNotFound):
             await ctx.send("That member cannot be found.")
+        elif isinstance(exc, commands.CheckFailure):
+            pass
         else:
             print(exc)
 
@@ -275,6 +295,9 @@ class Save(commands.Cog):
             "quotes_saved": 0,
             "commands_invoked": 0,
             "ignored": [],
+            "allowed": [],
+            "whitelist": False,
+            "blacklist": False,
             "quoted_member_ids": [],
         }
         db.servers.insert_one(server)

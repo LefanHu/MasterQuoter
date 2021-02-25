@@ -44,6 +44,8 @@ class Error(commands.Cog):
             )
         elif isinstance(exc, Forbidden):
             await ctx.send("I do not have permission to do that.")
+        elif isinstance(exc, commands.CheckFailure):
+            pass
         else:
             await self.compose_report(ctx, exc)
 
