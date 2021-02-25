@@ -318,7 +318,7 @@ class Save(commands.Cog):
             settings = db.servers.find_one({"_id": ctx.guild.id}, {"del_on_save": 1})
 
             # delete save messages if completed
-            if settings["del_on_save"]:
+            if settings["del_on_save"] and not ctx.message.attachments:
                 await ctx.message.delete()
 
     @commands.Cog.listener()
