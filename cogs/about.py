@@ -74,10 +74,14 @@ class About(commands.Cog):
 
         return members
 
-    @commands.command(
-        aliases=["about_bot"], brief="Shows info about this bot (Get Started)"
-    )
+    @commands.command(aliases=["about_bot"], brief="Shows info about this bot")
     async def about(self, ctx):
+        """
+        Just tells you what this bot is really about! :)
+
+        Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814618574777352192/unknown.png
+        """
 
         description = """
         This bot is coded by team MasterBaiters, a group of 2 high school students
@@ -105,6 +109,7 @@ class About(commands.Cog):
         **FROM TEAM 'MasterBaiters'**
         - @Alex3000#4135
         - @Cuddles#2321
+        
         """
 
         embed = Embed(
@@ -169,7 +174,7 @@ class About(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up(self.file.file_name(__file__)[:-3])
+            self.bot.cogs_ready.ready_up(File().file_name(__file__)[:-3])
 
 
 def setup(bot):
