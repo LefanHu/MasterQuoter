@@ -62,6 +62,13 @@ class events(commands.Cog):
 
     @commands.command(aliases=["rm_all"], brief="Removes all quotes from user")
     async def remove_all(self, ctx, user: Member):
+        """
+        Removes all quotes from a specified user (ping them)
+
+        Example: mq>remove_all @alex3000
+
+        Example Usage:
+        """
         quotes = db.users.find_one({"_id": user.id}, {"_id": 0, "quotes": 1})["quotes"]
         if not quotes:
             await ctx.send("There are no quotes from this user")

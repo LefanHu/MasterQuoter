@@ -95,6 +95,7 @@ class Read(commands.Cog):
         """
         This command will fetch a random quote from your server and send it if no user is specified.
         If a user is specified, this will fetch a random quote from that user.
+        Example Usage:
         """
 
         if not user:
