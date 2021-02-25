@@ -1,6 +1,7 @@
 from typing import Optional
 
 from discord.ext.menus import ListPageSource, MenuPages
+from lib.image_menu import ImageMenu
 
 from discord import Embed
 from discord.ext.commands import command
@@ -63,25 +64,34 @@ class Help(Cog):
 
     async def cmd_help(self, ctx, command):
         help = command.help.split("Example Usage:")
+        help_images = help[-1].split(",")
 
         embed = Embed(
             title=f"Help with `{command}`",
             description=syntax(command),
             colour=ctx.author.colour,
         )
-
-        if len(help) > 1:  # if command contains a usage example
-            embed.set_image(url=help[-1])  # last element in array
+        embed.set_image(url=help_images[0])
 
         embed.add_field(name="Command description", value=f"```diff\n{help[0]}```")
-        await ctx.send(embed=embed)
+
+        if len(help_images) <= 1:  # if command contains only 1 help image
+            embed.set_image(url=help[-1])
+            await ctx.send(embed=embed)
+        else:  # Multiple help images
+            help_menu = ImageMenu(embed, help_images, timeout=45.0)
+            await help_menu.start(ctx)
 
     @command(name="help", brief="Shows this message")
     async def show_help(self, ctx, cmd: Optional[str]):
         """
-        Default: Shows menu with all commands\n
+        Default: Shows menu with all commands
+
         cmd: When provided with a command name, usage of that command will be given
-        Example Usage:https://cdn.discordapp.com/attachments/795405783155343365/812760503621386260/unknown.png
+
+        Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/812760503621386260/unknown.png,
+        https://cdn.discordapp.com/attachments/718531428693966858/814593691820883968/unknown.png
         """
         if cmd is None:
             # hiding all hidden commands from help
