@@ -13,7 +13,7 @@ class Basic(commands.Cog):
     @commands.command(brief="Shows the latency of this bot")
     async def ping(self, ctx):
         "This shows the DWSP latency (Discord WebSocket protocol)"
-        await ctx.send(f"Pong! Latency = {self.bot.latency * 1000}ms")
+        await ctx.send(f"Pong! Latency = {self.bot.latency * 1000:.2f}ms")
 
     @commands.command(brief="returns an invite link to add this bot")
     async def invite(self, ctx):
