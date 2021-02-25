@@ -98,16 +98,17 @@ class About(commands.Cog):
             ("☄️ discord.py version 📸", discord_version, True),
             ("⏫ Uptime 🆙", uptime, True),
             ("💻 CPU time 🖥️", cpu_time, True),
-            (
-                "🧠 Memory usage 🧠",
-                f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)",
-                False,
-            ),
+            ("😢 Server Count 😢", f"{self.tracked_statuses['server_count']}", True),
             ("😭 Users 😭", f"{self.tracked_statuses['member_count']:,}", True),
             ("🍋 Quotes Saved 🍋", f"{self.tracked_statuses['quotes_saved']:,}", True),
             (
                 "😔 Commands Run 😔",
                 f"{self.tracked_statuses['commands_processed']:,}",
+                True,
+            ),
+            (
+                "🧠 Memory usage 🧠",
+                f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)",
                 True,
             ),
             ("💌 Invite Link 💌", f"{self.bot.invite_link}", False),

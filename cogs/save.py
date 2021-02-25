@@ -244,7 +244,7 @@ class Save(commands.Cog):
                         while indx < len(messages):
                             if messages[indx].author != message.author:
                                 await ctx.send(
-                                    "Snippets(contains multiple authors) is not yet supported"
+                                    "Snippets (containing multiple authors) is not yet supported"
                                 )
                                 return
                             elif messages[indx].id in msg_ids:  # end has reached
