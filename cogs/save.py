@@ -35,7 +35,6 @@ class Save(commands.Cog):
     async def save_images(self, message):
         attachments = []
         for attachment in message.attachments:
-            # print(attachment.filename)
             if self.file.is_image(attachment.filename):
                 atch = {}
                 atch["name"] = attachment.filename
@@ -170,10 +169,10 @@ class Save(commands.Cog):
             "channel_id": ctx.message.channel.id,
             "message_id": ctx.message.id,
             "image_attachments": await self.save_images(ctx.message)
-            if imgs == None
+            if not imgs
             else imgs,
             "attachments": await self.save_attachments(ctx.message)
-            if files == None
+            if not files
             else files,
         }
 
