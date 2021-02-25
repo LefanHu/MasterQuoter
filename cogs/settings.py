@@ -165,6 +165,7 @@ class Settings(commands.Cog):
                 + " ",
                 False,
             ),
+            ("**BUGS & ERRORS**", "TO FILE A REPORT, DM THE MASTERQUOTER BOT", False),
         ]
 
         embed = Embed(
