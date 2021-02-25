@@ -1,10 +1,10 @@
 from discord.ext import commands
 from asyncio import TimeoutError
 from typing import Optional
-import random
-from lib.file_utils import File
 from lib.embed_utils import embed
 from lib.db import db
+from os.path import basename
+import random
 
 
 class events(commands.Cog):
@@ -90,7 +90,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up(File().file_name(__file__)[:-3])
+            self.bot.cogs_ready.ready_up(basename(__file__)[:-3])
 
 
 def setup(bot):

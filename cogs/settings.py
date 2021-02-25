@@ -4,7 +4,7 @@ from discord.ext import commands
 from typing import Optional
 from datetime import datetime
 from lib.db import db
-import os
+from os.path import basename
 
 
 class Settings(commands.Cog):
@@ -183,7 +183,7 @@ class Settings(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up(os.path.basename(__file__)[:-3])
+            self.bot.cogs_ready.ready_up(basename(__file__)[:-3])
 
 
 def setup(bot):

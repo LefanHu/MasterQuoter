@@ -8,7 +8,7 @@ from discord.ext.commands import command
 from discord.ext.commands import Cog
 from discord.utils import get
 
-import os
+from os.path import basename
 
 
 def syntax(command):
@@ -118,7 +118,7 @@ class Help(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up(os.path.basename(__file__)[:-3])
+            self.bot.cogs_ready.ready_up(basename(__file__)[:-3])
 
 
 def setup(bot):
