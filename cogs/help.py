@@ -73,7 +73,7 @@ class Help(Cog):
         )
         embed.set_image(url=help_images[0])
 
-        embed.add_field(name="Command description", value=f"```diff\n{help[0]}```")
+        embed.add_field(name="Command description", value=f"{help[0]}")
 
         if len(help_images) <= 1:  # if command contains only 1 help image
             embed.set_image(url=help[-1])

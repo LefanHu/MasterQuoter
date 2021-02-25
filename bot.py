@@ -138,4 +138,4 @@ class Bot(BotBase):
 
 bot = Bot()
 
-bot.run("0.0.1 BETA TEST")
+bot.run("BETA 0.0.1")
