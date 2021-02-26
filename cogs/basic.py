@@ -21,6 +21,7 @@ class Basic(commands.Cog):
             - mq>ping
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814868595611664424/unknown.png
         """
         start = time()
         message = await ctx.send(f"Pong! Latency = {self.bot.latency * 1000:.2f}ms")
