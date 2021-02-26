@@ -30,6 +30,10 @@ class events(commands.Cog):
 
         **Example:**
             - mq>guess
+            - mq>gs 10
+
+        **Notes:**
+            - Max guesses is 10, any more than 10 will default to 5 attempts.
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814945245313761300/unknown.png
@@ -40,7 +44,9 @@ class events(commands.Cog):
         else:
             self.sessions.append(ctx.message.channel.id)
 
-        attempts = 5 if not guesses else guesses  # calculate this as a ratio later
+        attempts = (
+            5 if not guesses or guesses > 10 else guesses
+        )  # calculate this as a ratio later
 
         # getting quoted members from server in database
         member_ids = db.servers.find_one(
