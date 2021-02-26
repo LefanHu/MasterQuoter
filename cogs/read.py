@@ -123,7 +123,7 @@ class Read(commands.Cog):
             if not quotes:
                 await ctx.send("There are no quotes from this user on this server.")
             else:
-                quote = random.choice(quotes["quotes"])
+                quote = random.choice(quotes)
                 await self.send_quote(ctx, quote)
 
     async def from_server(self, guild_id):
