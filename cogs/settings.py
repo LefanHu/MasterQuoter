@@ -46,7 +46,7 @@ class Settings(commands.Cog):
             - mq>blacklist @alex3000
 
         **Note:**
-            - Whitelist does nothing unless it is **ENABLED**
+            - Blacklist does nothing unless it is **ENABLED**
             - You can not have whitelist **AND** blacklist enabled
 
         Example Usage:
@@ -181,7 +181,7 @@ class Settings(commands.Cog):
         - server id
         - delete command on server (Enabled/Disabled)
         - blacklist
-        - whitelist_user
+        - whitelist
 
         **Example:**
             - mq>settings
