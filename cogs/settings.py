@@ -129,17 +129,17 @@ class Settings(commands.Cog):
 
         # Title, description, inline(boolean)
         available_settings = [
-            ("Quotes Saved", settings["quotes_saved"], True),
-            ("Commands Invoked", settings["commands_invoked"], True),
-            ("Bot prefix", settings["prefix"], True),
-            ("Server ID", guild.id, False),
+            ("😆Quotes Saved😆", settings["quotes_saved"], True),
+            ("😤Commands Invoked😤", settings["commands_invoked"], True),
+            ("🎛️Bot prefix🎛️", settings["prefix"], True),
+            ("🛡️Server ID🛡️", guild.id, True),
             (
-                f"Delete Command On Save",
+                f"❌Delete Command On Save",
                 settings["del_on_save"],
-                True,
+                False,
             ),
             (
-                f"Quoted Members: {len(settings['quoted_member_ids'])}",
+                f"📝Quoted Members: {len(settings['quoted_member_ids'])}",
                 ", ".join(
                     [
                         (await self.bot.fetch_user(id)).name
@@ -150,7 +150,7 @@ class Settings(commands.Cog):
                 False,
             ),
             (
-                f"MasterBaiters (Blacklist Enabled: {settings['blacklist']})",
+                f"🏴 MasterBaiters (Blacklist Enabled: __{settings['blacklist']}__)",
                 ", ".join(
                     [(await self.bot.fetch_user(id)).name for id in settings["ignored"]]
                 )
@@ -158,19 +158,19 @@ class Settings(commands.Cog):
                 False,
             ),
             (
-                f"MasterQuoters (Whitelist Enabled: {settings['whitelist']})",
+                f"🏳️ MasterQuoters (Whitelist Enabled: __{settings['whitelist']}__)",
                 ", ".join(
                     [(await self.bot.fetch_user(id)).name for id in settings["allowed"]]
                 )
                 + " ",
                 False,
             ),
-            ("**BUGS & ERRORS**", "TO FILE A REPORT, DM THE MASTERQUOTER BOT", False),
+            ("⁉️**BUGS & ERRORS**", "TO FILE A REPORT, DM THE MASTERQUOTER BOT", False),
         ]
 
         embed = Embed(
-            title=f"{guild.name}",
-            description=f"{'No description' if guild.description == None else guild.description}",
+            title=f"⚙️ {guild.name} Stats/Settings⚙️",
+            description=f"{'No server description' if guild.description == None else guild.description}",
             colour=ctx.message.author.colour,
             timestamp=datetime.utcnow(),
         )
