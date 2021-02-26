@@ -36,6 +36,7 @@ class Settings(commands.Cog):
             - `manage server` permissions are required
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814984460536774686/unknown.png
         """
         if len(prefix) > 5:
             await ctx.send("Prefixes cannot be longer than 5 characters")
