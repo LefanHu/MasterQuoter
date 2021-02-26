@@ -23,7 +23,12 @@ class events(commands.Cog):
             - mq>guess
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814945245313761300/unknown.png
         """
+
+        prefix = db.servers.find_one({"_id": ctx.message.guild.id}, {"prefix": 1})["prefix"]
+
+
         attempts = 5 if not guesses else guesses  # calculate this as a ratio later
 
         # getting quoted members from server in database
@@ -63,7 +68,10 @@ class events(commands.Cog):
         )
 
         def is_correct(msg):
-            return msg.author == ctx.message.author
+            if(msg.author == ctx.message.author):
+                if not((msg.content).startswith(prefix)):
+                    return True
+
 
         while attempts > 0:
             try:
