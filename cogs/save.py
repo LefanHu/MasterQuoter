@@ -9,7 +9,6 @@ from lib.db import db, client
 class Save(commands.Cog):
     def __init__(self, client):
         self.bot = client
-        self.image_types = ["png", "jpeg", "gif", "jpg"]
         self.file = File()
 
     def cog_unload(self):
