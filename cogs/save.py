@@ -33,20 +33,13 @@ class Save(commands.Cog):
 
         return allowed
 
-    # getting a sample dataset
-    @commands.command(aliases=["slh"], hidden=True)
-    @commands.is_owner()
-    async def save_last_hundred(self, ctx):
-        """
-        This command lets you save THE LAST HUNDRED quotes!\n
-
-        For developer use only, sorry!
-
-        """
-
-        messages = await ctx.channel.history(limit=100).flatten()
-        for message in messages:
-            await self.save_quote(ctx=ctx, user=message.author, msg=message.content)
+    # # getting a sample dataset
+    # @commands.command(aliases=["slh"], hidden=True)
+    # @commands.is_owner()
+    # async def save_last_hundred(self, ctx):
+    #     messages = await ctx.channel.history(limit=100).flatten()
+    #     for message in messages:
+    #         await self.save_quote(ctx=ctx, user=message.author, msg=message.content)
 
     # Saving attachments associated with a message
     async def save_images(self, message):
@@ -90,7 +83,10 @@ class Save(commands.Cog):
 
         lines: This specifies how many lines in the channel to look (max 200)
 
-        Example: mq>qlast @Alex3000 2
+        **Example:**
+            - mq>qlast @alex3000
+            - mq>qlast @alex3000 2
+            - mq>qlast @alex3000 2 150
 
         Example Usage:
         """
@@ -170,13 +166,15 @@ class Save(commands.Cog):
         """
         This handy dandy command allows you to save things your friends have said!
 
-        **Example:** mq>`quote` @alex3000 MAKE UP A_RANDOM_MESSAGE IF YOU WANT `>:)`
+        **Example:**
+            - mq>quote @alex3000 `MAKE UP A_RANDOM_MESSAGE IF YOU WANT` `>:)`
 
         **Note:**
-        When quoting with an image attachment, the command will **NOT** be deleted
-        if delete save commands on completion is enabled.
-
-        This is because the image url becomes invalid as soon as it is deleted.
+            - When the save command contains a image attachment, the command
+              will **NOT** be deleted if delete `save commands on completion` is
+              `enabled`.
+            - This is because the image url becomes __invalid__ as soon as it is
+              deleted.
 
         Example Usage:
         """
@@ -251,8 +249,11 @@ class Save(commands.Cog):
         """
         This handy dandy command allows you to save  things your friends have said!
 
+        lines: This argument specifies how many messages in history will be searched
+
         **Example:**
             - mq>snip
+            - mq>snip 150
             - Add 2 reactions to the same message, or 2 reactions to different messages
               not interrupted by other messages in between.
 

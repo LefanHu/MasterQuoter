@@ -9,10 +9,6 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("Bot is online.")
-
     async def cog_check(self, ctx):
         settings = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
         # check user has the masterquoter role here if implemented
@@ -38,7 +34,8 @@ class events(commands.Cog):
         """
         Deletes a saved quote when given the ID of the quote.
 
-        Example: mq>remove [quote_id_here]
+        **Example:**
+            - mq>remove `quote_id_here`
 
         Example Usage:
         """
@@ -68,7 +65,8 @@ class events(commands.Cog):
         """
         Removes all quotes from a specified user (ping them)
 
-        Example: mq>remove_all @alex3000
+        **Example:**
+            - mq>remove_all @alex3000
 
         Example Usage:
         """

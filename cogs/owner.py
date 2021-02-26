@@ -17,19 +17,19 @@ class Owner(commands.Cog):
     async def clear(self, ctx, amount=1):
         await ctx.channel.purge(limit=amount)
 
-    @commands.command(hidden=True)
-    async def shutdown(self, ctx):
-        await ctx.send("Shutting down")
-        await self.bot.logout()
+    # @commands.command(hidden=True)
+    # async def shutdown(self, ctx):
+    #     await ctx.send("Shutting down")
+    #     await self.bot.logout()
 
-        print("Bot has been shut down.")
+    #     print("Bot has been shut down.")
 
-    @commands.command(hidden=True)
-    async def drop_all(self, ctx):
-        db.servers.drop()
-        db.users.drop()
+    # @commands.command(hidden=True)
+    # async def drop_all(self, ctx):
+    #     db.servers.drop()
+    #     db.users.drop()
 
-        await ctx.send("All collections dropped")
+    #     await ctx.send("All collections dropped")
 
     @commands.command(hidden=True)
     async def blacklist_server(self, ctx, server_id):

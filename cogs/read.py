@@ -63,7 +63,7 @@ class Read(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def qlist(self, ctx, user: Optional[discord.Member]):
         """
-        Lists all quotes from a specified user
+        Lists all quotes from a specified user (ping them)
 
         **Example:**
             - mq>qlist @Cuddles#2321
