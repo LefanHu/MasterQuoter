@@ -24,6 +24,7 @@ class events(commands.Cog):
             - mq>guess
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814945245313761300/unknown.png
         """
         # if ctx.message.channel.id in self.sessions:
         #     await ctx.send("You cannot multiple sessions of this game in this channel.")
@@ -68,8 +69,16 @@ class events(commands.Cog):
             hide_user=True,
         )
 
+        prefix = db.servers.find_one({"_id": ctx.message.guild.id}, {"prefix": 1})[
+            "prefix"
+        ]
+
         def is_correct(msg):
-            return msg.author == ctx.message.author
+            is_author = msg.author == ctx.message.author
+            starts_with_prefix = msg.content.startswith(prefix)
+            if is_author and not starts_with_prefix:
+                return True
+            return False
 
         while attempts > 0:
             try:
