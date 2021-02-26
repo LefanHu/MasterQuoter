@@ -121,6 +121,8 @@ class Settings(commands.Cog):
               is deleted.
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814986325249490944/unknown.png,
+        https://cdn.discordapp.com/attachments/795405783155343365/814986401182384168/unknown.png
         """
         status = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
 
