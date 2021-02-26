@@ -75,6 +75,7 @@ class About(commands.Cog):
         return members
 
     @commands.command(aliases=["about_bot"], brief="Shows info about this bot")
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def about(self, ctx):
         """
         Just tells you what this bot is really about! :)

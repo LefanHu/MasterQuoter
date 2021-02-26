@@ -22,6 +22,7 @@ class Read(commands.Cog):
         self.file = File()
 
     @commands.command(aliases=["sq"], brief="Fetches a quote by ID and user")
+    @commands.cooldown(1, 1, commands.BucketType.user)
     async def show_quote(self, ctx, message_id: int):
         """
         Fetches a specific quote when provided a quote id and user who said that quote
@@ -60,6 +61,7 @@ class Read(commands.Cog):
             await self.send_quote(ctx, quote["quotes"][0])
 
     @commands.command(aliases=["qfrom"], brief="lists all quotes from user")
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def qlist(self, ctx, user: Optional[discord.Member]):
         """
         Lists all quotes from a specified user
@@ -106,6 +108,7 @@ class Read(commands.Cog):
             )
 
     @commands.command(aliases=["random"], brief="Gives a random saved quote")
+    @commands.cooldown(1, 2, commands.BucketType.user)  # change this to 5 later
     async def rand(self, ctx, user: Optional[discord.Member]):
         """
         This command will fetch a random quote from your server and send it if no user is specified.

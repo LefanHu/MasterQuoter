@@ -12,6 +12,7 @@ class Basic(commands.Cog):
         print("Bot is online.")
 
     @commands.command(brief="Shows the latency of this bot")
+    @commands.cooldown(1, 1, commands.BucketType.user)
     async def ping(self, ctx):
         "This shows the DWSP latency (Discord WebSocket protocol)"
         start = time()
@@ -23,6 +24,7 @@ class Basic(commands.Cog):
         )
 
     @commands.command(brief="Sends an invite link to add this bot to another server! ")
+    @commands.cooldown(1, 1, commands.BucketType.user)
     async def invite(self, ctx):
         await ctx.send(self.bot.invite_link)
 

@@ -15,6 +15,7 @@ class events(commands.Cog):
 
     async def cog_check(self, ctx):
         settings = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
+        # check user has the masterquoter role here if implemented
 
         allowed = True
         if not settings["whitelist"] and not settings["blacklist"]:
@@ -32,6 +33,7 @@ class events(commands.Cog):
         return allowed
 
     @commands.command(aliases=["rm", "remove"], brief="Deltes a quote")
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def remove_quote(self, ctx, quote_id: int):
         """
         Deletes a saved quote when given the ID of the quote.
@@ -61,6 +63,7 @@ class events(commands.Cog):
             await ctx.send("Quote removed")
 
     @commands.command(aliases=["rm_all"], brief="Removes all quotes from user")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def remove_all(self, ctx, user: Member):
         """
         Removes all quotes from a specified user (ping them)

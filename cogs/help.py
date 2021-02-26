@@ -1,10 +1,12 @@
 from typing import Optional
+from discord.ext.commands.core import max_concurrency
 
 from discord.ext.menus import ListPageSource, MenuPages
 from lib.image_menu import ImageMenu
 
 from discord import Embed
-from discord.ext.commands import command
+from discord.ext.commands import BucketType
+from discord.ext.commands import command, cooldown
 from discord.ext.commands import Cog
 from discord.utils import get
 
@@ -83,6 +85,7 @@ class Help(Cog):
             await help_menu.start(ctx)
 
     @command(name="help", brief="Shows a menu with commands")
+    @cooldown(3, 5, BucketType.user)
     async def show_help(self, ctx, cmd: Optional[str]):
         """
         Shows menu with all commands

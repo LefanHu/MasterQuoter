@@ -80,6 +80,7 @@ class Save(commands.Cog):
     @commands.command(
         aliases=["qlast", "ql"], brief="Quotes the last thing someone said"
     )
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def quote_last(
         self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
     ):
@@ -165,6 +166,7 @@ class Save(commands.Cog):
 
     # this is here so append_quote's extra parameters don't show up in help
     @commands.command(aliases=["qt"])
+    @commands.cooldown(1, 1, commands.BucketType.user)
     async def quote(self, ctx, user: discord.Member, *, msg):
         """
         This handy dandy command allows you to save things your friends have said!
@@ -236,10 +238,15 @@ class Save(commands.Cog):
             await ctx.send("That member cannot be found.")
         elif isinstance(exc, commands.CheckFailure):
             pass
+        elif isinstance(exc, commands.CommandOnCooldown):
+            await ctx.send(
+                f"That command is on {str(exc.cooldown.type).split('.')[-1]} cooldown. Try again in {exc.retry_after:,.2f} secs."
+            )
         else:
             print(exc)
 
     @commands.command(brief="Saves a quote by reactions")
+    @commands.cooldown(1, 4, commands.BucketType.user)
     async def snip(self, ctx, lines: Optional[int]):
         """
         This handy dandy command allows you to save  things your friends have said!

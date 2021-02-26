@@ -11,10 +11,15 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=["g"], brief="Fun little guessing game!")
+    @commands.command(aliases=["gs"], brief="Fun little guessing game!")
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def guess(self, ctx, guesses: Optional[int]):
         """
-        You ever wanna guess who said what stupid thing? This game is the perfect game for you!
+        You ever wanna guess who said what stupid thing?
+        This game is the perfect game for you!
+
+        **Example:** mq>guess
+
         Example Usage:
         """
         attempts = 5 if not guesses else guesses  # calculate this as a ratio later
