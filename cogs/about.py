@@ -106,7 +106,7 @@ class About(commands.Cog):
         - `ping`, `help`, `about`, `settings`, `invite`
         
         **THANKS**
-        - @RadioactiveHydra#2570 (Creator of MemeGenBot)
+        - @RadioactiveHydra#2570 (师傅 and Creator of MemeGenBot)
         - @Lunar#7231 (Minecraft God)
         **FROM TEAM 'MasterBaiters'**
         - @Alex3000#4135
