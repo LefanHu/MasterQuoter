@@ -10,6 +10,7 @@ import random
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.sessions = []
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -24,6 +25,11 @@ class events(commands.Cog):
 
         Example Usage:
         """
+        # if ctx.message.channel.id in self.sessions:
+        #     await ctx.send("You cannot multiple sessions of this game in this channel.")
+        # else:
+        #     self.sessions.append(ctx.message.channel.id)
+
         attempts = 5 if not guesses else guesses  # calculate this as a ratio later
 
         # getting quoted members from server in database
