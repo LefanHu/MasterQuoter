@@ -103,7 +103,10 @@ class events(commands.Cog):
                     "message", check=is_correct, timeout=30.0
                 )
 
-                if not guess.mentions or guess.clean_content == "stop":
+                if guess.clean_content == "stop":
+                    await ctx.send("Session stopped")
+                    break
+                elif not guess.mentions:
                     pass
                 elif len(guess.mentions) > 1:
                     attempts -= 1
