@@ -181,6 +181,7 @@ class Save(commands.Cog):
         Example Usage:
         """
         await self.save_quote(ctx, user, msg=msg)
+        await ctx.send("Quote saved")
 
     # Adds one quote to quote buffer
 

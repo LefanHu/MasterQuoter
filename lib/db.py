@@ -4,6 +4,5 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print(getenv("DATABASE_URL"))
 client = pymongo.MongoClient(getenv("DATABASE_URL"))
 db = client.masterquoter

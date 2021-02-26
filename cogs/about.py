@@ -125,7 +125,8 @@ class About(commands.Cog):
         proc = Process()
         with proc.oneshot():
             uptime = timedelta(seconds=time() - proc.create_time())
-            cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
+            cpu = proc.cpu_times()
+            cpu_time = timedelta(seconds=(cpu).system + cpu.user)
             mem_total = virtual_memory().total / (1024 ** 2)
             mem_of_total = proc.memory_percent()
             mem_usage = mem_total * (mem_of_total / 100)
