@@ -25,6 +25,18 @@ class Settings(commands.Cog):
 
     @commands.command(brief="Changes the prefix of this bot for your server")
     async def prefix(self, ctx, *, prefix):
+        """
+        This command will change the prefix for this bot on your server.
+
+        **Example:**
+            - mq>prefix .
+
+        **Note:**
+            - Prefix cannot be set to anything longer than 5 characters
+            - Manage server permissions are required
+
+        Example Usage:
+        """
         if len(prefix) > 5:
             await ctx.send("Prefixes cannot be longer than 5 characters")
         else:
