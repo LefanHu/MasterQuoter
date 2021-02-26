@@ -35,8 +35,6 @@ class Read(commands.Cog):
             {"_id": guild_id}, {"quoted_member_ids": 1}
         )["quoted_member_ids"]
 
-        print(quoted_member_ids)
-
         # No quotes
         if not quoted_member_ids:
             await ctx.send("There are no quotes saved on this server.")
@@ -52,8 +50,6 @@ class Read(commands.Cog):
                 "quotes": {"$elemMatch": {"message_id": message_id}},
             },
         )
-
-        print(quote)
 
         if not quote:
             await ctx.send("A quote by that id does not exist")
