@@ -91,7 +91,7 @@ class About(commands.Cog):
         who are bored out of their minds from quarantine. Hence, this bot.
         
         Anyway, here's some commands. For more information on how to use
-        these commands... **ping MasterQuoter** or **use {prefix}help** [command_name]
+        these commands... **ping MasterQuoter** or **use {prefix}help** `[command_name]`
 
         **SAVING QUOTES**
         - `snip`, `quote`, `qlast`
