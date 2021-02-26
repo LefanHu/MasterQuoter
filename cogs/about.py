@@ -59,11 +59,7 @@ class About(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
-        if ctx.command.name == "quote":
-            self.tracked_statuses["quotes_saved"] += 1
-        elif ctx.command.name == "quote_last":
-            self.tracked_statuses["quotes_saved"] += 1
-        elif ctx.command.name == "snip":
+        if ctx.command.name in ["quote", "snip", "quote_last"]:
             self.tracked_statuses["quotes_saved"] += 1
 
     def member_count(self):
@@ -80,6 +76,9 @@ class About(commands.Cog):
         """
         Just tells you what this bot is really about! :)
 
+        **Example:**
+            - mq>about
+
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814618574777352192/unknown.png
         """
@@ -94,23 +93,23 @@ class About(commands.Cog):
         these commands... **ping MasterQuoter** or **use {prefix}help** `[command_name]`
 
         **SAVING QUOTES**
-        - `snip`, `quote`, `qlast`
+            - `snip`, `quote`, `qlast`
         **REMOVING QUOTES**
-        - `remove`, `rm_all`
+            - `remove`, `rm_all`
         **DISPLAYING QUOTES**
-        - `show_quote`, `qlist`, `random`
+            - `show_quote`, `qlist`, `random`
         **SETTINGS** (__manage_guild_perms__)
-        - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
+            - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
-        - `guess`
+            - `guess`
         **OTHER COMMANDS**
-        - `ping`, `help`, `about`, `settings`, `invite`
+            - `ping`, `help`, `about`, `settings`, `invite`
         **THANKS**
-        - @RadioactiveHydra#2570 (师傅 and Creator of MemeGenBot)
-        - @Lunar#7231 (Minecraft God)
+            - @RadioactiveHydra#2570 (师傅 and Creator of MemeGenBot)
+            - @Lunar#7231 (Minecraft God)
         **FROM TEAM 'MasterBaiters'**
-        - @Alex3000#4135
-        - @Cuddles#2321
+            - @Alex3000#4135
+            - @Cuddles#2321
         
         """
 

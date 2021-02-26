@@ -15,7 +15,8 @@ class Basic(commands.Cog):
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def ping(self, ctx):
         """
-        This shows the DWSP latency (Discord WebSocket protocol)
+        This shows the DWSP latency (Discord WebSocket protocol) as well
+        as the response latency of the bot.
 
         **Example:**
             - mq>ping
@@ -35,7 +36,7 @@ class Basic(commands.Cog):
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def invite(self, ctx):
         """
-        This sends an invite link for the bot to join your server
+        This sends an invite link for the bot to join your server.
 
         **Example:**
             - mq>invite

@@ -10,10 +10,7 @@ from lib.quote_menu import QuoteMenu
 from lib.embed_utils import embed as Emb
 from lib.quote_display import QuoteInteractionMenu
 
-import pymongo
-
-client = pymongo.MongoClient(File().getenv("DATABASE_URL"))
-db = client.masterquoter
+from lib.db import db
 
 
 class Read(commands.Cog):
@@ -25,8 +22,14 @@ class Read(commands.Cog):
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def show_quote(self, ctx, message_id: int):
         """
-        Fetches a specific quote when provided a quote id and user who said that quote
+        Fetches a specific quote and displays it when provided a quote id.
+
+        **Example:**
+            - mq>show_quote `quote_id_here`
+            - mq>sq `quote_id_here`
+
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814894523645427722/unknown.png
         """
         guild_id = ctx.guild.id
         message_id = int(message_id)
@@ -62,7 +65,8 @@ class Read(commands.Cog):
         """
         Lists all quotes from a specified user
 
-        **Example:** mq>qlist @Cuddles#2321
+        **Example:**
+            - mq>qlist @Cuddles#2321
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814655964422733844/unknown.png,
@@ -107,8 +111,15 @@ class Read(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.user)  # change this to 5 later
     async def rand(self, ctx, user: Optional[discord.Member]):
         """
-        This command will fetch a random quote from your server and send it if no user is specified.
-        If a user is specified, this will fetch a random quote from that user.
+        This command will fetch a random quote from your server and send it if
+        __no user is specified__.
+
+        If a __user is specified__, this will fetch a random quote from that user.
+
+        **Example:**
+            - mq>rand
+            - mq>rand @alex3000
+
         Example Usage:
         """
 
