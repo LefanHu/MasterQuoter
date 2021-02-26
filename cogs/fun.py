@@ -102,7 +102,7 @@ class events(commands.Cog):
                     "message", check=is_correct, timeout=30.0
                 )
 
-                if not guess.mentions:
+                if not guess.mentions or guess.clean_content == "stop":
                     pass
                 elif len(guess.mentions) > 1:
                     attempts -= 1
