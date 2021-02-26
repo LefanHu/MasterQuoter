@@ -116,7 +116,7 @@ class Settings(commands.Cog):
             - mq>delete_save_command
 
         **Note:**
-            - commands that saves an image along with it will not be deleted
+            - Commands that saves an image along with it will not be deleted
               this is because image urls will be come invalid after message
               are deleted.
 
@@ -167,6 +167,18 @@ class Settings(commands.Cog):
 
     @commands.command(brief="Remove a user from the blacklist")
     async def pardon(self, ctx, user: Member):
+        """
+        This removes someone from the blacklist. See help `blacklist`,
+        for what it does.
+
+        **Example:**
+            - mq>pardon @alex3000
+
+        **Note:**
+            - Blacklist does nothing if it is not __enabled__
+
+        Example Usage:
+        """
         if type(user) != Member:
             await ctx.send("A user was not properly specified")
             return
@@ -175,6 +187,18 @@ class Settings(commands.Cog):
 
     @commands.command(brief="Remove a user from the whitelist")
     async def restrict(self, ctx, user: Member):
+        """
+        This removes someone from the whitelist. See help `whitelist`,
+        for what it does.
+
+        **Example:**
+            - mq>restrict @alex3000
+
+        **Note:**
+            - Whitelist does nothing if it is not __enabled__
+
+        Example Usage:
+        """
         if type(user) != Member:
             await ctx.send("A user was not properly specified")
             return
