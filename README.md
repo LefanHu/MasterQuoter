@@ -27,11 +27,13 @@ Work-in-progress :) (by 2 idiots in high school)
 
 ## Future plans
 - Add feature to associate quote snippets with others users included in message snippet
+- Add ability to automatically post saved quotes & snippets to a specified channel
 
 
 ## Required Packages
 - psutil [pip install psutil](https://pypi.org/project/psutil/)
 - discord.py [pip install discord.py](https://pypi.org/project/discord.py/)
+- discord.ext.menus [please see github](https://github.com/Rapptz/discord-ext-menus)
 - python-dotenv [pip install python-dotenv](https://pypi.org/project/python-dotenv/)
 - pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
 
