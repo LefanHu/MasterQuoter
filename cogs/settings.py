@@ -32,7 +32,28 @@ class Settings(commands.Cog):
             await ctx.send("Prefix set.")
 
     @commands.command(name="blacklist", brief="Disallows a user from saving quotes")
+    @commands.has_guild_permissions(manage_guild=True)
     async def blacklist_user(self, ctx, user: Optional[Member]):
+        """
+        Command will toggle on and off blacklist if a user is not specified.
+        If a user is specified, that user will be added to the blacklist.
+
+        Blacklisted people are **NOT** allowed to manage quotes:
+            - `remove`, `rm_all`, `snip`, `quote`, `qlast`
+
+        **Example:**
+            - mq>blacklist
+            - mq>blacklist @alex3000
+
+        **Note:**
+            - Commands that saves an image along with it will not be deleted
+              this is because image urls will be come invalid after message
+              is deleted.
+            - Whitelist does nothing unless it is **ENABLED**
+            - You can not have whitelist **AND** blacklist enabled
+
+        Example Usage:
+        """
         if not user:
             await self.toggle_blacklist(ctx)
             return
@@ -46,6 +67,26 @@ class Settings(commands.Cog):
 
     @commands.command(name="whitelist", brief="Allows a user to save quotes")
     async def whitelist_user(self, ctx, user: Optional[Member]):
+        """
+        Command will toggle on and off whitelist if a user is not specified.
+        If a user is specified, that user will be added to the whitelist.
+
+        Whitelisted people are **ALLOWED** to manage quotes:
+            - `remove`, `rm_all`, `snip`, `quote`, `qlast`
+
+        **Example:**
+            - mq>whitelist
+            - mq>whitelist @alex3000
+
+        **Note:**
+            - Commands that saves an image along with it will not be deleted
+              this is because image urls will be come invalid after message
+              is deleted.
+            - Whitelist does nothing unless it is **ENABLED**
+            - You can not have whitelist **AND** blacklist enabled
+
+        Example Usage:
+        """
         if not user:
             await self.toggle_whitelist(ctx)
             return
@@ -58,9 +99,23 @@ class Settings(commands.Cog):
         )
 
     @commands.command(
-        name="del_save_command", brief="Deletes the command after completion"
+        name="delete_save_command", brief="Deletes the command after completion"
     )
     async def toggle_delete_on_save(self, ctx):
+        """
+        This command toggles whether or not commands that saved
+        a quote will be deleted after completion.
+
+        **Example:**
+            - mq>delete_save_command
+
+        **Note:**
+            - commands that saves an image along with it will not be deleted
+              this is because image urls will be come invalid after message
+              are deleted.
+
+        Example Usage:
+        """
         status = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
 
         db.servers.find_one_and_update(
@@ -124,6 +179,21 @@ class Settings(commands.Cog):
         aliases=["settings"], brief="Shows settings of the server & stats"
     )
     async def stats(self, ctx):
+        """
+        Displays your server settings. This includes:
+        - bot prefix for your server
+        - total quotes saved
+        - commands invoked
+        - server id
+        - delete command on server (Enabled/Disabled)
+        - blacklist
+        - whitelist_user
+
+        **Example:**
+            - mq>settings
+
+        Example Usage:
+        """
         settings = db.servers.find_one({"_id": ctx.guild.id})
         guild = ctx.guild
 

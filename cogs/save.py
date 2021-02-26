@@ -251,12 +251,12 @@ class Save(commands.Cog):
         """
         This handy dandy command allows you to save  things your friends have said!
 
-        Example:
+        **Example:**
             - mq>snip
             - Add 2 reactions to the same message, or 2 reactions to different messages
               not interrupted by other messages in between.
 
-        Note:
+        **Note:**
             - Currently, snippets are not supported
               (Snippets contain messages from multiple people)
 

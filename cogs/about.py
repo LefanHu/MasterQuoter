@@ -100,7 +100,7 @@ class About(commands.Cog):
         **DISPLAYING QUOTES**
         - `show_quote`, `qlist`, `random`
         **SETTINGS**
-        - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `del_save_command`, `settings`
+        - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
         - `guess`
         **OTHER COMMANDS**
