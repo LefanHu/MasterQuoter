@@ -34,18 +34,25 @@ class Read(commands.Cog):
             {"_id": guild_id}, {"quoted_member_ids": 1}
         )["quoted_member_ids"]
 
+        print(quoted_member_ids)
+
         # No quotes
         if not quoted_member_ids:
             await ctx.send("There are no quotes saved on this server.")
             return
 
         quote = db.users.find_one(
-            {"_id": {"$in": quoted_member_ids}},
+            {
+                "_id": {"$in": [795756832164413500, 324917494005366784]},
+                "quotes.message_id": message_id,
+            },
             {
                 "_id": 0,
                 "quotes": {"$elemMatch": {"message_id": message_id}},
             },
         )
+
+        print(quote)
 
         if not quote:
             await ctx.send("A quote by that id does not exist")
