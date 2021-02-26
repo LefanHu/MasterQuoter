@@ -46,9 +46,6 @@ class Settings(commands.Cog):
             - mq>blacklist @alex3000
 
         **Note:**
-            - Commands that saves an image along with it will not be deleted
-              this is because image urls will be come invalid after message
-              is deleted.
             - Whitelist does nothing unless it is **ENABLED**
             - You can not have whitelist **AND** blacklist enabled
 
@@ -79,9 +76,6 @@ class Settings(commands.Cog):
             - mq>whitelist @alex3000
 
         **Note:**
-            - Commands that saves an image along with it will not be deleted
-              this is because image urls will be come invalid after message
-              is deleted.
             - Whitelist does nothing unless it is **ENABLED**
             - You can not have whitelist **AND** blacklist enabled
 
