@@ -52,8 +52,8 @@ class events(commands.Cog):
             return
 
         results = db.users.update_one(
-            {"_id": {"$in": quoted_users}},
-            {"$pull": {"quotes": {"server_id": ctx.guild.id, "message_id": quote_id}}},
+            {"_id": {"$in": quoted_users}, "quotes.message_id": quote_id},
+            {"$pull": {"quotes": {"message_id": quote_id}}},
         )
 
         # see if anything was modified
