@@ -44,7 +44,7 @@ class Read(commands.Cog):
 
         quote = db.users.find_one(
             {
-                "_id": {"$in": [795756832164413500, 324917494005366784]},
+                "_id": {"$in": quoted_member_ids},
                 "quotes.message_id": message_id,
             },
             {
