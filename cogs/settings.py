@@ -19,7 +19,7 @@ class Settings(commands.Cog):
         elif ctx.command.name in self.allowed_commands:
             return True
         await ctx.send(
-            "You need to have 'manage_guild' permissions to change the settings of this bot."
+            "You need to have `manage_guild` permissions to change the settings of this bot."
         )
         return False
 
@@ -33,7 +33,7 @@ class Settings(commands.Cog):
 
         **Note:**
             - Prefix cannot be set to anything longer than 5 characters
-            - Manage server permissions are required
+            - `manage server` permissions are required
 
         Example Usage:
         """
@@ -50,7 +50,7 @@ class Settings(commands.Cog):
         Command will toggle on and off blacklist if a user is not specified.
         If a user is specified, that user will be added to the blacklist.
 
-        Blacklisted people are **NOT** allowed to manage quotes:
+        Blacklisted people are **NOT ALLOWED** to manage quotes:
             - `remove`, `rm_all`, `snip`, `quote`, `qlast`
 
         **Example:**
@@ -109,16 +109,15 @@ class Settings(commands.Cog):
     )
     async def toggle_delete_on_save(self, ctx):
         """
-        This command toggles whether or not commands that saved
-        a quote will be deleted after completion.
+        This command toggles whether or not commands that saved a quote will be deleted after completion.
 
         **Example:**
             - mq>delete_save_command
 
         **Note:**
-            - Commands that saves an image along with it will not be deleted
-              this is because image urls will be come invalid after message
-              are deleted.
+            - Commands that saves an image along with it will **NOT** be deleted
+              this is because image urls will be come __invalid__ after the message
+              is deleted.
 
         Example Usage:
         """
