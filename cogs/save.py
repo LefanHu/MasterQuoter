@@ -204,7 +204,7 @@ class Save(commands.Cog):
             "time_stamp": int(ctx.message.created_at.timestamp()),
             "user_id": user.id,
             "server_id": ctx.message.guild.id,
-            "channel_id": ctx.message.channel.id,
+            "channel_name": ctx.channel.name,
             "message_id": ctx.message.id,
             "image_attachments": await self.save_images(ctx.message)
             if not imgs
@@ -333,11 +333,12 @@ class Save(commands.Cog):
             "prefix": "mq>",
             "quotes_saved": 0,
             "commands_invoked": 0,
-            "del_on_save": False,
             "ignored": [],
             "allowed": [],
             "whitelist": False,
             "blacklist": False,
+            "del_on_save": False,
+            "snips": [],
             "quoted_member_ids": [],
         }
         db.servers.insert_one(server)

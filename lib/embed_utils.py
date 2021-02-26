@@ -36,7 +36,7 @@ class embed:
             )
 
             embed.set_footer(
-                text=f"{name}'s wisdom",
+                text=f"Channel: {quote['channel_name']}",
                 icon_url=avatar,
             )
 
