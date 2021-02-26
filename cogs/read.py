@@ -121,6 +121,7 @@ class Read(commands.Cog):
             - mq>rand @alex3000
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814983175100039234/unknown.png
         """
 
         if not user:
