@@ -12,6 +12,14 @@ class events(commands.Cog):
         self.bot = bot
         self.sessions = []
 
+    def session_exists(self, channel_id: int):
+        if channel_id in self.sessions:
+            return True
+        return False
+
+    def remove_session(self, channel_id: int):
+        self.sessions.remove(channel_id)
+
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def guess(self, ctx, guesses: Optional[int]):
@@ -26,10 +34,11 @@ class events(commands.Cog):
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814945245313761300/unknown.png
         """
-        # if ctx.message.channel.id in self.sessions:
-        #     await ctx.send("You cannot multiple sessions of this game in this channel.")
-        # else:
-        #     self.sessions.append(ctx.message.channel.id)
+
+        if self.session_exists(ctx.message.channel.id):
+            return  # no more than one game session per channel
+        else:
+            self.sessions.append(ctx.message.channel.id)
 
         attempts = 5 if not guesses else guesses  # calculate this as a ratio later
 
@@ -56,6 +65,7 @@ class events(commands.Cog):
 
         if not quotes:  # ensures quote is not None
             await ctx.send("There are no quotes")
+            self.remove_session(ctx.message.channel.id)
             return
         else:
             quote = random.choice(quotes)
@@ -108,6 +118,7 @@ class events(commands.Cog):
                 await ctx.send(
                     f"You took too long to guess. You now have {attempts} guesses."
                 )
+        self.remove_session(ctx.message.channel.id)
 
     @commands.Cog.listener()
     async def on_ready(self):
