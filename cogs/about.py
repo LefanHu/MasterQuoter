@@ -99,13 +99,12 @@ class About(commands.Cog):
         - `remove`, `rm_all`
         **DISPLAYING QUOTES**
         - `show_quote`, `qlist`, `random`
-        **SETTINGS**
+        **SETTINGS** (__manage_guild_perms__)
         - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
         - `guess`
         **OTHER COMMANDS**
         - `ping`, `help`, `about`, `settings`, `invite`
-        
         **THANKS**
         - @RadioactiveHydra#2570 (师傅 and Creator of MemeGenBot)
         - @Lunar#7231 (Minecraft God)
