@@ -24,9 +24,7 @@ class events(commands.Cog):
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def guess(self, ctx, guesses: Optional[int]):
         """
-        You ever wanna guess who said what stupid thing? This starts a game
-        where a random quote is displayed (hiding the author of the quote) and
-        the first person to ping the author of the quote is granted the guess.
+        You ever wanna guess who said what stupid thing? This starts a game where a random quote is displayed (hiding the author of the quote) and the first person to ping the author of the quote is granted the guess.
 
         **Example:**
             - mq>guess

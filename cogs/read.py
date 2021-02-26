@@ -112,7 +112,7 @@ class Read(commands.Cog):
     async def rand(self, ctx, user: Optional[discord.Member]):
         """
         This command will fetch a random quote from your server and send it if
-        __no user is specified__.
+        \n__no user is specified__.
 
         If a __user is specified__, this will fetch a random quote from that user.
 

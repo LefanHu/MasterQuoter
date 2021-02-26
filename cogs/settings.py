@@ -48,8 +48,7 @@ class Settings(commands.Cog):
     @commands.has_guild_permissions(manage_guild=True)
     async def blacklist_user(self, ctx, user: Optional[Member]):
         """
-        Command will toggle on and off blacklist if a user is not specified.
-        If a user is specified, that user will be added to the blacklist.
+        Command will toggle on and off blacklist if a user is not specified. If a user is specified, that user will be added to the blacklist.
 
         Blacklisted people are **NOT ALLOWED** to manage quotes:
             - `remove`, `rm_all`, `snip`, `quote`, `qlast`
@@ -78,8 +77,7 @@ class Settings(commands.Cog):
     @commands.command(name="whitelist", brief="Allows a user to save quotes")
     async def whitelist_user(self, ctx, user: Optional[Member]):
         """
-        Command will toggle on and off whitelist if a user is not specified.
-        If a user is specified, that user will be added to the whitelist.
+        Command will toggle on and off whitelist if a user is not specified. If a user is specified, that user will be added to the whitelist.
 
         Whitelisted people are **ALLOWED** to manage quotes:
             - `remove`, `rm_all`, `snip`, `quote`, `qlast`
@@ -170,8 +168,7 @@ class Settings(commands.Cog):
     @commands.command(brief="Remove a user from the blacklist")
     async def pardon(self, ctx, user: Member):
         """
-        This removes someone from the blacklist. See help `blacklist`,
-        for what it does.
+        This removes someone from the blacklist. See help `blacklist`, for what it does.
 
         **Example:**
             - mq>pardon @alex3000
@@ -190,8 +187,7 @@ class Settings(commands.Cog):
     @commands.command(brief="Remove a user from the whitelist")
     async def restrict(self, ctx, user: Member):
         """
-        This removes someone from the whitelist. See help `whitelist`,
-        for what it does.
+        This removes someone from the whitelist. See help `whitelist`, for what it does.
 
         **Example:**
             - mq>restrict @alex3000
