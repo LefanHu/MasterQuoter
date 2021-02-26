@@ -31,6 +31,7 @@ class events(commands.Cog):
         **Example:**
             - mq>guess
             - mq>gs 10
+            - stop (while game is active to stop game)
 
         **Notes:**
             - Max guesses is 10, any more than 10 will default to 5 attempts.
