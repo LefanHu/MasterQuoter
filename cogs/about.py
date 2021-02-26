@@ -88,7 +88,7 @@ class About(commands.Cog):
         description = f"""
         This bot is coded by team MasterBaiters, a group of 2 high school students
         who are bored out of their minds from quarantine. Hence, this bot.
-        
+
         Anyway, here's some commands. For more information on how to use
         these commands... **ping MasterQuoter** or **use {prefix}help** `[command_name]`
 
@@ -110,7 +110,7 @@ class About(commands.Cog):
         **FROM TEAM 'MasterBaiters'**
             - @Alex3000#4135
             - @Cuddles#2321
-        
+
         """
 
         embed = Embed(
@@ -137,8 +137,8 @@ class About(commands.Cog):
             ("⏫ Uptime 🆙", uptime, True),
             ("💻 CPU time 🖥️", cpu_time, True),
             ("😢 Server Count 😢", f"{self.tracked_statuses['server_count']}", True),
-            ("😭 Users 😭", f"{self.tracked_statuses['member_count']:,}", True),
-            ("🍋 Quotes Saved 🍋", f"{self.tracked_statuses['quotes_saved']:,}", True),
+            ("🥶 Users 🥶", f"{self.tracked_statuses['member_count']:,}", True),
+            ("🗣️ Quotes Saved 🗣️", f"{self.tracked_statuses['quotes_saved']:,}", True),
             (
                 "😔 Commands Run 😔",
                 f"{self.tracked_statuses['commands_processed']:,}",
