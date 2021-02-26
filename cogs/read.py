@@ -64,7 +64,7 @@ class Read(commands.Cog):
         """
         Lists all quotes from a specified user
 
-        Example: mq>qlist @Cuddles#2321
+        **Example:** mq>qlist @Cuddles#2321
 
         Example Usage:
         """
