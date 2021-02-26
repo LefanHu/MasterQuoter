@@ -61,7 +61,13 @@ class Read(commands.Cog):
 
     @commands.command(aliases=["qfrom"], brief="lists all quotes from user")
     async def qlist(self, ctx, user: Optional[discord.Member]):
-        """Lists all quotes from a specified user"""
+        """
+        Lists all quotes from a specified user
+
+        Example: mq>qlist @Cuddles#2321
+
+        Example Usage:
+        """
         if not user:
             quotes = await self.from_server(ctx.guild.id)
             if not quotes:
