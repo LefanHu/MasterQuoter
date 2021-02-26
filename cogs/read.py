@@ -67,6 +67,8 @@ class Read(commands.Cog):
         **Example:** mq>qlist @Cuddles#2321
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/814655964422733844/unknown.png,
+        https://cdn.discordapp.com/attachments/795405783155343365/814655522820063252/unknown.png
         """
         if not user:
             quotes = await self.from_server(ctx.guild.id)
