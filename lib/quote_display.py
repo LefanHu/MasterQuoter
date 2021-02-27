@@ -9,7 +9,7 @@ class QuoteInteractionMenu(menus.Menu):
         self.message = message
         self.hide_user = hide_user
         self.instructions = "◀️ ▶️ <Navigate Images> ⬅️ ➡️ <Next Page>"
-        chunk_length = 2000  # num of characters per chunk
+        chunk_length = 1000  # num of characters per chunk
 
         messages = (
             "\n".join(self.quote["msg"])
