@@ -28,7 +28,7 @@ class events(commands.Cog):
 
         return allowed
 
-    @commands.command(aliases=["rm", "remove"], brief="Deltes a quote")
+    @commands.command(aliases=["rm", "remove"], brief="Deletes a quote")
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def remove_quote(self, ctx, quote_id: int):
         """
