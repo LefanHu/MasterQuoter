@@ -107,9 +107,9 @@ class Read(commands.Cog):
                 message, embed=Emb().format_quote(quote, hide_user=hide_user)
             )
 
-    @commands.command(aliases=["random"], brief="Gives a random saved quote")
+    @commands.command(aliases=["rand"], brief="Gives a random saved quote")
     @commands.cooldown(1, 2, commands.BucketType.user)  # change this to 5 later
-    async def rand(self, ctx, user: Optional[discord.Member]):
+    async def random(self, ctx, user: Optional[discord.Member]):
         """
         This command will fetch a random quote from your server and send it if
         \n__no user is specified__.
