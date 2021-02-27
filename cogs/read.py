@@ -59,7 +59,7 @@ class Read(commands.Cog):
         else:
             await self.send_quote(ctx, quote["quotes"][0])
 
-    @commands.command(aliases=["qlist", "ql"], brief="lists all quotes from user")
+    @commands.command(aliases=["listq", "lq"], brief="lists all quotes from user")
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def list_quotes(self, ctx, user: Optional[discord.Member]):
         """
