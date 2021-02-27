@@ -86,18 +86,16 @@ class About(commands.Cog):
         prefix = db.servers.find_one({"_id": ctx.guild.id}, {"prefix": 1})["prefix"]
 
         description = f"""
-        This bot is coded by team MasterBaiters, a group of 2 high school students
-        who are bored out of their minds from quarantine. Hence, this bot.
+        This bot is coded by team MasterBaiters, a group of 2 high school students who are bored out of their minds from quarantine. Hence, this bot.
 
-        Anyway, here's some commands. For more information on how to use
-        these commands... **ping MasterQuoter** or **use {prefix}help** `[command_name]`
+        Anyway, here's some commands. For more information on how to use these commands... **ping MasterQuoter** or **use {prefix}help** `[command_name]`
 
         **SAVING QUOTES**
             - `snip`, `quote`, `qlast`
         **REMOVING QUOTES**
             - `remove`, `rm_all`
         **DISPLAYING QUOTES**
-            - `show_quote`, `qlist`, `random`
+            - `show_quote`, `list_quotes`, `random`
         **SETTINGS** (__manage_guild_perms__)
             - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
