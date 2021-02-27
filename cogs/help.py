@@ -47,6 +47,9 @@ class HelpMenu(ListPageSource):
         **To see help for a specific command**... Consider using:
             - `{self.prefix}help <cmd_name>` (It's actually pretty good!)
 
+        __**TO TOP.GG BOT EVALUATOR:**__
+        **MANAGE CHANNEL & MANAGE ROLES** permissions are requested because auto-create 'quotes' channel and auto assigning roles based on (blacklist or whitelist) or on # of quotes saved are likely features implemented in the future. This is to avoid any need editing permissions for this bot later down the line.
+
         Hope you enjoy our bot.
         """
 
