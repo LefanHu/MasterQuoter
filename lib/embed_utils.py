@@ -52,3 +52,6 @@ class embed:
                 embed.set_image(url=quote["image_attachments"][image_num]["url"])
 
         return embed
+
+    def format_snip(self, snip):
+        pass
