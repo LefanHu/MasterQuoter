@@ -54,7 +54,7 @@ class Settings(commands.Cog):
             - `remove`, `rm_all`, `snip`, `quote`, `qlast`
 
         **Example:**
-            - mq>blacklist
+            - mq>blacklist <= Toggles on & off blacklist
             - mq>blacklist @alex3000
 
         **Note:**
@@ -83,7 +83,7 @@ class Settings(commands.Cog):
             - `remove`, `rm_all`, `snip`, `quote`, `qlast`
 
         **Example:**
-            - mq>whitelist
+            - mq>whitelist <= Toggles on & off whitelist
             - mq>whitelist @alex3000
 
         **Note:**
