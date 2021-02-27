@@ -11,6 +11,7 @@ from discord.ext.commands import Cog
 from discord.utils import get
 
 from os.path import basename
+from lib.db import db
 
 
 def syntax(command):
@@ -29,15 +30,29 @@ def syntax(command):
 class HelpMenu(ListPageSource):
     def __init__(self, ctx, data):
         self.ctx = ctx
+        self.prefix = db.servers.find_one(
+            {"_id": ctx.guild.id}, {"_id": 0, "prefix": 1}
+        )["prefix"]
         super().__init__(data, per_page=5)
 
     async def write_page(self, menu, fields=[]):
         offset = (menu.current_page * self.per_page) + 1
         len_data = len(self.entries)
+        description = f"""
+        The help menu shows a menu of commands (This will hopefully be more organized in the future).
+        
+        **For a more organized command list**... Consider using:
+            - `{self.prefix}about` (Commands organized into categories)
+        
+        **To see help for a specific command**... Consider using:
+            - `{self.prefix}help <cmd_name>` (It's actually pretty good!)
+
+        Hope you enjoy our bot.
+        """
 
         embed = Embed(
-            title="Help",
-            description="Welcome to MasterQuoter's help dialog!",
+            title="**Help**",
+            description=description,
             colour=self.ctx.author.colour,
         )
 
@@ -84,7 +99,9 @@ class Help(Cog):
             help_menu = ImageMenu(embed, help_images, timeout=45.0)
             await help_menu.start(ctx)
 
-    @command(name="help", brief="Shows a menu with commands")
+    @command(
+        name="help", brief="Shows a menu with commands or help for a specific command"
+    )
     @cooldown(3, 5, BucketType.user)
     async def show_help(self, ctx, cmd: Optional[str]):
         """
