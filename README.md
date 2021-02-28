@@ -12,7 +12,6 @@ Work-in-progress :) (by 2 idiots in high school)
 - ~~Add error handling "bot.event"~~
 - ~~Save attachments with message.created_at + attachment.filename instead of just attachment.filename since most of the time it's simply just "unknown.png" for screenshots~~
 - ~~Send traceback to developers whenever an error occurs (currently non-working)~~
-- ~~Add a buffer variable for quotes to avoid opening and closing the quotes file for every single quote.~~
 - ~~Ensure when quoting someone, message does not exceed discord limit~~
 - ~~save message.clean_content instead of message.content~~
 - ~~Save a quote snippet through reactions~~
@@ -24,9 +23,11 @@ Work-in-progress :) (by 2 idiots in high school)
 - ~~Add attachment quoting support (ability to quote screenshots, sound files or picture attachments)~~
 - ~~Add "nice navigation" (page flipping for listing quotes)~~
 - ~~Comic strip or user friendly help bar OR possibly a pre-drawn image help bar~~
+- ~~Use mongodb for storage~~
+- Add feature to associate quote snippets with others users included in message snippet (currently working on)
+- Make database queries async using 'motor' driver for mongodb
 
 ## Future plans
-- Add feature to associate quote snippets with others users included in message snippet
 - Add ability to automatically post saved quotes & snippets to a specified channel
 
 
