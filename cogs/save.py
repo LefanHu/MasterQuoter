@@ -33,15 +33,6 @@ class Save(commands.Cog):
 
         return allowed
 
-    # # getting a sample dataset
-    # @commands.command(aliases=["slh"], hidden=True)
-    # @commands.is_owner()
-    # async def save_last_hundred(self, ctx):
-    #     messages = await ctx.channel.history(limit=100).flatten()
-    #     for message in messages:
-    #         await self.save_quote(ctx=ctx, user=message.author, msg=message.content)
-
-    # Saving attachments associated with a message
     async def save_images(self, message):
         attachments = []
         for attachment in message.attachments:
