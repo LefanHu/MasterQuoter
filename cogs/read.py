@@ -121,6 +121,9 @@ class Read(commands.Cog):
             )
             await pages.start(ctx)
 
+    async def send_snip(self, ctx, snip):
+        pass
+
     async def send_quote(self, ctx, quote, message=None, hide_user=False):
         quote_length = len(" ".join(quote["msg"]))
         image_count = len(quote["image_attachments"])
