@@ -28,14 +28,15 @@ class events(commands.Cog):
 
         return allowed
 
-    @commands.command(aliases=["rm", "remove"], brief="Deletes a quote")
+    @commands.command(aliases=["rm"], brief="Deletes a quote")
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def remove_quote(self, ctx, quote_id: int):
+    async def remove(self, ctx, quote_id: int):
         """
-        Deletes a saved quote when given the ID of the quote.
+        Deletes a saved quote/snip when given the ID.
 
         **Example:**
-            - mq>remove `quote_id_here`
+            - mq>remove `id_here`
+            - mq>rm `id_here`
 
         Example Usage:
         """
