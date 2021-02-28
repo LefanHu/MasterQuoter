@@ -179,7 +179,6 @@ class Save(commands.Cog):
         Example Usage:
         """
         await self.save_quote(ctx, user, msg=msg)
-        await ctx.send("Quote saved")
 
     # Adds one quote to quote buffer
 
@@ -223,6 +222,8 @@ class Save(commands.Cog):
             {"_id": server_id},
             {"$addToSet": {"quoted_member_ids": mem_id}, "$inc": {"quotes_saved": 1}},
         )
+
+        await ctx.send(f"Quote saved with id: `{ctx.message.id}`")
 
     @quote.error
     async def on_quote_error(self, ctx, exc):
@@ -322,7 +323,6 @@ class Save(commands.Cog):
                         break
 
                 await self.save_snippet(ctx, quoted_user, reversed(msgs))
-                await ctx.send("Snippet saved.")
 
         except TimeoutError:
             await ctx.send("Snip timed out")
@@ -354,6 +354,7 @@ class Save(commands.Cog):
         }
         db.users.insert_one(user)
 
+    # deletes commands on save
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
         if ctx.command.name in self.commands:
