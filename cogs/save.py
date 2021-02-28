@@ -321,7 +321,7 @@ class Save(commands.Cog):
                         {"_id": ctx.guild.id}, {"$push": {"snips": snip}}
                     )
 
-                    await ctx.send(f"Saved as `server snip` with id: {snip['snip_id']}")
+                    await ctx.send(f"Saved `server snip` with id: `{snip['snip_id']}`")
                 else:
                     await self.save_snippet(ctx, quoted_user, reversed(msgs))
         except TimeoutError:
@@ -352,7 +352,7 @@ class Save(commands.Cog):
 
             section = {
                 "author_name": message.author.name,
-                "message": "",
+                "messages": [],
                 "images": 0,
             }
 
@@ -375,7 +375,7 @@ class Save(commands.Cog):
                 if text == "":
                     pass
                 else:
-                    section["message"] += f"\n{text}"
+                    section["messages"].append(text)
 
                 # moves on to the next message
                 indx += 1
