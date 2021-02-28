@@ -9,6 +9,7 @@ from discord.ext.menus import MenuPages
 from lib.quote_menu import QuoteMenu
 from lib.embed_utils import embed as Emb
 from lib.quote_display import QuoteInteractionMenu
+from lib.snippet_menu import SnippetMenu
 
 from lib.db import db
 
@@ -90,6 +91,31 @@ class Read(commands.Cog):
                 return
             pages = MenuPages(
                 source=QuoteMenu(ctx, quotes, user.name, user.avatar_url),
+                clear_reactions_after=True,
+                timeout=60.0,
+            )
+            await pages.start(ctx)
+
+    @commands.command(aliases=["lists", "ls"], brief="lists all server snippets")
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def list_snips(self, ctx, user: Optional[discord.Member]):
+        """
+        Lists all quotes from a specified user (ping them)
+
+        **Example:**
+            - mq>list_snips
+            - mq>lists
+            - mq>ls
+
+        Example Usage:
+        """
+        snips = db.servers.find_one({"_id": ctx.guild.id}, {"snips": 1})["snips"]
+
+        if not snips:
+            await ctx.send("There are no server snippets saved.")
+        else:
+            pages = MenuPages(
+                source=SnippetMenu(ctx, snips, ctx.guild.name, ctx.guild.icon_url),
                 clear_reactions_after=True,
                 timeout=60.0,
             )
