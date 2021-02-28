@@ -55,7 +55,15 @@ class events(commands.Cog):
 
         # see if anything was modified
         if results.modified_count == 0:
-            await ctx.send("That quote does not exist.")
+            # if nothing then try removing a snip
+            results = db.servers.update_one(
+                {"_id": ctx.guild.id},
+                {"$pull": {"snips": {"snip_id": quote_id}}},
+            )
+            if results.modified_count == 0:
+                await ctx.send("A snip/quote does not exist.")
+            else:
+                await ctx.send("Snippet removed.")
         else:
             await ctx.send("Quote removed")
 
