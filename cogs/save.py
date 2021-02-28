@@ -70,7 +70,7 @@ class Save(commands.Cog):
         """
         Saves the last section of *continuous messages* from that user.
 
-        section: This specifies the # of sections pass before saving.
+        section: This specifies the # of sections to pass before saving.
 
         lines: This specifies how many lines in the channel to look (max 200)
 
@@ -151,7 +151,7 @@ class Save(commands.Cog):
         await self.save_quote(ctx, user, msg=msgs, imgs=imgs, files=files)
 
     # this is here so append_quote's extra parameters don't show up in help
-    @commands.command(aliases=["qt"])
+    @commands.command(aliases=["qt", "q"])
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def quote(self, ctx, user: discord.Member, *, msg):
         """
@@ -159,6 +159,8 @@ class Save(commands.Cog):
 
         **Example:**
             - mq>quote @alex3000 `MAKE UP A_RANDOM_MESSAGE IF YOU WANT` `>:)`
+            - mq>qt @alex3000 `message here`
+            - mq>q @alex3000 `message here`
 
         **Note:**
             - When the save command contains a image attachment, the command
