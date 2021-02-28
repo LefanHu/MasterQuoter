@@ -290,17 +290,15 @@ class Save(commands.Cog):
             else:  # multiple messages
                 messages = await ctx.channel.history(limit=lines).flatten()
                 msgs = []
+                snippet = False
                 for indx, message in enumerate(messages):
                     if message.id in msg_ids:
                         quoted_user = message.author
                         msgs.append(message)
                         indx += 1
                         while indx < len(messages):
-                            if messages[indx].author != message.author:
-                                await ctx.send(
-                                    "Snippets (containing multiple authors) is not yet supported"
-                                )
-                                return
+                            if messages[indx].author != message.author and not snippet:
+                                snippet = True  # There are multiple authors in snippet
                             elif messages[indx].id in msg_ids:  # end has reached
                                 msgs.append(messages[indx])
                                 break
@@ -315,10 +313,80 @@ class Save(commands.Cog):
                             return
                         break
 
-                await self.save_snippet(ctx, quoted_user, reversed(msgs))
+                if snippet:
+                    snip = await self.format_snip(ctx, msgs)
 
+                    # add snip to database
+                    db.servers.update_one(
+                        {"_id": ctx.guild.id}, {"$push": {"snips": snip}}
+                    )
+
+                    await ctx.send(f"Saved as `server snip` with id: {snip['snip_id']}")
+                else:
+                    await self.save_snippet(ctx, quoted_user, reversed(msgs))
         except TimeoutError:
             await ctx.send("Snip timed out")
+
+    async def format_snip(self, ctx, messages):
+        messages = list(reversed(messages))
+        first_msg = messages[0]
+        length = len(messages)
+
+        snip = {
+            "snip_id": first_msg.id,
+            "server_id": ctx.guild.id,
+            "server_name": ctx.guild.name,
+            "channel_name": first_msg.channel.name,
+            "timestamp": int(first_msg.created_at.timestamp()),
+            "snipper": ctx.message.author.name,
+            "public": False,
+            "sections": [],
+            "images": [],
+        }
+
+        indx = 0
+        # prev_author_id = first_msg.author.id
+        while indx < length:
+            message = messages[indx]
+            prev_author_id = message.author.id
+
+            section = {
+                "author_name": message.author.name,
+                "message": "",
+                "images": 0,
+            }
+
+            # while the same person has not finished
+            while indx < length and messages[indx].author.id == prev_author_id:
+                message = messages[indx]
+
+                if message.attachments:
+                    # goes through every attachment in message
+                    for attachment in message.attachments:
+                        # only saves if attachment is an image
+                        if self.file.is_image(attachment.filename):
+                            # increment # of images of this block of messages
+                            section["images"] += 1
+                            # add the image url to the snip
+                            snip["images"].append(attachment.url)
+
+                # adds to the section of what this person has said
+                text = message.clean_content
+                if text == "":
+                    pass
+                else:
+                    section["message"] += f"\n{text}"
+
+                # moves on to the next message
+                indx += 1
+                # sets the previous message's author
+                prev_author_id = message.author.id
+
+            # adds section to main snip
+            snip["sections"].append(section)
+
+        # when finished return snip
+        return snip
 
     def new_server(self, server):
         server = {
