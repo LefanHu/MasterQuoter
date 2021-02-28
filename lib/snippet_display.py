@@ -17,7 +17,7 @@ class SnipInteractionMenu(menus.Menu):
 
     def split_pages(self, snip):
         sections = snip["sections"]
-        for section in enumerate(self.snip["sections"]):
+        for indx, section in enumerate(self.snip["sections"]):
             message = section["message"].splitlines()
             for line in message:
                 # if the line is
@@ -37,7 +37,7 @@ class SnipInteractionMenu(menus.Menu):
             return await ctx.send(embed=self.embed)
 
     @menus.button("◀️")
-    async def on_left_image(self, payload):
+    async def previous_image(self, payload):
         if self.image_indx == 0:
             pass
         else:
@@ -47,7 +47,7 @@ class SnipInteractionMenu(menus.Menu):
             )
 
     @menus.button("▶️")
-    async def on_right_image(self, payload):
+    async def next_image(self, payload):
         if self.image_indx == self.image_num - 1:
             pass
         elif self.image_num == 0:
@@ -59,7 +59,7 @@ class SnipInteractionMenu(menus.Menu):
             )
 
     @menus.button("⬅️")
-    async def on_left_chunk(self, payload):
+    async def previous_page(self, payload):
         if self.chunk_indx == 0:
             pass
         else:
@@ -76,7 +76,7 @@ class SnipInteractionMenu(menus.Menu):
             await self.message.edit(embed=self.embed)
 
     @menus.button("➡️")
-    async def on_right_chunk(self, payload):
+    async def next_page(self, payload):
         if self.chunk_indx == self.chunk_num - 1:
             pass
         else:
