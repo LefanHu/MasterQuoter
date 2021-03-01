@@ -40,6 +40,7 @@ Work-in-progress :) (by 2 idiots in high school)
 - discord.ext.menus [please see github](https://github.com/Rapptz/discord-ext-menus)
 - python-dotenv [pip install python-dotenv](https://pypi.org/project/python-dotenv/)
 - pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
+- tracemoepy
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
