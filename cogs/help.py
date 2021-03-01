@@ -1,5 +1,4 @@
 from typing import Optional
-from discord.ext.commands.core import max_concurrency
 
 from discord.ext.menus import ListPageSource, MenuPages
 from lib.image_menu import ImageMenu
