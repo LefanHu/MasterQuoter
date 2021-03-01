@@ -64,11 +64,10 @@ class Utils:
             thumbnail=snip["server_icon"],
         )
         embed.set_footer(
-            text=f"Channel: {snip['channel_name']}",
             icon_url=snip["server_icon"],
         )
         embed.add_field(
-            name=f"Snippet taken in **{snip['server_name']}**",
+            name=f"**{snip['server_name']}**, in channel **{snip['channel_name']}**",
             value=f"```Snippet saved by: {snip['snipper']}```",
             inline=True,
         )
