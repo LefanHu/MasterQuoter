@@ -108,7 +108,7 @@ class Utils:
 
     def embed_trace(self, doc):
         embed = Embed(
-            title=f"`{doc['filename'][:50]}...`",
+            title=f"`{doc['filename'][:40]}...`",
             colour=Colour.random(),
             timestamp=dt.utcnow(),
         )
