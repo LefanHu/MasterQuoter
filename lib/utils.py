@@ -105,3 +105,28 @@ class Utils:
         descriptions.append(description)
 
         return descriptions
+
+    def embed_trace(self, doc):
+        embed = Embed(
+            title=f"`{doc['filename'][:50]}...`",
+            colour=Colour.random(),
+            timestamp=dt.utcnow(),
+        )
+        titles = "\n".join(
+            [doc["title_chinese"], doc["title_native"], doc["title_romaji"]]
+        )
+        fields = [
+            (f"Similarity %", f"```{doc['similarity']:,.2f}%```", True),
+            (f"Titles", f"```{titles}```", False),
+            (f"Season", f"```{doc['season']} ```", True),
+            (f"Episode", f"```{doc['episode']}```", True),
+            (f"Anilist ID", f"```{doc['anilist_id']}```", True),
+        ]
+        embed.set_footer(
+            text=f"From: {doc['from']/60:,.2f}mins To: {doc['to']/60:,.2f}mins"
+        )
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        return embed
