@@ -1,7 +1,7 @@
 from discord.ext import commands
 from asyncio import TimeoutError
 from typing import Optional
-from lib.embed_utils import embed
+from lib.utils import Utils
 from lib.db import db
 from os.path import basename
 import random
@@ -115,7 +115,7 @@ class events(commands.Cog):
                     if guess.mentions[0].id == quote["user_id"]:
                         await ctx.send(
                             "You've guessed correctly!",
-                            embed=embed().format_quote(quote),
+                            embed=Utils().format_quote(quote),
                         )
                         break
                     else:

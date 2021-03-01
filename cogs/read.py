@@ -7,8 +7,9 @@ from typing import Optional
 
 from discord.ext.menus import MenuPages
 from lib.quote_menu import QuoteMenu
-from lib.embed_utils import embed as Emb
+from lib.utils import Utils
 from lib.quote_display import QuoteInteractionMenu
+from lib.snippet_display import SnipInteractionMenu
 from lib.snippet_menu import SnippetMenu
 
 from lib.db import db
@@ -18,6 +19,7 @@ class Read(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.file = File()
+        self.utils = Utils()
 
     @commands.command(aliases=["sq"], brief="Fetches a quote by ID and user")
     @commands.cooldown(1, 1, commands.BucketType.user)
@@ -121,8 +123,24 @@ class Read(commands.Cog):
             )
             await pages.start(ctx)
 
-    async def send_snip(self, ctx, snip):
-        pass
+    @commands.command(aliases=["sends", "ss"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def send_snip(self, ctx, snip_id: int):
+        try:
+            snip = db.servers.find_one(
+                {"_id": ctx.guild.id}, {"snips": {"$elemMatch": {"snip_id": snip_id}}}
+            )["snips"][0]
+        except KeyError:
+            await ctx.send("There are no snippets saved on this server.")
+            return
+
+        descriptions = self.utils.split_snip(snip)
+        if len(descriptions) + len(snip["images"]) > 2:
+            snip = SnipInteractionMenu(snip)
+            await snip.start(ctx)
+        else:
+            embed = self.utils.format_snip(snip)
+            await ctx.send(embed=embed)
 
     async def send_quote(self, ctx, quote, message=None, hide_user=False):
         quote_length = len(" ".join(quote["msg"]))
@@ -133,7 +151,7 @@ class Read(commands.Cog):
             await quote.start(ctx)
         else:  # instead of sending as a interaction menu, sends normally as embed
             await ctx.send(
-                message, embed=Emb().format_quote(quote, hide_user=hide_user)
+                message, embed=self.utils().format_quote(quote, hide_user=hide_user)
             )
 
     @commands.command(aliases=["rand"], brief="Gives a random saved quote")
