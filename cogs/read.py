@@ -102,7 +102,7 @@ class Read(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def list_snips(self, ctx, user: Optional[discord.Member]):
         """
-        Lists all quotes from a specified user (ping them)
+        Lists all snippets saved on the server
 
         **Example:**
             - mq>list_snips
@@ -123,15 +123,24 @@ class Read(commands.Cog):
             )
             await pages.start(ctx)
 
-    @commands.command(aliases=["sends", "ss"])
+    @commands.command(aliases=["ss"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def send_snip(self, ctx, snip_id: int):
+    async def show_snip(self, ctx, snip_id: int):
+        """
+        Shows a snippet when provided an id
+
+        **Example:**
+            - mq>show_snip `snippet_id`
+            - mq>ss `snippet_id`
+
+        Example Usage:
+        """
         try:
             snip = db.servers.find_one(
                 {"_id": ctx.guild.id}, {"snips": {"$elemMatch": {"snip_id": snip_id}}}
             )["snips"][0]
         except KeyError:
-            await ctx.send("There are no snippets saved on this server.")
+            await ctx.send("A snippet by that id does not exist.")
             return
 
         descriptions = self.utils.split_snip(snip)

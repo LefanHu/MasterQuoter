@@ -88,14 +88,16 @@ class About(commands.Cog):
         description = f"""
         This bot is coded by team MasterBaiters, a group of 2 high school students who are bored out of their minds from quarantine. Hence, this bot.
 
-        Anyway, here's some commands. For more information on how to use these commands... **ping MasterQuoter** or **use {prefix}help** `[command_name]`
+        Anyway, here's some commands. For more information on how to use these commands... **ping MasterQuoter** or **use {prefix}help** `[command_name]`.
 
-        **SAVING QUOTES**
-            - `snip`, `quote`, `qlast`
-        **REMOVING QUOTES**
+        {prefix}help `[command_name]` only works on the full length name of the command, shorter aliases will not work.
+
+        **SAVING QUOTES/SNIPS**
+            - `snip`, `quote`, `qlast`, `save_snip`
+        **REMOVING QUOTES/SNIPS**
             - `remove`, `rm_all`
-        **DISPLAYING QUOTES**
-            - `show_quote`, `list_quotes`, `random`
+        **DISPLAYING QUOTES/SNIPS**
+            - `show_quote`, `list_quotes`, `random`, `show_snip`
         **SETTINGS** (__manage_guild_perms__)
             - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
