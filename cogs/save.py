@@ -165,11 +165,8 @@ class Save(commands.Cog):
             - mq>q @alex3000 `message here`
 
         **Note:**
-            - When the save command contains a image attachment, the command
-              will **NOT** be deleted if delete `save commands on completion` is
-              `enabled`.
-            - This is because the image url becomes __invalid__ as soon as it is
-              deleted.
+            - When the save command contains a image attachment, the command will **NOT** be deleted if delete `save commands on completion` is `enabled`.
+            - This is because the image url becomes __invalid__ as soon as it is deleted.
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/815987934360371300/unknown.png
