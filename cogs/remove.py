@@ -81,6 +81,7 @@ class events(commands.Cog):
             - mq>rm_all @alex3000
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815988551866384434/unknown.png
         """
         quotes = db.users.find_one({"_id": user.id}, {"_id": 0, "quotes": 1})["quotes"]
         if not quotes:

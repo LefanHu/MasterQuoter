@@ -80,6 +80,8 @@ class Save(commands.Cog):
             - mq>qlast @alex3000 2 150
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815989465474007081/unknown.png,
+        https://cdn.discordapp.com/attachments/795405783155343365/815989508137811988/unknown.png
         """
         if lines is None or lines > 200:
             lines = 100
@@ -170,6 +172,7 @@ class Save(commands.Cog):
               deleted.
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815987934360371300/unknown.png
         """
         await self.save_quote(ctx, user, msg=msg)
 

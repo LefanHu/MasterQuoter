@@ -62,6 +62,7 @@ class Settings(commands.Cog):
             - You can not have whitelist **AND** blacklist enabled
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815983496014856196/unknown.png
         """
         if not user:
             await self.toggle_blacklist(ctx)
@@ -91,6 +92,7 @@ class Settings(commands.Cog):
             - You can not have whitelist **AND** blacklist enabled
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815984194580774922/unknown.png
         """
         if not user:
             await self.toggle_whitelist(ctx)
@@ -175,6 +177,7 @@ class Settings(commands.Cog):
             - Blacklist does nothing if it is not __enabled__
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815984718901280798/unknown.png
         """
         if type(user) != Member:
             await ctx.send("A user was not properly specified")
@@ -194,6 +197,7 @@ class Settings(commands.Cog):
             - Whitelist does nothing if it is not __enabled__
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815985134783954984/unknown.png
         """
         if type(user) != Member:
             await ctx.send("A user was not properly specified")
