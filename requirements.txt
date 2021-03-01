@@ -2,3 +2,4 @@ psutil
 discord.py
 python-dotenv
 pymongo
+tracemoepy==3.8
