@@ -62,6 +62,7 @@ class Settings(commands.Cog):
             - You can not have whitelist **AND** blacklist enabled
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815983496014856196/unknown.png
         """
         if not user:
             await self.toggle_blacklist(ctx)
