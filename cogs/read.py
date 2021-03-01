@@ -69,7 +69,9 @@ class Read(commands.Cog):
         Lists all quotes from a specified user (ping them)
 
         **Example:**
-            - mq>qlist @Cuddles#2321
+            - mq>list_quotes @Cuddles#2321
+            - mq>listq @Cuddles#2321
+            - mq>lq @Cuddles#2321
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814655964422733844/unknown.png,
@@ -160,7 +162,7 @@ class Read(commands.Cog):
             await quote.start(ctx)
         else:  # instead of sending as a interaction menu, sends normally as embed
             await ctx.send(
-                message, embed=self.utils().format_quote(quote, hide_user=hide_user)
+                message, embed=self.utils.format_quote(quote, hide_user=hide_user)
             )
 
     @commands.command(aliases=["rand"], brief="Gives a random saved quote")
