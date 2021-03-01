@@ -177,6 +177,7 @@ class Settings(commands.Cog):
             - Blacklist does nothing if it is not __enabled__
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815984718901280798/unknown.png
         """
         if type(user) != Member:
             await ctx.send("A user was not properly specified")
