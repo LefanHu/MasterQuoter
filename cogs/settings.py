@@ -197,6 +197,7 @@ class Settings(commands.Cog):
             - Whitelist does nothing if it is not __enabled__
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815985134783954984/unknown.png
         """
         if type(user) != Member:
             await ctx.send("A user was not properly specified")
