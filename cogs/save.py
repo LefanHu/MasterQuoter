@@ -336,20 +336,27 @@ class Save(commands.Cog):
             "snip_id": first_msg.id,
             "server_id": ctx.guild.id,
             "server_name": ctx.guild.name,
-            "server_icon": ctx.guild.icon_url,
+            "server_icon": str(ctx.guild.icon_url),
             "channel_name": first_msg.channel.name,
             "timestamp": int(first_msg.created_at.timestamp()),
             "snipper": ctx.message.author.name,
             "public": False,
+            "associated_users": [],
+            "consented_users": [],
             "sections": [],
             "images": [],
         }
 
         indx = 0
+        associated_users = set([])
         # prev_author_id = first_msg.author.id
         while indx < length:
             message = messages[indx]
             prev_author_id = message.author.id
+
+            # represents the list of users that are snipped
+            if not message.author.bot:
+                associated_users.add(prev_author_id)
 
             section = {
                 "author_name": message.author.name,
@@ -385,6 +392,9 @@ class Save(commands.Cog):
 
             # adds section to main snip
             snip["sections"].append(section)
+
+        # sets the associated users
+        snip["associated_users"] = list(associated_users)
 
         # when finished return snip
         return snip
