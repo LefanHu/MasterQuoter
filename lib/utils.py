@@ -2,8 +2,13 @@ from random import choice
 from discord import Embed, Colour
 from datetime import datetime as dt
 
+from lib.file_utils import File
+
 
 class Utils:
+    def __init__(self):
+        self.file_utils = File()
+
     def format_quote(
         self,
         quote,
@@ -71,6 +76,7 @@ class Utils:
             value=f"```Snippet saved by: {snip['snipper']}```",
             inline=True,
         )
+        embed.set_image(url=snip["images"][0])
 
         return embed
 
@@ -91,6 +97,10 @@ class Utils:
                     descriptions.append(description)
                     description = f"-<**{section['author_name']} Continued...**>-"
                     description += f"\n{message}"
+
+            if section["images"] > 0:
+                description += f"\n<{section['images']} images>"
+
         descriptions.append(description)
 
         return descriptions
