@@ -46,6 +46,8 @@ class Error(commands.Cog):
             await ctx.send("I do not have permission to do that.")
         elif isinstance(exc, commands.MissingPermissions):
             await ctx.send(f"You are missing {exc.missing_perms} permissions")
+        elif isinstance(exc, commands.BadArgument):
+            pass
         elif isinstance(exc, commands.CheckFailure):
             # await ctx.send("You do not have permission to do that.")
             pass
