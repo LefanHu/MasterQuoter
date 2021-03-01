@@ -1,34 +1,24 @@
 from discord.ext import menus
-from discord import Embed
-
-from datetime import datetime
+from lib.utils import Utils
 
 
 class SnipInteractionMenu(menus.Menu):
-    def __init__(self, ctx, snip, message=None):
+    def __init__(self, snip, message=None):
         super().__init__(timeout=30.0, clear_reactions_after=True)
-        self.ctx = ctx
         self.snip = snip
+        self.images = snip["images"]
+        self.image_num = len(self.images)
+        self.image_indx = 0
+
         self.instructions = "<◀️Images▶️> <⬅️Pages➡️>"
-        self.chunk_length = 500
-        self.lines_per_page = 8
 
-        self.pages = self.split_pages(snip)
+        self.utils = Utils()
+        self.chunks = self.utils.split_snip(snip)
+        self.chunk_indx = 0
+        self.chunk_num = len(self.chunks)
 
-    def split_pages(self, snip):
-        sections = snip["sections"]
-        for indx, section in enumerate(self.snip["sections"]):
-            message = section["message"].splitlines()
-            for line in message:
-                # if the line is
-                pass
-
-            embed = Embed(
-                description=f"All quotes from {self.ctx.guild.name if self.name is None else self.name}",
-                colour=self.ctx.message.author.colour,
-                timestamp=datetime.utcnow(),
-            )
-            pass
+        self.embed = self.utils.format_snip(self.snip)
+        self.embed.set_footer(text=self.instructions)
 
     async def send_initial_message(self, ctx, channel):
         if self.message != None:
@@ -65,14 +55,8 @@ class SnipInteractionMenu(menus.Menu):
         else:
             self.chunk_indx -= 1
 
-            self.embed = self.embed_util.format_quote(
-                self.snip,
-                image_num=self.image_indx,
-                description=self.chunks[self.chunk_indx],
-                hide_user=self.hide_user,
-            )
+            self.embed = self.utils.format_snip(self.snip, page=self.chunk_indx)
             self.embed.set_footer(text=self.instructions)
-
             await self.message.edit(embed=self.embed)
 
     @menus.button("➡️")
@@ -82,14 +66,8 @@ class SnipInteractionMenu(menus.Menu):
         else:
             self.chunk_indx += 1
 
-            self.embed = self.embed_util.format_quote(
-                self.snip,
-                image_num=self.image_indx,
-                description=self.chunks[self.chunk_indx],
-                hide_user=self.hide_user,
-            )
+            self.embed = self.utils.format_snip(self.snip, page=self.chunk_indx)
             self.embed.set_footer(text=self.instructions)
-
             await self.message.edit(embed=self.embed)
 
     @menus.button("\N{BLACK SQUARE FOR STOP}\ufe0f")
