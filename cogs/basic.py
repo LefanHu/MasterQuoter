@@ -41,6 +41,7 @@ class Basic(commands.Cog):
             - mq>invite
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815949233659838464/unknown.png
         """
         await ctx.send(self.bot.invite_link)
 

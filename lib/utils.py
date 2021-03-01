@@ -76,7 +76,8 @@ class Utils:
             value=f"```Snippet saved by: {snip['snipper']}```",
             inline=True,
         )
-        embed.set_image(url=snip["images"][0])
+        if len(snip["images"]) > 0:
+            embed.set_image(url=snip["images"][0])
 
         return embed
 

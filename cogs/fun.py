@@ -32,7 +32,7 @@ class events(commands.Cog):
             - stop (while game is active to stop game)
 
         **Notes:**
-            - Max guesses is 10, any more than 10 will default to 5 attempts.
+            - Max guesses is 10, specifying any more than 10 will default to 5 attempts.
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814945245313761300/unknown.png

@@ -112,6 +112,7 @@ class Read(commands.Cog):
             - mq>ls
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815949854898913340/unknown.png
         """
         snips = db.servers.find_one({"_id": ctx.guild.id}, {"snips": 1})["snips"]
 

@@ -111,6 +111,10 @@ class Help(Cog):
 
         When provided with a `command_name`, usage of that command will be given
 
+        **Example:**
+            - mq>help (shows menu of commands)
+            - mq>help `command_name`
+
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814629107072499712/unknown.png
         """
