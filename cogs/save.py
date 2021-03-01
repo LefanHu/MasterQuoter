@@ -170,6 +170,7 @@ class Save(commands.Cog):
               deleted.
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815987934360371300/unknown.png
         """
         await self.save_quote(ctx, user, msg=msg)
 
