@@ -1,5 +1,5 @@
 from discord.ext import menus
-from lib.embed_utils import embed
+from lib.utils import Utils
 
 
 class QuoteInteractionMenu(menus.Menu):
@@ -28,10 +28,10 @@ class QuoteInteractionMenu(menus.Menu):
         self.image_num = len(self.images)
         self.image_indx = 0
 
-        self.embed_util = embed()
+        self.utils = Utils()
 
         # Initial message
-        self.embed = self.embed_util.format_quote(
+        self.embed = self.utils.format_quote(
             self.quote,
             image_num=self.image_indx,
             description=self.chunks[self.chunk_indx],
@@ -74,7 +74,7 @@ class QuoteInteractionMenu(menus.Menu):
         else:
             self.chunk_indx -= 1
 
-            self.embed = self.embed_util.format_quote(
+            self.embed = self.utils.format_quote(
                 self.quote,
                 image_num=self.image_indx,
                 description=self.chunks[self.chunk_indx],
@@ -91,7 +91,7 @@ class QuoteInteractionMenu(menus.Menu):
         else:
             self.chunk_indx += 1
 
-            self.embed = self.embed_util.format_quote(
+            self.embed = self.utils.format_quote(
                 self.quote,
                 image_num=self.image_indx,
                 description=self.chunks[self.chunk_indx],
