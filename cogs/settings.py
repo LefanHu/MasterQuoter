@@ -114,9 +114,7 @@ class Settings(commands.Cog):
             - mq>delete_save_command
 
         **Note:**
-            - Commands that saves an image along with it will **NOT** be deleted
-              this is because image urls will be come __invalid__ after the message
-              is deleted.
+            - Commands that saves an image along with it will **NOT** be deleted this is because image urls will be come __invalid__ after the message is deleted.
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/814986325249490944/unknown.png,
@@ -203,10 +201,8 @@ class Settings(commands.Cog):
 
         db.servers.update_one({"_id": ctx.guild.id}, {"$pull": {"allowed": user.id}})
 
-    @commands.command(
-        aliases=["settings"], brief="Shows settings of the server & stats"
-    )
-    async def stats(self, ctx):
+    @commands.command(aliases=["stats"], brief="Shows settings of the server & stats")
+    async def settings(self, ctx):
         """
         Displays your server settings. This includes:
         - bot prefix for your server

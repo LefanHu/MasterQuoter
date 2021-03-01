@@ -255,8 +255,6 @@ class Save(commands.Cog):
             - If the selected messages only contain one author, it is saved as a `quote`
 
         Example Usage:
-        https://cdn.discordapp.com/attachments/795405783155343365/815948519063420938/unknown.png,
-        https://cdn.discordapp.com/attachments/795405783155343365/815948493604126740/unknown.png
         """
         user = ctx.author
         lines = 100 if lines == None else lines
