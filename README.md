@@ -30,6 +30,9 @@ Work-in-progress :) (by 2 idiots in high school)
 ## Future plans
 - Add ability to automatically post saved quotes & snippets to a specified channel
 
+## Changelog
+- V 1.0.0 (Initial release)
+- V 1.1.0 (Added ability to save and list snips)
 
 ## Required Packages
 - psutil [pip install psutil](https://pypi.org/project/psutil/)
