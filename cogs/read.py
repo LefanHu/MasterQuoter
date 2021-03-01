@@ -137,6 +137,7 @@ class Read(commands.Cog):
             - mq>ss `snippet_id`
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/816035755952439296/unknown.png
         """
         try:
             snip = db.servers.find_one(
