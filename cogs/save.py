@@ -336,6 +336,7 @@ class Save(commands.Cog):
             "snip_id": first_msg.id,
             "server_id": ctx.guild.id,
             "server_name": ctx.guild.name,
+            "server_icon": ctx.guild.icon_url,
             "channel_name": first_msg.channel.name,
             "timestamp": int(first_msg.created_at.timestamp()),
             "snipper": ctx.message.author.name,
