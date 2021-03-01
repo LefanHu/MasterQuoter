@@ -39,6 +39,8 @@ class events(commands.Cog):
             - mq>rm `id_here`
 
         Example Usage:
+        https://cdn.discordapp.com/attachments/795405783155343365/815986506320969759/unknown.png,
+        https://cdn.discordapp.com/attachments/795405783155343365/815986553537036338/unknown.png
         """
         quoted_users = db.servers.find_one(
             {"_id": ctx.guild.id}, {"_id": 0, "quoted_member_ids": 1}
