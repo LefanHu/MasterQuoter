@@ -248,12 +248,11 @@ class Save(commands.Cog):
         **Example:**
             - mq>snip
             - mq>snip 150
-            - Add 2 reactions to the same message, or 2 reactions to different messages
-              not interrupted by other messages in between.
+            - Add 2 reactions to the same message, or 2 reactions to different messages (all messages in between the two reactions will be selected).
 
         **Note:**
-            - Currently, snippets are not supported
-              (Snippets contain messages from multiple people)
+            - If the selected messages contains multiple authors, it is saved as a `server snippet`.
+            - If the selected messages only contain one author, it is saved as a `quote`
 
         Example Usage:
         """

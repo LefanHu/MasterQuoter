@@ -62,7 +62,7 @@ class events(commands.Cog):
                 {"$pull": {"snips": {"snip_id": quote_id}}},
             )
             if results.modified_count == 0:
-                await ctx.send("A snip/quote does not exist.")
+                await ctx.send("A snip/quote by that id does not exist.")
             else:
                 await ctx.send("Snippet removed.")
         else:
@@ -76,6 +76,7 @@ class events(commands.Cog):
 
         **Example:**
             - mq>remove_all @alex3000
+            - mq>rm_all @alex3000
 
         Example Usage:
         """
