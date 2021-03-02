@@ -2,4 +2,5 @@ psutil
 discord.py
 python-dotenv
 pymongo
+jikanpy
 tracemoepy==3.8
