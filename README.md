@@ -1,7 +1,8 @@
 # MasterQuoter (Discord bot)
 Created by @Alex3000 & @Cuddles. A bot designed to save quotes.
 
-Work-in-progress :) (by 2 idiots in high school)
+This bot is an amazing tool to help you capture all of the funny moments, conversations, and random quotes that have happened, any time, and in any server! This bot has a number of commands that let you save quotes, display them, and keep them forvever! There are a few guessing games that you can try involving random quotes, and there are also many tools you can use to even save screenshots of hilarious conversations! We hope that you find this bot fun and useful, and we hope that it serves to liven up your discord experience!
+
 
 ## Current TODO list
 - ~~Save multiple quotes at the same time (avoids unnecessary file openings and closings)~~
