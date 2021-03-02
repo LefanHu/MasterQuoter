@@ -8,10 +8,10 @@ from tracemoepy.errors import EmptyImage, EntityTooLarge, ServerError, TooManyRe
 from lib.file_utils import File
 from lib.utils import Utils
 
-import json
+# import json
 
 
-class Basic(commands.Cog):
+class Trace(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.file = File()
@@ -87,4 +87,4 @@ class Basic(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Basic(bot))
+    bot.add_cog(Trace(bot))
