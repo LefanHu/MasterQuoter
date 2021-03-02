@@ -1,0 +1,270 @@
+{
+    "RawDocsCount": 829587,
+    "CacheHit": false,
+    "trial": 1,
+    "limit": 10,
+    "limit_ttl": 60,
+    "quota": 1000,
+    "quota_ttl": 86400,
+    "RawDocsSearchTime": 0,
+    "ReRankSearchTime": 0,
+    "docs": [
+        {
+            "filename": "002.Capeta.DVDrip.mp4",
+            "episode": 2,
+            "from": 597.42,
+            "to": 598.08,
+            "similarity": 0.6511410863806739,
+            "anilist_id": 388,
+            "anime": "\u6975\u901f\u65b9\u7a0b\u5f0f",
+            "at": 597.75,
+            "is_adult": false,
+            "mal_id": 388,
+            "season": "",
+            "synonyms": [
+                "Kappeita"
+            ],
+            "synonyms_chinese": [
+                "\u75be\u901f\u65b9\u7a0b\u5f0f"
+            ],
+            "title": "\u30ab\u30da\u30bf",
+            "title_chinese": "\u6975\u901f\u65b9\u7a0b\u5f0f",
+            "title_english": null,
+            "title_native": "\u30ab\u30da\u30bf",
+            "title_romaji": "Capeta",
+            "tokenthumb": "gyYtuMDbrW2jZssnjZPMWdk1U8"
+        },
+        {
+            "filename": "[EMD][\u516c\u4e3b\u8acb\u5c0f\u5fc3][\u7b2c5\u8a71-\u59ec\u5b50\u662f\u8ab0\u7684\u5b69\u5b50\u8c93\u7684\u5b69\u5b50][GB].mp4",
+            "episode": 5,
+            "from": 740.5,
+            "to": 742.67,
+            "similarity": 0.6483269526502058,
+            "anilist_id": 1884,
+            "anime": "\u516c\u4e3b\u8acb\u5c0f\u5fc3",
+            "at": 741.585,
+            "is_adult": false,
+            "mal_id": 1884,
+            "season": "",
+            "synonyms": [
+                "Hime-sama Goyojin",
+                "Himesama Goyoujin",
+                "Princess",
+                "Be Careful!"
+            ],
+            "synonyms_chinese": [
+                "\u5c0f\u5fc3\u554a\u516c\u4e3b"
+            ],
+            "title": "\u59eb\u69d8\u3054\u7528\u5fc3",
+            "title_chinese": "\u516c\u4e3b\u8acb\u5c0f\u5fc3",
+            "title_english": "Princess Beware",
+            "title_native": "\u59eb\u69d8\u3054\u7528\u5fc3",
+            "title_romaji": "Hime-sama Goyoujin",
+            "tokenthumb": "xIJms5Kz5hu1MSEDvjSUuBmbA4"
+        },
+        {
+            "filename": "[DmzJ][Get_chu][11][GB][x264_AAC].mp4",
+            "episode": 11,
+            "from": 1143.67,
+            "to": 1143.67,
+            "similarity": 0.637397972266277,
+            "anilist_id": 1070,
+            "anime": "\u8072\u512a\u767d\u76ae\u66f8",
+            "at": 1143.67,
+            "is_adult": false,
+            "mal_id": 1070,
+            "season": "",
+            "synonyms": [
+                "Love Get Chu - Miracle Seiyuu Hakusho",
+                "Rabugetsu Chu"
+            ],
+            "synonyms_chinese": [],
+            "title": "\u30e9\u30d6\u30b2\u30c3CHU \uff5e\u30df\u30e9\u30af\u30eb\u58f0\u512a\u767d\u66f8\uff5e",
+            "title_chinese": "\u8072\u512a\u767d\u76ae\u66f8",
+            "title_english": null,
+            "title_native": "\u30e9\u30d6\u30b2\u30c3CHU \uff5e\u30df\u30e9\u30af\u30eb\u58f0\u512a\u767d\u66f8\uff5e",
+            "title_romaji": "Love Get Chu",
+            "tokenthumb": "ZylmIgiuy10olA6pEVBFiLzmS90"
+        },
+        {
+            "filename": "[SOSG&52wy][Naruto_Shippuuden][273(53)][BIG5][x264_AAC][640x480].mp4",
+            "episode": "53|273",
+            "from": 1026.92,
+            "to": 1027.5,
+            "similarity": 0.6368227365919888,
+            "anilist_id": 1735,
+            "anime": "\u706b\u5f71\u5fcd\u8005\u75be\u98a8\u50b3",
+            "at": 1027.21,
+            "is_adult": false,
+            "mal_id": 1735,
+            "season": "",
+            "synonyms": [
+                "Naruto Shippuuden",
+                "Naruto Shippuden",
+                "\u05e0\u05d0\u05e8\u05d5\u05d8\u05d5 \u05e9\u05d9\u05e4\u05d5\u05d3\u05df"
+            ],
+            "synonyms_chinese": [],
+            "title": "\u30ca\u30eb\u30c8- \u75be\u98a8\u4f1d",
+            "title_chinese": "\u706b\u5f71\u5fcd\u8005\u75be\u98a8\u50b3",
+            "title_english": "Naruto: Shippuden",
+            "title_native": "\u30ca\u30eb\u30c8- \u75be\u98a8\u4f1d",
+            "title_romaji": "Naruto: Shippuuden",
+            "tokenthumb": "URjbywMvkz5ocBQKk7fM02Kmc"
+        },
+        {
+            "filename": "[Leopard-Raws] Endride - 11 RAW (NTV 1280x720 x264 AAC).mp4",
+            "episode": 11,
+            "from": 999.67,
+            "to": 999.67,
+            "similarity": 0.6337152675479387,
+            "anilist_id": 21611,
+            "anime": "Endride",
+            "at": 999.67,
+            "is_adult": false,
+            "mal_id": 32608,
+            "season": "",
+            "synonyms": [],
+            "synonyms_chinese": [
+                "\u6700\u7d42\u9a0e\u58eb"
+            ],
+            "title": "\u30a8\u30f3\u30c9\u30e9\u30a4\u30c9",
+            "title_chinese": "Endride",
+            "title_english": "Endride",
+            "title_native": "\u30a8\u30f3\u30c9\u30e9\u30a4\u30c9",
+            "title_romaji": "Endride",
+            "tokenthumb": "R8RAqJIDxGP12wkNvSb8TkBAFU"
+        },
+        {
+            "filename": "[PUZZLE&DRAGONS][129][GB_JP][HEVC][1080P].mp4",
+            "episode": 129,
+            "from": 538.75,
+            "to": 538.92,
+            "similarity": 0.6295907600911299,
+            "anilist_id": 101424,
+            "anime": "Puzzle & Dragons",
+            "at": 538.835,
+            "is_adult": false,
+            "mal_id": 37096,
+            "season": "",
+            "synonyms": [],
+            "synonyms_chinese": [
+                "\u9f8d\u65cf\u62fc\u5716",
+                "\u667a\u9f8d\u8ff7\u57ce"
+            ],
+            "title": "\u30d1\u30ba\u30c9\u30e9",
+            "title_chinese": "Puzzle & Dragons",
+            "title_english": "Puzzle & Dragon",
+            "title_native": "\u30d1\u30ba\u30c9\u30e9",
+            "title_romaji": "PazuDora",
+            "tokenthumb": "yTDalyVOJ37DnagZIrYsAqIQFYI"
+        },
+        {
+            "filename": "\u3010MHLY\u3011[Pocket Monsters XY][68][BIG5][1280X720].mp4",
+            "episode": 68,
+            "from": 587.58,
+            "to": 587.58,
+            "similarity": 0.6291004814396728,
+            "anilist_id": 19291,
+            "anime": "Pokemon XY",
+            "at": 587.58,
+            "is_adult": false,
+            "mal_id": 19291,
+            "season": "",
+            "synonyms": [
+                "Pokemon XY",
+                "Pok\u00e9mon XY: The Series",
+                "Pokemon XY: The Series - Kalos Quest",
+                "Pok\u00e9mon XY: The Series - Kalos Quest",
+                "Pok\u00e9mon Serien: XY",
+                "Pok\u00e9mon Serien: XY Kalos-reisen"
+            ],
+            "synonyms_chinese": [
+                "\u5bf5\u7269\u5c0f\u7cbe\u9748XY"
+            ],
+            "title": "\u30dd\u30b1\u30c3\u30c8\u30e2\u30f3\u30b9\u30bf\u30fcXY",
+            "title_chinese": "Pokemon XY",
+            "title_english": "Pok\u00e9mon the Series: XY",
+            "title_native": "\u30dd\u30b1\u30c3\u30c8\u30e2\u30f3\u30b9\u30bf\u30fcXY",
+            "title_romaji": "Pocket Monsters XY",
+            "tokenthumb": "sglLKMl6bwjDA5ykaNsypTgP20"
+        },
+        {
+            "filename": "[52wy][Dragon_Ball_Kai][091][x264_aac][Chs][BDRip][720P][D47AD10C].mp4",
+            "episode": 91,
+            "from": 137.83,
+            "to": 138,
+            "similarity": 0.6269294144583785,
+            "anilist_id": 6033,
+            "anime": "\u9f8d\u73e0 \u6539",
+            "at": 137.91500000000002,
+            "is_adult": false,
+            "mal_id": 6033,
+            "season": "",
+            "synonyms": [
+                "Dragonball Kai",
+                "DBK",
+                "DB Kai",
+                "DBZ Kai"
+            ],
+            "synonyms_chinese": [
+                "\u4e03\u9f8d\u73e0 \u6539"
+            ],
+            "title": "\u30c9\u30e9\u30b4\u30f3\u30dc\u30fc\u30eb\u6539",
+            "title_chinese": "\u9f8d\u73e0 \u6539",
+            "title_english": "Dragon Ball Z Kai",
+            "title_native": "\u30c9\u30e9\u30b4\u30f3\u30dc\u30fc\u30eb\u6539",
+            "title_romaji": "Dragon Ball Kai",
+            "tokenthumb": "KsxWeTsXJqNkuvfbFaB5K3R0"
+        },
+        {
+            "filename": "Lance N` Masques - 10 (BD 1280x720 x264 AAC).mp4",
+            "episode": 10,
+            "from": 1298.92,
+            "to": 1299.08,
+            "similarity": 0.626522985545949,
+            "anilist_id": 20712,
+            "anime": "Lance N\u2019 Masques",
+            "at": 1299,
+            "is_adult": false,
+            "mal_id": 24011,
+            "season": "",
+            "synonyms": [
+                "Lance and Masks",
+                "LN'M"
+            ],
+            "synonyms_chinese": [
+                "\u69cd\u8207\u5047\u9762\u821e\u6703",
+                "\u69cd\u8207\u5047\u9762"
+            ],
+            "title": "\u30e9\u30f3\u30b9\u30fb\u30a2\u30f3\u30c9\u30fb\u30de\u30b9\u30af\u30b9",
+            "title_chinese": "Lance N\u2019 Masques",
+            "title_english": "Lance N' Masques",
+            "title_native": "\u30e9\u30f3\u30b9\u30fb\u30a2\u30f3\u30c9\u30fb\u30de\u30b9\u30af\u30b9",
+            "title_romaji": "Lance N' Masques",
+            "tokenthumb": "r9KHCKU6bUC1gZeTmgfwObJ1aDI"
+        },
+        {
+            "filename": "[HKACG][Osomatsu-kun(1988)][09][BIG5][x264_AAC][480p].mp4",
+            "episode": 9,
+            "from": 541.75,
+            "to": 541.83,
+            "similarity": 0.6216703177520219,
+            "anilist_id": 9883,
+            "anime": "\u5c0f\u677e\u5148\u751f (1988)",
+            "at": 541.79,
+            "is_adult": false,
+            "mal_id": 9883,
+            "season": "",
+            "synonyms": [],
+            "synonyms_chinese": [
+                "\u963f\u677e (1988)"
+            ],
+            "title": "\u304a\u305d\u677e\u304f\u3093",
+            "title_chinese": "\u5c0f\u677e\u5148\u751f (1988)",
+            "title_english": null,
+            "title_native": "\u304a\u305d\u677e\u304f\u3093",
+            "title_romaji": "Osomatsu-kun (1988)",
+            "tokenthumb": "PMHSKDcIhg1xdbOQiLVH83AbUUg"
+        }
+    ]
+}

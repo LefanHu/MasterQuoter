@@ -32,6 +32,7 @@ class Basic(commands.Cog):
         **Note:**
             - Cooldown Type: Channel (Length: 60 seconds)
             - If an image is attached, that image will be prioritized over the url if both are provided
+            - Newly released anime probably won't be found :/
 
         Example Usage:
         """
@@ -66,8 +67,8 @@ class Basic(commands.Cog):
                     return
 
             # for debugging
-            with open("trace.json", "w") as f:
-                json.dump(results, f, indent=4)
+            # with open("trace.json", "w") as f:
+            #     json.dump(results, f, indent=4)
 
             embed = self.utils.embed_trace(results["docs"][0])
             embed.insert_field_at(
