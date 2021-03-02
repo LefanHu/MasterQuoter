@@ -120,7 +120,7 @@ class Utils:
             (f"Titles", f"```{titles}```", False),
             (f"Season", f"```{doc['season']} ```", True),
             (f"Episode", f"```{doc['episode']}```", True),
-            (f"Anilist ID", f"```{doc['anilist_id']}```", True),
+            (f"My Anime List ID", f"```{doc['mal_id']}```", True),
         ]
         embed.set_footer(
             text=f"From: {doc['from']/60:,.2f}mins To: {doc['to']/60:,.2f}mins"
@@ -128,5 +128,67 @@ class Utils:
 
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
+
+        return embed
+
+    def embed_jikan_anime(self, results, page=0):
+        anime = results["results"][page]
+        embed = Embed(
+            title=f"**{anime['title']} [{anime['type']}]**",
+            description=f"{anime['synopsis']}",
+            colour=Colour.random(),
+            timestamp=dt.utcnow(),
+            url=anime["url"],
+        )
+        embed.set_thumbnail(url=anime["image_url"])
+
+        startdate = "N/A" if not anime["start_date"] else anime["start_date"][:10]
+        enddate = "N/A" if not anime["end_date"] else anime["end_date"][:10]
+
+        fields = [
+            ("Episodes", f"{anime['episodes']}", True),
+            ("Score", f"{anime['score']}", True),
+            ("My Anime List ID", f"{anime['mal_id']}", True),
+            ("Start Date", startdate, True),
+            ("End Date", enddate, True),
+            ("Rated", f"{anime['rated']}", True),
+            ("Airing", f"{anime['airing']}", True),
+        ]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=f"```{value}```", inline=inline)
+
+        return embed
+
+    def embed_jikan_character(self, results):
+        characters = results["results"]
+
+        # no characters found
+        if not characters:
+            return None
+
+        character = characters[0]
+
+        animes = [anime["name"] for anime in character["anime"]]
+        animes = "N/A" if not animes else ", ".join(animes)[:1000]
+
+        mangas = [manga["name"] for manga in character["manga"]]
+        mangas = "N/A" if not mangas else ", ".join(mangas)[:1000]
+
+        alt_names = [alt_name for alt_name in character["alternative_names"]]
+        alt_names = "N/A" if not alt_names else ", ".join(alt_names)[:2000]
+
+        alt_names = ", ".join(character["alternative_names"])
+
+        embed = Embed(
+            title=f"**{character['name']} My Anime List ID: {character['mal_id']}**",
+            description=f"Alternate Names: ```{alt_names} ```",
+            colour=Colour.random(),
+            timestamp=dt.utcnow(),
+            url=character["url"],
+        )
+        embed.add_field(name="Animes", value=f"```{animes}```", inline=True)
+        embed.add_field(name="Mangas", value=f"```{mangas}```", inline=True)
+        embed.set_thumbnail(url=character["image_url"])
 
         return embed
