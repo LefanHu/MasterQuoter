@@ -165,45 +165,46 @@ class Utils:
             return None
 
         if not id:
-            character = result["results"][0]
-
-            animes = [anime["name"] for anime in character["anime"]]
+            animes = [anime["name"] for anime in result["anime"]]
             animes = "N/A" if not animes else ", ".join(animes)[:1000]
 
-            mangas = [manga["name"] for manga in character["manga"]]
+            mangas = [manga["name"] for manga in result["manga"]]
             mangas = "N/A" if not mangas else ", ".join(mangas)[:1000]
 
-            alt_names = [alt_name for alt_name in character["alternative_names"]]
+            alt_names = [alt_name for alt_name in result["alternative_names"]]
             alt_names = "N/A" if not alt_names else ", ".join(alt_names)[:2000]
 
-            alt_names = ", ".join(character["alternative_names"])
+            alt_names = ", ".join(result["alternative_names"])
 
             embed = Embed(
-                title=f"**{character['name']} My Anime List ID: {character['mal_id']}**",
+                title=f"**{result['name']}** My Anime List ID: [`{result['mal_id']}`]",
                 description=f"Alternate Names: ```{alt_names} ```",
                 colour=Colour.random(),
                 timestamp=dt.utcnow(),
-                url=character["url"],
+                url=result["url"],
             )
             embed.add_field(name="Animes", value=f"```{animes}```", inline=True)
             embed.add_field(name="Mangas", value=f"```{mangas}```", inline=True)
-            embed.set_thumbnail(url=character["image_url"])
+            embed.set_thumbnail(url=result["image_url"])
 
             return embed
         else:
-            char = result
-            nicknames = ", ".join(char["nicknames"])
-            animes = ", ".join([anime["name"] for anime in char["animeography"]])
-            description = char["about"].replace("\\n", "")
+            nicknames = ", ".join(result["nicknames"])
+            animes = ", ".join([anime["name"] for anime in result["animeography"]])
+            description = result["about"].replace("\\n", "")
             embed = Embed(
-                title=f"**{char['name']} [My Anime List ID: {char['mal_id']}]**",
-                description=f"```{description}```",
+                title=f"**{result['name']} [My Anime List ID: {result['mal_id']}]**",
+                description=f"```{description[:2000]}...```",
                 colour=Colour.random(),
                 timestamp=dt.utcnow(),
-                url=char["url"],
+                url=result["url"],
             )
-            embed.set_thumbnail(url=char["image_url"])
-            embed.add_field(name="Nicknames", value=f"```{nicknames} ```", inline=False)
-            embed.add_field(name="Animes", value=f"```{animes} ```", inline=False)
+            embed.set_thumbnail(url=result["image_url"])
+            embed.add_field(
+                name="Nicknames", value=f"```{nicknames[:1000]}... ```", inline=False
+            )
+            embed.add_field(
+                name="Animes", value=f"```{animes[:1000]}... ```", inline=False
+            )
 
             return embed

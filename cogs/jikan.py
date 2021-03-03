@@ -1,5 +1,6 @@
 from discord.ext import commands
 from jikanpy import AioJikan
+from jikanpy.exceptions import APIException
 import os
 from random import choice
 
@@ -9,7 +10,7 @@ from discord.ext import menus
 
 
 class Menu(menus.Menu):
-    def __init__(self, *results, formatter, timeout=20.0):
+    def __init__(self, results, formatter, timeout=10.0):
         super().__init__(timeout=timeout, clear_reactions_after=True)
         self.results = results
         self.result_indx = 0
@@ -54,7 +55,7 @@ class Basic(commands.Cog):
     async def cog_check(self, ctx):
         if ctx.message.author.id in self.bot.developers:
             return True
-        await ctx.send(f"You are not the owner of this bot.")
+        await ctx.send(f"These commands are not ready yet.")
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -109,16 +110,12 @@ class Basic(commands.Cog):
             embed = self.utils.embed_jikan_character(results, id=True)
             await ctx.send(embed=embed)
         else:
-            async with AioJikan() as jikan:
-                results = await jikan.search(search_type="character", query=query)
-
-            if not results:
-                await ctx.send("No character results.")
-
-            # import json
-
-            # with open("results.json", "w") as f:
-            #     json.dump(results, f, indent=4)
+            try:
+                async with AioJikan() as jikan:
+                    results = await jikan.search(search_type="character", query=query)
+            except APIException:
+                await ctx.send("API error (likely no results found)")
+                return
 
             results = results["results"]
             result_menu = Menu(results, formatter=self.utils.embed_jikan_character)
