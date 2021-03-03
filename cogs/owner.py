@@ -1,6 +1,8 @@
 from discord.ext import commands
 import os
 
+from lib.confirm import Confirm
+
 
 class Owner(commands.Cog):
     def __init__(self, bot):
@@ -11,6 +13,13 @@ class Owner(commands.Cog):
         if ctx.message.author.id in self.bot.developers:
             return True
         await ctx.send(f"You are not the owner of this bot.")
+
+    @commands.command()
+    async def shutdown(self, ctx):
+        confirmed = await Confirm("Are you sure you want to shutdown?").prompt(ctx)
+        if confirmed:
+            await ctx.send(f"Shutting down...")
+            await self.bot.logout()
 
     @commands.command(hidden=True)
     async def clear(self, ctx, amount=1):
