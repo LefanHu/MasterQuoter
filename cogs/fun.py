@@ -45,19 +45,15 @@ class events(commands.Cog):
             "3": "3️⃣",
         }
 
-        embed = Embed(
-            title="Lefan chigg",
-            description="hi",
-            colour=ctx.author.colour,
-        )
-        embed.add_field(name="hello", value=f"""
+        message = await ctx.send(
+        f"""
         {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
         ----+----+----
         {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
         ----+----+----
         {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-        """, inline=False)
-        message = await ctx.send(embed=embed)
+        """
+        )
 
         def isPlayerOne(msg):
             return ctx.message.author == msg.author
@@ -73,16 +69,16 @@ class events(commands.Cog):
                     "message", check=isPlayerOne, timeout=30.0
                 )
                 gameBoard[move.content] = "🇽"
-                embed.set_field_at(0,name="hello", value=f"""
-                {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-                ----+----+----
-                {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-                ----+----+----
-                {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-                """, inline=False)
+
                 await ctx.send(move.content)
-                await message.edit(
-                    embed=embed
+                await message.edit(content =
+                    f"""
+                    {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
+                    ----+----+----
+                    {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
+                    ----+----+----
+                    {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+                    """
                 )
                 count += 1
 
@@ -90,15 +86,14 @@ class events(commands.Cog):
                     "message", check=isPlayerTwo, timeout=30.0
                 )
                 gameBoard[move.content] = "🅾️"
-                embed.set_field_at(0,name="hello", value=f"""
-                {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-                ----+----+----
-                {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-                ----+----+----
-                {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-                """, inline=False)
-                await message.edit(
-                    embed=embed
+                await message.edit(content =
+                    f"""
+                    {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
+                    ----+----+----
+                    {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
+                    ----+----+----
+                    {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+                    """
                 )
                 count += 1
 
