@@ -28,10 +28,7 @@ class Basic(commands.Cog):
         **Example:**
             - mq>anime search `name of anime`
             - mq>anime character `name of character`
-            - mq>jikan char `name of character`
-
-        **Note:**
-            - Utilizes the jikan api
+            - mq>jikan char `MyAnimeList_ID`
 
         Example Usage:
         """
@@ -55,15 +52,25 @@ class Basic(commands.Cog):
 
     @anime.command(aliases=["char"])
     @commands.cooldown(1, 15, commands.BucketType.user)
-    async def character(self, ctx, *, name):
-        async with AioJikan() as jikan:
-            results = await jikan.search(search_type="character", query=name)
+    async def character(self, ctx, *, name: int):
+        if type(name) == int:
+            async with AioJikan() as jikan:
+                results = await jikan.character(name)
 
-        if not results:
-            await ctx.send("No character results.")
+            if not results:
+                print("id entered")
+                await ctx.send("No character results.")
 
-        embed = self.utils.embed_jikan_character(results)
-        await ctx.send(embed=embed)
+            embed = self.utils.embed_jikan_character(results, id=True)
+            await ctx.send(embed=embed)
+        else:
+            async with AioJikan() as jikan:
+                results = await jikan.search(search_type="character", query=name)
+
+            if not results:
+                await ctx.send("No character results.")
+
+            embed = self.utils.embed_jikan_character(results)
 
     @anime.command()
     @commands.cooldown(1, 15, commands.BucketType.user)
