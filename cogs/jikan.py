@@ -5,8 +5,6 @@ from random import choice
 
 from lib.utils import Utils
 
-import json
-
 
 class Basic(commands.Cog):
     def __init__(self, bot):
@@ -22,7 +20,7 @@ class Basic(commands.Cog):
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def anime(self, ctx):
         """
-        The developers of this bot likes anime. Therefore this is here too.
+        The developers of this bot likes anime. Therefore this is here too. This is rly rough rn but it'll get better (probably)
 
         **Command Group:**
             - `search`, `char|character`, more to come lol

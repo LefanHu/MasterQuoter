@@ -25,10 +25,11 @@ Work-in-progress :) (by 2 idiots in high school)
 - ~~Comic strip or user friendly help bar OR possibly a pre-drawn image help bar~~
 - ~~Use mongodb for storage~~
 - ~~Add feature to associate quote snippets with others users included in message snippet (not implemented yet)~~
-- Make database queries async using 'motor' driver for mongodb
 
 ## Future plans
+- Make database queries async using 'motor' driver for mongodb
 - Add ability to automatically post saved quotes & snippets to a specified channel
+- Add ability to make a quote or snippet public to everyone
 
 ## Changelog
 - V 1.0.0 (Initial release)
