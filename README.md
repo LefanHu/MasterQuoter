@@ -42,6 +42,7 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - python-dotenv [pip install python-dotenv](https://pypi.org/project/python-dotenv/)
 - pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
 - tracemoepy
+- jikanpy [pip install jikanpy](https://pypi.org/project/jikanpy/)
 
 ## Useful links
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
