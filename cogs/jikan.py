@@ -85,16 +85,28 @@ class Basic(commands.Cog):
 
     @anime.command()
     @commands.cooldown(1, 15, commands.BucketType.user)
-    async def search(self, ctx, *, name):
-        async with AioJikan() as jikan:
-            result = await jikan.search(search_type="anime", query=name)
+    async def search(self, ctx, *, query):
+        if query.isdigit():
+            query = int(query)
+            async with AioJikan() as jikan:
+                results = await jikan.anime(query)
 
-        if not result:
-            await ctx.send("No anime found")
-            return
+            if not results:
+                await ctx.send("No anime results.")
 
-        embed = self.utils.embed_jikan_anime(result)
-        await ctx.send(embed=embed)
+            embed = self.utils.embed_jikan_anime(results, id=True)
+            await ctx.send(embed=embed)
+        else:
+            try:
+                async with AioJikan() as jikan:
+                    results = await jikan.search(search_type="anime", query=query)
+            except APIException:
+                await ctx.send("API error (likely no results found)")
+                return
+
+            results = results["results"]
+            result_menu = Menu(results, formatter=self.utils.embed_jikan_anime)
+            await result_menu.start(ctx)
 
     @anime.command(aliases=["char"])
     @commands.cooldown(1, 15, commands.BucketType.user)

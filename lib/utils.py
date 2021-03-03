@@ -131,34 +131,72 @@ class Utils:
 
         return embed
 
-    def embed_jikan_anime(self, results, page=0):
-        anime = results["results"][page]
-        embed = Embed(
-            title=f"**{anime['title']} [{anime['type']}]**",
-            description=f"{anime['synopsis']}",
-            colour=Colour.random(),
-            timestamp=dt.utcnow(),
-            url=anime["url"],
-        )
-        embed.set_thumbnail(url=anime["image_url"])
+    def embed_jikan_anime(self, anime, id=False):
+        if not id:
+            embed = Embed(
+                title=f"**{anime['title']} [{anime['type']}]**",
+                description=f"{anime['synopsis']}",
+                colour=Colour.random(),
+                timestamp=dt.utcnow(),
+                url=anime["url"],
+            )
+            embed.set_thumbnail(url=anime["image_url"])
 
-        startdate = "N/A" if not anime["start_date"] else anime["start_date"][:10]
-        enddate = "N/A" if not anime["end_date"] else anime["end_date"][:10]
+            startdate = "N/A" if not anime["start_date"] else anime["start_date"][:10]
+            enddate = "N/A" if not anime["end_date"] else anime["end_date"][:10]
 
-        fields = [
-            ("Episodes", f"{anime['episodes']}", True),
-            ("Score", f"{anime['score']}", True),
-            ("My Anime List ID", f"{anime['mal_id']}", True),
-            ("Start Date", startdate, True),
-            ("End Date", enddate, True),
-            ("Rated", f"{anime['rated']}", True),
-            ("Airing", f"{anime['airing']}", True),
-        ]
+            fields = [
+                ("Episodes", f"{anime['episodes']}", True),
+                ("Score", f"{anime['score']}", True),
+                ("My Anime List ID", f"{anime['mal_id']}", True),
+                ("Start Date", startdate, True),
+                ("End Date", enddate, True),
+                ("Rated", f"{anime['rated']}", True),
+                ("Airing", f"{anime['airing']}", True),
+            ]
 
-        for name, value, inline in fields:
-            embed.add_field(name=name, value=f"```{value}```", inline=inline)
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=f"```{value}```", inline=inline)
 
-        return embed
+            return embed
+        else:
+            embed = Embed(
+                title=f"**{anime['title']} [{anime['type']}]**",
+                description=f"```{anime['synopsis']}```",
+                colour=Colour.random(),
+                timestamp=dt.utcnow(),
+                url=anime["url"],
+            )
+            embed.set_thumbnail(url=anime["image_url"])
+
+            producers = ", ".join([producer["name"] for producer in anime["producers"]])
+            studios = ", ".join([studio["name"] for studio in anime["studios"]])
+            genres = ", ".join([genres["name"] for genres in anime["genres"]])
+
+            fields = [
+                ("Episodes", f"{anime['episodes']}", True),
+                ("Score", f"{anime['score']}", True),
+                ("My Anime List ID", f"{anime['mal_id']}", True),
+                ("Airing", f"{anime['airing']}", True),
+                ("Rank", f"{anime['rank']}", True),
+                ("Popularity", f"{anime['popularity']}", True),
+                ("Source", f"{anime['source']}", True),
+                ("Duration", f"{anime['duration']}", True),
+                ("Premiered", f"{anime['premiered']}", True),
+                ("From", f"{anime['aired']['from'][:10]}", True),
+                (
+                    "To",
+                    f"{'N/A' if anime['aired']['to'] == None else anime['aired']['to'][:10]}",
+                    True,
+                ),
+                ("Producers", f"{producers} ", True),
+                ("Studios", f"{studios}", True),
+                ("Genres", f"{genres}", True),
+            ]
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=f"```{value}```", inline=inline)
+
+            return embed
 
     def embed_jikan_character(self, result, id=False):
         if not result:
