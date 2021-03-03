@@ -21,13 +21,28 @@ class events(commands.Cog):
     def remove_session(self, channel_id: int):
         self.sessions.remove(channel_id)
 
-
     @commands.command()
-    async def tictactoe(self,ctx):
+    async def tictactoe(self, ctx):
+        """
+        Simple tictactoe game in progress
 
-        gameBoard = {'7': '⬛' , '8': '⬛' , '9': '⬛' ,
-            '4': '⬛' , '5': '⬛' , '6': '⬛' ,
-            '1': '⬛' , '2': '⬛' , '3': '⬛' }
+        **Example:**
+            - mq>tictactoe user1 user2 (ping these 2 players)
+
+        Example Usage:
+        """
+
+        gameBoard = {
+            "7": "⬛",
+            "8": "⬛",
+            "9": "⬛",
+            "4": "⬛",
+            "5": "⬛",
+            "6": "⬛",
+            "1": "⬛",
+            "2": "⬛",
+            "3": "⬛",
+        }
 
         embed = Embed(
             title="Lefan chigg",
@@ -35,25 +50,25 @@ class events(commands.Cog):
             colour=ctx.author.colour,
         )
 
+        print(gameBoard["7"] + "|" + gameBoard["8"] + "|" + gameBoard["9"])
+        print("----+----+----")
+        print(gameBoard["4"] + "|" + gameBoard["5"] + "|" + gameBoard["6"])
+        print("----+----+----")
+        print(gameBoard["1"] + "|" + gameBoard["2"] + "|" + gameBoard["3"])
 
-
-
-        print(gameBoard['7'] + '|' + gameBoard['8'] + '|' + gameBoard['9'])
-        print('----+----+----')
-        print(gameBoard['4'] + '|' + gameBoard['5'] + '|' + gameBoard['6'])
-        print('----+----+----')
-        print(gameBoard['1'] + '|' + gameBoard['2'] + '|' + gameBoard['3'])
-
-        embed.add_field(name="hello", value=f"""
+        embed.add_field(
+            name="hello",
+            value=f"""
         {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
         ----+----+----
         {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
         ----+----+----
         {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-        """, inline=False)
+        """,
+            inline=False,
+        )
 
         await ctx.send(embed=embed)
-
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
