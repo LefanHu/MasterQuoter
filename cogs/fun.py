@@ -72,7 +72,7 @@ class events(commands.Cog):
                 move = await self.bot.wait_for(
                     "message", check=isPlayerOne, timeout=30.0
                 )
-
+                gameBoard[move.content] = "🇽"
                 embed.set_field_at(0,name="hello", value=f"""
                 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
                 ----+----+----
@@ -80,6 +80,7 @@ class events(commands.Cog):
                 ----+----+----
                 {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
                 """, inline=False)
+                await ctx.send(move.content)
                 await message.edit(
                     embed=embed
                 )
@@ -88,6 +89,7 @@ class events(commands.Cog):
                 move = await self.bot.wait_for(
                     "message", check=isPlayerTwo, timeout=30.0
                 )
+                gameBoard[move.content] = "🅾️"
                 embed.set_field_at(0,name="hello", value=f"""
                 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
                 ----+----+----
