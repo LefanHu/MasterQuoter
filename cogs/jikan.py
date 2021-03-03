@@ -69,10 +69,11 @@ class Basic(commands.Cog):
         The developers of this bot likes anime. Therefore this is here too. This is rly rough rn but it'll get better (probably)
 
         **Command Group:**
-            - `search`, `char|character`, more to come lol
+            - `search`, `char|character`
 
-        **Example:**
+        **Examples:**
             - mq>anime search `name of anime`
+            - mq>jikan search `MyAnimeList_ID`
             - mq>anime character `name of character`
             - mq>jikan char `MyAnimeList_ID`
 
