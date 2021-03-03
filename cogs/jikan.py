@@ -51,12 +51,6 @@ class Basic(commands.Cog):
         self.bot = bot
         self.utils = Utils()
 
-    # owner must be the one who invoked the cog
-    async def cog_check(self, ctx):
-        if ctx.message.author.id in self.bot.developers:
-            return True
-        await ctx.send(f"These commands are not ready yet.")
-
     @commands.Cog.listener()
     async def on_ready(self):
         print("Bot is online.")
