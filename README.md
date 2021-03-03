@@ -41,7 +41,7 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - discord.ext.menus [please see github](https://github.com/Rapptz/discord-ext-menus)
 - python-dotenv [pip install python-dotenv](https://pypi.org/project/python-dotenv/)
 - pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
-- tracemoepy
+- tracemoepy [pip install tracemoe](https://pypi.org/project/tracemoe/)
 - jikanpy [pip install jikanpy](https://pypi.org/project/jikanpy/)
 
 ## Useful links
