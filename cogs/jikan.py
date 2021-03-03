@@ -5,11 +5,56 @@ from random import choice
 
 from lib.utils import Utils
 
+from discord.ext import menus
+
+
+class Menu(menus.Menu):
+    def __init__(self, *results, formatter, timeout=20.0):
+        super().__init__(timeout=timeout, clear_reactions_after=True)
+        self.results = results
+        self.result_indx = 0
+        self.num_results = len(results)
+        self.formatter = formatter
+
+    async def send_initial_message(self, ctx, channel):
+        embed = self.formatter(self.results[self.result_indx])
+        return await channel.send(embed=embed)
+
+    @menus.button("\N{LEFTWARDS BLACK ARROW}")
+    async def on_left_arrow(self, payload):
+        if self.result_indx == 0:
+            pass
+        else:
+            self.num_results -= 1
+            await self.message.edit(
+                embed=self.formatter(self.results[self.result_indx])
+            )
+
+    @menus.button("\N{BLACK RIGHTWARDS ARROW}")
+    async def on_right_arrow(self, payload):
+        if self.result_indx == self.num_results - 1:
+            pass
+        else:
+            self.result_indx += 1
+            await self.message.edit(
+                embed=self.formatter(self.results[self.result_indx])
+            )
+
+    @menus.button("\N{BLACK SQUARE FOR STOP}\ufe0f")
+    async def on_stop(self, payload):
+        self.stop()
+
 
 class Basic(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.utils = Utils()
+
+    # owner must be the one who invoked the cog
+    async def cog_check(self, ctx):
+        if ctx.message.author.id in self.bot.developers:
+            return True
+        await ctx.send(f"You are not the owner of this bot.")
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -52,25 +97,32 @@ class Basic(commands.Cog):
 
     @anime.command(aliases=["char"])
     @commands.cooldown(1, 15, commands.BucketType.user)
-    async def character(self, ctx, *, name: int):
-        if type(name) == int:
+    async def character(self, ctx, *, query):
+        if query.isdigit():
+            query = int(query)
             async with AioJikan() as jikan:
-                results = await jikan.character(name)
+                results = await jikan.character(query)
 
             if not results:
-                print("id entered")
                 await ctx.send("No character results.")
 
             embed = self.utils.embed_jikan_character(results, id=True)
             await ctx.send(embed=embed)
         else:
             async with AioJikan() as jikan:
-                results = await jikan.search(search_type="character", query=name)
+                results = await jikan.search(search_type="character", query=query)
 
             if not results:
                 await ctx.send("No character results.")
 
-            embed = self.utils.embed_jikan_character(results)
+            # import json
+
+            # with open("results.json", "w") as f:
+            #     json.dump(results, f, indent=4)
+
+            results = results["results"]
+            result_menu = Menu(results, formatter=self.utils.embed_jikan_character)
+            await result_menu.start(ctx)
 
     @anime.command()
     @commands.cooldown(1, 15, commands.BucketType.user)
