@@ -5,8 +5,8 @@ from lib.utils import Utils
 from lib.db import db
 from os.path import basename
 import random
-from discord import Embed
-
+from discord import Embed, Member
+import discord
 
 class events(commands.Cog):
     def __init__(self, bot):
@@ -21,7 +21,7 @@ class events(commands.Cog):
     def remove_session(self, channel_id: int):
         self.sessions.remove(channel_id)
 
-    @commands.command()
+    @commands.command(aliases=["tic"])
     async def tictactoe(self, ctx):
         """
         Simple tictactoe game in progress
@@ -31,7 +31,8 @@ class events(commands.Cog):
 
         Example Usage:
         """
-
+        finished = False
+        count = 0
         gameBoard = {
             "7": "⬛",
             "8": "⬛",
@@ -49,26 +50,61 @@ class events(commands.Cog):
             description="hi",
             colour=ctx.author.colour,
         )
-
-        print(gameBoard["7"] + "|" + gameBoard["8"] + "|" + gameBoard["9"])
-        print("----+----+----")
-        print(gameBoard["4"] + "|" + gameBoard["5"] + "|" + gameBoard["6"])
-        print("----+----+----")
-        print(gameBoard["1"] + "|" + gameBoard["2"] + "|" + gameBoard["3"])
-
-        embed.add_field(
-            name="hello",
-            value=f"""
+        embed.add_field(name="hello", value=f"""
         {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
         ----+----+----
         {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
         ----+----+----
         {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-        """,
-            inline=False,
-        )
+        """, inline=False)
+        message = await ctx.send(embed=embed)
 
-        await ctx.send(embed=embed)
+        def isPlayerOne(msg):
+            return ctx.message.author == msg.author
+
+        def isPlayerTwo(msg):
+            return ctx.message.author == msg.author
+
+
+
+        while(not finished):
+            try:
+                move = await self.bot.wait_for(
+                    "message", check=isPlayerOne, timeout=30.0
+                )
+
+                embed.set_field_at(0,name="hello", value=f"""
+                {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
+                ----+----+----
+                {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
+                ----+----+----
+                {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+                """, inline=False)
+                await message.edit(
+                    embed=embed
+                )
+                count += 1
+
+                move = await self.bot.wait_for(
+                    "message", check=isPlayerTwo, timeout=30.0
+                )
+                embed.set_field_at(0,name="hello", value=f"""
+                {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
+                ----+----+----
+                {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
+                ----+----+----
+                {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+                """, inline=False)
+                await message.edit(
+                    embed=embed
+                )
+                count += 1
+
+                if(count == 9):
+                    finished = True
+            except TimeoutError:
+                await ctx.send("You slow as crap my guy")
+
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
