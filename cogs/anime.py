@@ -29,7 +29,7 @@ class Menu(menus.Menu):
         if self.result_indx == 0:
             pass
         else:
-            self.num_results -= 1
+            self.result_indx -= 1
             await self.message.edit(
                 embed=self.formatter(self.results[self.result_indx])
             )
