@@ -32,6 +32,7 @@ class events(commands.Cog):
         """
         finished = False
         count = 0
+        takenCells = []
         gameBoard = {
             "7": "7️⃣",
             "8": "8️⃣",
@@ -55,21 +56,31 @@ class events(commands.Cog):
         )
 
         def isPlayerOne(msg):
-            return ctx.message.author == msg.author
+            if(ctx.message.author == msg.author):
+                if(msg.content not in takenCells):
+                    if (int(msg.content) in range(1,10)):
+                        return True
+            return False
 
         def isPlayerTwo(msg):
-            return ctx.message.author == msg.author
+            if(ctx.message.author == msg.author):
+                if(msg.content not in takenCells):
+                    if (int(msg.content) in range(1,10)):
+                        return True
+
+            return False
 
         while not finished:
             try:
+
                 move = await self.bot.wait_for(
                     "message", check=isPlayerOne, timeout=30.0
                 )
                 gameBoard[move.content] = "🇽"
+                takenCells.append(move.content)
 
-                await ctx.send(move.content)
-                await message.edit(
-                    content=f"""
+                await message.edit(content =
+                    f"""
                     {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
                     ----+----+----
                     {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
@@ -78,13 +89,19 @@ class events(commands.Cog):
                     """
                 )
                 count += 1
+
+                if(count == 9):
+                    await ctx.send("Game's over!")
+                    finished = True
+                    break
 
                 move = await self.bot.wait_for(
                     "message", check=isPlayerTwo, timeout=30.0
                 )
                 gameBoard[move.content] = "🅾️"
-                await message.edit(
-                    content=f"""
+                takenCells.append(move.content)
+                await message.edit(content =
+                    f"""
                     {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
                     ----+----+----
                     {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
@@ -94,10 +111,11 @@ class events(commands.Cog):
                 )
                 count += 1
 
-                if count == 9:
-                    finished = True
+
             except TimeoutError:
                 await ctx.send("You slow as crap my guy")
+
+
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
