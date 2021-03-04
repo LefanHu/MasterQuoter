@@ -78,7 +78,7 @@ class Anime(commands.Cog):
 
         Example Usage:
         """
-        await ctx.send("Let us recommend you an anime that team 'MasterBaiters' watch")
+        await ctx.send("Let us recommend you an anime that we watch")
 
         anime_recommendations = ["42897", "39535", "37430", "28171", "32901"]
         await self.search(ctx=ctx, query=choice(anime_recommendations))
