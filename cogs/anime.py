@@ -1,12 +1,15 @@
-from discord.ext import commands
-from jikanpy import AioJikan
-from jikanpy.exceptions import APIException
 import os
+import tracemoepy
+import aiohttp
+from jikanpy import AioJikan
+from typing import Optional
 from random import choice
+from discord.ext import menus, commands
+from jikanpy.exceptions import APIException
+from tracemoepy.errors import EmptyImage, EntityTooLarge, ServerError, TooManyRequests
 
 from lib.utils import Utils
-
-from discord.ext import menus
+from lib.file_utils import File
 
 
 class Menu(menus.Menu):
@@ -46,10 +49,11 @@ class Menu(menus.Menu):
         self.stop()
 
 
-class Basic(commands.Cog):
+class Anime(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.utils = Utils()
+        self.file = File()
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -60,23 +64,24 @@ class Basic(commands.Cog):
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def anime(self, ctx):
         """
-        The developers of this bot likes anime. Therefore this is here too. This is rly rough rn but it'll get better (probably)
+        The developers of this bot likes anime. Therefore this is here too.
 
         **Command Group:**
-            - `search`, `char|character`
+            - `search`, `char|character`, `trace`
 
         **Examples:**
             - mq>anime search `name of anime`
             - mq>jikan search `MyAnimeList_ID`
             - mq>anime character `name of character`
             - mq>jikan char `MyAnimeList_ID`
+            - mq>anime trace (attach image to trace)
 
         Example Usage:
         """
         await ctx.send("Let us recommend you an anime that team 'MasterBaiters' watch")
 
         anime_recommendations = ["Mushoku Tensei", "Attack on titan"]
-        await self.search(ctx=ctx, name=choice(anime_recommendations))
+        await self.search(ctx=ctx, query=choice(anime_recommendations))
 
     @anime.command()
     @commands.cooldown(1, 15, commands.BucketType.user)
@@ -138,6 +143,48 @@ class Basic(commands.Cog):
     async def top(self, ctx):
         pass
 
+    @anime.command(brief="Find out what anime your image is from")
+    @commands.cooldown(1, 30, commands.BucketType.user)
+    async def trace(self, ctx, image_url: Optional[str]):
+        for attachment in ctx.message.attachments:
+            if self.file.is_image(attachment.filename):
+                image_url = attachment.url
+                break
+
+        if not image_url:
+            await ctx.send("An image was not provided")
+            return
+        else:
+            session = aiohttp.ClientSession()
+            async with session as session:
+                tracemoe = tracemoepy.AsyncTrace(session=session)
+                try:
+                    results = await tracemoe.search(image_url, is_url=True)
+                except TooManyRequests:
+                    await ctx.send(
+                        "Trace-moe API limit reached, wait for a bit before trying again."
+                    )
+                    return
+                except EntityTooLarge:
+                    await ctx.send("Your image cannot be larger than 10mb")
+                    return
+                except EmptyImage:
+                    await ctx.send("Your image was empty")
+                    return
+                except ServerError:
+                    await ctx.send("An error occurred with trace-moe's servers.")
+                    return
+
+            embed = self.utils.embed_trace(results["docs"][0])
+            embed.insert_field_at(
+                1,
+                name="Frames Searched",
+                value=f"```{results['RawDocsCount']:,}```",
+                inline=True,
+            )
+            embed.set_image(url=image_url)
+            await ctx.send(embed=embed)
+
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
@@ -145,4 +192,4 @@ class Basic(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Basic(bot))
+    bot.add_cog(Anime(bot))
