@@ -7,7 +7,7 @@ from os.path import basename
 import random
 
 
-class events(commands.Cog):
+class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.sessions = []
@@ -214,4 +214,4 @@ class events(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(events(bot))
+    bot.add_cog(Fun(bot))
