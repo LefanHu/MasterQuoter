@@ -27,6 +27,7 @@ class Fun(commands.Cog):
         finished = False
         count = 0
         takenCells = []
+        correct = False
         gameBoard = {
             "7": "7️⃣",
             "8": "8️⃣",
@@ -41,9 +42,9 @@ class Fun(commands.Cog):
 
         initial_board = f"""
 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-----+----+----
+-----+-----+-----
 {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-----+----+----
+-----+-----+-----
 {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
         """
 
@@ -51,34 +52,39 @@ class Fun(commands.Cog):
 
         def isPlayerOne(msg):
             if ctx.message.author == msg.author:
-                if msg.content not in takenCells:
-                    if int(msg.content) in range(1, 10):
-                        return True
+                return True
             return False
 
         def isPlayerTwo(msg):
             if ctx.message.author == msg.author:
-                if msg.content not in takenCells:
-                    if int(msg.content) in range(1, 10):
-                        return True
-
+                return True
             return False
 
         while not finished:
             try:
-
-                move = await self.bot.wait_for(
-                    "message", check=isPlayerOne, timeout=30.0
-                )
+                while(not correct):
+                    move = await self.bot.wait_for(
+                        "message", check=isPlayerOne, timeout=30.0
+                        )
+                    if int(move.content) in range(1, 10):
+                        if move.content not in takenCells:
+                            correct = True
+                            break
+                        else:
+                            await ctx.send("That square is occupied")
+                    else:
+                        await ("Please enter a number from 1-9")
+                correct = False
                 gameBoard[move.content] = "🇽"
                 takenCells.append(move.content)
-                await move.delete()
+
+                #await move.delete()
                 await message.edit(content=
 f"""
 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-----+----+----
+-----+-----+-----
 {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-----+----+----
+-----+-----+-----
 {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
 """
                 )
@@ -89,18 +95,28 @@ f"""
                     finished = True
                     break
 
-                move = await self.bot.wait_for(
-                    "message", check=isPlayerTwo, timeout=30.0
-                )
+                while(not correct):
+                    move = await self.bot.wait_for(
+                        "message", check=isPlayerTwo, timeout=30.0
+                        )
+                    if int(move.content) in range(1, 10):
+                        if move.content not in takenCells:
+                            correct = True
+                            break
+                        else:
+                            await ctx.send("That square is occupied")
+                    else:
+                        await ("Please enter a number from 1-9")
+                correct = False
                 gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
-                await move.delete()
+                #await move.delete()
                 await message.edit(content=
 f"""
 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-----+----+----
+-----+-----+-----
 {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-----+----+----
+-----+-----+-----
 {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
 """
                 )
