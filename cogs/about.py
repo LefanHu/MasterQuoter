@@ -103,7 +103,7 @@ class About(commands.Cog):
         **FUN**
             - `guess`, `anime`
         **OTHER COMMANDS**
-            - `ping`, `help`, `about`, `settings`, `invite`
+            - `ping`, `help`, `about`, `invite`
         **THANKS**
             - @RadioactiveHydra#2570 (师傅 and Creator of MemeGenBot)
             - @Lunar#7231 (Minecraft God)

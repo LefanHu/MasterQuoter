@@ -60,11 +60,9 @@ class Save(commands.Cog):
                 attachments.append(atch)
         return attachments
 
-    @commands.command(
-        aliases=["qlast", "ql"], brief="Quotes the last thing someone said"
-    )
+    @commands.command(aliases=["ql"], brief="Quotes the last thing someone said")
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def quote_last(
+    async def qlast(
         self, ctx, user: discord.Member, section: Optional[int], lines: Optional[int]
     ):
         """
