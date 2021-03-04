@@ -189,9 +189,9 @@ class Utils:
                     f"{'N/A' if anime['aired']['to'] == None else anime['aired']['to'][:10]}",
                     True,
                 ),
-                ("Producers", f"{producers} ", True),
-                ("Studios", f"{studios}", True),
-                ("Genres", f"{genres}", True),
+                ("Producers", f"{producers} ", False),
+                ("Studios", f"{studios}", False),
+                ("Genres", f"{genres}", False),
             ]
             for name, value, inline in fields:
                 embed.add_field(name=name, value=f"```{value}```", inline=inline)
