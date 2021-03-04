@@ -116,7 +116,7 @@ class Utils:
             [doc["title_chinese"], doc["title_native"], doc["title_romaji"]]
         )
         fields = [
-            (f"Similarity %", f"```{doc['similarity']:,.2f}%```", True),
+            (f"Similarity %", f"```{doc['similarity']*100:,.2f}%```", True),
             (f"Titles", f"```{titles}```", False),
             (f"Season", f"```{doc['season']} ```", True),
             (f"Episode", f"```{doc['episode']}```", True),

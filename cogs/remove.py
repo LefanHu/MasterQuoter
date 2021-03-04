@@ -5,7 +5,7 @@ import os
 from lib.db import db
 
 
-class events(commands.Cog):
+class Remove(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -104,4 +104,4 @@ class events(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(events(bot))
+    bot.add_cog(Remove(bot))

@@ -74,13 +74,13 @@ class Anime(commands.Cog):
             - mq>jikan search `MyAnimeList_ID`
             - mq>anime character `name of character`
             - mq>jikan char `MyAnimeList_ID`
-            - mq>anime trace (attach image to trace)
+            - mq>anime trace `(attach image to trace)`
 
         Example Usage:
         """
         await ctx.send("Let us recommend you an anime that team 'MasterBaiters' watch")
 
-        anime_recommendations = ["Mushoku Tensei", "Attack on titan"]
+        anime_recommendations = ["42897", "39535", "37430", "28171", "32901"]
         await self.search(ctx=ctx, query=choice(anime_recommendations))
 
     @anime.command()
