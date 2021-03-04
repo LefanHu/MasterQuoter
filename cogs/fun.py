@@ -72,15 +72,15 @@ class Fun(commands.Cog):
                 )
                 gameBoard[move.content] = "🇽"
                 takenCells.append(move.content)
-
-                await message.edit(
-                    content=f"""
-                    {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-                    ----+----+----
-                    {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-                    ----+----+----
-                    {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-                    """
+                await move.delete()
+                await message.edit(content=
+f"""
+{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
+----+----+----
+{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
+----+----+----
+{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+"""
                 )
                 count += 1
 
@@ -94,19 +94,22 @@ class Fun(commands.Cog):
                 )
                 gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
-                await message.edit(
-                    content=f"""
-                    {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-                    ----+----+----
-                    {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-                    ----+----+----
-                    {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-                    """
+                await move.delete()
+                await message.edit(content=
+f"""
+{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
+----+----+----
+{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
+----+----+----
+{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+"""
                 )
                 count += 1
 
             except TimeoutError:
-                await ctx.send("You slow as crap my guy")
+                await ctx.send("You took too long, the game is over! ")
+                finished = True
+                break
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
