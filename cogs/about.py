@@ -101,13 +101,13 @@ class About(commands.Cog):
         **SETTINGS** (__manage_guild_perms__)
             - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
-            - `guess`, `trace`
+            - `guess`, `trace`, `anime`
         **OTHER COMMANDS**
             - `ping`, `help`, `about`, `settings`, `invite`
         **THANKS**
             - @RadioactiveHydra#2570 (师傅 and Creator of MemeGenBot)
             - @Lunar#7231 (Minecraft God)
-        **FROM TEAM 'MasterBaiters'**
+        **IDIOTS IN HIGH SCHOOL**
             - @Alex3000#4135
             - @Cuddles#2321
 
@@ -124,6 +124,7 @@ class About(commands.Cog):
         proc = Process()
         with proc.oneshot():
             uptime = timedelta(seconds=time() - proc.create_time())
+            uptime = uptime - timedelta(microseconds=uptime.microseconds)
             cpu = proc.cpu_times()
             cpu_time = timedelta(seconds=(cpu).system + cpu.user)
             mem_total = virtual_memory().total / (1024 ** 2)

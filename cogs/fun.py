@@ -12,21 +12,15 @@ class Fun(commands.Cog):
         self.bot = bot
         self.sessions = []
 
-    def session_exists(self, channel_id: int):
-        if channel_id in self.sessions:
-            return True
-        return False
-
-    def remove_session(self, channel_id: int):
-        self.sessions.remove(channel_id)
-
-    @commands.command(aliases=["tic"])
+    @commands.command(hidden=True, aliases=["tic"])
+    @commands.is_owner()
     async def tictactoe(self, ctx):
         """
-        Simple tictactoe game in progress
+        Simple tictactoe game in progress, currently not usable
 
         **Example:**
-            - mq>tictactoe user1 user2 (ping these 2 players)
+            - mq>tictactoe user (ping player you want to play against)
+            - mq>tic user
 
         Example Usage:
         """
@@ -45,27 +39,27 @@ class Fun(commands.Cog):
             "3": "3️⃣",
         }
 
-        message = await ctx.send(
-            f"""
-        {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-        ----+----+----
-        {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-        ----+----+----
-        {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+        initial_board = f"""
+{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
+----+----+----
+{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
+----+----+----
+{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
         """
-        )
+
+        message = await ctx.send(initial_board)
 
         def isPlayerOne(msg):
-            if(ctx.message.author == msg.author):
-                if(msg.content not in takenCells):
-                    if (int(msg.content) in range(1,10)):
+            if ctx.message.author == msg.author:
+                if msg.content not in takenCells:
+                    if int(msg.content) in range(1, 10):
                         return True
             return False
 
         def isPlayerTwo(msg):
-            if(ctx.message.author == msg.author):
-                if(msg.content not in takenCells):
-                    if (int(msg.content) in range(1,10)):
+            if ctx.message.author == msg.author:
+                if msg.content not in takenCells:
+                    if int(msg.content) in range(1, 10):
                         return True
 
             return False
@@ -79,8 +73,8 @@ class Fun(commands.Cog):
                 gameBoard[move.content] = "🇽"
                 takenCells.append(move.content)
 
-                await message.edit(content =
-                    f"""
+                await message.edit(
+                    content=f"""
                     {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
                     ----+----+----
                     {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
@@ -90,7 +84,7 @@ class Fun(commands.Cog):
                 )
                 count += 1
 
-                if(count == 9):
+                if count == 9:
                     await ctx.send("Game's over!")
                     finished = True
                     break
@@ -100,8 +94,8 @@ class Fun(commands.Cog):
                 )
                 gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
-                await message.edit(content =
-                    f"""
+                await message.edit(
+                    content=f"""
                     {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
                     ----+----+----
                     {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
@@ -111,11 +105,8 @@ class Fun(commands.Cog):
                 )
                 count += 1
 
-
             except TimeoutError:
                 await ctx.send("You slow as crap my guy")
-
-
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -135,7 +126,7 @@ class Fun(commands.Cog):
         https://cdn.discordapp.com/attachments/795405783155343365/814945245313761300/unknown.png
         """
 
-        if self.session_exists(ctx.message.channel.id):
+        if ctx.message.channel.id in self.sessions:
             return  # no more than one game session per channel
         else:
             self.sessions.append(ctx.message.channel.id)
@@ -167,7 +158,7 @@ class Fun(commands.Cog):
 
         if not quotes:  # ensures quote is not None
             await ctx.send("There are no quotes")
-            self.remove_session(ctx.message.channel.id)
+            self.sessions.remove(ctx.message.channel.id)
             return
         else:
             quote = random.choice(quotes)
@@ -223,7 +214,7 @@ class Fun(commands.Cog):
                 await ctx.send(
                     f"You took too long to guess. You now have {attempts} guesses."
                 )
-        self.remove_session(ctx.message.channel.id)
+        self.sessions.remove(ctx.message.channel.id)
 
     @commands.Cog.listener()
     async def on_ready(self):
