@@ -42,9 +42,9 @@ class Fun(commands.Cog):
 
         initial_board = f"""
 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
-----+----+----
+-----+-----+-----
 {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
-----+----+----
+-----+-----+-----
 {gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
         """
 
