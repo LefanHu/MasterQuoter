@@ -47,7 +47,7 @@ class About(commands.Cog):
         self.tracked_statuses["servers_joined"] += 1
 
     @commands.Cog.listener()
-    async def on_server_removed(self, guild):
+    async def on_guild_remove(self, guild):
         self.tracked_statuses["server_count"] -= 1
 
     @commands.Cog.listener()
