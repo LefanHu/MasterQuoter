@@ -68,8 +68,6 @@ class Fun(commands.Cog):
             return False
 
 
-        def winCondition():
-            pass
 
         while not finished:
             try:
