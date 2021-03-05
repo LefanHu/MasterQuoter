@@ -27,7 +27,7 @@ class Read(commands.Cog):
         """
         Fetches a specific quote and displays it when provided a quote id.
 
-        **Example:**
+        **Examples:**
             - mq>show_quote `quote_id_here`
             - mq>sq `quote_id_here`
 
@@ -68,7 +68,7 @@ class Read(commands.Cog):
         """
         Lists all quotes from a specified user (ping them)
 
-        **Example:**
+        **Examples:**
             - mq>list_quotes @Cuddles#2321
             - mq>listq @Cuddles#2321
             - mq>lq @Cuddles#2321
@@ -106,7 +106,7 @@ class Read(commands.Cog):
         """
         Lists all snippets saved on the server
 
-        **Example:**
+        **Examples:**
             - mq>list_snips
             - mq>lists
             - mq>ls
@@ -132,7 +132,7 @@ class Read(commands.Cog):
         """
         Shows a snippet when provided an id
 
-        **Example:**
+        **Examples:**
             - mq>show_snip `snippet_id`
             - mq>ss `snippet_id`
 
@@ -175,7 +175,8 @@ class Read(commands.Cog):
 
         If a __user is specified__, this will fetch a random quote from that user.
 
-        **Example:**
+        **Examples:**
+            - mq>random
             - mq>rand
             - mq>rand @alex3000
 

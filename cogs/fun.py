@@ -18,7 +18,7 @@ class Fun(commands.Cog):
         """
         Simple tictactoe game in progress, currently not usable
 
-        **Example:**
+        **Examples:**
             - mq>tictactoe user (ping player you want to play against)
             - mq>tic user
 
@@ -62,10 +62,10 @@ class Fun(commands.Cog):
 
         while not finished:
             try:
-                while(not correct):
+                while not correct:
                     move = await self.bot.wait_for(
                         "message", check=isPlayerOne, timeout=30.0
-                        )
+                    )
                     if int(move.content) in range(1, 10):
                         if move.content not in takenCells:
                             correct = True
@@ -78,9 +78,9 @@ class Fun(commands.Cog):
                 gameBoard[move.content] = "🇽"
                 takenCells.append(move.content)
 
-                #await move.delete()
-                await message.edit(content=
-f"""
+                # await move.delete()
+                await message.edit(
+                    content=f"""
 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
 -----+-----+-----
 {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
@@ -95,10 +95,10 @@ f"""
                     finished = True
                     break
 
-                while(not correct):
+                while not correct:
                     move = await self.bot.wait_for(
                         "message", check=isPlayerTwo, timeout=30.0
-                        )
+                    )
                     if int(move.content) in range(1, 10):
                         if move.content not in takenCells:
                             correct = True
@@ -110,9 +110,9 @@ f"""
                 correct = False
                 gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
-                #await move.delete()
-                await message.edit(content=
-f"""
+                # await move.delete()
+                await message.edit(
+                    content=f"""
 {gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
 -----+-----+-----
 {gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
@@ -133,7 +133,7 @@ f"""
         """
         You ever wanna guess who said what stupid thing? This starts a game where a random quote is displayed (hiding the author of the quote) and the first person to ping the author of the quote is granted the guess.
 
-        **Example:**
+        **Examples:**
             - mq>guess
             - mq>gs 10
             - stop (while game is active to stop game)

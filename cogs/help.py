@@ -111,7 +111,7 @@ class Help(Cog):
 
         When provided with a `command_name`, usage of that command will be given
 
-        **Example:**
+        **Examples:**
             - mq>help (shows menu of commands)
             - mq>help `command_name`
 

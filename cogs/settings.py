@@ -53,8 +53,8 @@ class Settings(commands.Cog):
         Blacklisted people are **NOT ALLOWED** to manage quotes:
             - `remove`, `rm_all`, `snip`, `quote`, `qlast`
 
-        **Example:**
-            - mq>blacklist <= Toggles on & off blacklist
+        **Examples:**
+            - mq>blacklist <= Toggles **on** & **off** blacklist
             - mq>blacklist @alex3000
 
         **Note:**
@@ -83,8 +83,8 @@ class Settings(commands.Cog):
         Whitelisted people are **ALLOWED** to manage quotes:
             - `remove`, `rm_all`, `snip`, `quote`, `qlast`
 
-        **Example:**
-            - mq>whitelist <= Toggles on & off whitelist
+        **Examples:**
+            - mq>whitelist <= Toggles **on** & **off** whitelist
             - mq>whitelist @alex3000
 
         **Note:**
@@ -174,7 +174,7 @@ class Settings(commands.Cog):
             - mq>pardon @alex3000
 
         **Note:**
-            - Blacklist does nothing if it is not __enabled__
+            - Blacklist does nothing if it is not **__enabled__**
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/815984718901280798/unknown.png
@@ -194,7 +194,7 @@ class Settings(commands.Cog):
             - mq>restrict @alex3000
 
         **Note:**
-            - Whitelist does nothing if it is not __enabled__
+            - Whitelist does nothing if it is not **__enabled__**
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/815985134783954984/unknown.png
@@ -211,7 +211,7 @@ class Settings(commands.Cog):
         Displays your server settings. This includes:
         - bot prefix for your server
         - total quotes saved
-        - commands invoked
+        - commands invoked (in your server)
         - server id
         - delete command on server (Enabled/Disabled)
         - blacklist

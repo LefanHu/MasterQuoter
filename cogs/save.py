@@ -72,7 +72,7 @@ class Save(commands.Cog):
 
         lines: This specifies how many lines in the channel to look (max 200)
 
-        **Example:**
+        **Examples:**
             - mq>qlast @alex3000
             - mq>qlast @alex3000 2
             - mq>qlast @alex3000 2 150
@@ -157,7 +157,7 @@ class Save(commands.Cog):
         """
         This handy dandy command allows you to save things your friends have said!
 
-        **Example:**
+        **Examples:**
             - mq>quote @alex3000 `MAKE UP A_RANDOM_MESSAGE IF YOU WANT` `>:)`
             - mq>qt @alex3000 `message here`
             - mq>q @alex3000 `message here`
@@ -243,7 +243,7 @@ class Save(commands.Cog):
 
         lines: This argument specifies how many messages in history will be searched
 
-        **Example:**
+        **Examples:**
             - mq>snip
             - mq>snip 150
             - Add 2 reactions to the same message, or 2 reactions to different messages (all messages in between the two reactions will be selected).

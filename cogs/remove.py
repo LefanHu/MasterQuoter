@@ -34,7 +34,7 @@ class Remove(commands.Cog):
         """
         Deletes a saved quote/snip when given the ID.
 
-        **Example:**
+        **Examples:**
             - mq>remove `id_here`
             - mq>rm `id_here`
 
@@ -76,7 +76,7 @@ class Remove(commands.Cog):
         """
         Removes all quotes from a specified user (ping them)
 
-        **Example:**
+        **Examples:**
             - mq>remove_all @alex3000
             - mq>rm_all @alex3000
 

@@ -97,7 +97,7 @@ class About(commands.Cog):
         **REMOVING QUOTES/SNIPS**
             - `remove`, `rm_all`
         **DISPLAYING QUOTES/SNIPS**
-            - `show_quote`, `list_quotes`, `random`, `show_snip`
+            - `show_quote`, `show_snip`, `list_quotes`, `list_snips`, `random`
         **SETTINGS** (__manage_guild_perms__)
             - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
