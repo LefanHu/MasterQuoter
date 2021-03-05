@@ -24,10 +24,20 @@ class Fun(commands.Cog):
 
         Example Usage:
         """
+        if ctx.message.channel.id in self.sessions:
+            return  # no more than one game session per channel
+        else:
+            self.sessions.append(ctx.message.channel.id)
+
         finished = False
         count = 0
         takenCells = []
         correct = False
+        currPlayer = "X"
+        topRow =[]
+        midRow =[]
+        botRow = []
+
         gameBoard = {
             "7": "7️⃣",
             "8": "8️⃣",
@@ -50,32 +60,38 @@ class Fun(commands.Cog):
 
         message = await ctx.send(initial_board)
 
-        def isPlayerOne(msg):
+        def isCorrectPlayer(msg):
             if ctx.message.author == msg.author:
                 return True
+                #Check if player is equivalent to current player
             return False
 
-        def isPlayerTwo(msg):
-            if ctx.message.author == msg.author:
-                return True
-            return False
+
+        def winCondition():
+            pass
 
         while not finished:
             try:
                 while not correct:
                     move = await self.bot.wait_for(
-                        "message", check=isPlayerOne, timeout=30.0
+                        "message", check=isCorrectPlayer, timeout=30.0
                     )
-                    if int(move.content) in range(1, 10):
-                        if move.content not in takenCells:
-                            correct = True
-                            break
+                    if move.content.isdigit():
+                        if int(move.content) in range(1, 10):
+                            if move.content not in takenCells:
+                                correct = True
+                                break
+                            else:
+                                await ctx.send("That square is occupied")
                         else:
-                            await ctx.send("That square is occupied")
+                            await ctx.send("Please enter a number from 1-9")
                     else:
-                        await ("Please enter a number from 1-9")
+                        await ctx.send("You didn't put in a number. ")
                 correct = False
-                gameBoard[move.content] = "🇽"
+                if currPlayer == "X":
+                    gameBoard[move.content] = "🇽"
+                else:
+                    gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
 
                 # await move.delete()
@@ -89,43 +105,27 @@ class Fun(commands.Cog):
 """
                 )
                 count += 1
+                if(currPlayer == "X"):
+                    currPlayer = "O"
+                else:
+                    currPlayer = "X"
 
                 if count == 9:
                     await ctx.send("Game's over!")
                     finished = True
                     break
 
-                while not correct:
-                    move = await self.bot.wait_for(
-                        "message", check=isPlayerTwo, timeout=30.0
-                    )
-                    if int(move.content) in range(1, 10):
-                        if move.content not in takenCells:
-                            correct = True
-                            break
-                        else:
-                            await ctx.send("That square is occupied")
-                    else:
-                        await ("Please enter a number from 1-9")
-                correct = False
-                gameBoard[move.content] = "🅾️"
-                takenCells.append(move.content)
-                # await move.delete()
-                await message.edit(
-                    content=f"""
-{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
------+-----+-----
-{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
------+-----+-----
-{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
-"""
-                )
-                count += 1
 
             except TimeoutError:
                 await ctx.send("You took too long, the game is over! ")
                 finished = True
-                break
+                self.sessions.remove(ctx.message.channel.id)
+                return
+
+
+
+
+
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
