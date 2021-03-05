@@ -34,6 +34,7 @@ class Fun(commands.Cog):
         takenCells = []
         correct = False
         currPlayer = "X"
+        winner = ""
         topRow =[]
         midRow =[]
         botRow = []
@@ -105,6 +106,44 @@ class Fun(commands.Cog):
 """
                 )
                 count += 1
+
+                topRow = [gameBoard['7'], gameBoard['8'], gameBoard['9']]
+                midRow = [gameBoard['4'], gameBoard['5'], gameBoard['6']]
+                botRow = [gameBoard['1'], gameBoard['2'], gameBoard['3']]
+                for i in range(0,3):
+                    if(topRow[i] == midRow[i] == botRow[i]):
+                        await ctx.send("Working")
+                        winner = currPlayer
+                        finished = True
+                        break
+                    elif(topRow.count(topRow[i]) == len(topRow)):
+                        await ctx.send("Row working")
+                        winner = currPlayer
+                        finished = True
+                        break
+                    elif(midRow.count(midRow[i]) == len(midRow)):
+                        await ctx.send("Row working")
+                        winner = currPlayer
+                        finished = True
+                        break
+                    elif(botRow.count(botRow[i]) == len(botRow)):
+                        await ctx.send("Row working")
+                        winner = currPlayer
+                        finished = True
+                        break
+                    elif(topRow[0]==midRow[1]==botRow[2]):
+                        await ctx.send("Diagonal working")
+                        winner = currPlayer
+                        finished = True
+                        break
+                    elif(topRow[2]==midRow[1]==botRow[0]):
+                        await ctx.send("Diagonal working")
+                        winner = currPlayer
+                        finished = True
+                        break
+
+
+
                 if(currPlayer == "X"):
                     currPlayer = "O"
                 else:
@@ -121,7 +160,7 @@ class Fun(commands.Cog):
                 finished = True
                 self.sessions.remove(ctx.message.channel.id)
                 return
-
+        await ctx.send("The winner is the player with: " +winner)
 
 
 
