@@ -33,7 +33,10 @@ class Fun(commands.Cog):
         count = 0
         takenCells = []
         correct = False
-    
+        topRow =[]
+        midRow =[]
+        botRow = []
+
         gameBoard = {
             "7": "7️⃣",
             "8": "8️⃣",
@@ -66,20 +69,26 @@ class Fun(commands.Cog):
                 return True
             return False
 
+        def winCondition():
+            pass
+
         while not finished:
             try:
                 while not correct:
                     move = await self.bot.wait_for(
                         "message", check=isPlayerOne, timeout=30.0
                     )
-                    if int(move.content) in range(1, 10):
-                        if move.content not in takenCells:
-                            correct = True
-                            break
+                    if move.content.isdigit():
+                        if int(move.content) in range(1, 10):
+                            if move.content not in takenCells:
+                                correct = True
+                                break
+                            else:
+                                await ctx.send("That square is occupied")
                         else:
-                            await ctx.send("That square is occupied")
+                            await ctx.send("Please enter a number from 1-9")
                     else:
-                        await ("Please enter a number from 1-9")
+                        await ctx.send("You didn't put in a number. ")
                 correct = False
                 gameBoard[move.content] = "🇽"
                 takenCells.append(move.content)
@@ -105,14 +114,17 @@ class Fun(commands.Cog):
                     move = await self.bot.wait_for(
                         "message", check=isPlayerTwo, timeout=30.0
                     )
-                    if int(move.content) in range(1, 10):
-                        if move.content not in takenCells:
-                            correct = True
-                            break
+                    if move.content.isdigit():
+                        if int(move.content) in range(1, 10):
+                            if move.content not in takenCells:
+                                correct = True
+                                break
+                            else:
+                                await ctx.send("That square is occupied")
                         else:
-                            await ctx.send("That square is occupied")
+                            await ctx.send("Please enter a number from 1-9")
                     else:
-                        await ("Please enter a number from 1-9")
+                        await ctx.send("You didn't put in a number. ")
                 correct = False
                 gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
