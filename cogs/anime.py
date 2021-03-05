@@ -60,7 +60,11 @@ class Anime(commands.Cog):
         print("Bot is online.")
 
     # implement jikan api here
-    @commands.group(aliases=["jikan"], invoke_without_command=True)
+    @commands.group(
+        aliases=["jikan"],
+        invoke_without_command=True,
+        brief="Some commands related to anime",
+    )
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def anime(self, ctx):
         """

@@ -126,11 +126,11 @@ class Read(commands.Cog):
             )
             await pages.start(ctx)
 
-    @commands.command(aliases=["ss"])
+    @commands.command(aliases=["ss"], brief="Shows a snippet when provided an id")
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def show_snip(self, ctx, snip_id: int):
         """
-        Shows a snippet when provided an id
+        Shows a snippet when provided an id. You can see the id of a quote/snip when it is saved, or you can find it through `lists` or `listq`.
 
         **Examples:**
             - mq>show_snip `snippet_id`
