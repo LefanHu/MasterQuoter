@@ -68,9 +68,9 @@ class Save(commands.Cog):
         """
         Saves the last section of *continuous messages* from that user.
 
-        section: This specifies the # of sections to pass before saving.
+        **section:** This specifies the # of sections to pass before saving.
 
-        lines: This specifies how many lines in the channel to look (max 200)
+        **lines:** This specifies how many lines in the channel to look (max 200)
 
         **Examples:**
             - mq>qlast @alex3000
