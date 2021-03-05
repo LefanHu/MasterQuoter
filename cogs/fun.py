@@ -24,10 +24,16 @@ class Fun(commands.Cog):
 
         Example Usage:
         """
+        if ctx.message.channel.id in self.sessions:
+            return  # no more than one game session per channel
+        else:
+            self.sessions.append(ctx.message.channel.id)
+
         finished = False
         count = 0
         takenCells = []
         correct = False
+    
         gameBoard = {
             "7": "7️⃣",
             "8": "8️⃣",
@@ -110,6 +116,7 @@ class Fun(commands.Cog):
                 correct = False
                 gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
+
                 # await move.delete()
                 await message.edit(
                     content=f"""
@@ -125,7 +132,13 @@ class Fun(commands.Cog):
             except TimeoutError:
                 await ctx.send("You took too long, the game is over! ")
                 finished = True
-                break
+                self.sessions.remove(ctx.message.channel.id)
+                return
+
+
+
+
+
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
