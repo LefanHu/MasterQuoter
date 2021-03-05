@@ -151,7 +151,7 @@ class Save(commands.Cog):
         await self.save_quote(ctx, user, msg=msgs, imgs=imgs, files=files)
 
     # this is here so append_quote's extra parameters don't show up in help
-    @commands.command(aliases=["qt", "q"])
+    @commands.command(aliases=["qt", "q"], brief="Saving quotes of other people")
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def quote(self, ctx, user: discord.Member, *, msg):
         """
@@ -236,7 +236,7 @@ class Save(commands.Cog):
             print(exc)
 
     @commands.command(brief="Saves a quote by reactions")
-    @commands.cooldown(1, 30, commands.BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def snip(self, ctx, lines: Optional[int]):
         """
         This handy dandy command allows you to save  things your friends have said!

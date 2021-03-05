@@ -14,7 +14,7 @@ class Owner(commands.Cog):
             return True
         await ctx.send(f"You are not the owner of this bot.")
 
-    @commands.command()
+    @commands.command(hidden=True)
     async def shutdown(self, ctx):
         confirmed = await Confirm("Are you sure you want to shutdown?").prompt(ctx)
         if confirmed:
@@ -24,14 +24,6 @@ class Owner(commands.Cog):
     @commands.command(hidden=True)
     async def clear(self, ctx, amount=1):
         await ctx.channel.purge(limit=amount)
-
-    @commands.command(hidden=True)
-    async def blacklist_server(self, ctx, server_id):
-        guild = self.bot.fetch_guild(int(server_id))
-        if not guild:
-            await ctx.send("That server does not exist")
-        else:
-            pass
 
     @commands.Cog.listener()
     async def on_ready(self):

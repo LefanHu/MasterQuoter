@@ -45,7 +45,7 @@ class Settings(commands.Cog):
             await ctx.send("Prefix set.")
 
     @commands.command(name="blacklist", brief="Disallows a user from saving quotes")
-    @commands.has_guild_permissions(manage_guild=True)
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def blacklist_user(self, ctx, user: Optional[Member]):
         """
         Command will toggle on and off blacklist if a user is not specified. If a user is specified, that user will be added to the blacklist.
@@ -76,6 +76,7 @@ class Settings(commands.Cog):
         )
 
     @commands.command(name="whitelist", brief="Allows a user to save quotes")
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def whitelist_user(self, ctx, user: Optional[Member]):
         """
         Command will toggle on and off whitelist if a user is not specified. If a user is specified, that user will be added to the whitelist.
@@ -108,6 +109,7 @@ class Settings(commands.Cog):
     @commands.command(
         name="delete_save_command", brief="Deletes the command after completion"
     )
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def toggle_delete_on_save(self, ctx):
         """
         This command toggles whether or not commands that saved a quote will be deleted after completion.
@@ -166,6 +168,7 @@ class Settings(commands.Cog):
         await ctx.send(f"Whitelist is now {not status['whitelist']}")
 
     @commands.command(brief="Remove a user from the blacklist")
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def pardon(self, ctx, user: Member):
         """
         This removes someone from the blacklist. See help `blacklist`, for what it does.
@@ -186,6 +189,7 @@ class Settings(commands.Cog):
         db.servers.update_one({"_id": ctx.guild.id}, {"$pull": {"ignored": user.id}})
 
     @commands.command(brief="Remove a user from the whitelist")
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def restrict(self, ctx, user: Member):
         """
         This removes someone from the whitelist. See help `whitelist`, for what it does.
@@ -206,6 +210,7 @@ class Settings(commands.Cog):
         db.servers.update_one({"_id": ctx.guild.id}, {"$pull": {"allowed": user.id}})
 
     @commands.command(aliases=["stats"], brief="Shows settings of the server & stats")
+    @commands.cooldown(1, 10, commands.BucketType.channel)
     async def settings(self, ctx):
         """
         Displays your server settings. This includes:
