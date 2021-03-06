@@ -14,9 +14,12 @@ class Fun(commands.Cog):
         self.sessions = []
 
     @commands.command(aliases=["tic"])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def tictactoe(self, ctx, playerTwo: discord.Member):
         """
         Simple tictactoe game. Play with your friends!
+        This one was created by @Alex3000, there may be an
+        easter egg version made by @Cuddles
 
         **Examples:**
             - mq>tictactoe user (ping player you want to play against)
