@@ -101,7 +101,7 @@ class About(commands.Cog):
         **SETTINGS** (__manage_guild_perms__)
             - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**
-            - `guess`, `anime`
+            - `guess`, `anime`, `tictactoe`
         **OTHER COMMANDS**
             - `ping`, `help`, `about`, `invite`
         **THANKS**
