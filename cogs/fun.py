@@ -35,8 +35,8 @@ class Fun(commands.Cog):
         correct = False
         currPlayer = "X"
         winner = ""
-        topRow =[]
-        midRow =[]
+        topRow = []
+        midRow = []
         botRow = []
 
         gameBoard = {
@@ -64,9 +64,8 @@ class Fun(commands.Cog):
         def isCorrectPlayer(msg):
             if ctx.message.author == msg.author:
                 return True
-                #Check if player is equivalent to current player
+                # Check if player is equivalent to current player
             return False
-
 
         def winCondition():
             pass
@@ -107,44 +106,42 @@ class Fun(commands.Cog):
                 )
                 count += 1
 
-                topRow = [gameBoard['7'], gameBoard['8'], gameBoard['9']]
-                midRow = [gameBoard['4'], gameBoard['5'], gameBoard['6']]
-                botRow = [gameBoard['1'], gameBoard['2'], gameBoard['3']]
-                for i in range(0,3):
-                    if(topRow[i] == midRow[i] == botRow[i]):
+                topRow = [gameBoard["7"], gameBoard["8"], gameBoard["9"]]
+                midRow = [gameBoard["4"], gameBoard["5"], gameBoard["6"]]
+                botRow = [gameBoard["1"], gameBoard["2"], gameBoard["3"]]
+                for i in range(0, 3):
+                    if topRow[i] == midRow[i] == botRow[i]:
                         await ctx.send("Working")
                         winner = currPlayer
                         finished = True
                         break
-                    elif(topRow.count(topRow[i]) == len(topRow)):
+                    elif topRow.count(topRow[i]) == len(topRow):
                         await ctx.send("Row working")
                         winner = currPlayer
                         finished = True
                         break
-                    elif(midRow.count(midRow[i]) == len(midRow)):
+                    elif midRow.count(midRow[i]) == len(midRow):
                         await ctx.send("Row working")
                         winner = currPlayer
                         finished = True
                         break
-                    elif(botRow.count(botRow[i]) == len(botRow)):
+                    elif botRow.count(botRow[i]) == len(botRow):
                         await ctx.send("Row working")
                         winner = currPlayer
                         finished = True
                         break
-                    elif(topRow[0]==midRow[1]==botRow[2]):
+                    elif topRow[0] == midRow[1] == botRow[2]:
                         await ctx.send("Diagonal working")
                         winner = currPlayer
                         finished = True
                         break
-                    elif(topRow[2]==midRow[1]==botRow[0]):
+                    elif topRow[2] == midRow[1] == botRow[0]:
                         await ctx.send("Diagonal working")
                         winner = currPlayer
                         finished = True
                         break
 
-
-
-                if(currPlayer == "X"):
+                if currPlayer == "X":
                     currPlayer = "O"
                 else:
                     currPlayer = "X"
@@ -154,17 +151,12 @@ class Fun(commands.Cog):
                     finished = True
                     break
 
-
             except TimeoutError:
                 await ctx.send("You took too long, the game is over! ")
                 finished = True
                 self.sessions.remove(ctx.message.channel.id)
                 return
-        await ctx.send("The winner is the player with: " +winner)
-
-
-
-
+        await ctx.send("The winner is the player with: " + winner)
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
