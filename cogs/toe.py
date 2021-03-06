@@ -1,5 +1,6 @@
 from discord import Member
 from discord.ext import commands
+from asyncio import TimeoutError
 import os, math
 
 
@@ -8,7 +9,7 @@ class Toe(commands.Cog):
         self.bot = bot
 
     @commands.command(hidden=True, aliases=["toe"])
-    @commands.cooldown(1, 15, commands.BucketType.user)
+    @commands.cooldown(1, 20, commands.BucketType.user)
     async def toetactic(self, ctx, user: Member):
         """
         A tic tac toe game made by @Cuddles. The alternative version is called "tic" and is made by @alex3000.
