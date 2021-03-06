@@ -23,6 +23,10 @@ class Toe(commands.Cog):
         """
         board = [["1️⃣", "2️⃣", "3️⃣"], ["4️⃣", "5️⃣", "6️⃣"], ["7️⃣", "8️⃣", "9️⃣"]]
         players = [ctx.message.author, user]
+        if ctx.message.author.id == user.id:
+            await ctx.send(
+                "You're kinda lonely... maybe you should watch some heart warming anime..."
+            )
 
         markers = ["🍑", "🍆"]
 
