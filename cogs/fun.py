@@ -13,11 +13,10 @@ class Fun(commands.Cog):
         self.bot = bot
         self.sessions = []
 
-    @commands.command(hidden=True, aliases=["tic"])
-    @commands.is_owner()
+    @commands.command(aliases=["tic"])
     async def tictactoe(self, ctx, playerTwo: discord.Member):
         """
-        Simple tictactoe game in progress, currently not usable
+        Simple tictactoe game. Play with your friends!
 
         **Examples:**
             - mq>tictactoe user (ping player you want to play against)
@@ -53,11 +52,9 @@ class Fun(commands.Cog):
         }
 
         initial_board = f"""
-{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
------+-----+-----
-{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
------+-----+-----
-{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+{gameBoard['7']}{gameBoard['8']}{gameBoard['9']}
+{gameBoard['4']}{gameBoard['5']}{gameBoard['6']}
+{gameBoard['1']}{gameBoard['2']}{gameBoard['3']}
         """
 
         message = await ctx.send(initial_board)
@@ -101,11 +98,9 @@ class Fun(commands.Cog):
                 # await move.delete()
                 await message.edit(
                     content=f"""
-{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
------+-----+-----
-{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
------+-----+-----
-{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+{gameBoard['7']}{gameBoard['8']}{gameBoard['9']}
+{gameBoard['4']}{gameBoard['5']}{gameBoard['6']}
+{gameBoard['1']}{gameBoard['2']}{gameBoard['3']}
 """
                 )
                 count += 1
