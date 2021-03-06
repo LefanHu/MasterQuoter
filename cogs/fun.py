@@ -89,13 +89,12 @@ class Fun(commands.Cog):
                         await ctx.send("You didn't put in a number. ")
                 correct = False
                 if currPlayer == "X":
-                    gameBoard[move.content] = "🇽"
+                    gameBoard[move.content] = "❎"
                 else:
                     gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
-                await move.delete()
 
-                # await move.delete()
+
                 await message.edit(
                     content=f"""
 {gameBoard['7']}{gameBoard['8']}{gameBoard['9']}
@@ -104,7 +103,7 @@ class Fun(commands.Cog):
 """
                 )
                 count += 1
-
+                await move.delete()
                 topRow = [gameBoard['7'], gameBoard['8'], gameBoard['9']]
                 midRow = [gameBoard['4'], gameBoard['5'], gameBoard['6']]
                 botRow = [gameBoard['1'], gameBoard['2'], gameBoard['3']]
@@ -158,7 +157,7 @@ class Fun(commands.Cog):
             await ctx.send(playerTwo.display_name +" has won the game!")
         else:
             await ctx.send("Nobody won!")
-            return
+
         self.sessions.remove(ctx.message.channel.id)
         return
 
