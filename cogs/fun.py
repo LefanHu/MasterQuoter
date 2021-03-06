@@ -5,6 +5,7 @@ from lib.utils import Utils
 from lib.db import db
 from os.path import basename
 import random
+import discord
 
 
 class Fun(commands.Cog):
@@ -12,11 +13,13 @@ class Fun(commands.Cog):
         self.bot = bot
         self.sessions = []
 
-    @commands.command(hidden=True, aliases=["tic"])
-    @commands.is_owner()
-    async def tictactoe(self, ctx):
+    @commands.command(aliases=["tic"])
+    @commands.cooldown(1, 15, commands.BucketType.user)
+    async def tictactoe(self, ctx, playerTwo: discord.Member):
         """
-        Simple tictactoe game in progress, currently not usable
+        Simple tictactoe game. Play with your friends!
+        This one was created by @Alex3000, there may be an
+        easter egg version made by @Cuddles
 
         **Examples:**
             - mq>tictactoe user (ping player you want to play against)
@@ -52,23 +55,21 @@ class Fun(commands.Cog):
         }
 
         initial_board = f"""
-{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
------+-----+-----
-{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
------+-----+-----
-{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+{gameBoard['7']}{gameBoard['8']}{gameBoard['9']}
+{gameBoard['4']}{gameBoard['5']}{gameBoard['6']}
+{gameBoard['1']}{gameBoard['2']}{gameBoard['3']}
         """
 
         message = await ctx.send(initial_board)
 
         def isCorrectPlayer(msg):
-            if ctx.message.author == msg.author:
-                return True
-                # Check if player is equivalent to current player
+            if currPlayer == "X":
+                if msg.author == ctx.message.author:
+                    return True
+            else:
+                if msg.author == playerTwo:
+                    return True
             return False
-
-        def winCondition():
-            pass
 
         while not finished:
             try:
@@ -89,54 +90,45 @@ class Fun(commands.Cog):
                         await ctx.send("You didn't put in a number. ")
                 correct = False
                 if currPlayer == "X":
-                    gameBoard[move.content] = "🇽"
+                    gameBoard[move.content] = "❎"
                 else:
                     gameBoard[move.content] = "🅾️"
                 takenCells.append(move.content)
 
-                # await move.delete()
                 await message.edit(
                     content=f"""
-{gameBoard['7']}  |  {gameBoard['8']}  |  {gameBoard['9']}
------+-----+-----
-{gameBoard['4']}  |  {gameBoard['5']}  |  {gameBoard['6']}
------+-----+-----
-{gameBoard['1']}  |  {gameBoard['2']}  |  {gameBoard['3']}
+{gameBoard['7']}{gameBoard['8']}{gameBoard['9']}
+{gameBoard['4']}{gameBoard['5']}{gameBoard['6']}
+{gameBoard['1']}{gameBoard['2']}{gameBoard['3']}
 """
                 )
                 count += 1
-
+                await move.delete()
                 topRow = [gameBoard["7"], gameBoard["8"], gameBoard["9"]]
                 midRow = [gameBoard["4"], gameBoard["5"], gameBoard["6"]]
                 botRow = [gameBoard["1"], gameBoard["2"], gameBoard["3"]]
                 for i in range(0, 3):
                     if topRow[i] == midRow[i] == botRow[i]:
-                        await ctx.send("Working")
                         winner = currPlayer
                         finished = True
                         break
                     elif topRow.count(topRow[i]) == len(topRow):
-                        await ctx.send("Row working")
                         winner = currPlayer
                         finished = True
                         break
                     elif midRow.count(midRow[i]) == len(midRow):
-                        await ctx.send("Row working")
                         winner = currPlayer
                         finished = True
                         break
                     elif botRow.count(botRow[i]) == len(botRow):
-                        await ctx.send("Row working")
                         winner = currPlayer
                         finished = True
                         break
                     elif topRow[0] == midRow[1] == botRow[2]:
-                        await ctx.send("Diagonal working")
                         winner = currPlayer
                         finished = True
                         break
                     elif topRow[2] == midRow[1] == botRow[0]:
-                        await ctx.send("Diagonal working")
                         winner = currPlayer
                         finished = True
                         break
@@ -156,7 +148,15 @@ class Fun(commands.Cog):
                 finished = True
                 self.sessions.remove(ctx.message.channel.id)
                 return
-        await ctx.send("The winner is the player with: " + winner)
+        if winner == "X":
+            await ctx.send(ctx.message.author.display_name + " has won the game!")
+        elif winner == "O":
+            await ctx.send(playerTwo.display_name + " has won the game!")
+        else:
+            await ctx.send("Nobody won!")
+
+        self.sessions.remove(ctx.message.channel.id)
+        return
 
     @commands.command(aliases=["gs"], brief="Fun little guessing game!")
     @commands.cooldown(1, 3, commands.BucketType.user)
