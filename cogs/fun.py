@@ -6,12 +6,15 @@ from lib.db import db
 from os.path import basename
 import random
 import discord
+import re
+from lib.utils import Utils
 
 
 class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.sessions = []
+        self.utils = Utils()
 
     @commands.command(aliases=["tic"])
     @commands.cooldown(1, 15, commands.BucketType.user)
@@ -265,6 +268,43 @@ class Fun(commands.Cog):
                     f"You took too long to guess. You now have {attempts} guesses."
                 )
         self.sessions.remove(ctx.message.channel.id)
+
+    @commands.command()
+    async def hangman(self, ctx):
+
+        # getting quoted members from server in database
+        member_ids = db.servers.find_one(
+            {"_id": ctx.guild.id}, {"_id": 0, "quoted_member_ids": 1}
+        )["quoted_member_ids"]
+
+        # getting quotes from listed users in database
+        cursor = db.users.find(
+            {"_id": {"$in": member_ids}},
+            {
+                "_id": 0,
+                "quotes": 1,
+            },
+        )
+
+        quotes = []
+        quote_sections = list(cursor)
+        for quote_section in quote_sections:
+            for quote in quote_section["quotes"]:
+                if quote["server_id"] == ctx.message.guild.id:
+                    quotes.append(quote)
+
+        if not quotes:  # ensures quote is not None
+            await ctx.send("There are no quotes")
+            return
+        else:
+            quote = random.choice(quotes)
+
+        await ctx.send(quote["msg"][0])
+
+        hiddenString = re.sub('[a-z]' ,'-',quote["msg"][0])
+        hiddenString = re.sub('[A-Z]' ,'-',hiddenString)
+
+        await ctx.send("```"+hiddenString+"```")
 
     @commands.Cog.listener()
     async def on_ready(self):
