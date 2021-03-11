@@ -1,3 +1,4 @@
+from discord import channel
 from discord.ext import commands
 import os
 
@@ -24,6 +25,14 @@ class Owner(commands.Cog):
     @commands.command(hidden=True)
     async def clear(self, ctx, amount=1):
         await ctx.channel.purge(limit=amount)
+
+    @commands.command(hidden=True)
+    async def send_to(self, ctx, channel_id: int, *, msg):
+        channel = self.bot.get_channel(channel_id)
+        if not channel:
+            await ctx.send("Could not get that channel.")
+            return
+        await channel.send(msg)
 
     @commands.Cog.listener()
     async def on_ready(self):
