@@ -269,7 +269,8 @@ class Fun(commands.Cog):
                 )
         self.sessions.remove(ctx.message.channel.id)
 
-    @commands.command()
+    @commands.command(hidden=True)
+    @commands.is_owner
     async def hangman(self, ctx):
 
         # getting quoted members from server in database
@@ -301,10 +302,10 @@ class Fun(commands.Cog):
 
         await ctx.send(quote["msg"][0])
 
-        hiddenString = re.sub('[a-z]' ,'-',quote["msg"][0])
-        hiddenString = re.sub('[A-Z]' ,'-',hiddenString)
+        hiddenString = re.sub("[a-z]", "-", quote["msg"][0])
+        hiddenString = re.sub("[A-Z]", "-", hiddenString)
 
-        await ctx.send("```"+hiddenString+"```")
+        await ctx.send("```" + hiddenString + "```")
 
     @commands.Cog.listener()
     async def on_ready(self):
