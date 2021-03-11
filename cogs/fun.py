@@ -270,7 +270,7 @@ class Fun(commands.Cog):
         self.sessions.remove(ctx.message.channel.id)
 
     @commands.command(hidden=True)
-    @commands.is_owner
+    @commands.is_owner()
     async def hangman(self, ctx):
 
         # getting quoted members from server in database
