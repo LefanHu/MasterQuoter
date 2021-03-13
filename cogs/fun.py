@@ -307,6 +307,24 @@ class Fun(commands.Cog):
 
         await ctx.send("```" + hiddenString + "```")
 
+
+    @commands.command(aliases=["c4"])
+    async def connectFour(self, ctx):
+
+        nrows=6
+        ncols=7
+
+        gameBoard = []
+        for i in range(nrows):
+            row = []
+            for j in range(ncols):
+                row.append(j)
+            gameBoard.append(row)
+            await ctx.send(gameBoard[i])
+
+
+
+
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
