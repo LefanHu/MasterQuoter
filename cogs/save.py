@@ -186,6 +186,7 @@ class Save(commands.Cog):
 
         quote = {
             "msg": msg,
+            "public": False,
             "name": user.name,
             "display_name": user.display_name,
             "avatar_url": str(user.avatar_url),
