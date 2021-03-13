@@ -35,7 +35,6 @@ class Read(commands.Cog):
         https://cdn.discordapp.com/attachments/795405783155343365/814894523645427722/unknown.png
         """
         guild_id = ctx.guild.id
-        message_id = int(message_id)
 
         quoted_member_ids = db.servers.find_one(
             {"_id": guild_id}, {"quoted_member_ids": 1}

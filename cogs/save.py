@@ -414,7 +414,6 @@ class Save(commands.Cog):
             "quoted_member_ids": [],
         }
         db.servers.insert_one(server)
-        print(f" {server['server_name']} has joined us!")
 
     def new_user(self, user):
         user = {

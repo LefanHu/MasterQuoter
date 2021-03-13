@@ -45,10 +45,12 @@ class About(commands.Cog):
     async def on_guild_join(self, guild):
         self.tracked_statuses["server_count"] += 1
         self.tracked_statuses["servers_joined"] += 1
+        print(f" {guild.name} has joined us!")
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
         self.tracked_statuses["server_count"] -= 1
+        print(f" {guild.name} has left us!")
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
@@ -168,6 +170,7 @@ class About(commands.Cog):
     @update_stats.before_loop
     async def before_update_stats(self):
         await self.bot.wait_until_ready()
+        print("Stat tracking started")
 
     @update_stats.after_loop
     async def on_update_stats_cancel(self):
