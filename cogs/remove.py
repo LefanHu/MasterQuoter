@@ -83,9 +83,12 @@ class Remove(commands.Cog):
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/815988551866384434/unknown.png
         """
-        quotes = db.users.find_one({"_id": user.id}, {"_id": 0, "quotes": 1})["quotes"]
-        if not quotes:
-            await ctx.send("There are no quotes from this user")
+        try:  # get all quotes from that user
+            quotes = db.users.find_one({"_id": user.id}, {"_id": 0, "quotes": 1})[
+                "quotes"
+            ]
+        except TypeError:  # no quotes whatsoever
+            return
 
         # stripping all quotes from guild
         stripped_quotes = []
