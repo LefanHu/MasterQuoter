@@ -307,12 +307,12 @@ class Fun(commands.Cog):
 
         await ctx.send("```" + hiddenString + "```")
 
-
-    @commands.command(aliases=["c4"])
+    @commands.command(hidden=True, aliases=["c4"])
+    @commands.is_owner()
     async def connectFour(self, ctx):
 
-        rows=6
-        cols=7
+        rows = 6
+        cols = 7
 
         gameBoard = []
         for i in range(rows):
@@ -321,10 +321,9 @@ class Fun(commands.Cog):
                 row.append("🔳")
             gameBoard.append(row)
 
-
-        await ctx.send('\n\n'.join(['\t'.join([str(cell) for cell in row]) for row in gameBoard]))
-
-
+        await ctx.send(
+            "\n\n".join(["\t".join([str(cell) for cell in row]) for row in gameBoard])
+        )
 
     @commands.Cog.listener()
     async def on_ready(self):
