@@ -1,4 +1,4 @@
-from discord import channel
+from discord import Game
 from discord.ext import commands
 import os
 
@@ -33,6 +33,18 @@ class Owner(commands.Cog):
             await ctx.send("Could not get that channel.")
             return
         await channel.send(msg)
+
+    @commands.command(name="aset", hidden=True)
+    async def activity_set(self, ctx, *, status):
+        """
+        Sets a custom activity for the bot.
+
+        **Examples:**
+            - mq>aset `Activity message`
+
+        Example Usage:
+        """
+        await self.bot.change_presence(activity=Game(name=status))
 
     @commands.Cog.listener()
     async def on_ready(self):
