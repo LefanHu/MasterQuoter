@@ -88,17 +88,21 @@ class Remove(commands.Cog):
                 "quotes"
             ]
         except TypeError:  # no quotes whatsoever
+            await ctx.send(f"{0} quotes removed.")
             return
 
         # stripping all quotes from guild
+        numRemoved = 0
         stripped_quotes = []
         for quote in quotes:
             if quote["server_id"] == ctx.guild.id:
+                numRemoved += 1
                 pass
             else:
                 stripped_quotes.append(quote)
 
         db.users.update_one({"_id": user.id}, {"$set": {"quotes": stripped_quotes}})
+        await ctx.send(f"{numRemoved} quote(s) removed.")
 
     @commands.Cog.listener()
     async def on_ready(self):
