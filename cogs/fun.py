@@ -311,17 +311,18 @@ class Fun(commands.Cog):
     @commands.command(aliases=["c4"])
     async def connectFour(self, ctx):
 
-        nrows=6
-        ncols=7
+        rows=6
+        cols=7
 
         gameBoard = []
-        for i in range(nrows):
+        for i in range(rows):
             row = []
-            for j in range(ncols):
-                row.append(j)
+            for j in range(cols):
+                row.append("🔳")
             gameBoard.append(row)
-            await ctx.send(gameBoard[i])
 
+
+        await ctx.send('\n\n'.join(['\t'.join([str(cell) for cell in row]) for row in gameBoard]))
 
 
 
