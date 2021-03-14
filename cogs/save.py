@@ -275,19 +275,26 @@ class Save(commands.Cog):
                 "raw_reaction_add", check=is_user, timeout=60.0
             )
 
+            # reactions were not added correctly
+            if reaction_one.channel_id != reaction_two.channel_id:
+                await ctx.send("Reactions need to be specified in the same channel")
+                return
+            else:
+                channel = self.bot.get_channel(reaction_one.channel_id)
+
             # removes reactions to provide feedback snip was taken
-            message_one = await ctx.channel.fetch_message(reaction_one.message_id)
-            message_two = await ctx.channel.fetch_message(reaction_two.message_id)
+            message_one = await channel.fetch_message(reaction_one.message_id)
+            message_two = await channel.fetch_message(reaction_two.message_id)
             await message_one.remove_reaction(reaction_one.emoji, user)
             await message_two.remove_reaction(reaction_two.emoji, user)
 
             msg_ids = [reaction_one.message_id, reaction_two.message_id]
             if set(msg_ids) == {reaction_one.message_id}:  # same message
-                msg = await ctx.channel.fetch_message(reaction_one.message_id)
+                msg = await channel.fetch_message(reaction_one.message_id)
                 await self.quote(ctx, msg.author, msg=msg.clean_content)
                 return
             else:  # multiple messages
-                messages = await ctx.channel.history(limit=lines).flatten()
+                messages = await channel.history(limit=lines).flatten()
                 msgs = []
                 snippet = False
                 for indx, message in enumerate(messages):
