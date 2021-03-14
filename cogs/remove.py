@@ -10,8 +10,10 @@ class Remove(commands.Cog):
         self.bot = bot
 
     async def cog_check(self, ctx):
-        settings = db.servers.find_one({"_id": ctx.guild.id}, {"quoted_member_ids": 0})
-        # check user has the masterquoter role here if implemented
+        settings = db.servers.find_one(
+            {"_id": ctx.guild.id}, {"quoted_member_ids": 0, "snips": 0}
+        )
+        # check if user has the masterquoter role here (if implemented)
 
         allowed = True
         if not settings["whitelist"] and not settings["blacklist"]:
@@ -101,8 +103,21 @@ class Remove(commands.Cog):
             else:
                 stripped_quotes.append(quote)
 
+        # update the user's quotes
         db.users.update_one({"_id": user.id}, {"$set": {"quotes": stripped_quotes}})
         await ctx.send(f"{numRemoved} quote(s) removed.")
+
+    # cleans up servers from database that never used the bot
+    @commands.Cog.listener()
+    async def on_guild_remove(self, guild):
+        # if no quotes and no members were saved
+        server = db.servers.find_one(
+            {"_id": guild.id}, {"snips": 1, "quoted_member_ids": 1}
+        )
+
+        # no snippet or quote was ever saved, so remove it
+        if len(server["quoted_member_ids"]) + len(server["snips"]) == 0:
+            db.servers.find_one_and_delete({"_id": guild.id})
 
     @commands.Cog.listener()
     async def on_ready(self):

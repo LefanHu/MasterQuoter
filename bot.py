@@ -1,6 +1,6 @@
 from asyncio import sleep
 
-from discord import DMChannel, Embed, Intents, Game
+from discord import DMChannel, Embed, Intents
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import Context
 from discord.ext.commands import when_mentioned_or
@@ -103,11 +103,6 @@ class Bot(BotBase):
             print("Now online!")
             self.ready = True
             print("bot ready")
-
-            # sets the bot status
-            await self.change_presence(
-                activity=Game(name=f"on {len(self.guilds)} servers | mq>help")
-            )
 
         else:
             print("bot reconnected")
