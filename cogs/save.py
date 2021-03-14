@@ -252,6 +252,7 @@ class Save(commands.Cog):
         **Note:**
             - If the selected messages contains multiple authors, it is saved as a `server snippet`.
             - If the selected messages only contain one author, it is saved as a `quote`
+            - This command does not have to be invoked in the same channel as where the message you wanted to save is.
 
         Example Usage:
         https://cdn.discordapp.com/attachments/795405783155343365/816033665129250816/unknown.png

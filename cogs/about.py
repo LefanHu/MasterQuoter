@@ -103,7 +103,7 @@ class About(commands.Cog):
         {prefix}help `[command_name]` only works on the full length name of the command, shorter aliases will not work.
 
         **SAVING QUOTES/SNIPS**
-            - `snip`, `quote`, `qlast`, `save_snip`
+            - `snip`, `quote`, `qlast`
         **REMOVING QUOTES/SNIPS**
             - `remove`, `rm_all`
         **DISPLAYING QUOTES/SNIPS**

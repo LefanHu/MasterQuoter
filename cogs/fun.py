@@ -16,7 +16,7 @@ class Fun(commands.Cog):
         self.sessions = []
         self.utils = Utils()
 
-    @commands.command(aliases=["tic"])
+    @commands.command(aliases=["tic"], brief="The name is pretty self explanatory")
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def tictactoe(self, ctx, playerTwo: discord.Member):
         """
