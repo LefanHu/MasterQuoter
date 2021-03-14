@@ -111,6 +111,11 @@ body {
   grid-template-columns: 1fr 1fr;
 }
 
+.three-column-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .profile-image-wrapper img {
   width: 80%;
 
