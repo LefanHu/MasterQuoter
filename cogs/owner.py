@@ -46,6 +46,10 @@ class Owner(commands.Cog):
         """
         await self.bot.change_presence(activity=Game(name=status))
 
+    @commands.command(hidden=True)
+    async def servers(self, ctx):
+        await ctx.send(", ".join([guild.name for guild in self.bot.guilds][:2000]))
+
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
