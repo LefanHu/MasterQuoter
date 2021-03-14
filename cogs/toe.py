@@ -19,6 +19,9 @@ class Toe(commands.Cog):
         **Examples:**
             - mq>toe user (ping player you want to play against)
 
+        **Note:**
+            - stop (while game is active)
+
         Example Usage:
         """
         board = [["1️⃣", "2️⃣", "3️⃣"], ["4️⃣", "5️⃣", "6️⃣"], ["7️⃣", "8️⃣", "9️⃣"]]
@@ -64,6 +67,8 @@ class Toe(commands.Cog):
         def check(msg):
             if msg.author.id != player.id:
                 return False
+            elif msg.content == "stop":
+                return True
             elif not msg.content.isdigit():
                 return False
             elif int(msg.content) in taken_positions:
@@ -84,6 +89,9 @@ class Toe(commands.Cog):
                     move = await self.bot.wait_for("message", check=check, timeout=30.0)
                 except TimeoutError:
                     await ctx.send("You took too long, the game is over.")
+                    return
+                if move.content == "stop":
+                    await ctx.send("Game stopped")
                     return
                 taken_positions.append(int(move.content))
                 row = math.floor(int(move.content) / 3.1)
