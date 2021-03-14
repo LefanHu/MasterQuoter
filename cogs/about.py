@@ -47,10 +47,18 @@ class About(commands.Cog):
         self.tracked_statuses["servers_joined"] += 1
         print(f" {guild.name} has joined us!")
 
+        # sends message that new server was added
+        channel = self.bot.get_channel(self.bot.log_channel)
+        await channel.send(f"{guild.name} has joined us!")
+
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
         self.tracked_statuses["server_count"] -= 1
         print(f" {guild.name} has left us!")
+
+        # sends message that server was removed
+        channel = self.bot.get_channel(self.bot.log_channel)
+        await channel.send(f"{guild.name} has removed us!")
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
