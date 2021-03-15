@@ -52,6 +52,15 @@ body {
   color: black;
 }
 
+.commands-section-wrapper{
+  background-color:black;
+  position: relative;
+  padding-left:100px;
+}
+.profile-title-wrapper h1 {
+  color: orange;
+}
+
 .commands-items-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -60,6 +69,7 @@ body {
 .commands-item-wrapper {
   position: relative;
 }
+
 
 .commands-img-background {
   background-size: cover;
