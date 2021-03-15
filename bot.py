@@ -45,12 +45,12 @@ class Bot(BotBase):
         self.cogs_ready = Ready()
 
         self.guild = None
-        self.log_channel = 795405783155343365
+        self.log_channel = 820804213491367936
         self.permissions = 1879960784
         self.developers = OWNER_IDS
         self.invite_link = "https://discord.com/api/oauth2/authorize?client_id=795756832164413500&permissions=335936592&scope=bot"
 
-        # banlist can also go here
+        # server banlist can also go here
 
         super().__init__(
             command_prefix=get_prefix, owner_ids=OWNER_IDS, intents=Intents.all()
