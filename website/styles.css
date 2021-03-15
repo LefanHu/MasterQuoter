@@ -65,6 +65,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
   height: 350px;
   width: 100%;
 }
@@ -77,9 +78,9 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
   text-align: center;
-  padding-left: 230px;
-  padding-right: 230px;
+
 }
 
 .img-text-wrapper .subtitle {
