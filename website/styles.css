@@ -94,6 +94,8 @@ body {
 }
 
 .img-text-wrapper .subtitle {
+
+  position:absolute;
   transition: 1s;
   color: transparent;
 }
