@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>Commands Homepage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav-wrapper">
+      <div class="left-side">
+        <div class="nav-link-wrapper">
+          <a href="index.html">Home</a>
+        </div>
+
+        <div class="nav-link-wrapper">
+          <a href="about.html">About</a>
+        </div>
+
+        <div class="nav-link-wrapper active-nav-link">
+          <a href="commands.html">Commands</a>
+        </div>
+      </div>
+
+      <div class="right-side">
+        <div class="brand">
+          MasterQuoter
+        </div>
+      </div>
+    </div>
+    <div class="content-wrapper">
+      <div class="commands-items-wrapper">
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/help.jpg)"></div>
+
+          <div class="img-text-wrapper">
+            <div class="imgfade">
+              <div class="logo-wrapper">
+                  <img src="images/logos/help.png" alt="">
+              </div>
+            </div>
+
+            <div class="subtitle">If you ever need any help, just use the help command, and it will display all of the help items for you!</div>
+
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="imgfade">
+              <div class="logo-wrapper">
+                  <img src="images/logos/tictactoe.png" alt="">
+              </div>
+            </div>
+
+            <div class="subtitle">The tictactoe command is simply a fun command for you and your friends to enjoy!</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Placeholder</div>
+          </div>
+        </div>
+
+        <div class="commands-item-wrapper">
+          <div class="commands-img-background" style="background-image:url(images/tictactoe.jpg)"></div>
+          <div class="img-text-wrapper">
+            <div class="logo-wrapper">
+              <img src="images/logos/tictactoe.png" alt="">
+            </div>
+
+            <div class="subtitle">Easy way to manage the digital life of your bar or restaurant.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  const commandsItems = document.querySelectorAll('.commands-item-wrapper');
+
+  commandsItems.forEach(commandsItem => {
+    commandsItem.addEventListener('mouseover', () => {
+      console.log(commandsItem.childNodes[1].classList)
+      commandsItem.childNodes[1].classList.add('image-blur');
+    });
+
+    commandsItem.addEventListener('mouseout', () => {
+      console.log(commandsItem.childNodes[1].classList)
+      commandsItem.childNodes[1].classList.remove('image-blur');
+    });
+  });
+
+</script>
