@@ -52,6 +52,10 @@ body {
   color: black;
 }
 
+.nav-link-wrapper .special-link a{
+  color: blue;
+}
+
 .commands-section-wrapper{
   background-color:black;
   position: relative;
@@ -94,7 +98,6 @@ body {
 }
 
 .img-text-wrapper .subtitle {
-
   position:absolute;
   transition: 1s;
   color: transparent;
