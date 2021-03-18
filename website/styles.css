@@ -102,6 +102,14 @@ body {
   transition: 1s;
   color: transparent;
 }
+.command-title h1{
+    color: lightseagreen;
+    font-size: 80px;
+}
+.command-title:hover .text-fade {
+  transition: 1s;
+  opacity: 100;
+}
 
 .image-blur {
   transition: 1s;
@@ -117,10 +125,14 @@ body {
   width: 50%;
   margin-bottom: 20px;
 }
-.img-text-wrapper:hover .imgfade {
+.img-text-wrapper:hover .img-fade {
   transition: 1s;
-  opacity: 0
+  opacity: 0;
 }
+
+
+
+
 
 .two-column-wrapper {
   display: grid;
