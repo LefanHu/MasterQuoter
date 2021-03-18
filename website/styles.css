@@ -94,8 +94,8 @@ body {
   color: transparent;
 }
 .command-title h1{
-    color: lightseagreen;
-    font-size: 1vw;
+  color: lightseagreen;
+  font-size: 1vw;
 }
 
 .image-blur {
@@ -150,7 +150,9 @@ body {
 .dropdown .basicbtn {
   cursor: pointer;
   font-size: 40px;
-  border: none;
+  border-style: solid;
+  border-color: yellow;
+  border-radius: 25px;
   outline: none;
   color: orange;
   padding: 14px 16px;
@@ -162,7 +164,9 @@ body {
 .dropdown .savebtn {
   cursor: pointer;
   font-size: 40px;
-  border: none;
+  border-style: solid;
+  border-color: yellow;
+  border-radius: 25px;
   outline: none;
   color: orange;
   padding: 14px 16px;

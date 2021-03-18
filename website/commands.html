@@ -36,7 +36,7 @@
     </div>
 
       <div class="dropdown">
-        <button class="basicbtn" id=" basic" onclick="myFunction()">
+        <button class="basicbtn" id="basic" onclick="basicbtn()">
             Basic Commands >
         </button>
         <div class="dropdown-content" id="basicDrop">
@@ -86,7 +86,7 @@
     </div>
 
     <div class="dropdown">
-      <button class="savebtn" onclick="myFunction()">
+      <button class="savebtn" id = "save" onclick="savebtn()">
           Quote Saving Commands >
 
       </button>
@@ -214,6 +214,8 @@
   </div>
 </body>
 <script>
+  var basicbool = false;
+  var savebool = false;
   const commandsItems = document.querySelectorAll('.commands-item-wrapper');
 
   commandsItems.forEach(commandsItem => {
@@ -229,11 +231,35 @@
   });
 
   // Toggle showing / not showing
-  function myFunction() {
+  function basicbtn() {
+
     document.getElementById("basicDrop").classList.toggle("show");
-    document.getElementById("saveDrop").classList.toggle("show");
+    basicbool = basicbool != true;
+    if(basicbool == true){
+      document.getElementById("basic").innerHTML=
+     "Basic Commands v";
+    }
+    else{
+      document.getElementById("basic").innerHTML=
+     "Basic Commands >";
+    }
 
   }
+  function savebtn() {
+
+    document.getElementById("saveDrop").classList.toggle("show");
+    savebool = savebool != true;
+    if(savebool == true){
+      document.getElementById("save").innerHTML=
+     "Quote Saving Commands v";
+    }
+    else{
+      document.getElementById("save").innerHTML=
+     "Quote Saving Commands >";
+    }
+
+  }
+
 
   window.onclick = function(e) {
     if (!e.target.matches('.basicbtn')) {
@@ -241,6 +267,7 @@
       if (basicDrop.classList.contains('show')) {
         basicDrop.classList.remove('show');
       }
+
     }
     else if (!e.target.matches('.savebtn')) {
     var saveDrop = document.getElementById("saveDrop");
