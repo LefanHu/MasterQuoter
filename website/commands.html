@@ -36,7 +36,7 @@
     </div>
 
       <div class="dropdown">
-        <button class="basicbtn" id="basic" onclick="basicbtn()">
+        <button class="dropbtn" id="basic" onclick="menuClick()">
             Basic Commands &gt;
         </button>
         <div class="dropdown-content" id="basicDrop">
@@ -86,7 +86,7 @@
     </div>
 
     <div class="dropdown">
-      <button class="savebtn" id = "save" onclick="basicbtn()">
+      <button class="dropbtn" id = "save" onclick="menuClick()">
           Quote Saving Commands >
 
       </button>
@@ -231,9 +231,8 @@
   });
 
   // Toggle showing / not showing
-  function basicbtn() {
+  function menuClick() {
     var dropstring = event.srcElement.id + "Drop";
-
 
     document.getElementById(dropstring).classList.toggle("show");
 

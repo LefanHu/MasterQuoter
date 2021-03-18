@@ -147,7 +147,7 @@ body {
   float: left;
   overflow: hidden;
 }
-.dropdown .basicbtn {
+.dropdown .dropbtn {
   cursor: pointer;
   font-size: 40px;
   border-style: solid;
@@ -161,21 +161,6 @@ body {
   font-weight: bold;
   margin: 0;
 }
-.dropdown .savebtn {
-  cursor: pointer;
-  font-size: 40px;
-  border-style: solid;
-  border-color: yellow;
-  border-radius: 25px;
-  outline: none;
-  color: orange;
-  padding: 14px 16px;
-  background-color: black;
-  font-family: inherit;
-  font-weight: bold;
-  margin: 0;
-}
-
 
 .dropdown-content {
   display: none;
