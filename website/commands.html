@@ -37,7 +37,7 @@
 
       <div class="dropdown">
         <button class="basicbtn" id="basic" onclick="basicbtn()">
-            Basic Commands >
+            Basic Commands &gt;
         </button>
         <div class="dropdown-content" id="basicDrop">
         <div class="commands-items-wrapper">
@@ -86,7 +86,7 @@
     </div>
 
     <div class="dropdown">
-      <button class="savebtn" id = "save" onclick="savebtn()">
+      <button class="savebtn" id = "save" onclick="basicbtn()">
           Quote Saving Commands >
 
       </button>
@@ -232,34 +232,23 @@
 
   // Toggle showing / not showing
   function basicbtn() {
+    var dropstring = event.srcElement.id + "Drop";
 
-    document.getElementById("basicDrop").classList.toggle("show");
-    basicbool = basicbool != true;
-    if(basicbool == true){
-      document.getElementById("basic").innerHTML=
-     "Basic Commands v";
+
+    document.getElementById(dropstring).classList.toggle("show");
+
+    var change = document.getElementById(event.srcElement.id).innerHTML;
+
+    if(change.includes("&gt;")){
+      change = change.replace("&gt;"," v");
+      document.getElementById(event.srcElement.id).innerHTML=change;
     }
     else{
-      document.getElementById("basic").innerHTML=
-     "Basic Commands >";
+      change = change.replace("v"," &gt;");
+      document.getElementById(event.srcElement.id).innerHTML=change;
     }
 
   }
-  function savebtn() {
-
-    document.getElementById("saveDrop").classList.toggle("show");
-    savebool = savebool != true;
-    if(savebool == true){
-      document.getElementById("save").innerHTML=
-     "Quote Saving Commands v";
-    }
-    else{
-      document.getElementById("save").innerHTML=
-     "Quote Saving Commands >";
-    }
-
-  }
-
 
 
 
