@@ -34,14 +34,14 @@
         </div>
       </div>
     </div>
-    <div class="content-wrapper">
-      <div class="commands-section-wrapper">
-        <div class="profile-title-wrapper">
-          <h1>Basic Commands<h1>
-        </div>
-      </div>
-      <div class="commands-items-wrapper">
-        <div class="commands-item-wrapper">
+
+      <div class="dropdown">
+        <button class="basicbtn" id=" basic" onclick="myFunction()">
+            Basic Commands >
+        </button>
+        <div class="dropdown-content" id="basicDrop">
+        <div class="commands-items-wrapper">
+          <div class="commands-item-wrapper">
           <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
           <div class="img-text-wrapper">
             <div class="fade">
@@ -53,6 +53,7 @@
               <div class="subtitle">If you ever need any help, just use the help command, and it will display all of the help items for you!</div>
           </div>
         </div>
+
 
 
         <div class="commands-item-wrapper">
@@ -81,12 +82,15 @@
           </div>
         </div>
       </div>
+    </div>
+    </div>
 
-      <div class="commands-section-wrapper">
-        <div class="profile-title-wrapper">
-          <h1>Quote Saving Commands<h1>
-        </div>
-      </div>
+    <div class="dropdown">
+      <button class="savebtn" onclick="myFunction()">
+          Quote Saving Commands >
+
+      </button>
+      <div class="dropdown-content" id="saveDrop">
       <div class="commands-items-wrapper">
         <div class="commands-item-wrapper">
           <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
@@ -204,7 +208,9 @@
               <div class="subtitle">Placeholder text.</div>
           </div>
         </div>
+
       </div>
+    </div>
   </div>
 </body>
 <script>
@@ -221,5 +227,30 @@
       commandsItem.childNodes[1].classList.remove('image-blur');
     });
   });
+
+  // Toggle showing / not showing
+  function myFunction() {
+    document.getElementById("basicDrop").classList.toggle("show");
+    document.getElementById("saveDrop").classList.toggle("show");
+
+  }
+
+  window.onclick = function(e) {
+    if (!e.target.matches('.basicbtn')) {
+    var basicDrop = document.getElementById("basicDrop");
+      if (basicDrop.classList.contains('show')) {
+        basicDrop.classList.remove('show');
+      }
+    }
+    else if (!e.target.matches('.savebtn')) {
+    var saveDrop = document.getElementById("saveDrop");
+      if (saveDrop.classList.contains('show')) {
+        saveDrop.classList.remove('show');
+      }
+    }
+
+  }
+
+
 
 </script>

@@ -128,8 +128,6 @@ body {
 
 
 
-
-
 .two-column-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -151,4 +149,61 @@ body {
 
 .profile-content-wrapper h1 {
   color: lightseagreen;
+}
+
+.dropdown {
+  background-color: black;
+  float: left;
+  overflow: hidden;
+}
+.dropdown .basicbtn {
+  cursor: pointer;
+  font-size: 40px;
+  border: none;
+  outline: none;
+  color: orange;
+  padding: 14px 16px;
+  background-color: black;
+  font-family: inherit;
+  font-weight: bold;
+  margin: 0;
+}
+.dropdown .savebtn {
+  cursor: pointer;
+  font-size: 40px;
+  border: none;
+  outline: none;
+  color: orange;
+  padding: 14px 16px;
+  background-color: black;
+  font-family: inherit;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: relative;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
 }
