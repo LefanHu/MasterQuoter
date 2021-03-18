@@ -106,10 +106,6 @@ body {
     color: lightseagreen;
     font-size: 80px;
 }
-.command-title:hover .text-fade {
-  transition: 1s;
-  opacity: 100;
-}
 
 .image-blur {
   transition: 1s;
@@ -125,7 +121,7 @@ body {
   width: 50%;
   margin-bottom: 20px;
 }
-.img-text-wrapper:hover .img-fade {
+.img-text-wrapper:hover .fade {
   transition: 1s;
   opacity: 0;
 }
