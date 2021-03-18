@@ -87,7 +87,7 @@
 
     <div class="dropdown">
       <button class="dropbtn" id = "save" onclick="menuClick()">
-          Quote Saving Commands >
+          Quote Saving Commands &gt;
 
       </button>
       <div class="dropdown-content" id="saveDrop">
@@ -239,11 +239,11 @@
     var change = document.getElementById(event.srcElement.id).innerHTML;
 
     if(change.includes("&gt;")){
-      change = change.replace("&gt;"," v");
+      change = change.replace("&gt;","\u02C5");
       document.getElementById(event.srcElement.id).innerHTML=change;
     }
     else{
-      change = change.replace("v"," &gt;");
+      change = change.replace("\u02C5"," &gt;");
       document.getElementById(event.srcElement.id).innerHTML=change;
     }
 
