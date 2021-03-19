@@ -34,36 +34,36 @@
         </div>
       </div>
     </div>
-
+    
       <div class="dropdown">
         <button class="dropbtn" id="basic" onclick="menuClick()">
             Basic Commands &gt;
         </button>
         <div class="dropdown-content" id="basicDrop">
-        <div class="commands-items-wrapper">
-          <div class="commands-item-wrapper">
-          <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-          <div class="img-text-wrapper">
-            <div class="fade">
-              <div class="command-title">
-                <h1>HELP</h1>
-              </div>
-            </div>
+          <div class="commands-items-wrapper">
+            <div class="commands-item-wrapper">
+              <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                <div class="img-text-wrapper">
+                  <div class="fade">
+                    <div class="command-title">
+                      <h1>HELP</h1>
+                    </div>
+                  </div>
 
-              <div class="subtitle">If you ever need any help, just use the help command, and it will display all of the help items for you!</div>
+                  <div class="subtitle">If you ever need any help, just use the help command, and it will display all of the help items for you!</div>
+              </div>
           </div>
-        </div>
 
 
 
         <div class="commands-item-wrapper">
           <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-          <div class="img-text-wrapper">
-            <div class="fade">
-              <div class="command-title">
-                <h1>INVITE</h1>
+            <div class="img-text-wrapper">
+              <div class="fade">
+                <div class="command-title">
+                  <h1>INVITE</h1>
+                </div>
               </div>
-            </div>
 
               <div class="subtitle">Just a simple invite link. It's on the top navigation bar too!</div>
           </div>
@@ -214,8 +214,7 @@
   </div>
 </body>
 <script>
-  var basicbool = false;
-  var savebool = false;
+
   const commandsItems = document.querySelectorAll('.commands-item-wrapper');
 
   commandsItems.forEach(commandsItem => {
