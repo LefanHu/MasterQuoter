@@ -56,10 +56,10 @@
 The help menu shows a menu of commands (This will hopefully be more organized in the future).
 
 For a more organized command list... Consider using:
-    - (prefix) about (Commands organized into categories)
+- (prefix) about (Commands organized into categories)
 
 To see help for a specific command... Consider using:
-    - (prefix) help (It's actually pretty good!)
+- (prefix) help (It's actually pretty good!)
 
 Hope you enjoy our bot.
               </div>
@@ -73,11 +73,16 @@ Hope you enjoy our bot.
             <div class="img-text-wrapper">
               <div class="fade">
                 <div class="command-title">
-                  <h1>INVITE</h1>
+                  <h1>ABOUT</h1>
                 </div>
               </div>
 
-              <div class="subtitle">Just a simple invite link. It's on the top navigation bar too!</div>
+              <div class="subtitle">
+Just tells you what this bot is really about! :)
+
+Example:
+- mq>about
+              </div>
             </div>
           </div>
 
@@ -109,11 +114,23 @@ Hope you enjoy our bot.
             <div class="img-text-wrapper">
               <div class="fade">
                 <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
+                  <h1>qLast</h1>
                 </div>
               </div>
 
-              <div class="subtitle">Placeholder text.</div>
+              <div class="subtitle">
+Saves the last section of *continuous messages* from that user.
+
+section: This specifies the # of sections to pass before saving.
+
+lines: This specifies how many lines in the channel to look (max 200)
+
+Examples:
+- mq>qlast @alex3000
+- mq>qlast @alex3000 2
+- mq>qlast @alex3000 2 150
+
+              </div>
             </div>
           </div>
 
@@ -122,11 +139,24 @@ Hope you enjoy our bot.
             <div class="img-text-wrapper">
               <div class="fade">
                 <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
+                  <h1>Quote</h1>
                 </div>
               </div>
 
-              <div class="subtitle">Placeholder text.</div>
+              <div class="subtitle">
+This handy dandy command allows you to save things your friends have said!
+
+Examples:
+- mq>quote @alex3000 `MAKE UP A_RANDOM_MESSAGE IF YOU WANT` `>:)`
+- mq>qt @alex3000 `message here`
+- mq>q @alex3000 `message here`
+
+Note:
+- When the save command contains a image attachment, the command will **NOT** be deleted if delete `save commands on completion` is `enabled`.
+- This is because the image url becomes __invalid__ as soon as it is deleted.
+
+
+              </div>
             </div>
           </div>
 
@@ -135,95 +165,226 @@ Hope you enjoy our bot.
             <div class="img-text-wrapper">
               <div class="fade">
                 <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
+                  <h1>Snip</h1>
                 </div>
               </div>
 
-              <div class="subtitle">Placeholder text.</div>
-            </div>
-          </div>
+              <div class="subtitle">
 
-          <div class="commands-item-wrapper">
-            <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-            <div class="img-text-wrapper">
-              <div class="fade">
-                <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
-                </div>
+This handy dandy command allows you to save  things your friends have said!
+
+lines: This argument specifies how many messages in history will be searched
+
+Examples:
+- mq>snip
+- mq>snip 150
+- Add 2 reactions to the same message, or 2 reactions to different messages (all messages in between the two reactions will be selected).
+
+Note:
+- If the selected messages contains multiple authors, it is saved as a `server snippet`.
+- If the selected messages only contain one author, it is saved as a `quote`
+- This command does not have to be invoked in the same channel as where the message you wanted to save is.
               </div>
-
-              <div class="subtitle">Placeholder text.</div>
             </div>
           </div>
-
-          <div class="commands-item-wrapper">
-            <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-            <div class="img-text-wrapper">
-              <div class="fade">
-                <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
-                </div>
-              </div>
-
-              <div class="subtitle">Placeholder text.</div>
-            </div>
-          </div>
-
-          <div class="commands-item-wrapper">
-            <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-            <div class="img-text-wrapper">
-              <div class="fade">
-                <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
-                </div>
-              </div>
-
-              <div class="subtitle">Placeholder text.</div>
-            </div>
-          </div>
-
-          <div class="commands-item-wrapper">
-            <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-            <div class="img-text-wrapper">
-              <div class="fade">
-                <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
-                </div>
-              </div>
-
-              <div class="subtitle">Placeholder text.</div>
-            </div>
-          </div>
-
-          <div class="commands-item-wrapper">
-            <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-            <div class="img-text-wrapper">
-              <div class="fade">
-                <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
-                </div>
-              </div>
-
-              <div class="subtitle">Placeholder text.</div>
-            </div>
-          </div>
-
-          <div class="commands-item-wrapper">
-            <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
-            <div class="img-text-wrapper">
-              <div class="fade">
-                <div class="command-title">
-                  <h1>PLACEHOLDER</h1>
-                </div>
-              </div>
-
-              <div class="subtitle">Placeholder text.</div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
+
+
+        <div class="dropdown">
+          <button class="dropbtn" id="read" onclick="menuClick()">
+            Quote Reading Commands &gt;
+          </button>
+            <div class="dropdown-content" id="readDrop">
+              <div class="commands-items-wrapper">
+                <div class="commands-item-wrapper">
+                  <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                  <div class="img-text-wrapper">
+                    <div class="fade">
+                      <div class="command-title">
+                        <h1>Show Quote</h1>
+                      </div>
+                    </div>
+
+                    <div class="subtitle">
+Fetches a specific quote and displays it when provided a quote id.
+
+Examples:
+- mq>show_quote `quote_id_here`
+- mq>sq `quote_id_here`
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="commands-item-wrapper">
+                  <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                  <div class="img-text-wrapper">
+                    <div class="fade">
+                      <div class="command-title">
+                        <h1>List Quotes</h1>
+                      </div>
+                    </div>
+
+                    <div class="subtitle">
+Lists all quotes from a specified user (ping them)
+
+Examples:
+- mq>list_quotes @Cuddles#2321
+- mq>listq @Cuddles#2321
+- mq>lq @Cuddles#2321
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="commands-item-wrapper">
+                  <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                  <div class="img-text-wrapper">
+                    <div class="fade">
+                      <div class="command-title">
+                        <h1>List Snips</h1>
+                      </div>
+                    </div>
+
+                    <div class="subtitle">
+Lists all snippets saved on the server
+
+Examples:
+- mq>list_snips
+- mq>lists
+- mq>ls
+                    </div>
+                  </div>
+                </div>
+
+                <div class="commands-item-wrapper">
+                  <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                  <div class="img-text-wrapper">
+                    <div class="fade">
+                      <div class="command-title">
+                        <h1>Show Snips</h1>
+                      </div>
+                    </div>
+
+                    <div class="subtitle">
+Shows a snippet when provided an id. You can see the id of a quote/snip when it is saved, or you can find it through `lists` or `listq`.
+
+Examples:
+- mq>show_snip `snippet_id`
+- mq>ss `snippet_id`
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="commands-item-wrapper">
+                  <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                  <div class="img-text-wrapper">
+                    <div class="fade">
+                      <div class="command-title">
+                        <h1>Random</h1>
+                      </div>
+                    </div>
+
+                    <div class="subtitle">
+This command will fetch a random quote from your server and send it if __no user is specified__.
+
+If a __user is specified__, this will fetch a random quote from that user.
+
+Examples:
+- mq>random
+- mq>rand
+- mq>rand @alex3000
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="dropdown">
+            <button class="dropbtn" id="fun" onclick="menuClick()">
+             Fun Commands! &gt;
+            </button>
+              <div class="dropdown-content" id="funDrop">
+                <div class="commands-items-wrapper">
+                  <div class="commands-item-wrapper">
+                    <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                    <div class="img-text-wrapper">
+                      <div class="fade">
+                        <div class="command-title">
+                          <h1>Tictactoe</h1>
+                        </div>
+                      </div>
+
+                      <div class="subtitle">
+Simple tictactoe game. Play with your friends!
+This one was created by @Alex3000, there may be an
+easter egg version made by @Cuddles (Hint: He likes getting his toes tickled :))
+
+Examples:
+- mq>tictactoe user (ping player you want to play against)
+- mq>tic user
+
+                            </div>
+                    </div>
+                  </div>
+
+                  <div class="commands-item-wrapper">
+                    <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                    <div class="img-text-wrapper">
+                      <div class="fade">
+                        <div class="command-title">
+                          <h1>Guess</h1>
+                        </div>
+                      </div>
+
+                      <div class="subtitle">
+You ever wanna guess who said what stupid thing? This starts a game where a random quote is displayed (hiding the author of the quote) and the first person to ping the author of the quote is granted the guess.
+
+Examples:
+- mq>guess
+- mq>gs 10
+- stop (while game is active to stop game)
+
+Notes:
+- Max guesses is 10, specifying any more than 10 will default to 5 attempts.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="commands-item-wrapper">
+                    <div class="commands-img-background" style="background-image:url(images/commands.png)"></div>
+                    <div class="img-text-wrapper">
+                      <div class="fade">
+                        <div class="command-title">
+                          <h1>Anime</h1>
+                        </div>
+                      </div>
+
+                      <div class="subtitle">
+The developers of this bot like anime. Therefore this is here too.
+
+Command Group:
+- `search`, `char|character`, `trace`
+
+Examples:
+- mq>anime search `name of anime`
+- mq>jikan search `MyAnimeList_ID`
+- mq>anime character `name of character`
+- mq>jikan char `MyAnimeList_ID`
+- mq>anime trace `(attach image to trace)`
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 </body>
 <script>
   const commandsItems = document.querySelectorAll('.commands-item-wrapper');

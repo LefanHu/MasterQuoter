@@ -68,7 +68,7 @@ class Anime(commands.Cog):
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def anime(self, ctx):
         """
-        The developers of this bot likes anime. Therefore this is here too.
+        The developers of this bot like anime. Therefore this is here too.
 
         **Command Group:**
             - `search`, `char|character`, `trace`

@@ -22,7 +22,7 @@ class Fun(commands.Cog):
         """
         Simple tictactoe game. Play with your friends!
         This one was created by @Alex3000, there may be an
-        easter egg version made by @Cuddles
+        easter egg version made by @Cuddles (Hint: He likes getting his toes tickled :))
 
         **Examples:**
             - mq>tictactoe user (ping player you want to play against)
