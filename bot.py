@@ -101,7 +101,7 @@ class Bot(BotBase):
                 await sleep(0.5)
 
             # sets the bot status
-            await self.bot.change_presence(activity=Game(name=f"ping | mq>help"))
+            await self.change_presence(activity=Game(name=f"ping | mq>help"))
 
             print("Now online!")
             self.ready = True
