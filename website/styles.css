@@ -9,6 +9,7 @@ body {
 }
 
 .nav-wrapper {
+  background-color: white;
   display: flex;
   justify-content: space-between;
   padding: 38px;
@@ -89,9 +90,11 @@ body {
 }
 
 .img-text-wrapper .subtitle {
-  position:absolute;
+  position: absolute;
   transition: 1s;
   color: transparent;
+  white-space: pre-wrap;
+  text-align: center;
 }
 .command-title h1{
   color: lightseagreen;
