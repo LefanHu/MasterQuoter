@@ -7,7 +7,7 @@ import os
 class Basic(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.update_status.start()
+        # self.update_status.start()
 
     @commands.command(brief="Shows the latency of this bot")
     @commands.cooldown(1, 1, commands.BucketType.user)

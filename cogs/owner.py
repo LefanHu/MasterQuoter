@@ -70,7 +70,18 @@ class Owner(commands.Cog):
 
         Example Usage:
         """
-        await self.bot.change_presence(activity=Game(name=status))
+        # status is too long
+        if len(status) > 25:
+            await ctx.send("Status should be less than 25 characters!")
+            return
+
+        # ask for status change confirmation
+        confirmed = await Confirm("Are you sure you want to change the status?").prompt(
+            ctx
+        )
+        if confirmed:
+            await self.bot.change_presence(activity=Game(name=status))
+            await ctx.send(f"Status changed to `{status}`")
 
     @commands.command(hidden=True)
     async def servers(self, ctx):

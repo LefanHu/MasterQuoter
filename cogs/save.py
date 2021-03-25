@@ -108,7 +108,7 @@ class Save(commands.Cog):
                 msg_indx -= 1
                 author_id = messages[msg_indx].author.id
                 while author_id == user.id:
-                    try:  # currently saves 1 quote beyond the section
+                    try:
                         message = messages[msg_indx]
                         msgs.append(message)
                     except IndexError:
@@ -133,6 +133,7 @@ class Save(commands.Cog):
             await ctx.send(
                 f"Section {section*-1} of {user.name}'s messages in the last {lines} lines was not found"
             )
+            return
 
         await self.save_snippet(ctx, user, reversed(msgs))
 
