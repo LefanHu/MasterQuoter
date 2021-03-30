@@ -1,10 +1,15 @@
 # MasterQuoter (Discord bot)
+
 Created by @Alex3000 & @Cuddles. A bot designed to save quotes.
 
 This bot is an amazing tool to help you capture all of the funny moments, conversations, and random quotes that have happened, any time, and in any server! This bot has a number of commands that let you save quotes, display them, and keep them forvever! There are a few guessing games that you can try involving random quotes, and there are also many tools you can use to even save screenshots of hilarious conversations! We hope that you find this bot fun and useful, and we hope that it serves to liven up your discord experience!
 
+**Invite Link:** https://discord.com/api/oauth2/authorize?client_id=795756832164413500&permissions=335936592&scope=bot
+
+**Top.gg Bot Page:** https://top.gg/bot/795756832164413500
 
 ## Current TODO list
+
 - ~~Save multiple quotes at the same time (avoids unnecessary file openings and closings)~~
 - ~~Add time and date information to quotes~~
 - ~~Add server id to quotes~~
@@ -28,15 +33,18 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - ~~Add feature to associate quote snippets with others users included in message snippet (not implemented yet)~~
 
 ## Future plans
+
 - Make database queries async using 'motor' driver for mongodb
 - Add ability to automatically post saved quotes & snippets to a specified channel
 - Add ability to make a quote or snippet public to everyone
 
 ## Changelog
+
 - V 1.0.0 (Initial release)
 - V 1.1.0 (Added ability to save and list snips)
 
 ## Required Packages
+
 - psutil [pip install psutil](https://pypi.org/project/psutil/)
 - discord.py [pip install discord.py](https://pypi.org/project/discord.py/)
 - discord.ext.menus [please see github](https://github.com/Rapptz/discord-ext-menus)
@@ -46,6 +54,7 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - jikanpy [pip install jikanpy](https://pypi.org/project/jikanpy/)
 
 ## Useful links
+
 [Discord.py Documentation](https://discordpy.readthedocs.io/en/latest/)
 
 [discord.py commands documentation](https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html)

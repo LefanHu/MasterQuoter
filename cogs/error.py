@@ -30,26 +30,25 @@ class Error(commands.Cog):
         if isinstance(exc, commands.CommandNotFound):
             return
         elif isinstance(exc, commands.DisabledCommand):
-            await ctx.send("This command has been disabled.")
+            await ctx.send("🛑This command has been disabled.")
             return
         elif isinstance(exc, commands.CommandOnCooldown):
             await ctx.send(
-                f"That command is on {str(exc.cooldown.type).split('.')[-1]} cooldown. Try again in {exc.retry_after:,.2f} secs."
+                f"⏱️That command is on {str(exc.cooldown.type).split('.')[-1]} cooldown.\nTry again in {exc.retry_after:,.2f} secs."
             )
         elif isinstance(exc, commands.MissingRequiredArgument):
-            await ctx.send("Please pass in all required arguments.")
+            await ctx.send("⁉️ Please pass in all required arguments.")
         elif isinstance(exc, commands.PrivateMessageOnly):
             await ctx.send(
-                "This command can only be used when direct messaging the bot. "
+                "🛑This command can only be used when direct messaging the bot. "
             )
         elif isinstance(exc, Forbidden):
-            await ctx.send("I do not have permission to do that.")
+            await ctx.send("🛑I do not have permission to do that.")
         elif isinstance(exc, commands.MissingPermissions):
-            await ctx.send(f"You are missing {exc.missing_perms} permissions")
+            await ctx.send(f"🛑You are missing {exc.missing_perms} permissions")
         elif isinstance(exc, commands.BadArgument):
             pass
         elif isinstance(exc, commands.CheckFailure):
-            # await ctx.send("You do not have permission to do that.")
             pass
         elif isinstance(exc, commands.errors.MemberNotFound):
             pass

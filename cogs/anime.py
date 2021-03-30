@@ -65,7 +65,7 @@ class Anime(commands.Cog):
         invoke_without_command=True,
         brief="Some commands related to anime",
     )
-    @commands.cooldown(1, 15, commands.BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def anime(self, ctx):
         """
         The developers of this bot like anime. Therefore this is here too.
@@ -79,6 +79,9 @@ class Anime(commands.Cog):
             - mq>anime character `name of character`
             - mq>jikan char `MyAnimeList_ID`
             - mq>anime trace `(attach image to trace)`
+
+        **Notes:**
+            - Using MAL IDs usually gives more information :)
 
         Example Usage:
         """
@@ -140,11 +143,13 @@ class Anime(commands.Cog):
     @anime.command()
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def season(self, ctx, *, year, season):
+        # not yet implemented
         pass
 
     @anime.command()
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def top(self, ctx):
+        # not yet implemented
         pass
 
     @anime.command(brief="Find out what anime your image is from")
@@ -159,8 +164,7 @@ class Anime(commands.Cog):
             await ctx.send("An image was not provided")
             return
         else:
-            session = aiohttp.ClientSession()
-            async with session as session:
+            async with aiohttp.ClientSession() as session:
                 tracemoe = tracemoepy.AsyncTrace(session=session)
                 try:
                     results = await tracemoe.search(image_url, is_url=True)

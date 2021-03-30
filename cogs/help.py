@@ -101,7 +101,7 @@ class Help(Cog):
     @command(
         name="help", brief="Shows a menu with commands or help for a specific command"
     )
-    @cooldown(3, 5, BucketType.user)
+    @cooldown(2, 5, BucketType.user)
     async def show_help(self, ctx, cmd: Optional[str]):
         """
         Shows menu with all commands
