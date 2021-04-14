@@ -64,6 +64,7 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - nodemon [npm install -g nodemon](https://www.npmjs.com/package/nodemon)
 - ejs [npm install ejs](https://ejs.co/#docs)
 - morgan [npm install morgan](https://www.npmjs.com/package/morgan)
+- mongoose [npm install mongoose](https://www.npmjs.com/package/mongoose)
 
 ## Useful links
 
