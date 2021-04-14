@@ -7,3 +7,4 @@ __pycache__/
 /data/backup
 .env
 .vscode
+/website/node_modules
