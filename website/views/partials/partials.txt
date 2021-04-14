@@ -1,0 +1,1 @@
+Partials allow the use of dynamically interlinking files, such as an automatically generated <head> portion that is written in numerous different files.
