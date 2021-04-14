@@ -60,6 +60,7 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - nodejs [sudo apt-get install nodejs](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/)
 - nodemon [npm install -g nodemon](https://www.npmjs.com/package/nodemon)
 - ejs [npm install ejs](https://ejs.co/#docs)
+- morgan [npm install morgan](https://www.npmjs.com/package/morgan)
 
 ## Useful links
 
