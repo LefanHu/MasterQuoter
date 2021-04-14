@@ -52,6 +52,8 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
 - tracemoepy [pip install tracemoe](https://pypi.org/project/tracemoepy/)
 - jikanpy [pip install jikanpy](https://pypi.org/project/jikanpy/)
+- nodejs [sudo apt-get install nodejs](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/)
+- ejs [npm install ejs](https://ejs.co/#docs)
 
 ## Useful links
 
@@ -109,4 +111,4 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 
 [similar to resource above](https://stackoverflow.com/questions/34967482/lookup-on-objectids-in-an-array)
 
-[dynamically writing html code] (https://www.youtube.com/watch?v=yXEesONd_54)
+[dynamically writing html code](https://www.youtube.com/watch?v=yXEesONd_54)
