@@ -108,3 +108,5 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 [lookup array of object ids in mongodb](https://www.tutorialspoint.com/perform-lookup-to-array-of-object-id-s-in-mongodb)
 
 [similar to resource above](https://stackoverflow.com/questions/34967482/lookup-on-objectids-in-an-array)
+
+[dynamically writing html code] (https://www.youtube.com/watch?v=yXEesONd_54)
