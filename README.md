@@ -58,6 +58,7 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - tracemoepy [pip install tracemoe](https://pypi.org/project/tracemoepy/)
 - jikanpy [pip install jikanpy](https://pypi.org/project/jikanpy/)
 - nodejs [sudo apt-get install nodejs](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/)
+- lodash [npm install -g lodash](https://lodash.com/)
 - nodemon [npm install -g nodemon](https://www.npmjs.com/package/nodemon)
 - ejs [npm install ejs](https://ejs.co/#docs)
 - morgan [npm install morgan](https://www.npmjs.com/package/morgan)
