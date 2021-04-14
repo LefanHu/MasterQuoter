@@ -37,7 +37,10 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - Make database queries async using 'motor' driver for mongodb
 - Add ability to automatically post saved quotes & snippets to a specified channel
 - Add ability to make a quote or snippet public to everyone
-
+- Add a simple HTML, CSS and JavaScript website
+- Utilise NodeJS to help connect MongoDB to said website
+- Possibly generate the entire commands page through EJS
+- Also consider the possiblity of dynamically generating recurring parts of different files (nav, head) through EJS
 ## Changelog
 
 - V 1.0.0 (Initial release)
