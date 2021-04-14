@@ -42,13 +42,12 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - Possibly generate the entire commands page through EJS
 - Also consider the possiblity of dynamically generating recurring parts of different files (nav, head) through EJS
 
-
 ## Changelog
 
 - V 1.0.0 (Initial release)
 - V 1.1.0 (Added ability to save and list snips)
 
-## Required Packages
+## Required Packages (Bot)
 
 - psutil [pip install psutil](https://pypi.org/project/psutil/)
 - discord.py [pip install discord.py](https://pypi.org/project/discord.py/)
@@ -57,6 +56,9 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
 - tracemoepy [pip install tracemoe](https://pypi.org/project/tracemoepy/)
 - jikanpy [pip install jikanpy](https://pypi.org/project/jikanpy/)
+
+## Required Packages (Website)
+
 - nodejs [sudo apt-get install nodejs](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/)
 - lodash [npm install -g lodash](https://lodash.com/)
 - nodemon [npm install -g nodemon](https://www.npmjs.com/package/nodemon)
