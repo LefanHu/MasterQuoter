@@ -37,8 +37,16 @@
     </div>
     <div class="content-wrapper">
 
-        <div class="profile-image-wrapper">
-          <img src="images/aboutimg.png" alt="">
+        <div class="stats-wrapper">
+          <h2>All Stats</h2>
+          <% if (stats.length > 0) { %>
+            <% stats.forEach(stat => { %>
+                <h3 class = "name"><%= stat.name %></h3>
+                <p class = "value"><%= stat.value %></p>
+            <% }) %>
+          <% } else { %>
+            <p>No stats</p>
+          <% } %>
 
 
         </div>

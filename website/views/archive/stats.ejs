@@ -1,0 +1,26 @@
+<html lang = "en">
+
+    <head>
+        <meta charset='UTF-8'>
+        <title>Master Quoter about</title>
+        <link rel="stylesheet" href="styles.css">
+      </head>
+      
+      <body>
+          <div class = "content">
+              <h2>All Stats</h2>
+              <% if (stats.length > 0) { %>
+                <% stats.forEach(stat => { %>
+                    <h3 class = "name"><%= stat.name %></h3>
+                    <p class = "value"><%= stat.value %></p>
+                <% }) %>
+
+
+              <% } else { %>
+                <p>No stats</p>
+              <% } %>
+          </div>
+      </body>
+
+
+</html>

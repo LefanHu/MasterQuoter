@@ -19,6 +19,10 @@ body {
     display: flex;
   }
 
+  .stats-wrapper {
+    text-align: center;
+
+  }
   .nav-wrapper > .left-side > div {
     margin-right: 20px;
     text-transform: uppercase;
