@@ -9,10 +9,12 @@ body {
   }
 
   .nav-wrapper {
-    background-color: white;
+    background-color: #23272a;
     display: flex;
     justify-content: space-between;
     padding: 38px;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 
   .left-side {
@@ -21,10 +23,12 @@ body {
 
   .stats-wrapper {
     text-align: center;
+    color: white;
 
   }
   .nav-wrapper > .left-side > div {
     margin-right: 20px;
+    margin-top:0.5vw;
     text-transform: uppercase;
     font-size: 0.9rem;
   }
@@ -36,29 +40,29 @@ body {
   }
 
   .active-nav-link {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
   }
 
   .active-nav-link a {
-    color: black !important;
+    color: white !important;
   }
 
   .nav-link-wrapper a {
-    color: #8a8a8a;
+    color: gray;
     text-decoration: none;
     transition: color 0.5s;
   }
 
   .nav-link-wrapper:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
   }
 
   .nav-link-wrapper a:hover {
-    color: black;
+    color: white;
   }
 
   .nav-link-wrapper .special-link a{
-    color: blue;
+    color: red;
   }
 
   .commands-items-wrapper {
@@ -101,7 +105,7 @@ body {
     text-align: center;
   }
   .command-title h1{
-    color: lightseagreen;
+    color: #7289da;
     font-size: 1vw;
   }
 
@@ -111,7 +115,7 @@ body {
   }
 
   .img-text-wrapper:hover .subtitle {
-    color: lightseagreen;
+    color: #7289da;
 
   }
 
@@ -124,7 +128,9 @@ body {
     opacity: 0;
   }
 
-
+  .brand {
+    color: white;
+  }
 
   .two-column-wrapper {
     display: grid;
@@ -137,20 +143,31 @@ body {
   }
 
   .profile-image-wrapper img {
-    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 
   }
-
+  .profile-title-wrapper {
+    text-align: center;
+    padding: 1vw;
+    color: white;
+  }
+  .profile-title-wrapper h1 {
+    color: #7289da;
+  }
   .profile-content-wrapper {
-    padding: 30px;
+    color: white;
+    padding-left: 7.5vw;
   }
 
   .profile-content-wrapper h1 {
-    color: lightseagreen;
+    color: #7289da;
   }
 
   .dropdown {
-    background-color: black;
+    background-color: #2c2f33;
     float: left;
     overflow: hidden;
   }
@@ -158,10 +175,10 @@ body {
     cursor: pointer;
     font-size: 40px;
     border-style: solid;
-    border-color: yellow;
+    border-color: white;
     border-radius: 25px;
     outline: none;
-    color: orange;
+    color: #7289da;
     padding: 14px 16px;
     background-color: black;
     font-family: inherit;
@@ -180,7 +197,7 @@ body {
 
   .dropdown-content a {
     float: none;
-    color: black;
+    color: #2c2f33;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
