@@ -36,18 +36,19 @@
       </div>
     </div>
     <div class="content-wrapper">
-
-        <div class="stats-wrapper">
-          <h2>All Stats</h2>
-          <% if (stats.length > 0) { %>
-            <% stats.forEach(stat => { %>
-                <h3 class = "name"><%= stat.name %></h3>
-                <p class = "value"><%= stat.value %></p>
-            <% }) %>
-          <% } else { %>
-            <p>No stats</p>
-          <% } %>
-
+        <div class = 'two-column-wrapper'>
+          
+            <% if (stats.length > 0) { %>
+              <% stats.forEach(stat => { %>
+                <div class="stats-wrapper">
+                  <h3 class = "name"><%= stat.name %></h3>
+                  <p class = "value"><%= stat.value %></p>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <p>No stats</p>
+            <% } %>
+            
 
         </div>
     </div>

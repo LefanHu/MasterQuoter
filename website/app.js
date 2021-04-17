@@ -61,6 +61,14 @@ app.get('/commands', (req, res) => {
     res.render('commands');
 });
 
+app.get('/documentation', (req, res) => {
+    res.render('documentation');
+});
+
+app.get('/doc', (req, res) => {
+    res.redirect('documentation');
+});
+
 
 
 // 404 page
