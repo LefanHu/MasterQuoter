@@ -18,7 +18,7 @@ class Servers(commands.Cog):
             await ctx.send(f"You are not part of the player list.")
 
     @commands.command(aliases=["tsr"], hidden=True)
-    @commands.cooldown(1, 20, commands.BucketType.guild)
+    @commands.cooldown(1, 60, commands.BucketType.guild)
     async def tmod_restart(self, ctx):
         """
         Restarts the modded terraria server through this bot (for personal use).
