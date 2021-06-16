@@ -65,6 +65,7 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - ejs [npm install ejs](https://ejs.co/#docs)
 - morgan [npm install morgan](https://www.npmjs.com/package/morgan)
 - mongoose [npm install mongoose](https://www.npmjs.com/package/mongoose)
+- dotenv [npm install dotenv](https://www.npmjs.com/package/dotenv)
 
 ## Useful links
 
@@ -123,3 +124,6 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 [similar to resource above](https://stackoverflow.com/questions/34967482/lookup-on-objectids-in-an-array)
 
 [dynamically writing html code](https://www.youtube.com/watch?v=yXEesONd_54)
+
+[helpful mongoose schematypes](https://mongoosejs.com/docs/schematypes.html)
+

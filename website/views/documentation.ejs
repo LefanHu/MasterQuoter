@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>Commands Homepage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="background-color:#2c2f33">
+  <div class="container">
+    <%- include('./partials/nav.ejs', {page_name: 'documentation'}); %>
+
+    <div class = "doc-three-column-wrapper">
+        <div class = "dropdown-menu">
+            <div class="dropdown">
+                <button class="dropbtn" id="one" onclick="menuClick()">
+                A sort of dropdown thing &gt;
+                </button>
+                <div class="dropdown-content" id="oneDrop">
+                    <div class="linkbtn">
+                        Link 1
+                    </div>
+                    <div class="linkbtn">
+                        Test
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" id="two" onclick="menuClick()">
+                Second dropdown button &gt;
+                </button>
+                <div class="dropdown-content" id="twoDrop">
+                    <div class="text">
+                        Link 2
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="center-content">
+            <div class="description-wrapper">
+                <h2>Some big text</h2>
+                <p>Some description or whatnot</p>
+                <h3>Different types of text that make the text appealing</h3>
+                <h1>Maybe some images too who knows</h1>
+                <h1>Extra content etc</h1>
+                <h1>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </h1>
+            </div>
+
+        </div>
+
+
+        <div class="right-menu">
+            <ul>
+                <li><a href="#dropdown"> Links to whatever chunks of page you're looking for</a></li>
+                <li><a href="#dropdown"> Placeholder 1</a></li>
+                <li><a href="#dropdown"> Placeholder 2</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script>
+  // Toggle showing / not showing
+  function menuClick() {
+    var dropstring = event.srcElement.id + "Drop";
+
+    document.getElementById(dropstring).classList.toggle("show");
+
+    var change = document.getElementById(event.srcElement.id).innerHTML;
+
+    if (change.includes("&gt;")) {
+      change = change.replace("&gt;", "\u02C5");
+      document.getElementById(event.srcElement.id).innerHTML = change;
+    } else {
+      change = change.replace("\u02C5", " &gt;");
+      document.getElementById(event.srcElement.id).innerHTML = change;
+    }
+
+  }
+</script>
