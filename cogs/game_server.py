@@ -17,7 +17,7 @@ class Servers(commands.Cog):
         else:
             await ctx.send(f"You are not part of the player list.")
 
-    @commands.command(hidden=True)
+    @commands.command(aliases=["tsr"], hidden=True)
     @commands.cooldown(1, 20, commands.BucketType.guild)
     async def tmod_restart(self, ctx):
         """
@@ -25,6 +25,7 @@ class Servers(commands.Cog):
 
         **Example:**
             - mq>tmod_restart
+            - mq>tsr
 
         **NOTE:**
             - Must be a member of specified game server to use this command
@@ -34,11 +35,12 @@ class Servers(commands.Cog):
             "Are you sure you want to restart the tmod server?"
         ).prompt(ctx)
         if confirmed:
+            await ctx.send(f"Restarting in 10 seconds")
             subprocess.call(
                 f"scripts/tmod_restart.sh",
                 shell=True,
             )
-            await ctx.send(f"Restarting in 10 seconds")
+            await ctx.send(f"Restarting")
 
     @commands.Cog.listener()
     async def on_ready(self):
