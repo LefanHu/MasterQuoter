@@ -2,6 +2,7 @@ from discord.ext import commands
 import os, random
 
 from asyncio import sleep
+from re import search
 from lib.db import db
 
 
@@ -27,13 +28,15 @@ class Filter(commands.Cog):
             ):
                 violations = 0
                 used_words = []
+                msg_content = msg.content.lower()
                 for word in settings["badwords"]:
-                    if word in msg.content:  # msg contains banned words
+                    if word in msg_content:  # msg contains banned words
                         violations += 1
                         used_words.append(word)
-                        await msg.add_reaction(random.choice(self.emojis))
 
+                # deal with violation
                 if violations > 0:
+                    await msg.add_reaction(random.choice(self.emojis))
                     warn = await msg.channel.send(
                         f"{msg.author.mention}! {violations} violation(s): {', '.join(used_words)}\n❗ Deleting in 5 seconds."
                     )
