@@ -4,6 +4,7 @@ import traceback
 import os
 
 from lib.confirm import Confirm
+from lib.db import db
 
 
 class Owner(commands.Cog):
@@ -118,6 +119,20 @@ class Owner(commands.Cog):
             await ctx.send(f"\N{PISTOL}\n{e}: {trace}")
         else:
             await ctx.send("\N{OK HAND SIGN}")
+
+    # @commands.command(hidden=True)
+    # async def add_setting(self, ctx):
+    #     """
+    #     SHOULD ONLY BE USED TO ADD SETTINGS TO ALREADY EXISTING SERVERS
+
+    #     Example Usage:
+    #     """
+    #     print(
+    #         db.servers.update(
+    #             {}, {"$set": {"chat_filter": False}}, upsert=False, multi=True
+    #         )
+    #     )
+    #     await ctx.send("Done")
 
     @commands.Cog.listener()
     async def on_ready(self):

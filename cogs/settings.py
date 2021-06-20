@@ -107,7 +107,8 @@ class Settings(commands.Cog):
         )
 
     @commands.command(
-        name="delete_save_command", brief="Deletes the command after completion"
+        aliases=["delete_save_command", "cleanup"],
+        brief="Deletes the command after completion",
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def toggle_delete_on_save(self, ctx):
@@ -236,6 +237,7 @@ class Settings(commands.Cog):
             ("😤Commands Invoked😤", settings["commands_invoked"], True),
             ("🎛️Bot prefix🎛️", settings["prefix"], True),
             ("🛡️Server ID🛡️", guild.id, True),
+            ("🗄️Chat Filter🗄️", settings["chat_filter"], True),
             (
                 f"❌Delete Command On Save",
                 settings["del_on_save"],

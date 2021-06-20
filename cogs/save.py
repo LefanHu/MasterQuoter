@@ -418,6 +418,8 @@ class Save(commands.Cog):
             "allowed": [],
             "whitelist": False,
             "blacklist": False,
+            "badwords": [],
+            "chat_filter": False,
             "del_on_save": False,
             "snips": [],
             "quoted_member_ids": [],
