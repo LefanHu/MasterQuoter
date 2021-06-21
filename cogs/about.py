@@ -108,6 +108,8 @@ class About(commands.Cog):
             - `remove`, `rm_all`
         **DISPLAYING QUOTES/SNIPS**
             - `show_quote`, `show_snip`, `list_quotes`, `list_snips`, `random`
+        **Utility**
+            - `filter`
         **SETTINGS** (__manage_guild_perms__)
             - `prefix`, `blacklist`, `whitelist`, `pardon`, `restrict`, `delete_save_command`, `settings`
         **FUN**

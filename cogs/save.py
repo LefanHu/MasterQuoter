@@ -419,6 +419,7 @@ class Save(commands.Cog):
             "whitelist": False,
             "blacklist": False,
             "badwords": [],
+            "filtered_channels": [],
             "chat_filter": False,
             "del_on_save": False,
             "snips": [],

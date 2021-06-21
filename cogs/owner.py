@@ -129,7 +129,7 @@ class Owner(commands.Cog):
     #     """
     #     print(
     #         db.servers.update(
-    #             {}, {"$set": {"chat_filter": False}}, upsert=False, multi=True
+    #             {}, {"$set": {"filtered_channels": []}}, upsert=False, multi=True
     #         )
     #     )
     #     await ctx.send("Done")

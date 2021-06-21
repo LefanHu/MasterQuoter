@@ -1,8 +1,8 @@
 from discord.ext import commands
+from discord import TextChannel
 import os, random
 
 from asyncio import sleep
-from re import search
 from lib.db import db
 
 
@@ -21,10 +21,13 @@ class Filter(commands.Cog):
     async def on_message(self, msg):
         if msg.author != self.bot.user:
             settings = db.servers.find_one(
-                {"_id": msg.guild.id}, {"chat_filter": 1, "badwords": 1, "prefix": 1}
+                {"_id": msg.guild.id},
+                {"chat_filter": 1, "badwords": 1, "prefix": 1, "filtered_channels": 1},
             )
-            if settings["chat_filter"] and not msg.content.startswith(
-                settings["prefix"]
+            if (
+                settings["chat_filter"]
+                and not msg.content.startswith(settings["prefix"])
+                and msg.channel.id in settings["filtered_channels"]
             ):
                 violations = 0
                 used_words = []
@@ -58,9 +61,15 @@ class Filter(commands.Cog):
         **Examples:**
             - mq>filter (shows list of filtered words)
             - mq>filter add <word/phrase>
+            - mq>filter channel <channel mention>
+            - mq>f rm_channel <channel mention>
+            - mq>f remove <word/phrase>
+            - mq>f on (turns filter on)
+            - mq>f off (turns filter off)
 
         **Note:**
             - Will not do anything unless chat filter is enabled
+            - Will not do anything unless channel is specified to be filtered
 
         Example Usage:
         """
@@ -72,7 +81,7 @@ class Filter(commands.Cog):
             await ctx.send("There are no words to be filtered.")
         else:
             badwords = badwords[0:1900]
-            await ctx.send(f"Here are the filtered words: {badwords}")
+            await ctx.send(", ".join(badwords))
 
     @filter.command()
     async def on(self, ctx):
@@ -102,6 +111,22 @@ class Filter(commands.Cog):
             {"_id": ctx.message.guild.id}, {"$pull": {"badwords": content}}
         )
         await self.filter(ctx)
+
+    @filter.command()
+    async def channel(self, ctx, channel: TextChannel):
+        db.servers.update_one(
+            {"_id": ctx.message.guild.id},
+            {"$addToSet": {"filtered_channels": channel.id}},
+        )
+        await ctx.send(f"{channel.mention} is now being filtered")
+
+    @filter.command()
+    async def rm_channel(self, ctx, channel: TextChannel):
+        db.servers.update_one(
+            {"_id": ctx.message.guild.id},
+            {"$pull": {"filtered_channels": channel.id}},
+        )
+        await ctx.send(f"{channel.mention} is no longer being filtered")
 
     @commands.Cog.listener()
     async def on_ready(self):
