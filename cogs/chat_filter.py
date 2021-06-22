@@ -105,11 +105,8 @@ class Filter(commands.Cog):
                 used_words = []
                 words = msg.clean_content.split(" ")
                 for badword in badwords:
-                    index = msg.clean_content.find(badword)
-                    chars = 0
                     for word in words:
-                        chars += len(word)
-                        if chars >= index - 1:
+                        if badword in word:
                             used_words.append(word)
                             break
 
