@@ -34,7 +34,7 @@ class Filter(commands.Cog):
         db.filters.insertOne(new_filter)
 
     # adds new guild if there isn't one
-    async def new_filter(self, guild):
+    def new_filter(self, guild):
         new_filter = {
             "_id": guild.id,
             "name": guild.name,
@@ -66,7 +66,7 @@ class Filter(commands.Cog):
     async def on_message(self, msg):
         settings = db.filters.find_one({"_id": msg.guild.id})
         if not settings:
-            await self.new_filter(msg.guild)
+            self.new_filter(msg.guild)
 
         # if filter is enabled and message author is not self
         if (
