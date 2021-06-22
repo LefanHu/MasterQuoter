@@ -56,6 +56,8 @@ This bot is an amazing tool to help you capture all of the funny moments, conver
 - pymongo [pip install pymongo](https://pypi.org/project/pymongo/)
 - tracemoepy [pip install tracemoe](https://pypi.org/project/tracemoepy/)
 - jikanpy [pip install jikanpy](https://pypi.org/project/jikanpy/)
+- beautifulsoup4 [pip install beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
+- anytree [pip install anytree](https://pypi.org/project/anytree/)
 
 ## Required Packages (Website)
 
