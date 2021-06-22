@@ -39,7 +39,25 @@ class Tree(commands.Cog):
             
         await ctx.send("```"+out+"```")   
 
-    
+    @commands.command(aliases=["ing"], hidden=True)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
+    async def ingredients(self, ctx, item):
+
+        URL = 'https://calamitymod.fandom.com/wiki/' + str(item)
+        page = requests.get(URL)
+        out = "\n"
+
+        soup = BeautifulSoup(page.content, 'html.parser')
+
+        crafts = soup.find(id='global-wrapper')
+
+
+        ingredients = crafts.find_all('span', class_='i break block alignleft')
+
+        for item in ingredients:
+            out += item.text + "\n"
+
+        await ctx.send('```' + out+ "```")
 
 
 
