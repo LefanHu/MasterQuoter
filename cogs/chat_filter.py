@@ -76,7 +76,7 @@ class Filter(commands.Cog):
         ):
             violations = 0
             badwords = []
-            msg_content = msg.content.lower()
+            msg_content = msg.clean_content.lower()
 
             if settings["mode"] > 0:  # filters all messages in guild
                 for word in settings["badwords"]:
@@ -103,13 +103,13 @@ class Filter(commands.Cog):
 
                 # identifies words that contains badwords
                 used_words = []
-                words = msg.content.split(" ")
+                words = msg.clean_content.split(" ")
                 for badword in badwords:
-                    index = msg.content.find(badword)
+                    index = msg.clean_content.find(badword)
                     chars = 0
                     for word in words:
                         chars += len(word)
-                        if chars >= index:
+                        if chars >= index - 1:
                             used_words.append(word)
                             break
 
