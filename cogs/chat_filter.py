@@ -67,6 +67,7 @@ class Filter(commands.Cog):
         settings = db.filters.find_one({"_id": msg.guild.id})
         if not settings:
             self.new_filter(msg.guild)
+            settings = db.filters.find_one({"_id": msg.guild.id})
 
         # if filter is enabled and message author is not self
         if (
