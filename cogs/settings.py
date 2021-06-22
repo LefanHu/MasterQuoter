@@ -42,6 +42,9 @@ class Settings(commands.Cog):
             await ctx.send("Prefixes cannot be longer than 5 characters")
         else:
             db.servers.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
+            db.filters.update_one(
+                {"_id": ctx.guild.id}, {"$set": {"prefix": prefix}}
+            )  # for filters to ignore commands
             await ctx.send("Prefix set.")
 
     @commands.command(name="blacklist", brief="Disallows a user from saving quotes")

@@ -139,13 +139,15 @@ class Filter(commands.Cog):
             - mq>f mode <user/channel/guild>
             - mq>f channel <channel mention>
             - mq>f rm_channel <channel mention>
-            - mq>f user
+            - mq>f user <@mention> (filters a user's msgs)
+            - mq>f rm_user <@mention> (unfilters a user's msgs)
             - mq>f on (turns filter on)
             - mq>f off (turns filter off)
 
         **Note:**
             - Will not do anything unless chat filter is enabled
             - Mode is set to channel by default, specify a channel to be filtered
+            - Filter is off by default
 
         Example Usage:
         """
