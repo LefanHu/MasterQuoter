@@ -120,20 +120,6 @@ class Owner(commands.Cog):
         else:
             await ctx.send("\N{OK HAND SIGN}")
 
-    # @commands.command(hidden=True)
-    # async def add_setting(self, ctx):
-    #     """
-    #     SHOULD ONLY BE USED TO ADD SETTINGS TO ALREADY EXISTING SERVERS
-
-    #     Example Usage:
-    #     """
-    #     print(
-    #         db.servers.update(
-    #             {}, {"$set": {"filtered_channels": []}}, upsert=False, multi=True
-    #         )
-    #     )
-    #     await ctx.send("Done")
-
     @commands.Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
