@@ -41,22 +41,31 @@ class Tree(commands.Cog):
 
     @commands.command(aliases=["ing"], hidden=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def ingredients(self, ctx, item):
+    async def ingredients(self, ctx, inp):
 
-        URL = "https://calamitymod.fandom.com/wiki/" + str(item)
+        URL = 'https://calamitymod.fandom.com/wiki/' + str(inp)
         page = requests.get(URL)
-        out = "\n"
+        vals = []
 
         soup = BeautifulSoup(page.content, "html.parser")
 
         crafts = soup.find(id="global-wrapper")
 
-        ingredients = crafts.find_all("span", class_="i break block alignleft")
+        ingredients = crafts.find_all('span', class_='i break block alignleft')
 
         for item in ingredients:
-            out += item.text + "\n"
+            vals.append(item)
 
-        await ctx.send("```" + out + "```")
+        top = Node(inp.capitalize(), parent = None)
+        for i in range(len(vals)):
+            Node(vals[i].text, parent=top)
+
+        out = "\n"
+        for pre, fill, node in RenderTree(top):
+            out += "%s%s\n" % (pre, node.name)
+        await ctx.send('```' + out+ "```")
+
+
 
     @commands.Cog.listener()
     async def on_ready(self):
