@@ -43,7 +43,8 @@ class Tree(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def ingredients(self, ctx, inp):
 
-        URL = 'https://calamitymod.fandom.com/wiki/' + str(inp)
+        inp = '_'.join(word.capitalize() for word in inp.split(' '))
+        URL = 'https://calamitymod.fandom.com/wiki/' + inp
         page = requests.get(URL)
         vals = []
 
@@ -56,7 +57,7 @@ class Tree(commands.Cog):
         for item in ingredients:
             vals.append(item)
 
-        top = Node(inp.capitalize(), parent = None)
+        top = Node(inp, parent = None)
         for i in range(len(vals)):
             Node(vals[i].text, parent=top)
 
