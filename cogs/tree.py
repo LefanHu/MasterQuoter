@@ -41,22 +41,60 @@ class Tree(commands.Cog):
 
     @commands.command(aliases=["ing"], hidden=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def ingredients(self, ctx, item):
-
-        URL = "https://calamitymod.fandom.com/wiki/" + str(item)
+    async def ingredients(self, ctx, inp):
+        lowerWords = ['of','the']
+        lst = []
+        nodes = []
+        for word in inp.split():
+            if word not in lowerWords:
+                lst.append(word.capitalize())
+            else:
+                lst.append(word)
+        inp = '_'.join(lst)
+        URL = 'https://calamitymod.fandom.com/wiki/' + inp
         page = requests.get(URL)
-        out = "\n"
+        vals = []
 
         soup = BeautifulSoup(page.content, "html.parser")
 
         crafts = soup.find(id="global-wrapper")
 
-        ingredients = crafts.find_all("span", class_="i break block alignleft")
+        ingredients = crafts.find_all('span', class_='i break block alignleft')
 
         for item in ingredients:
-            out += item.text + "\n"
+            vals.append(item)
 
-        await ctx.send("```" + out + "```")
+        top = Node(inp, parent = None)
+        for i in range(len(vals)):
+            nodes.append(Node(vals[i].text, parent=top))
+
+        inp = vals[1].text
+        URL = 'https://calamitymod.fandom.com/wiki/' + inp
+        page = requests.get(URL)
+        vals = []
+
+        soup = BeautifulSoup(page.content, "html.parser")
+
+        crafts = soup.find(id="global-wrapper")
+
+        ingredients = crafts.find_all('span', class_='i break block alignleft')
+
+        for item in ingredients:
+            vals.append(item)
+
+       
+        for i in range(len(vals)):
+            Node(vals[i].text, parent=nodes[1])
+
+
+
+
+        out = "\n"
+        for pre, fill, node in RenderTree(top):
+            out += "%s%s\n" % (pre, node.name)
+        await ctx.send('```' + out+ "```")
+
+
 
     @commands.Cog.listener()
     async def on_ready(self):
