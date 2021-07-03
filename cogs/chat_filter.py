@@ -133,12 +133,12 @@ class Filter(commands.Cog):
         **Examples:**
             - mq>filter (shows list of filtered words)
             - mq>filter add <word/phrase>
-            - mq>f remove <word/phrase>
-            - mq>f mode <user/channel/guild>
-            - mq>f channel <channel mention>
-            - mq>f rm_channel <channel mention>
-            - mq>f user <@mention> (filters a user's msgs)
-            - mq>f rm_user <@mention> (unfilters a user's msgs)
+            - mq>f remove `word/phrase`
+            - mq>f mode `user/channel/guild`
+            - mq>f channel `channel mention`
+            - mq>f rm_channel `channel mention`
+            - mq>f user `@mention` (filters a user's msgs)
+            - mq>f rm_user `@mention` (unfilters a user's msgs)
             - mq>f on (turns filter on)
             - mq>f off (turns filter off)
 
@@ -146,6 +146,7 @@ class Filter(commands.Cog):
             - Will not do anything unless chat filter is enabled
             - Mode is set to channel by default, specify a channel to be filtered
             - Filter is off by default
+            - Only owner of the server can change filter settings
 
         Example Usage:
         """
@@ -160,6 +161,7 @@ class Filter(commands.Cog):
             await ctx.send(f"Filtered words: **{', '.join(badwords)}**")
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def mode(self, ctx, scope):
         if scope == "channel":
             db.filters.update_one({"_id": ctx.message.guild.id}, {"$set": {"mode": 0}})
@@ -174,6 +176,7 @@ class Filter(commands.Cog):
         await ctx.send(f"{scope} is now being filtered")
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def on(self, ctx):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$set": {"enabled": True}}
@@ -181,6 +184,7 @@ class Filter(commands.Cog):
         await ctx.send("Chat filter now **Enabled**")
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def off(self, ctx):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$set": {"enabled": False}}
@@ -188,6 +192,7 @@ class Filter(commands.Cog):
         await ctx.send("Chat filter now **Disabled**")
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def add(self, ctx, *, content):
         # adds the specified content to the badwords list
         db.filters.update_one(
@@ -196,6 +201,7 @@ class Filter(commands.Cog):
         await self.filter(ctx)
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def remove(self, ctx, *, content):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$pull": {"badwords": content}}
@@ -203,6 +209,7 @@ class Filter(commands.Cog):
         await self.filter(ctx)
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def user(self, ctx, member: Member):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$addToSet": {"filtered_users": member.id}}
@@ -210,6 +217,7 @@ class Filter(commands.Cog):
         await ctx.send(f"{member.display_name}'s messages are **now** being filtered")
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def rm_user(self, ctx, member: Member):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$addToSet": {"filtered_users": member.id}}
@@ -219,6 +227,7 @@ class Filter(commands.Cog):
         )
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def channel(self, ctx, channel: TextChannel):
         db.filters.update_one(
             {"_id": ctx.message.guild.id},
@@ -227,6 +236,7 @@ class Filter(commands.Cog):
         await ctx.send(f"{channel.mention} is now being filtered")
 
     @filter.command()
+    @commands.has_permissions(manage_messages=True)
     async def rm_channel(self, ctx, channel: TextChannel):
         db.filters.update_one(
             {"_id": ctx.message.guild.id},
