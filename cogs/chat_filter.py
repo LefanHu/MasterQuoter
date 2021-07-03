@@ -161,7 +161,7 @@ class Filter(commands.Cog):
             await ctx.send(f"Filtered words: **{', '.join(badwords)}**")
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def mode(self, ctx, scope):
         if scope == "channel":
             db.filters.update_one({"_id": ctx.message.guild.id}, {"$set": {"mode": 0}})
@@ -176,7 +176,7 @@ class Filter(commands.Cog):
         await ctx.send(f"{scope} is now being filtered")
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def on(self, ctx):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$set": {"enabled": True}}
@@ -184,7 +184,7 @@ class Filter(commands.Cog):
         await ctx.send("Chat filter now **Enabled**")
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def off(self, ctx):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$set": {"enabled": False}}
@@ -192,7 +192,7 @@ class Filter(commands.Cog):
         await ctx.send("Chat filter now **Disabled**")
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def add(self, ctx, *, content):
         # adds the specified content to the badwords list
         db.filters.update_one(
@@ -201,7 +201,7 @@ class Filter(commands.Cog):
         await self.filter(ctx)
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def remove(self, ctx, *, content):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$pull": {"badwords": content}}
@@ -209,7 +209,7 @@ class Filter(commands.Cog):
         await self.filter(ctx)
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def user(self, ctx, member: Member):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$addToSet": {"filtered_users": member.id}}
@@ -217,7 +217,7 @@ class Filter(commands.Cog):
         await ctx.send(f"{member.display_name}'s messages are **now** being filtered")
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def rm_user(self, ctx, member: Member):
         db.filters.update_one(
             {"_id": ctx.message.guild.id}, {"$addToSet": {"filtered_users": member.id}}
@@ -227,7 +227,7 @@ class Filter(commands.Cog):
         )
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def channel(self, ctx, channel: TextChannel):
         db.filters.update_one(
             {"_id": ctx.message.guild.id},
@@ -236,7 +236,7 @@ class Filter(commands.Cog):
         await ctx.send(f"{channel.mention} is now being filtered")
 
     @filter.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_guild=True)
     async def rm_channel(self, ctx, channel: TextChannel):
         db.filters.update_one(
             {"_id": ctx.message.guild.id},
